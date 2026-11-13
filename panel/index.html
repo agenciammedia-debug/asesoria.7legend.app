@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>7Legend · Panel</title>
+<meta name="theme-color" content="#FFFFFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mora">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<script src="../config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--t:#1D1D1F;--t2:#3A3A3F;--g:#6E6E76;--g2:#9A9AA2;--l:#E6E7EB;--s:#F5F6F8;--b:#fff;--a:#1E6BFF;--ah:#155BE6;--as:#EAF1FF;
+  --r:#E5484D;--rs:#FDECEC;--v:#16A34A;--vs:#E8F7EE;--n:#F59E0B;--ns:#FEF5E6;--e:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Geist,system-ui,sans-serif;background:var(--s);color:var(--t);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--a);text-decoration:none}
+:focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:6px}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.045em}.logo i{font-style:normal;color:var(--a)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer;background:var(--a);color:#fff;transition:background .2s,opacity .2s;white-space:nowrap}
+.btn:hover{background:var(--ah)}
+.btn.sec{background:#fff;color:var(--t);box-shadow:inset 0 0 0 1px var(--l)}
+.btn.sec:hover{background:var(--s)}
+.btn.ok{background:var(--v)}.btn.ok:hover{background:#12873d}
+.btn.wa{background:#25D366;color:#fff}.btn.wa:hover{background:#1fb658}
+.btn.mini{padding:6px 10px;font-size:13px;border-radius:8px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.campo{width:100%;border:1px solid #D5D7DD;border-radius:10px;padding:10px 12px;background:#fff;font-size:14.5px;transition:border-color .2s,box-shadow .2s}
+.campo:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(30,107,255,.12)}
+label.lb{display:block;font-size:13px;font-weight:500;color:var(--t2);margin:12px 0 6px}
+.ayuda{font-size:12.5px;color:var(--g);margin-top:4px}
+
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login-box{background:#fff;border:1px solid var(--l);border-radius:20px;padding:34px;width:100%;max-width:360px;box-shadow:0 30px 60px -30px rgba(0,0,0,.2)}
+.login-box h1{font-size:22px;letter-spacing:-.03em;margin:22px 0 4px}
+.login-box p{color:var(--g);font-size:14px;margin-bottom:18px}
+.pin{font-size:26px;letter-spacing:.4em;text-align:center;font-weight:600}
+.err{color:var(--r);font-size:13.5px;min-height:20px;margin-top:8px}
+
+/* app */
+#app{display:none}
+.top{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--l)}
+.top-in{max-width:1200px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:16px}
+.top .sub{color:var(--g);font-size:13px;margin-left:auto;display:flex;align-items:center;gap:10px}
+.tabs{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tab{background:none;border:0;padding:10px 12px;font-weight:500;color:var(--g);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--t)}
+.tab.on{color:var(--t);border-color:var(--a)}
+.tab .cnt{background:var(--n);color:#fff;font-size:11.5px;font-weight:700;border-radius:999px;padding:0 7px;min-width:20px;text-align:center}
+main{max-width:1200px;margin:0 auto;padding:24px 20px calc(80px + env(safe-area-inset-bottom))}
+.vista{display:none}.vista.on{display:block;animation:in .35s var(--e)}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-size:18px;letter-spacing:-.02em;margin:0 0 12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
+h2 small{font-weight:500;color:var(--g);font-size:13px}
+.card{background:#fff;border:1px solid var(--l);border-radius:16px;padding:18px}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start}
+.pila{display:grid;gap:20px}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:22px}
+.kpi{background:#fff;border:1px solid var(--l);border-radius:14px;padding:14px 16px}
+.kpi small{display:block;color:var(--g);font-size:12.5px}
+.kpi b{font-size:26px;letter-spacing:-.04em;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi.alerta{background:var(--ns);border-color:#F7D9A6}.kpi.alerta b{color:#B45309}
+.kpi.azul b{color:var(--a)}
+
+/* listas */
+.item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--l)}
+.item:first-of-type{border-top:0;padding-top:4px}
+.fecha-box{width:58px;flex:none;text-align:center;border:1px solid var(--l);border-radius:12px;padding:6px 0;background:var(--s)}
+.fecha-box small{display:block;font-size:11px;color:var(--g);text-transform:capitalize}
+.fecha-box b{display:block;font-size:20px;line-height:1.1;letter-spacing:-.03em}
+.fecha-box span{display:block;font-size:12px;font-weight:600;color:var(--a)}
+.item .info{flex:1;min-width:0}
+.item .info strong{display:block;font-size:15px}
+.item .info p{color:var(--g);font-size:13.5px}
+.acciones{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.vacio{color:var(--g);font-size:14px;padding:18px;text-align:center;border:1px dashed var(--l);border-radius:12px;background:var(--s)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--s);color:var(--t2);white-space:nowrap}
+.pill.Diagnosticado{background:#EEF2FF;color:#4338CA}.pill.Agendado,.pill.Confirmada{background:var(--as);color:var(--a)}
+.pill.Cliente,.pill.Realizada{background:var(--vs);color:var(--v)}.pill.Seguimiento{background:#F3E8FF;color:#7E22CE}
+.pill.Perdido,.pill.Rechazada,.pill.Cancelada{background:#EEE;color:#555}.pill[class*="No asisti"]{background:var(--rs);color:var(--r)}
+.pill.verificar,.pill[class*="Por verificar"]{background:var(--ns);color:#B45309}.pill.Asistió{background:#E0F2FE;color:#0369A1}
+.score{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;font-weight:700;font-size:13px;flex:none}
+.score.malo{background:var(--rs);color:var(--r)}.score.medio{background:var(--ns);color:#B45309}.score.bueno{background:var(--vs);color:var(--v)}
+.op{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--s);padding:1px 6px;border-radius:6px}
+
+/* tabla de leads */
+.filtros{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.filtros .campo{max-width:320px}
+.filtros select.campo{max-width:200px}
+.tabla{background:#fff;border:1px solid var(--l);border-radius:16px;overflow:hidden}
+.fila{display:grid;grid-template-columns:44px 1.4fr 1.2fr 110px 120px 120px;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid var(--l);cursor:pointer;transition:background .15s}
+.fila:hover{background:var(--s)}
+.fila.cab{border-top:0;font-size:12.5px;color:var(--g);font-weight:500;cursor:default;background:var(--s)}
+.fila .nom strong{display:block}.fila .nom small,.fila .det{color:var(--g);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* drawer */
+#velo{position:fixed;inset:0;background:rgba(15,15,20,.35);z-index:40;opacity:0;pointer-events:none;transition:opacity .3s}
+#velo.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:#fff;z-index:41;transform:translateX(100%);transition:transform .4s var(--e),visibility .4s;overflow-y:auto;visibility:hidden}
+#drawer.on{transform:none;visibility:visible;box-shadow:-20px 0 60px -20px rgba(0,0,0,.25)}
+.dr-top{position:sticky;top:0;background:#fff;padding:18px 22px;border-bottom:1px solid var(--l);display:flex;gap:12px;align-items:center;z-index:2}
+.dr-top h3{font-size:18px;letter-spacing:-.02em;line-height:1.2}
+.dr-top p{color:var(--g);font-size:13px}
+.dr-top .x{margin-left:auto;background:var(--s);border:0;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:18px}
+.dr-sec{padding:18px 22px;border-bottom:1px solid var(--l)}
+.dr-sec h4{font-size:13px;color:var(--g);font-weight:600;margin-bottom:10px}
+.llamada{background:var(--as);border-radius:12px;padding:14px;font-size:14.5px;color:#123B8F}
+.hall{padding:6px 0;font-size:14px}
+.resp{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:14px}
+.resp dt{color:var(--g)}
+.gestion{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+
+/* horarios */
+.dia{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;padding:14px 0;border-top:1px solid var(--l)}
+.dia:first-child{border-top:0}
+.sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;user-select:none}
+.sw input{display:none}
+.sw i{width:38px;height:22px;border-radius:999px;background:#D5D7DD;position:relative;transition:background .2s;flex:none}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .25s var(--e);box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.sw input:checked+i{background:var(--a)}.sw input:checked+i:after{transform:translateX(16px)}
+.horas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--as);color:var(--a);font-weight:600;font-size:13.5px;padding:5px 6px 5px 11px;border-radius:999px}
+.chip button{border:0;background:rgba(30,107,255,.15);color:var(--a);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1}
+.dia.off .chip{background:var(--s);color:var(--g2)}.dia.off .chip button{background:#E6E7EB;color:var(--g2)}
+.add{display:inline-flex;gap:6px}
+.add input{width:118px;padding:6px 8px;border-radius:8px}
+.prev-dia{margin-bottom:12px}
+.prev-dia small{display:block;font-weight:600;font-size:13px;margin-bottom:6px}
+.slot{display:inline-block;border:1px solid var(--l);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:500;margin:0 4px 4px 0;background:#fff;cursor:pointer;transition:all .15s}
+.slot:hover{border-color:var(--r);color:var(--r);text-decoration:line-through}
+.bloq{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--l);font-size:14px}
+.guardar-bar{position:sticky;bottom:16px;margin-top:16px;display:flex;justify-content:flex-end}
+.guardar-bar .btn{box-shadow:0 10px 30px -10px rgba(30,107,255,.6);padding:12px 20px}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--t);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;transition:all .35s var(--e);z-index:60;pointer-events:none;max-width:90vw}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#toast.mal{background:var(--r)}
+.cargando{opacity:.55;pointer-events:none}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .fila{grid-template-columns:40px 1fr 100px}
+  .fila .c3,.fila .c5,.fila .c6{display:none}
+  .dia{grid-template-columns:1fr}
+}
+@media (max-width:520px){ .kpis{grid-template-columns:repeat(2,1fr)} .gestion{grid-template-columns:1fr} main{padding:18px 14px calc(80px + env(safe-area-inset-bottom))} #actualizado,.logo>span{display:none} }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+  <div class="login-box">
+    <span class="logo">7Legend<i>.</i></span>
+    <h1>Panel de Mora</h1>
+    <p>Escribe tu clave para entrar.</p>
+    <input id="pin" class="campo pin" type="password" inputmode="numeric" maxlength="10" autocomplete="current-password" aria-label="Clave">
+    <div class="err" id="pinErr"></div>
+    <button class="btn" id="entrar" style="width:100%;padding:12px;margin-top:6px">Entrar</button>
+  </div>
+</section>
+
+<!-- APP -->
+<section id="app">
+  <header class="top">
+    <div class="top-in">
+      <span class="logo">7Legend<i>.</i> <span style="font-weight:500;color:var(--g);letter-spacing:-.01em;font-size:15px">Panel</span></span>
+      <span class="sub"><span id="actualizado"></span><button class="btn sec mini" id="refrescar">Actualizar</button><button class="btn sec mini" id="salir">Salir</button></span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab on" data-v="hoy">Hoy <span class="cnt" id="cntVer" hidden></span></button>
+      <button class="tab" data-v="leads">Leads</button>
+      <button class="tab" data-v="reservas">Reservas</button>
+      <button class="tab" data-v="horarios">Horarios</button>
+      <button class="tab" data-v="ajustes">Pagos y ajustes</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOY -->
+    <div class="vista on" id="v-hoy">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid2">
+        <div class="pila">
+          <div class="card"><h2>Pagos por verificar <small>Revisa tu Yape, Plin o PayPal y confirma</small></h2><div id="porVerificar"></div></div>
+          <div class="card"><h2>Próximas asesorías</h2><div id="proximas"></div></div>
+        </div>
+        <div class="card"><h2>Últimos leads</h2><div id="ultimos"></div></div>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="vista" id="v-leads">
+      <div class="filtros">
+        <input class="campo" id="buscar" placeholder="Buscar por nombre, negocio o WhatsApp" aria-label="Buscar">
+        <select class="campo" id="fEstado" aria-label="Filtrar por estado"><option value="">Todos los estados</option></select>
+        <select class="campo" id="fCalifica" aria-label="Filtrar por calificación"><option value="">Califica: todos</option><option>SI</option><option>NO</option></select>
+      </div>
+      <div class="tabla" id="tablaLeads"></div>
+    </div>
+
+    <!-- RESERVAS -->
+    <div class="vista" id="v-reservas">
+      <div class="filtros"><select class="campo" id="fRes" aria-label="Filtrar reservas"><option value="">Todas las reservas</option><option>Por verificar</option><option>Confirmada</option><option>Realizada</option><option>No asistió</option><option>Rechazada</option><option>Cancelada</option></select></div>
+      <div class="card" id="listaRes"></div>
+    </div>
+
+    <!-- HORARIOS -->
+    <div class="vista" id="v-horarios">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h2>Tu semana <small>Horas en las que aceptas asesorías</small></h2>
+            <div id="semana"></div>
+          </div>
+          <div class="card" style="margin-top:20px">
+            <h2>Reglas</h2>
+            <div class="gestion">
+              <div><label class="lb" for="cAntic">Anticipación mínima (horas)</label><input class="campo" id="cAntic" type="number" min="0" max="168"><div class="ayuda">Nadie podrá reservar con menos tiempo.</div></div>
+              <div><label class="lb" for="cDias">Mostrar los próximos (días)</label><input class="campo" id="cDias" type="number" min="1" max="60"></div>
+            </div>
+          </div>
+          <div class="guardar-bar"><button class="btn" id="guardarHor">Guardar horarios</button></div>
+        </div>
+        <div class="pila">
+          <div class="card">
+            <h2>Así lo ve tu cliente <small>Toca un horario para bloquearlo</small></h2>
+            <div id="preview"></div>
+          </div>
+          <div class="card">
+            <h2>Días bloqueados</h2>
+            <div style="display:flex;gap:8px;margin-bottom:10px"><input class="campo" type="date" id="bFecha" aria-label="Fecha a bloquear"><input class="campo" id="bMotivo" placeholder="Motivo (opcional)" aria-label="Motivo"><button class="btn sec" id="bAdd">Bloquear</button></div>
+            <div id="bloqueos"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AJUSTES -->
+    <div class="vista" id="v-ajustes">
+      <div class="grid2">
+        <div class="card">
+          <h2>Cómo te pagan</h2>
+          <div class="gestion">
+            <div><label class="lb" for="aYape">Yape: número</label><input class="campo" id="aYape" inputmode="tel" placeholder="987654321"></div>
+            <div><label class="lb" for="aYapeTit">Yape: titular</label><input class="campo" id="aYapeTit" placeholder="Nombre como aparece en Yape"></div>
+            <div><label class="lb" for="aPlin">Plin: número</label><input class="campo" id="aPlin" inputmode="tel" placeholder="987654321"></div>
+            <div><label class="lb" for="aPlinTit">Plin: titular</label><input class="campo" id="aPlinTit"></div>
+            <div><label class="lb" for="aPaypal">PayPal: link</label><input class="campo" id="aPaypal" placeholder="https://paypal.me/tuusuario/13USD"></div>
+            <div><label class="lb" for="aPaypalUsd">PayPal: monto (USD)</label><input class="campo" id="aPaypalUsd" inputmode="decimal"></div>
+          </div>
+          <p class="ayuda" style="margin-top:12px">Deja vacío un método para que no aparezca en la página de reserva.</p>
+        </div>
+        <div class="card">
+          <h2>Asesoría</h2>
+          <div class="gestion">
+            <div><label class="lb" for="aPrecio">Precio (S/)</label><input class="campo" id="aPrecio" inputmode="decimal"></div>
+            <div><label class="lb" for="aDur">Duración (min)</label><input class="campo" id="aDur" type="number"></div>
+          </div>
+          <label class="lb" for="aZoom">Link de Zoom (fijo)</label><input class="campo" id="aZoom" placeholder="https://us05web.zoom.us/j/...">
+          <div class="ayuda">Se envía automáticamente en el mensaje de confirmación.</div>
+          <label class="lb" for="aWa">Tu WhatsApp (con 51)</label><input class="campo" id="aWa" inputmode="tel" placeholder="51987654321">
+          <div class="ayuda">Aquí te envían la captura de su pago.</div>
+          <label class="lb" for="aClave">Nueva clave del panel (opcional)</label><input class="campo" id="aClave" type="password" inputmode="numeric" maxlength="10">
+        </div>
+      </div>
+      <div class="guardar-bar"><button class="btn" id="guardarAj">Guardar ajustes</button></div>
+    </div>
+  </main>
+</section>
+
+<div id="velo"></div>
+<aside id="drawer" aria-label="Ficha del lead"></aside>
+<div id="toast" role="status"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const h=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ESTADOS=['Diagnosticado','Pagó asesoría','Agendado','Asistió','Cliente','Seguimiento','No asistió','Perdido'];
+const MESES=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
+let PIN='', D=null, HOR=[];
+
+async function run(fn,...args){
+  let r;
+  try{ const res=await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify({action:'adm',fn,pin:PIN,args})}); r=await res.json(); }
+  catch(e){ throw new Error('Sin conexión con tu Google Sheet. Revisa tu internet o la API_URL en config.js.'); }
+  if(!r.ok) throw new Error(r.error||'Error desconocido');
+  return r.data;
+}
+function toast(t,mal){ const el=$('toast'); el.textContent=t; el.className='on'+(mal?' mal':''); clearTimeout(el._t); el._t=setTimeout(()=>el.className='',3200); }
+function guardaPin(p){ try{localStorage.setItem('mora_pin',p)}catch(e){} }
+function leePin(){ try{return localStorage.getItem('mora_pin')||''}catch(e){return ''} }
+
+/* ── login ── */
+async function entrar(p){
+  PIN=p; $('entrar').disabled=true; $('pinErr').textContent='';
+  try{ await run('adm_login'); guardaPin(p); $('login').style.display='none'; $('app').style.display='block'; await cargar(); }
+  catch(e){ $('pinErr').textContent=e.message.includes('Clave')?'Clave incorrecta. Revísala en la hoja Config.':e.message; PIN=''; }
+  $('entrar').disabled=false;
+}
+$('entrar').onclick=()=>entrar($('pin').value.trim());
+$('pin').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar($('pin').value.trim()); });
+const guardado=leePin(); if(guardado) entrar(guardado);
+
+/* ── tabs ── */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  document.querySelectorAll('.vista').forEach(v=>v.classList.toggle('on',v.id==='v-'+t.dataset.v));
+});
+$('refrescar').onclick=()=>cargar(true);
+$('salir').onclick=()=>{ try{localStorage.removeItem('mora_pin')}catch(e){} location.reload(); };
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&PIN&&D) cargar(); });
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+async function cargar(aviso){
+  document.body.classList.add('cargando');
+  try{ D=await run('adm_data'); HOR=JSON.parse(JSON.stringify(D.horarios)); pintarTodo(); if(aviso) toast('Datos actualizados'); }
+  catch(e){ toast(e.message,true); }
+  document.body.classList.remove('cargando');
+}
+function pintarTodo(){ $('actualizado').textContent='Actualizado '+D.hoy.slice(11); kpis(); hoy(); leads(); reservas(); horarios(); ajustes(); }
+
+/* ── utilidades ── */
+const wa=(n,t)=>'https://wa.me/'+String(n||'').replace(/\D/g,'')+(t?'?text='+encodeURIComponent(t):'');
+const scoreCls=p=>+p<40?'malo':+p<60?'medio':'bueno';
+const fechaBox=(f,hr)=>{ const d=new Date(f+'T12:00:00'); const dia=['dom','lun','mar','mié','jue','vie','sáb'][d.getDay()];
+  return `<div class="fecha-box"><small>${dia} · ${MESES[d.getMonth()]}</small><b>${d.getDate()}</b><span>${h(hr)}</span></div>`; };
+const esFutura=r=>(r.fecha+' '+r.hora)>=D.hoy.slice(0,16);
+const leadPor=id=>D.leads.find(l=>l.lead_id===id);
+
+/* ── KPIs ── */
+function kpis(){
+  const L=D.leads, R=D.reservas, hace7=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
+  const porVer=R.filter(r=>r.estado==='Por verificar').length;
+  const prox=R.filter(r=>r.estado==='Confirmada'&&esFutura(r)).length;
+  const clientes=L.filter(l=>l.estado==='Cliente');
+  const mrr=clientes.reduce((s,l)=>s+(+String(l.mrr).replace(/[^\d.]/g,'')||0),0);
+  const pagadas=R.filter(r=>['Confirmada','Realizada','No asistió'].includes(r.estado)).length;
+  $('kpis').innerHTML=[
+    ['Leads',L.length],['Últimos 7 días',L.filter(l=>l.fecha.slice(0,10)>=hace7).length],
+    ['Por verificar',porVer,porVer?'alerta':''],['Asesorías pagadas',pagadas],['Próximas',prox,'azul'],
+    ['MRR','S/ '+mrr.toLocaleString('en-US'),'azul']
+  ].map(k=>`<div class="kpi ${k[2]||''}"><small>${k[0]}</small><b>${k[1]}</b></div>`).join('');
+  $('cntVer').hidden=!porVer; $('cntVer').textContent=porVer;
+}
+
+/* ── HOY ── */
+function tarjetaRes(r,modo){
+  const lead=leadPor(r.lead_id);
+  let acc='';
+  if(modo==='verificar') acc=`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>
+      <button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`;
+  if(modo==='proxima') acc=`${D.config.zoom?`<a class="btn sec mini" href="${h(D.config.zoom)}" target="_blank">Abrir Zoom</a>`:''}
+      ${lead?`<button class="btn sec mini" data-lead="${h(lead.lead_id)}">Ver ficha</button>`:''}
+      <button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button>
+      <button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`;
+  return `<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
+    <strong>${h(r.nombre)}${r.negocio?` · <span style="font-weight:500;color:var(--g)">${h(r.negocio)}</span>`:''}</strong>
+    <p>${h(r.metodo)} · ${h(r.monto)} · Operación <span class="op">${h(r.operacion)}</span></p>
+    <div class="acciones">${acc}<a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`;
+}
+function hoy(){
+  const R=D.reservas;
+  const ver=R.filter(r=>r.estado==='Por verificar').sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora));
+  $('porVerificar').innerHTML=ver.length?ver.map(r=>tarjetaRes(r,'verificar')).join(''):'<div class="vacio">Todo al día. No hay pagos por verificar.</div>';
+  const prox=R.filter(r=>r.estado==='Confirmada'&&esFutura(r)).sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora));
+  $('proximas').innerHTML=prox.length?prox.map(r=>tarjetaRes(r,'proxima')).join(''):'<div class="vacio">Aún no tienes asesorías confirmadas.</div>';
+  $('ultimos').innerHTML=D.leads.length?D.leads.slice(0,8).map(l=>`<div class="item" style="cursor:pointer;align-items:center" data-lead="${h(l.lead_id)}">
+    <span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span>
+    <div class="info"><strong>${h(l.nombre)} <span style="font-weight:500;color:var(--g)">· ${h(l.negocio)}</span></strong><p>${h(l.rubro)} · ${h(l.fecha)}</p></div>
+    <span class="pill ${h(l.pago==='Por verificar'?'verificar':l.estado)}">${h(l.pago==='Por verificar'?'Pago por verificar':l.estado||'—')}</span></div>`).join(''):'<div class="vacio">Todavía no hay leads. Llegarán desde tu landing.</div>';
+}
+
+/* acciones de reservas (delegado) */
+document.addEventListener('click',async e=>{
+  const l=e.target.closest('[data-lead]'); if(l){ abrirLead(l.dataset.lead); return; }
+  const b=e.target.closest('[data-acc]'); if(!b) return;
+  const acc=b.dataset.acc, id=b.dataset.id;
+  if(acc==='rechazar'&&!confirm('¿Marcar este pago como no encontrado? El horario quedará libre otra vez.')) return;
+  if(acc==='cancelar'&&!confirm('¿Cancelar esta reserva? El horario quedará libre otra vez.')) return;
+  b.disabled=true;
+  try{
+    const r=await run('adm_reserva',id,acc);
+    toast('Reserva: '+r.estado);
+    await cargar();
+    if(r.wa) mostrarWa(r.wa, acc==='confirmar'?'Enviar confirmación con el Zoom':'Avisarle por WhatsApp');
+  }catch(err){ toast(err.message,true); b.disabled=false; }
+});
+function mostrarWa(link,txt){
+  const t=$('toast'); t.innerHTML=''; clearTimeout(t._t);
+  const a=document.createElement('a'); a.href=link; a.target='_blank'; a.className='btn wa'; a.textContent=txt+' →'; a.style.pointerEvents='auto';
+  t.appendChild(a); t.className='on'; t.style.pointerEvents='auto'; t.style.background='#fff'; t.style.boxShadow='0 20px 40px -10px rgba(0,0,0,.3)';
+  a.onclick=()=>{ t.className=''; t.style.pointerEvents='none'; t.style.background=''; t.style.boxShadow=''; };
+  t._t=setTimeout(()=>{t.className='';t.style.background='';t.style.boxShadow='';t.style.pointerEvents='none';},15000);
+}
+
+/* ── LEADS ── */
+$('fEstado').innerHTML+=ESTADOS.map(e=>`<option>${e}</option>`).join('');
+['buscar','fEstado','fCalifica'].forEach(id=>$(id).addEventListener('input',leads));
+function leads(){
+  if(!D) return;
+  const q=$('buscar').value.toLowerCase().trim(), fe=$('fEstado').value, fc=$('fCalifica').value;
+  const L=D.leads.filter(l=>(!q||(l.nombre+' '+l.negocio+' '+l.whatsapp+' '+l.email).toLowerCase().includes(q))&&(!fe||l.estado===fe)&&(!fc||l.califica===fc));
+  $('tablaLeads').innerHTML=`<div class="fila cab"><span></span><span>Lead</span><span class="c3">Rubro</span><span>Estado</span><span class="c5">Inversión</span><span class="c6">Fecha</span></div>`+
+    (L.length?L.map(l=>`<div class="fila" data-lead="${h(l.lead_id)}">
+      <span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span>
+      <span class="nom"><strong>${h(l.nombre)}</strong><small>${h(l.negocio)}${l.califica==='NO'?' · no califica':''}</small></span>
+      <span class="det c3">${h(l.rubro)}</span>
+      <span><span class="pill ${h(l.pago==='Por verificar'?'verificar':l.estado)}">${h(l.pago==='Por verificar'?'Por verificar':l.estado||'—')}</span></span>
+      <span class="det c5">${h(l.inversion)}</span><span class="det c6">${h(l.fecha)}</span></div>`).join(''):'<div class="vacio" style="margin:16px">No hay leads con esos filtros.</div>');
+}
+function abrirLead(id){
+  const l=leadPor(id); if(!l) return;
+  const res=D.reservas.filter(r=>r.lead_id===id);
+  const nombre=(l.nombre||'').split(' ')[0];
+  const sel=(campo,opts)=>`<select class="campo" data-campo="${campo}"><option value=""></option>${opts.map(o=>`<option ${l[campo]===o?'selected':''}>${o}</option>`).join('')}</select>`;
+  $('drawer').innerHTML=`
+    <div class="dr-top"><span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span><div><h3>${h(l.nombre)}</h3><p>${h(l.negocio)} · ${h(l.fecha)}</p></div><button class="x" id="cerrarDr" aria-label="Cerrar">×</button></div>
+    <div class="dr-sec"><div class="acciones" style="margin:0">
+      <a class="btn wa" href="${wa(l.whatsapp,'Hola '+nombre+', soy de 7Legend. Vi tu diagnóstico de Mora sobre '+(l.negocio||'tu negocio')+'. ¿Tienes 2 minutos para contarte cómo corregir lo que encontró?')}" target="_blank">Escribir por WhatsApp</a>
+      ${l.email?`<a class="btn sec" href="mailto:${h(l.email)}">${h(l.email)}</a>`:''}</div></div>
+    ${l.angulo_venta?`<div class="dr-sec"><h4>Para tu llamada</h4><div class="llamada">${h(l.angulo_venta)}</div></div>`:''}
+    <div class="dr-sec"><h4>Diagnóstico · ${h(l.nivel)}</h4>${String(l.hallazgos||'').split('\n').filter(Boolean).map(x=>`<div class="hall">${h(x)}</div>`).join('')||'<p class="ayuda">Sin hallazgos.</p>'}</div>
+    <div class="dr-sec"><h4>Lo que respondió</h4><dl class="resp">
+      ${[['Rubro','rubro'],['Ticket','ticket'],['Inversión','inversion'],['Anuncios','objetivo'],['Resultado','resultado'],['Seguimiento','seguimiento'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
+    </dl></div>
+    ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${h(r.metodo)} · <span class="op">${h(r.operacion)}</span></p>
+      ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
+    <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
+      <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
+      <div><label class="lb">Resultado de la llamada</label>${sel('resultado_llamada',['Cerró','Lo pensará','No califica','No le interesa','Reagendar'])}</div>
+      <div><label class="lb">Plan</label>${sel('plan',['Base','Pro','Setup único'])}</div>
+      <div><label class="lb">MRR (S/)</label><input class="campo" data-campo="mrr" inputmode="numeric" value="${h(l.mrr)}"></div>
+    </div><button class="btn" id="guardarLead" style="margin-top:16px;width:100%">Guardar cambios</button>
+    <p class="ayuda">Si marcas "Cerró", pasa a Cliente. Al elegir un plan se completa el MRR.</p></div>`;
+  $('drawer').classList.add('on'); $('velo').classList.add('on');
+  $('cerrarDr').onclick=cerrarLead;
+  $('guardarLead').onclick=async()=>{
+    const c={}; $('drawer').querySelectorAll('[data-campo]').forEach(el=>{ if(el.value!==(l[el.dataset.campo]||'')) c[el.dataset.campo]=el.value; });
+    if(!Object.keys(c).length) return toast('No hay cambios');
+    $('guardarLead').disabled=true;
+    try{ await run('adm_lead',id,c); toast('Lead actualizado'); await cargar(); abrirLead(id); }catch(e){ toast(e.message,true); $('guardarLead').disabled=false; }
+  };
+}
+function cerrarLead(){ $('drawer').classList.remove('on'); $('velo').classList.remove('on'); }
+$('velo').onclick=cerrarLead;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarLead(); });
+
+/* ── RESERVAS ── */
+$('fRes').addEventListener('input',reservas);
+function reservas(){
+  const f=$('fRes').value; const R=D.reservas.filter(r=>!f||r.estado===f);
+  $('listaRes').innerHTML=R.length?R.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
+      <strong>${h(r.nombre)} <span class="pill ${h(r.estado)}" style="margin-left:6px">${h(r.estado)}</span></strong>
+      <p>${h(r.negocio)} · ${h(r.metodo)} · ${h(r.monto)} · Op. <span class="op">${h(r.operacion)}</span> · reservó ${h(r.creado)}</p>
+      <div class="acciones">
+        ${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button><button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`:''}
+        ${r.estado==='Confirmada'?`<button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button><button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button>`:''}
+        ${r.lead_id&&leadPor(r.lead_id)?`<button class="btn sec mini" data-lead="${h(r.lead_id)}">Ver ficha</button>`:''}
+        <a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`).join(''):'<div class="vacio">No hay reservas todavía.</div>';
+}
+
+/* ── HORARIOS ── */
+function horarios(){
+  $('semana').innerHTML=HOR.map((d,k)=>`<div class="dia ${d.on?'':'off'}" data-k="${k}">
+    <label class="sw"><input type="checkbox" ${d.on?'checked':''} data-on="${k}"><i></i>${d.dia}</label>
+    <div class="horas">${d.horas.map((hr,j)=>`<span class="chip">${hr}<button data-quita="${k}-${j}" aria-label="Quitar ${hr}">×</button></span>`).join('')}
+      <span class="add"><input type="time" class="campo" step="900" id="t${k}" aria-label="Nueva hora ${d.dia}"><button class="btn sec mini" data-agrega="${k}">Agregar</button></span></div></div>`).join('');
+  $('cAntic').value=D.config.anticipacion; $('cDias').value=D.config.dias;
+  preview(D.slots);
+  $('bloqueos').innerHTML=D.bloqueos.length?D.bloqueos.map(b=>`<div class="bloq"><span><b>${h(b.valor)}</b> ${b.motivo?'· '+h(b.motivo):''}</span><button class="btn sec mini" data-desbloq="${h(b.valor)}">Quitar</button></div>`).join(''):'<p class="ayuda">No tienes días bloqueados.</p>';
+}
+function preview(S){
+  $('preview').innerHTML=S.length?S.slice(0,10).map(s=>`<div class="prev-dia"><small>${h(s.label)}</small>${s.horas.map(hr=>`<span class="slot" data-bloq="${s.fecha} ${hr}" title="Bloquear">${hr}</span>`).join('')}</div>`).join(''):'<div class="vacio">No hay horarios disponibles. Activa días y agrega horas.</div>';
+}
+$('semana').addEventListener('click',e=>{
+  const q=e.target.dataset.quita, a=e.target.dataset.agrega;
+  if(q){ const [k,j]=q.split('-').map(Number); HOR[k].horas.splice(j,1); horarios(); }
+  if(a!=null&&a!==undefined){ const k=+a, v=$('t'+k).value; if(!v) return toast('Elige una hora',true);
+    if(!HOR[k].horas.includes(v)){ HOR[k].horas.push(v); HOR[k].horas.sort(); } horarios(); }
+});
+$('semana').addEventListener('change',e=>{ const k=e.target.dataset.on; if(k!=null){ HOR[+k].on=e.target.checked; horarios(); } });
+$('guardarHor').onclick=async()=>{
+  $('guardarHor').disabled=true;
+  try{ await run('adm_config',{anticipacion:$('cAntic').value,dias:$('cDias').value}); D.slots=await run('adm_horarios',HOR); D.horarios=JSON.parse(JSON.stringify(HOR)); D.config.anticipacion=$('cAntic').value; D.config.dias=$('cDias').value; preview(D.slots); toast('Horarios guardados'); }
+  catch(e){ toast(e.message,true); }
+  $('guardarHor').disabled=false;
+};
+document.addEventListener('click',async e=>{
+  const b=e.target.dataset.bloq, d=e.target.dataset.desbloq;
+  if(b){ if(!confirm('¿Bloquear '+b+'? Nadie podrá reservar ese horario.')) return; try{ D.slots=await run('adm_bloqueo',b,'',false); await cargar(); toast('Horario bloqueado'); }catch(x){ toast(x.message,true); } }
+  if(d){ try{ D.slots=await run('adm_bloqueo',d,'',true); await cargar(); toast('Bloqueo quitado'); }catch(x){ toast(x.message,true); } }
+});
+$('bAdd').onclick=async()=>{ const f=$('bFecha').value; if(!f) return toast('Elige una fecha',true);
+  try{ await run('adm_bloqueo',f,$('bMotivo').value,false); $('bFecha').value=''; $('bMotivo').value=''; await cargar(); toast('Día bloqueado'); }catch(e){ toast(e.message,true); } };
+
+/* ── AJUSTES ── */
+const AJ={aYape:'yape',aYapeTit:'yapeTit',aPlin:'plin',aPlinTit:'plinTit',aPaypal:'paypal',aPaypalUsd:'paypalUsd',aPrecio:'precio',aDur:'duracion',aZoom:'zoom',aWa:'whatsapp'};
+function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; }
+$('guardarAj').onclick=async()=>{
+  const c={}; Object.entries(AJ).forEach(([id,k])=>c[k]=$(id).value.trim());
+  if(c.whatsapp&&c.whatsapp.replace(/\D/g,'').length===9) c.whatsapp='51'+c.whatsapp.replace(/\D/g,'');
+  const nc=$('aClave').value.trim(); if(nc) c.nuevaClave=nc;
+  $('guardarAj').disabled=true;
+  try{ await run('adm_config',c); if(nc){ PIN=nc; guardaPin(nc); } await cargar(); toast('Ajustes guardados'); }catch(e){ toast(e.message,true); }
+  $('guardarAj').disabled=false;
+};
+</script>
+</body>
+</html>

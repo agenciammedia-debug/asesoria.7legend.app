@@ -1,0 +1,21 @@
+/* ═══════════ CONFIGURACIÓN DE TODO EL SISTEMA ═══════════
+   Este es el ÚNICO archivo que necesitas editar.          */
+window.CFG = {
+  // n8n: diagnóstico de Mora
+  WEBHOOK_URL: "https://n8n-n8n.nl4pe6.easypanel.host/webhook/mora-diagnostico",
+
+  // Apps Script: URL de la app web (termina en /exec)
+  API_URL: "PEGA_AQUI_TU_URL_EXEC",
+
+  // Tu WhatsApp con 51
+  WHATSAPP: "51987968939",
+
+  // ID del píxel de Meta (Paso 6)
+  PIXEL_ID: "",
+
+  // Precio de la asesoría en soles
+  PRECIO: 49,
+
+  // No cambiar
+  RESERVA_URL: "reservar.html"
+};
