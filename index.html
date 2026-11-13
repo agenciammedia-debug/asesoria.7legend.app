@@ -16,9 +16,9 @@
 <!-- ═════════ CONFIGURACIÓN: edita solo este bloque ═════════ -->
 <script>
 window.CFG = {
-  WEBHOOK_URL: "https://n8n-n8n.nl4pe6.easypanel.host/webhook/mora-diagnostico",
-  PAY_URL:     "https://pago-seguro.vendemas.com.pe/MzU1ODMuODdmOTY3OWI5YjQ1OGE2NmYxNzk0NjExMjYz",
-  WHATSAPP:    "51987968939",
+  WEBHOOK_URL: "https://TU-N8N.com/webhook/mora-diagnostico",
+  RESERVA_URL: "reservar.html",                               // página de reserva (no cambiar)
+  WHATSAPP:    "51999999999",
   PIXEL_ID:    "",
   PRECIO:      49
 };
@@ -664,19 +664,20 @@ function resultado(r){
   (r.hallazgos||[]).slice(0,3).forEach((f,k)=>x+=`<div class="hall"><h4><i>${k+1}</i>${h(f.titulo)}</h4><p>${h(f.detalle)}</p></div>`);
   x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>El plan para corregir cada error lo armamos contigo en la asesoría.</div>`;
   if(r.califica!==false){
-    const pay=CFG.PAY_URL+(CFG.PAY_URL.includes('?')?'&':'?')+'ref='+encodeURIComponent(r.lead_id||A.whatsapp);
+    try{ localStorage.setItem('mora_lead',JSON.stringify({lead_id:r.lead_id||'',nombre:A.nombre,negocio:A.negocio,whatsapp:A.whatsapp,email:A.email})); }catch(e){}
+    const pay=CFG.RESERVA_URL+'?ref='+encodeURIComponent(r.lead_id||'');
     x+=`<div class="precio">
       <div class="top"><span>Asesoría 1 a 1 por Zoom · 60 min</span><span>Precio de lanzamiento</span></div>
       <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Corrijamos estos 3 errores juntos, en vivo.</h3>
       <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
-      <p class="det">Pago único · agenda tu horario apenas pagues</p>
+      <p class="det">Pago único · eliges tu horario y pagas con Yape, Plin o PayPal</p>
       <ul>
         <li>${CHK}Corregimos tus 3 errores, uno por uno</li>
         <li>${CHK}Reescribimos tu oferta para que te elijan sin bajar el precio</li>
         <li>${CHK}Creamos tu anuncio y lo lanzamos durante la llamada</li>
         <li>${CHK}Te llevas un plan para seguir aplicando</li>
       </ul>
-      <a class="btn full" href="${pay}" id="pagar">Reservar mi asesoría por S/${CFG.PRECIO}</a>
+      <a class="btn full" href="${pay}" id="pagar">Elegir mi horario</a>
       <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si al terminar sientes que no te sirvió, te devolvemos el pago completo.</span></div>
     </div>`;
   } else {
