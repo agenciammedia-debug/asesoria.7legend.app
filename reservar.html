@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Reserva tu asesoría | 7Legend</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ═════════ CONFIGURACIÓN: edita solo este bloque ═════════ -->
+<script>
+window.CFG = {
+  API_URL:  "https://script.google.com/macros/s/TU-ID/exec", // URL de la app web de Apps Script
+  PIXEL_ID: ""
+};
+</script>
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<script>
+if (CFG.PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', CFG.PIXEL_ID); fbq('track', 'PageView');
+}
+function track(ev, data, id){ try{ if(window.fbq) fbq('track', ev, data||{}, id?{eventID:id}:{}); }catch(e){} }
+</script>
+
+<style>
+:root{--t:#1D1D1F;--t2:#3A3A3F;--g:#6E6E76;--g2:#9A9AA2;--l:#E6E7EB;--s:#F5F6F8;--a:#1E6BFF;--ah:#155BE6;--as:#EAF1FF;
+  --r:#E5484D;--rs:#FDECEC;--v:#16A34A;--vs:#E8F7EE;--yape:#742284;--plin:#00B6C9;--pp:#003087;--e:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Geist,system-ui,sans-serif;background:linear-gradient(180deg,#fff 0,#F7F9FD 100%);min-height:100vh;color:var(--t);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:8px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.045em;text-decoration:none}.logo i{font-style:normal;color:var(--a)}
+.wrap{max-width:620px;margin:0 auto;padding:0 20px}
+header{height:64px;display:flex;align-items:center;justify-content:space-between}
+header span{font-size:13.5px;color:var(--g);display:flex;align-items:center;gap:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:12px;cursor:pointer;padding:16px 22px;font-weight:600;font-size:16.5px;background:var(--a);color:#fff;
+  box-shadow:0 8px 24px -8px rgba(30,107,255,.6);transition:background .2s,transform .2s var(--e),opacity .2s;text-decoration:none}
+.btn:hover{background:var(--ah)}
+.btn[disabled]{opacity:.45;pointer-events:none;box-shadow:none}
+.btn.sec{background:#fff;color:var(--t);box-shadow:inset 0 0 0 1px var(--l)}
+.btn.wa{background:#25D366;box-shadow:0 8px 24px -10px rgba(37,211,102,.7)}
+.btn.pp{background:#FFC439;color:#111;box-shadow:0 8px 24px -10px rgba(255,196,57,.8)}
+.link{background:none;border:0;color:var(--g);cursor:pointer;font-size:15px;padding:8px 0;margin-top:6px}
+.link:hover{color:var(--t)}
+
+.resumen{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--l);border-radius:18px;padding:16px 18px;margin:8px 0 22px}
+.resumen .ic{width:46px;height:46px;border-radius:12px;background:var(--as);color:var(--a);display:grid;place-items:center;flex:none}
+.resumen strong{display:block;font-size:16px;letter-spacing:-.01em}
+.resumen small{color:var(--g);font-size:13.5px}
+.resumen .precio{margin-left:auto;font-weight:700;font-size:22px;letter-spacing:-.03em}
+
+.pasos{display:flex;gap:6px;margin-bottom:26px}
+.pasos div{flex:1}
+.pasos i{display:block;height:4px;border-radius:4px;background:var(--l);transition:background .4s}
+.pasos div.on i{background:var(--a)}
+.pasos span{display:block;font-size:12.5px;color:var(--g2);margin-top:6px;font-weight:500}
+.pasos div.on span{color:var(--t)}
+
+.paso{display:none;animation:entra .45s var(--e)}
+.paso.on{display:block}
+@keyframes entra{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(26px,5vw,32px);letter-spacing:-.04em;line-height:1.12;margin-bottom:6px}
+.sub{color:var(--g);margin-bottom:22px}
+
+/* días y horas */
+.dias{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -2px 14px;scrollbar-width:thin;scroll-snap-type:x mandatory}
+.dia{flex:none;width:76px;scroll-snap-align:start;border:1px solid var(--l);background:#fff;border-radius:14px;padding:10px 0;text-align:center;cursor:pointer;transition:all .2s}
+.dia small{display:block;font-size:12px;color:var(--g);text-transform:capitalize}
+.dia b{display:block;font-size:22px;letter-spacing:-.03em;line-height:1.2}
+.dia em{display:block;font-style:normal;font-size:11.5px;color:var(--v);font-weight:600}
+.dia:hover{border-color:rgba(30,107,255,.5)}
+.dia.on{background:var(--a);border-color:var(--a);color:#fff}.dia.on small,.dia.on em{color:rgba(255,255,255,.85)}
+.horas{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-bottom:24px}
+.hora{border:1px solid var(--l);background:#fff;border-radius:12px;padding:13px 0;font-weight:600;cursor:pointer;transition:all .2s}
+.hora:hover{border-color:var(--a);color:var(--a)}
+.hora.on{background:var(--as);border-color:var(--a);color:var(--a);box-shadow:0 0 0 3px rgba(30,107,255,.12)}
+.esq{height:76px;border-radius:14px;background:linear-gradient(90deg,#eef0f3 0,#f7f8fa 50%,#eef0f3 100%);background-size:200% 100%;animation:brillo 1.2s infinite}
+@keyframes brillo{to{background-position:-200% 0}}
+.zona{font-size:13px;color:var(--g);margin:-14px 0 20px}
+
+/* pago */
+.metodos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.metodo{border:1px solid var(--l);background:#fff;border-radius:14px;padding:14px 8px;cursor:pointer;font-weight:700;letter-spacing:-.02em;font-size:17px;transition:all .2s}
+.metodo[data-m=Yape]{color:var(--yape)}.metodo[data-m=Plin]{color:var(--plin)}.metodo[data-m=PayPal]{color:var(--pp)}
+.metodo.on{box-shadow:0 0 0 2px currentColor;border-color:transparent}
+.caja{background:#fff;border:1px solid var(--l);border-radius:18px;padding:22px;margin-bottom:18px}
+.qr{width:190px;height:190px;object-fit:contain;display:block;margin:0 auto 16px;border-radius:12px;border:1px solid var(--l)}
+.numero{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--s);border-radius:12px;padding:12px 14px;margin-bottom:6px}
+.numero b{font-size:22px;letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.numero button{border:0;background:#fff;border-radius:8px;padding:8px 12px;font-weight:600;font-size:13.5px;cursor:pointer;box-shadow:inset 0 0 0 1px var(--l)}
+.titular{font-size:14px;color:var(--g);margin-bottom:16px}
+.monto-pagar{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-top:1px solid var(--l);margin-top:6px}
+.monto-pagar b{font-size:26px;letter-spacing:-.03em}
+ol.instr{padding-left:20px;color:var(--t2);font-size:15px;display:grid;gap:4px;margin-top:6px}
+
+/* formulario */
+label.lb{display:block;font-size:14px;font-weight:500;color:var(--t2);margin:4px 0 6px}
+.campo{width:100%;background:#fff;border:1px solid #D5D7DD;border-radius:12px;padding:14px 15px;font-size:16px;margin-bottom:12px;transition:border-color .2s,box-shadow .2s}
+.campo:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 4px rgba(30,107,255,.12)}
+.ayuda{font-size:13px;color:var(--g);margin:-6px 0 14px}
+.err{color:var(--r);font-size:15px;min-height:22px;margin:4px 0 10px}
+.cita{display:flex;gap:12px;align-items:center;background:var(--as);border-radius:14px;padding:14px 16px;margin-bottom:18px;color:#123B8F;font-weight:500}
+
+/* éxito */
+.exito{text-align:center;padding:10px 0 30px}
+.check{width:72px;height:72px;border-radius:50%;background:var(--vs);display:grid;place-items:center;margin:10px auto 20px;animation:pop .6s var(--e)}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.exito .detalle{background:#fff;border:1px solid var(--l);border-radius:18px;padding:18px;text-align:left;margin:22px 0}
+.exito .detalle div{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--l);font-size:15px}
+.exito .detalle div:first-child{border-top:0}
+.exito .detalle span{color:var(--g)}
+.seguro{display:flex;gap:8px;align-items:center;justify-content:center;font-size:13px;color:var(--g);margin:16px 0 40px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a class="logo" href="./">7Legend<i>.</i></a><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Reserva segura</span></header>
+
+  <div class="resumen">
+    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></svg></div>
+    <div><strong>Asesoría 1 a 1 por Zoom</strong><small id="rDur">60 minutos · salimos con tu campaña lanzada</small></div>
+    <div class="precio" id="rPrecio">S/49</div>
+  </div>
+
+  <div class="pasos" aria-hidden="true">
+    <div class="on" id="p1"><i></i><span>1. Horario</span></div>
+    <div id="p2"><i></i><span>2. Pago</span></div>
+    <div id="p3"><i></i><span>3. Confirmación</span></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <section class="paso on" id="s1">
+    <h1>Elige el día y la hora</h1>
+    <p class="sub">Escoge el momento en que puedas conectarte con calma desde tu computadora.</p>
+    <div class="dias" id="dias"><div class="esq" style="width:76px;flex:none"></div><div class="esq" style="width:76px;flex:none"></div><div class="esq" style="width:76px;flex:none"></div><div class="esq" style="width:76px;flex:none"></div></div>
+    <p class="zona">Horario de Perú (GMT-5)</p>
+    <div class="horas" id="horas"></div>
+    <div class="err" id="err1" role="alert"></div>
+    <button class="btn" id="ir2" disabled>Continuar al pago</button>
+  </section>
+
+  <!-- PASO 2 -->
+  <section class="paso" id="s2">
+    <h1>Paga tu asesoría</h1>
+    <p class="sub">Elige cómo prefieres pagar. Después te pedimos el número de operación.</p>
+    <div class="cita" id="cita2"></div>
+    <div class="metodos" id="metodos"></div>
+    <div class="caja" id="caja"></div>
+    <button class="btn" id="ir3" disabled>Ya pagué, continuar</button>
+    <button class="link" data-volver="1">← Cambiar horario</button>
+  </section>
+
+  <!-- PASO 3 -->
+  <section class="paso" id="s3">
+    <h1>Confirma tu reserva</h1>
+    <p class="sub">Con el número de operación verificamos tu pago y te enviamos el link de Zoom.</p>
+    <div class="cita" id="cita3"></div>
+    <label class="lb" for="fOp" id="lbOp">Número de operación</label>
+    <input class="campo" id="fOp" autocomplete="off" placeholder="Ej: 04512378">
+    <p class="ayuda" id="ayOp">Lo encuentras en la constancia de tu pago.</p>
+    <label class="lb" for="fNombre">Tu nombre</label>
+    <input class="campo" id="fNombre" autocomplete="name">
+    <label class="lb" for="fNegocio">Tu negocio</label>
+    <input class="campo" id="fNegocio" autocomplete="organization">
+    <label class="lb" for="fWa">WhatsApp</label>
+    <input class="campo" id="fWa" inputmode="tel" autocomplete="tel" placeholder="987 654 321">
+    <div class="err" id="err3" role="alert"></div>
+    <button class="btn" id="reservar">Confirmar mi reserva</button>
+    <button class="link" data-volver="2">← Volver al pago</button>
+  </section>
+
+  <!-- ÉXITO -->
+  <section class="paso" id="s4">
+    <div class="exito">
+      <div class="check"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h1>¡Reserva recibida!</h1>
+      <p class="sub" style="margin:8px auto 0;max-width:440px">Estamos verificando tu pago. En cuanto lo confirmemos, te enviamos el link de Zoom por WhatsApp.</p>
+      <div class="detalle" id="detalle"></div>
+      <a class="btn wa" id="waCaptura" target="_blank" rel="noopener">Enviar captura del pago por WhatsApp</a>
+      <p class="ayuda" style="margin-top:12px">Opcional, pero acelera la confirmación.</p>
+    </div>
+  </section>
+
+  <p class="seguro">Tus datos solo se usan para tu asesoría.</p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const h=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MESES=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
+const DSEM=['dom','lun','mar','mié','jue','vie','sáb'];
+let API=null, sel={fecha:'',hora:'',label:'',metodo:''};
+
+/* datos del lead que vienen de la landing */
+const qs=new URLSearchParams(location.search);
+let LEAD={}; try{ LEAD=JSON.parse(localStorage.getItem('mora_lead')||'{}'); }catch(e){}
+if(qs.get('ref')) LEAD.lead_id=qs.get('ref');
+$('fNombre').value=LEAD.nombre||''; $('fNegocio').value=LEAD.negocio||''; $('fWa').value=(LEAD.whatsapp||'').replace(/^51(?=\d{9}$)/,'');
+track('InitiateCheckout',{content_name:'asesoria'});
+
+function paso(n){
+  [1,2,3,4].forEach(k=>$('s'+k).classList.toggle('on',k===n));
+  [1,2,3].forEach(k=>$('p'+k).classList.toggle('on',k<=Math.min(n,3)));
+  scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-volver]').forEach(b=>b.onclick=()=>paso(+b.dataset.volver));
+
+/* ── paso 1: horarios ── */
+async function cargar(){
+  try{
+    const r=await fetch(CFG.API_URL+'?action=slots'); API=await r.json();
+    if(!API.ok) throw 0;
+  }catch(e){
+    $('dias').innerHTML=''; $('err1').textContent='No pudimos cargar los horarios. Revisa tu conexión y recarga la página.'; return;
+  }
+  $('rPrecio').textContent='S/'+API.precio; $('rDur').textContent=API.duracion+' minutos · salimos con tu campaña lanzada';
+  if(!API.slots.length){
+    $('dias').innerHTML=''; $('horas').innerHTML='';
+    $('err1').innerHTML='Por ahora no hay horarios libres. '+(API.whatsapp?`<a href="https://wa.me/${API.whatsapp}?text=${encodeURIComponent('Hola, quiero reservar mi asesoría pero no veo horarios disponibles.')}" style="color:var(--a);font-weight:600">Escríbenos y te buscamos uno</a>.`:'');
+    return;
+  }
+  pintarDias(); metodos();
+}
+function pintarDias(){
+  $('dias').innerHTML=API.slots.map((s,k)=>{ const d=new Date(s.fecha+'T12:00:00');
+    return `<button class="dia ${s.fecha===sel.fecha?'on':''}" data-k="${k}"><small>${DSEM[d.getDay()]}</small><b>${d.getDate()}</b><small>${MESES[d.getMonth()]}</small><em>${s.horas.length} libre${s.horas.length>1?'s':''}</em></button>`; }).join('');
+  $('dias').querySelectorAll('.dia').forEach(b=>b.onclick=()=>{ const s=API.slots[+b.dataset.k]; sel.fecha=s.fecha; sel.label=s.label; sel.hora=''; pintarDias(); pintarHoras(s); $('ir2').disabled=true; });
+  if(!sel.fecha){ const s=API.slots[0]; sel.fecha=s.fecha; sel.label=s.label; pintarDias(); pintarHoras(s); }
+}
+function pintarHoras(s){
+  $('horas').innerHTML=s.horas.map(hr=>`<button class="hora ${hr===sel.hora?'on':''}" data-h="${hr}">${hr}</button>`).join('');
+  $('horas').querySelectorAll('.hora').forEach(b=>b.onclick=()=>{ sel.hora=b.dataset.h; pintarHoras(s); $('ir2').disabled=false; $('err1').textContent=''; });
+}
+$('ir2').onclick=()=>{ const t=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>${h(sel.label)} · ${h(sel.hora)}`; $('cita2').innerHTML=t; $('cita3').innerHTML=t; paso(2); };
+
+/* ── paso 2: pago ── */
+function metodos(){
+  const P=API.pagos, ms=[];
+  if(P.yape.numero) ms.push('Yape'); if(P.plin.numero) ms.push('Plin'); if(P.paypal.link) ms.push('PayPal');
+  if(!ms.length){ $('metodos').innerHTML=''; $('caja').innerHTML='<p>Escríbenos por WhatsApp para coordinar tu pago.</p>'; return; }
+  $('metodos').style.gridTemplateColumns=`repeat(${ms.length},1fr)`;
+  $('metodos').innerHTML=ms.map(m=>`<button class="metodo" data-m="${m}">${m}</button>`).join('');
+  $('metodos').querySelectorAll('.metodo').forEach(b=>b.onclick=()=>elegir(b.dataset.m));
+  elegir(ms[0]);
+}
+function elegir(m){
+  sel.metodo=m; track('AddPaymentInfo',{payment_method:m});
+  $('metodos').querySelectorAll('.metodo').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  const P=API.pagos;
+  if(m==='PayPal'){
+    $('caja').innerHTML=`<p style="margin-bottom:16px">Paga con tarjeta o con tu cuenta PayPal. PayPal cobra en dólares.</p>
+      <div class="monto-pagar" style="border:0;margin:0 0 14px;padding:0"><span>Monto a pagar</span><b>US$${h(P.paypal.usd)}</b></div>
+      <a class="btn pp" href="${h(P.paypal.link)}" target="_blank" rel="noopener" id="ppBtn">Pagar con PayPal</a>
+      <ol class="instr" style="margin-top:16px"><li>Completa el pago en la ventana de PayPal.</li><li>Vuelve aquí y copia el ID de la transacción.</li></ol>`;
+    $('ppBtn').onclick=()=>{ $('ir3').disabled=false; };
+    $('ir3').disabled=true;
+    $('lbOp').textContent='ID de transacción de PayPal'; $('fOp').placeholder='Ej: 8AB12345CD678901E'; $('ayOp').textContent='Lo encuentras en el correo de confirmación de PayPal.';
+  } else {
+    const d=m==='Yape'?P.yape:P.plin, img=m==='Yape'?'yape-qr.png':'plin-qr.png';
+    $('caja').innerHTML=`<img class="qr" src="${img}" alt="Código QR de ${m}" onerror="this.remove()">
+      <div class="numero"><b>${h(String(d.numero).replace(/(\d{3})(\d{3})(\d{3})/,'$1 $2 $3'))}</b><button id="copiar">Copiar</button></div>
+      <p class="titular">A nombre de <b>${h(d.titular||'7Legend')}</b></p>
+      <ol class="instr"><li>Abre ${m} y envía el monto al número de arriba${m==='Yape'?' (o escanea el QR)':''}.</li><li>Guarda la constancia: te pediremos el número de operación.</li></ol>
+      <div class="monto-pagar"><span>Monto a pagar</span><b>S/${h(API.precio)}</b></div>`;
+    $('copiar').onclick=async()=>{ try{ await navigator.clipboard.writeText(String(d.numero)); $('copiar').textContent='¡Copiado!'; }catch(e){ $('copiar').textContent=d.numero; } };
+    $('ir3').disabled=false;
+    $('lbOp').textContent='Número de operación de '+m; $('fOp').placeholder='Ej: 04512378'; $('ayOp').textContent='Aparece en la constancia de '+m+' después de pagar.';
+  }
+}
+$('ir3').onclick=()=>{ paso(3); setTimeout(()=>$('fOp').focus(),350); };
+
+/* ── paso 3: reservar ── */
+$('reservar').onclick=async()=>{
+  const d={action:'reservar',lead_id:LEAD.lead_id||'',email:LEAD.email||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
+    operacion:$('fOp').value.trim(),nombre:$('fNombre').value.trim(),negocio:$('fNegocio').value.trim(),whatsapp:$('fWa').value.replace(/\D/g,'')};
+  const err=$('err3');
+  if(d.operacion.length<4) return err.textContent='Escribe el número de operación de tu pago.';
+  if(d.nombre.length<2) return err.textContent='Escribe tu nombre.';
+  if(d.whatsapp.length<9) return err.textContent='Revisa tu WhatsApp: debe tener al menos 9 dígitos.';
+  err.textContent=''; const b=$('reservar'); b.disabled=true; b.textContent='Reservando…';
+  let r=null;
+  try{ const res=await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify(d)}); r=await res.json(); }
+  catch(e){ r={ok:false,error:'No pudimos conectar. Revisa tu internet e inténtalo otra vez.'}; }
+  b.disabled=false; b.textContent='Confirmar mi reserva';
+  if(!r.ok){
+    err.textContent=r.error||'No pudimos reservar. Inténtalo otra vez.';
+    if(r.ocupado){ sel.fecha=''; sel.hora=''; $('ir2').disabled=true; await cargar(); paso(1); $('err1').textContent=r.error; }
+    return;
+  }
+  track('Purchase',{value:+API.precio||49,currency:'PEN',content_name:'asesoria'},r.reserva_id);
+  try{ localStorage.setItem('mora_reserva',JSON.stringify(r)); }catch(e){}
+  $('detalle').innerHTML=`<div><span>Fecha</span><b>${h(r.label)}</b></div><div><span>Hora</span><b>${h(r.hora)} (Perú)</b></div>
+    <div><span>Pago</span><b>${h(sel.metodo)} · ${h(d.operacion)}</b></div><div><span>Código</span><b>${h(r.reserva_id)}</b></div>`;
+  const msg=`Hola, soy ${d.nombre}. Reservé mi asesoría para el ${r.label} a las ${r.hora} y pagué con ${sel.metodo} (operación ${d.operacion}). Te envío la captura 👇`;
+  if(API.whatsapp) $('waCaptura').href=`https://wa.me/${API.whatsapp}?text=${encodeURIComponent(msg)}`; else $('waCaptura').remove();
+  paso(4);
+};
+
+cargar();
+</script>
+</body>
+</html>
