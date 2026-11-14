@@ -318,6 +318,11 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
         <div class="acciones"><button class="btn sec" id="btnPush2">Activar en este dispositivo</button><button class="btn sec" id="btnPrueba">Enviar notificación de prueba</button></div>
         <div class="estado-push" id="estadoPush"></div>
       </div>
+      <div class="card" style="margin-top:20px">
+        <h2>Meta · API de conversiones <small>opcional</small></h2>
+        <label class="lb" for="aMetaTok">Token de acceso</label><input class="campo" id="aMetaTok" type="password" autocomplete="off">
+        <p class="ayuda">Envía a Meta cada diagnóstico y cada reserva desde tu servidor, para que tus anuncios aprendan mejor. Se guarda en tu Apps Script, no en el Sheet ni en GitHub.</p>
+      </div>
       <div class="guardar-bar"><button class="btn" id="guardarAj">Guardar ajustes</button></div>
     </div>
   </main>
@@ -634,12 +639,12 @@ $('btnPrueba').onclick=async()=>{ $('btnPrueba').disabled=true; try{ const r=awa
 
 /* ── AJUSTES ── */
 const AJ={aYape:'yape',aYapeTit:'yapeTit',aPlin:'plin',aPlinTit:'plinTit',aPaypal:'paypal',aPaypalUsd:'paypalUsd',aPrecio:'precio',aDur:'duracion',aZoom:'zoom',aWa:'whatsapp'};
-function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; $('aOsApp').value=D.config.onesignalAppId||''; $('aOsKey').value=''; $('aOsKey').placeholder=D.config.onesignalKeySet?'•••••• guardada (escribe para cambiarla)':'os_v2_app_...'; iniciarPush(D.config.onesignalAppId); }
+function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; $('aOsApp').value=D.config.onesignalAppId||''; $('aOsKey').value=''; $('aOsKey').placeholder=D.config.onesignalKeySet?'•••••• guardada (escribe para cambiarla)':'os_v2_app_...'; $('aMetaTok').value=''; $('aMetaTok').placeholder=D.config.metaTokenSet?'•••••• guardado (escribe para cambiarlo)':'EAA...'; iniciarPush(D.config.onesignalAppId); }
 $('guardarAj').onclick=async()=>{
   const c={}; Object.entries(AJ).forEach(([id,k])=>c[k]=$(id).value.trim());
   if(c.whatsapp&&c.whatsapp.replace(/\D/g,'').length===9) c.whatsapp='51'+c.whatsapp.replace(/\D/g,'');
   const nc=$('aClave').value.trim(); if(nc) c.nuevaClave=nc;
-  c.onesignalAppId=$('aOsApp').value.trim(); if($('aOsKey').value.trim()) c.onesignalKey=$('aOsKey').value.trim();
+  c.onesignalAppId=$('aOsApp').value.trim(); if($('aOsKey').value.trim()) c.onesignalKey=$('aOsKey').value.trim(); if($('aMetaTok').value.trim()) c.metaToken=$('aMetaTok').value.trim();
   $('guardarAj').disabled=true;
   try{ await run('adm_config',c); if(nc){ PIN=nc; guardaPin(nc); } await cargar(); toast('Ajustes guardados'); }catch(e){ toast(e.message,true); }
   $('guardarAj').disabled=false;
