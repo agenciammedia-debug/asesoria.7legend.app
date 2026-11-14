@@ -21,7 +21,7 @@ window.CFG = {
     titular:   "Carlos Moreno Carrasco",            // tu nombre completo, como figura en SUNAT
     ruc:       "10444594794",                        // tu RUC de persona natural (empieza con 10)
     domicilio: "Calle Ramón Ribeyro 990 - Barranco, Lima",
-    correo:    "7legend.app@correo.com",               // correo para temas de datos personales y reclamos
+    correo:    "7legend.app@gmail.com",               // correo para temas de datos personales y reclamos
     marca:     "7Legend"
   },
 
