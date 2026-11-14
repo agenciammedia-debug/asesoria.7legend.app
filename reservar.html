@@ -118,7 +118,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--t2);margin:4px
 
   <div class="resumen">
     <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></svg></div>
-    <div><strong>Asesoría 1 a 1 por Google Meet</strong><small id="rDur">60 minutos · sales con tu filtro y tu guion de respuesta</small></div>
+    <div><strong>Asesoría 1 a 1 por Google Meet</strong><small id="rDur">60 minutos · sales con tu plan de mejora</small></div>
     <div class="precio" id="rPrecio">S/49</div>
   </div>
 
@@ -218,7 +218,7 @@ async function cargar(){
   }catch(e){
     $('dias').innerHTML=''; $('err1').textContent='No pudimos cargar los horarios. Revisa tu conexión y recarga la página.'; return;
   }
-  $('rPrecio').textContent='S/'+API.precio; $('rDur').textContent=API.duracion+' minutos · sales con tu filtro y tu guion de respuesta';
+  $('rPrecio').textContent='S/'+API.precio; $('rDur').textContent=API.duracion+' minutos · sales con tu plan de mejora';
   if(!API.slots.length){
     $('dias').innerHTML=''; $('horas').innerHTML='';
     $('err1').innerHTML='Por ahora no hay horarios libres. '+(API.whatsapp?`<a href="https://wa.me/${API.whatsapp}?text=${encodeURIComponent('Hola, quiero reservar mi asesoría pero no veo horarios disponibles.')}" style="color:var(--a);font-weight:600">Escríbenos y te buscamos uno</a>.`:'');
