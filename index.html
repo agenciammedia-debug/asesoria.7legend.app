@@ -263,6 +263,15 @@ a{color:inherit;text-decoration:none}
 .vista .res-d strong{font-size:17px;letter-spacing:-.02em;line-height:1.3}
 .vista .hall{opacity:0;transform:translateY(8px);transition:all .45s var(--ease)}
 .vista .hall.on{opacity:1;transform:none}
+.pasos-c .pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;margin-left:6px;vertical-align:3px}
+.mini-precio{background:var(--noche);color:#fff;border-radius:22px;padding:26px;position:relative;overflow:hidden}
+.mini-precio:before{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-150px;border-radius:50%;background:radial-gradient(circle,rgba(30,107,255,.5),transparent 65%)}
+.mini-precio>*{position:relative}
+.mini-precio .top{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.6)}
+.mini-precio .monto b{font-size:72px}
+.mini-precio p{color:rgba(255,255,255,.7);margin:4px 0 20px;font-size:15px}
+.mini-precio .btn:after{display:none}
+.mini-precio .btn.clic{transform:scale(.97);background:var(--azul-h)}
 
 /* ═════════ REPORTE ═════════ */
 .rep-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center}
@@ -323,6 +332,14 @@ a{color:inherit;text-decoration:none}
 .precio li svg{flex:none;color:var(--menta);margin-top:3px}
 .garantia{display:flex;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:14px;color:rgba(255,255,255,.7)}
 .garantia svg{flex:none;color:var(--cielo)}
+.nota-p{text-align:center;font-size:13.5px;color:rgba(255,255,255,.55);margin-top:12px}
+.confianza{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.cf{background:#fff;border:1px solid var(--linea);border-radius:22px;padding:26px;transition:transform .35s var(--ease),box-shadow .35s}
+.cf:hover{transform:translateY(-4px);box-shadow:0 24px 40px -26px rgba(22,22,26,.35)}
+.cf .ic{width:46px;height:46px;border-radius:14px;background:var(--azul-s);color:var(--azul);display:grid;place-items:center;margin-bottom:18px}
+.cf h4{font-size:19px;letter-spacing:-.02em}
+.cf p{color:var(--gris);font-size:15px;margin-top:2px}
+.cf a{color:var(--azul);text-decoration:underline}
 
 /* faq */
 .faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px}
@@ -413,7 +430,8 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 /* ═════════ RESPONSIVE ═════════ */
 @media (max-width:980px){
   .hero{padding:30px 0 56px}
-  .hero-grid,.rep-grid,.faq-grid,.como{grid-template-columns:1fr;gap:44px}
+  .hero-grid,.rep-grid,.faq-grid,.como,.of-grid{grid-template-columns:1fr;gap:44px}
+  .confianza{grid-template-columns:1fr 1fr}
   .demo{min-height:430px;padding:22px}
   .vista{left:22px;right:22px;top:70px}
   .vista h4{font-size:21px}
@@ -436,6 +454,13 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 @media (max-width:520px){
   .pil{grid-template-columns:118px 1fr 30px;font-size:13px}
   .arranque{padding:16px}
+  .confianza{gap:10px}
+  .cf{padding:18px}
+  .cf .ic{margin-bottom:12px}
+  .cf h4{font-size:16px}
+  .cf p{font-size:13.5px}
+  .precio{padding:30px 24px}
+  .monto b{font-size:86px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}
@@ -538,11 +563,11 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 <!-- ═════════ CÓMO FUNCIONA ═════════ -->
 <section class="sec"><div class="wrap como">
   <div>
-    <h2 class="h2 rv">Tu diagnóstico, en 3 minutos.</h2>
+    <h2 class="h2 rv">Así funciona.</h2>
     <ol class="pasos-c" id="pasosC">
-      <li class="on"><div class="c">1</div><div><b>Respondes 11 preguntas</b><span>Con un toque. Sin escribir casi nada.</span></div></li>
-      <li><div class="c">2</div><div><b>Mora analiza tu negocio</b><span>Nuestra IA revisa cada respuesta.</span></div></li>
-      <li><div class="c">3</div><div><b>Ves dónde pierdes ventas</b><span>Tu puntaje y tus 3 fugas, al instante.</span></div></li>
+      <li class="on"><div class="c">1</div><div><b>Respondes 11 preguntas <span class="pill g">Gratis</span></b><span>Con un toque. 3 minutos.</span></div></li>
+      <li><div class="c">2</div><div><b>Ves dónde pierdes ventas <span class="pill g">Gratis</span></b><span>Tu puntaje y tus 3 fugas, al instante.</span></div></li>
+      <li><div class="c">3</div><div><b>Las corregimos contigo <span class="pill p">S/49 · Opcional</span></b><span>Asesoría 1 a 1 por Google Meet.</span></div></li>
     </ol>
     <div class="sellos rv d1">
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Gratis</span>
@@ -573,6 +598,14 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
       <div class="hall"><h4><i>1</i>Respondes horas después</h4></div>
       <div class="hall"><h4><i>2</i>Das el precio antes que el valor</h4></div>
       <div class="hall"><h4><i>3</i>Nadie vuelve a escribir</h4></div>
+    </div>
+    <div class="vista" id="v4">
+      <div class="mini-precio">
+        <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Google Meet</span></div>
+        <div class="monto"><sup>S/</sup><b>49</b></div>
+        <p>Corregimos tus 3 fugas, en vivo.</p>
+        <div class="btn full" id="dBtn">Elegir mi horario</div>
+      </div>
     </div>
     <svg class="cursor" id="dCur" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#16161A" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
   </div>
@@ -606,14 +639,54 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   </div>
 </div></section>
 
+<!-- ═════════ ASESORÍA S/49 ═════════ -->
+<section class="sec"><div class="wrap of-grid">
+  <div>
+    <h2 class="h2 rv">¿Quieres corregirlas? Lo hacemos contigo.</h2>
+    <p class="lead rv d1">Una hora por Google Meet, sobre tus chats reales. Sales con todo listo para aplicar.</p>
+    <div class="ruta rv d2" id="ruta">
+      <div class="etapa"><div class="c">1</div><div><h3>Haces tu diagnóstico</h3><p>Gratis, en 3 minutos.</p></div></div>
+      <div class="etapa"><div class="c">2</div><div><h3>Eliges tu horario y pagas</h3><p>Yape, Plin o PayPal.</p></div></div>
+      <div class="etapa"><div class="c">3</div><div><h3>Nos vemos por Meet</h3><p>Llegas con tu diagnóstico listo.</p></div></div>
+    </div>
+  </div>
+  <div class="precio rv d1">
+    <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Precio de lanzamiento</span></div>
+    <div class="monto"><sup>S/</sup><b>49</b></div>
+    <p class="det">Pago único.</p>
+    <ul>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus chats reales</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Armamos tu filtro de curiosos</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Tu guion: del “¿precio?” al cierre</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ordenamos tu seguimiento y tu anuncio</li>
+    </ul>
+    <button class="btn full" data-abrir>Empezar con mi diagnóstico gratis</button>
+    <p class="nota-p">Primero tu diagnóstico. Después eliges tu horario.</p>
+    <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si no te sirvió, te devolvemos el pago completo.</span></div>
+  </div>
+</div></section>
+
+<!-- ═════════ RESPALDO ═════════ -->
+<section class="sec gris respaldo"><div class="wrap">
+  <h2 class="h2 rv">Trabajas con una empresa peruana.</h2>
+  <p class="lead rv d1">7Legend · Sistemas de venta con IA · Lima.</p>
+  <div class="confianza">
+    <div class="cf rv"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div><h4>Empresa formal</h4><p>RUC <span data-l="ruc"></span></p></div>
+    <div class="cf rv d1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div><h4>Pago seguro</h4><p>Yape, Plin o PayPal. Con comprobante.</p></div>
+    <div class="cf rv d2"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h4>Garantía total</h4><p>Si no te sirve, te devolvemos tu pago.</p></div>
+    <div class="cf rv d3"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></div><h4>Libro de Reclamaciones</h4><p><a href="libro-reclamaciones.html">Disponible en línea</a>.</p></div>
+  </div>
+</div></section>
+
 <!-- ═════════ FAQ ═════════ -->
 <section class="sec"><div class="wrap faq-grid">
   <h2 class="h2 rv" style="font-size:clamp(30px,3.4vw,44px)">Preguntas frecuentes</h2>
   <div class="faq rv d1">
     <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí. Respondes 11 preguntas y ves tu resultado completo. No pedimos tarjeta.</p></details>
-    <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. Ves tu diagnóstico y tú decides.</p></details>
+    <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. Ves tu diagnóstico y tú decides si reservas la asesoría.</p></details>
     <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. Casi siempre la venta se pierde después del mensaje, no en el anuncio.</p></details>
-    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu resultado en pantalla. Si quieres ayuda para corregirlo, puedes reservar una asesoría. Es opcional.</p></details>
+    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu resultado en pantalla. Si quieres corregirlo, eliges un horario para la asesoría de S/49. Es opcional.</p></details>
+    <details><summary>¿En la asesoría me van a vender algo?</summary><p>Al final te mostramos cómo trabajamos mes a mes. Tú decides, sin presión.</p></details>
     <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no empezamos por el anuncio: la fuga suele estar en lo que pasa después.</p></details>
   </div>
 </div></section>
@@ -664,6 +737,7 @@ addEventListener('scroll',alScroll,{passive:true});
 /* revelado */
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.18});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const LEG=(window.CFG&&CFG.LEGAL)||{}; document.querySelectorAll('[data-l]').forEach(el=>el.textContent=LEG[el.dataset.l]||'');
 
 /* contador */
 function cuenta(el,to,{ms=1400,pre='',fmt=v=>v.toLocaleString('en-US'),desde=0}={}){
@@ -747,13 +821,14 @@ function historia(){
 
 /* ═════════ CÓMO FUNCIONA: demo del diagnóstico ═════════ */
 (function(){
-  const V=[$('v1'),$('v2'),$('v3')], P=[...$('pasosC').children], cur=$('dCur'), demo=$('demo');
+  const V=[$('v1'),$('v2'),$('v3'),$('v4')], P=[...$('pasosC').children], cur=$('dCur'), demo=$('demo');
   let timers=[], activo=false;
   const T=(ms,fn)=>timers.push(setTimeout(fn,reduce?0:ms));
-  const ver=k=>{ V.forEach((v,i)=>v.classList.toggle('on',i===k)); P.forEach((p,i)=>p.classList.toggle('on',i===k)); };
+  const PASO=[0,1,1,2];
+  const ver=k=>{ V.forEach((v,i)=>v.classList.toggle('on',i===k)); P.forEach((p,i)=>p.classList.toggle('on',i===PASO[k])); };
   function ciclo(){
     timers.forEach(clearTimeout); timers=[];
-    ver(0); $('dOp').classList.remove('sel'); $('dBar').style.width='18%'; $('dTxt').textContent='Pregunta 2 de 11';
+    ver(0); $('dOp').classList.remove('sel'); $('dBtn').classList.remove('clic'); $('dBar').style.width='18%'; $('dTxt').textContent='Pregunta 2 de 11';
     cur.style.opacity=1; cur.style.left='72%'; cur.style.top='88%';
     V[1].querySelectorAll('.paso-a').forEach(e=>e.classList.remove('act','ok'));
     V[2].querySelectorAll('.hall').forEach(e=>e.classList.remove('on')); $('dN').textContent='0'; $('dAn').style.setProperty('--p',0);
@@ -767,7 +842,11 @@ function historia(){
     T(5500,()=>{ ver(2); $('dTxt').textContent='Diagnóstico listo';
       const t0=performance.now(), f=t=>{ const k=Math.min(1,(t-t0)/1000), v=Math.round(38*(1-Math.pow(1-k,3))); $('dN').textContent=v; $('dAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
     [...V[2].querySelectorAll('.hall')].forEach((el,k)=>T(6100+k*300,()=>el.classList.add('on')));
-    if(!reduce) T(10500,()=>{ if(activo) ciclo(); });
+    T(8300,()=>{ ver(3); $('dTxt').textContent='Tu siguiente paso'; cur.style.opacity=1; cur.style.left='75%'; cur.style.top='92%'; });
+    T(8700,()=>{ const o=$('dBtn'), r=o.getBoundingClientRect(), d=demo.getBoundingClientRect(); cur.style.left=(r.left-d.left+r.width*.6)+'px'; cur.style.top=(r.top-d.top+r.height*.5)+'px'; });
+    T(9700,()=>{ cur.classList.add('clic'); $('dBtn').classList.add('clic'); });
+    T(9900,()=>{ cur.classList.remove('clic'); $('dBtn').classList.remove('clic'); });
+    if(!reduce) T(12000,()=>{ if(activo) ciclo(); });
   }
   enVista(demo,v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.3);
 })();
