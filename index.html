@@ -269,6 +269,12 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 .err{color:var(--rojo);font-size:15px;min-height:22px;margin:2px 0 8px}
 .atras{background:none;border:0;color:var(--gris);cursor:pointer;margin-top:22px;font-size:15px;padding:6px 0}
 .atras:hover{color:var(--tinta)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--tinta2);margin:6px 0 10px;cursor:pointer;line-height:1.45}
+.check input{width:18px;height:18px;margin-top:1px;flex:none;accent-color:var(--azul)}
+.check a{color:var(--azul);text-decoration:underline}
+.legal{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:13.5px}
+.legal a{color:rgba(255,255,255,.55);text-decoration:underline}
+.legal a:hover{color:#fff}
 .privado{font-size:13.5px;color:var(--gris);margin-top:12px;text-align:center;display:flex;gap:6px;justify-content:center;align-items:center}
 
 /* análisis */
@@ -463,6 +469,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <button class="btn" data-abrir>Hacer mi diagnóstico gratis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
   <div class="pie"><span class="logo" style="font-size:18px;color:#fff">7Legend<i>.</i></span><span>Sistemas de venta con IA · Lima, Perú · © <span id="y"></span></span></div>
+  <nav class="legal" aria-label="Información legal"><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos y condiciones</a><a href="libro-reclamaciones.html">Libro de Reclamaciones</a></nav>
 </div></footer>
 
 <div class="movil" id="movil"><button class="btn" data-abrir>Hacer mi diagnóstico gratis</button></div>
@@ -573,6 +580,8 @@ function pinta(){
       <label class="lb" for="c_negocio">Nombre de tu negocio</label><input id="c_negocio" class="campo" autocomplete="organization" value="${h(A.negocio||'')}">
       <label class="lb" for="c_whatsapp">WhatsApp</label><input id="c_whatsapp" class="campo" inputmode="tel" autocomplete="tel" placeholder="987 654 321" value="${h(A.whatsapp||'')}">
       <label class="lb" for="c_email">Email</label><input id="c_email" class="campo" type="email" autocomplete="email" placeholder="tu@negocio.com" value="${h(A.email||'')}">
+      <label class="check"><input type="checkbox" id="c_priv" ${A.acepta_privacidad?'checked':''}><span>Acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para preparar mi diagnóstico y escribirme sobre él por WhatsApp o correo.</span></label>
+      <label class="check"><input type="checkbox" id="c_mkt" ${A.acepta_marketing?'checked':''}><span>Quiero recibir consejos y ofertas de 7Legend por WhatsApp o correo (opcional).</span></label>
       <div class="err" id="err" role="alert"></div>
       <button class="btn full" id="ver">Ver mi diagnóstico</button>
       <p class="privado"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Tus datos solo se usan para tu diagnóstico. No te vamos a llamar.</p></div>`;
@@ -599,6 +608,8 @@ async function enviar(){
   if(c.negocio.length<2) return err.textContent='Escribe el nombre de tu negocio.';
   if(tel.length<9) return err.textContent='Revisa tu WhatsApp: debe tener al menos 9 dígitos.';
   if(!/^\S+@\S+\.\S+$/.test(c.email)) return err.textContent='Revisa tu email: falta el @ o el dominio.';
+  if(!$('c_priv').checked) return err.textContent='Para preparar tu diagnóstico necesitamos que aceptes la Política de Privacidad.';
+  c.acepta_privacidad=true; c.acepta_marketing=$('c_mkt').checked;
   enviando=true; c.whatsapp=tel.length===9?'51'+tel:tel; Object.assign(A,c);
   const p=new URLSearchParams(location.search), eid='lead_'+Date.now();
   const datos={...A, event_id:eid, utm_source:p.get('utm_source')||'', utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||'', fbclid:p.get('fbclid')||'', url:location.href};
@@ -615,6 +626,7 @@ async function enviar(){
     if(!r||!Array.isArray(r.hallazgos)||!r.hallazgos.length) throw 0;
   }catch(e){ r=respaldo(A); }
   await minimo;
+  respaldoLead(r);
   A._listo=true; enviando=false; resultado(r);
 }
 
@@ -641,6 +653,18 @@ function respaldo(a){
   const califica=!/Menos de S\/3,000/.test(a.facturacion||'')||/S\/300 – S\/1,000|S\/1,000 – S\/3,000|Más de S\/3,000/.test(a.inversion||'');
   s=Math.max(22,s);
   return {puntaje:s,nivel:s<40?'Crítico':s<60?'En riesgo':'Mejorable',titular:'Tu negocio tiene demanda, pero la estás perdiendo en partes clave del proceso.',hallazgos:H.slice(0,3),perdida_estimada:'',califica,lead_id:''};
+}
+
+/* copia de seguridad del lead en tu Google Sheet (por si n8n falla) */
+function respaldoLead(r){
+  try{
+    const p=new URLSearchParams(location.search);
+    const lead={...A, lead_id:r.lead_id||'', califica:r.califica===false?'NO':'SI', puntaje:r.puntaje||'', nivel:r.nivel||'',
+      hallazgos:(r.hallazgos||[]).map(x=>'• '+x.titulo).join('\n'), utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||''};
+    delete lead._listo;
+    const body=JSON.stringify({action:'respaldo',lead});
+    if(CFG.API_URL&&CFG.API_URL.startsWith('http')) fetch(CFG.API_URL,{method:'POST',body,keepalive:true,mode:'no-cors'}).catch(()=>{});
+  }catch(e){}
 }
 
 function resultado(r){
@@ -674,7 +698,8 @@ function resultado(r){
     const msg=encodeURIComponent(`Hola, soy ${A.nombre}. Hice el diagnóstico de Mora y quiero la guía gratuita.`);
     x+=`<div class="precio"><h3 style="font-size:24px;letter-spacing:-.03em;margin-bottom:10px">Tu siguiente paso</h3>
       <p style="color:rgba(255,255,255,.7);margin-bottom:22px">Por la etapa de tu negocio, lo que más te conviene ahora es ordenar la base. Te enviamos gratis una guía con los 5 ajustes que más impacto tienen en negocios como el tuyo.</p>
-      <a class="btn full" href="https://wa.me/${CFG.WHATSAPP}?text=${msg}">Recibir la guía por WhatsApp</a></div>`;
+      <a class="btn full" href="guia.html" target="_blank">Ver la guía gratuita</a>
+      <a href="https://wa.me/${CFG.WHATSAPP}?text=${msg}" style="display:block;text-align:center;margin-top:14px;color:rgba(255,255,255,.75);font-size:15px">Prefiero que me la envíen por WhatsApp</a></div>`;
   }
   esc.innerHTML=x+'</div>'; quiz.scrollTop=0;
   const t0=performance.now(), f=t=>{const k=Math.min(1,(t-t0)/1200), v=Math.round(p*(1-Math.pow(1-k,3))); const n=$('rN'); if(!n) return; n.textContent=v; $('rAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);

@@ -164,8 +164,12 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--t2);margin:4px
     <input class="campo" id="fNegocio" autocomplete="organization">
     <label class="lb" for="fWa">WhatsApp</label>
     <input class="campo" id="fWa" inputmode="tel" autocomplete="tel" placeholder="987 654 321">
+    <label class="lb" for="fEmail">Correo</label>
+    <input class="campo" id="fEmail" type="email" autocomplete="email" placeholder="tu@negocio.com">
+    <p class="ayuda">Ahí te llega la confirmación con el link de Google Meet y los recordatorios.</p>
     <div class="err" id="err3" role="alert"></div>
     <button class="btn" id="reservar">Confirmar mi reserva</button>
+    <p class="ayuda" style="margin:12px 0 0;text-align:center">Al confirmar aceptas los <a href="terminos.html" target="_blank" style="color:var(--a)">Términos y condiciones</a> y la <a href="privacidad.html" target="_blank" style="color:var(--a)">Política de Privacidad</a>.</p>
     <button class="link" data-volver="2">← Volver al pago</button>
   </section>
 
@@ -182,6 +186,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--t2);margin:4px
   </section>
 
   <p class="seguro">Tus datos solo se usan para tu asesoría.</p>
+  <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;font-size:13px;margin:-24px 0 40px"><a href="privacidad.html" style="color:var(--g)">Privacidad</a><a href="terminos.html" style="color:var(--g)">Términos</a><a href="libro-reclamaciones.html" style="color:var(--g)">Libro de Reclamaciones</a></nav>
 </div>
 
 <script>
@@ -195,7 +200,7 @@ let API=null, sel={fecha:'',hora:'',label:'',metodo:''};
 const qs=new URLSearchParams(location.search);
 let LEAD={}; try{ LEAD=JSON.parse(localStorage.getItem('mora_lead')||'{}'); }catch(e){}
 if(qs.get('ref')) LEAD.lead_id=qs.get('ref');
-$('fNombre').value=LEAD.nombre||''; $('fNegocio').value=LEAD.negocio||''; $('fWa').value=(LEAD.whatsapp||'').replace(/^51(?=\d{9}$)/,'');
+$('fNombre').value=LEAD.nombre||''; $('fEmail').value=LEAD.email||''; $('fNegocio').value=LEAD.negocio||''; $('fWa').value=(LEAD.whatsapp||'').replace(/^51(?=\d{9}$)/,'');
 track('InitiateCheckout',{content_name:'asesoria'});
 
 function paso(n){
@@ -271,12 +276,13 @@ $('ir3').onclick=()=>{ paso(3); setTimeout(()=>$('fOp').focus(),350); };
 
 /* ── paso 3: reservar ── */
 $('reservar').onclick=async()=>{
-  const d={action:'reservar',lead_id:LEAD.lead_id||'',email:LEAD.email||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
-    operacion:$('fOp').value.trim(),nombre:$('fNombre').value.trim(),negocio:$('fNegocio').value.trim(),whatsapp:$('fWa').value.replace(/\D/g,'')};
+  const d={action:'reservar',lead_id:LEAD.lead_id||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
+    operacion:$('fOp').value.trim(),email:$('fEmail').value.trim()||LEAD.email||'',nombre:$('fNombre').value.trim(),negocio:$('fNegocio').value.trim(),whatsapp:$('fWa').value.replace(/\D/g,'')};
   const err=$('err3');
   if(d.operacion.length<4) return err.textContent='Escribe el número de operación de tu pago.';
   if(d.nombre.length<2) return err.textContent='Escribe tu nombre.';
   if(d.whatsapp.length<9) return err.textContent='Revisa tu WhatsApp: debe tener al menos 9 dígitos.';
+  if(!/^\S+@\S+\.\S+$/.test(d.email)) return err.textContent='Revisa tu correo: ahí te enviamos el link de la asesoría.';
   err.textContent=''; const b=$('reservar'); b.disabled=true; b.textContent='Reservando…';
   let r=null;
   try{ const res=await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify(d)}); r=await res.json(); }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libro de Reclamaciones | 7Legend</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="paginas.css">
+<script src="config.js"></script>
+</head>
+<body>
+<header><div class="in"><a class="logo" href="./">7Legend<i>.</i></a><a class="vol" href="./">← Volver al inicio</a></div></header>
+<main>
+<h1>Libro de Reclamaciones</h1>
+<p class="meta">Conforme al Código de Protección y Defensa del Consumidor (Ley N.º 29571).</p>
+
+<div class="caja"><p><b>Proveedor:</b> <span data-l="titular"></span> · <b>RUC:</b> <span data-l="ruc"></span><br>
+<b>Domicilio:</b> <span data-l="domicilio"></span><br>
+<b>Fecha:</b> <span id="hoy"></span></p></div>
+
+<form id="form" novalidate>
+<fieldset><legend>1. Tus datos</legend>
+  <label class="lb" for="nombre">Nombre completo *</label><input class="campo" id="nombre" autocomplete="name" required>
+  <div class="fila2">
+    <div><label class="lb" for="tipo_doc">Tipo de documento *</label><select class="campo" id="tipo_doc"><option>DNI</option><option>Carné de extranjería</option><option>Pasaporte</option><option>RUC</option></select></div>
+    <div><label class="lb" for="num_doc">Número de documento *</label><input class="campo" id="num_doc" inputmode="numeric" required></div>
+  </div>
+  <label class="lb" for="domicilio">Domicilio *</label><input class="campo" id="domicilio" autocomplete="street-address" required>
+  <div class="fila2">
+    <div><label class="lb" for="telefono">Teléfono *</label><input class="campo" id="telefono" inputmode="tel" autocomplete="tel" required></div>
+    <div><label class="lb" for="email">Correo electrónico *</label><input class="campo" id="email" type="email" autocomplete="email" required></div>
+  </div>
+  <label class="lb" for="apoderado">Padre, madre o apoderado <small>(solo si eres menor de edad)</small></label><input class="campo" id="apoderado">
+</fieldset>
+
+<fieldset><legend>2. Servicio contratado</legend>
+  <div class="fila2">
+    <div><label class="lb" for="bien">Tipo</label><select class="campo" id="bien"><option>Servicio</option><option>Producto</option></select></div>
+    <div><label class="lb" for="monto">Monto reclamado <small>(opcional)</small></label><input class="campo" id="monto" placeholder="S/ 49"></div>
+  </div>
+  <label class="lb" for="descripcion_bien">Descripción</label><input class="campo" id="descripcion_bien" value="Asesoría 1 a 1 por Google Meet">
+</fieldset>
+
+<fieldset><legend>3. Detalle</legend>
+  <label class="radio"><input type="radio" name="tipo" value="Reclamo" checked><span><b>Reclamo:</b> disconformidad relacionada con el servicio contratado.</span></label>
+  <label class="radio"><input type="radio" name="tipo" value="Queja"><span><b>Queja:</b> disconformidad no relacionada con el servicio, o malestar con la atención recibida.</span></label>
+  <label class="lb" for="detalle">Detalle de lo ocurrido *</label><textarea class="campo" id="detalle" maxlength="1500" required></textarea>
+  <label class="lb" for="pedido">¿Qué solicitas? *</label><textarea class="campo" id="pedido" maxlength="1500" required></textarea>
+</fieldset>
+
+<p style="font-size:14px;margin-bottom:16px">La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el Indecopi. Responderemos tu reclamo en un plazo máximo de <b>15 días hábiles</b>. Recibirás una copia de esta hoja en tu correo.</p>
+<div class="err" id="err" role="alert"></div>
+<button class="btn" id="enviar" type="submit">Registrar</button>
+</form>
+<div id="listo" hidden></div>
+</main>
+<footer><div class="in"><span>© <span id="y"></span> <span data-l="titular"></span> · RUC <span data-l="ruc"></span></span>
+<nav><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a><a href="libro-reclamaciones.html">Libro de Reclamaciones</a></nav></div></footer>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+const L=(window.CFG&&CFG.LEGAL)||{};
+document.querySelectorAll('[data-l]').forEach(el=>{ const v=L[el.dataset.l]||''; if(el.tagName==='A'&&el.dataset.l==='correo'){ el.href='mailto:'+v; } el.textContent=v; });
+</script>
+
+<script>
+document.getElementById('hoy').textContent=new Date().toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim(), err=document.getElementById('err'), b=document.getElementById('enviar');
+  const d={action:'reclamo',nombre:v('nombre'),tipo_doc:v('tipo_doc'),num_doc:v('num_doc'),domicilio:v('domicilio'),telefono:v('telefono'),email:v('email'),
+    apoderado:v('apoderado'),bien:v('bien'),monto:v('monto'),descripcion_bien:v('descripcion_bien'),
+    tipo:document.querySelector('input[name=tipo]:checked').value,detalle:v('detalle'),pedido:v('pedido'),proveedor:(window.CFG&&CFG.LEGAL)||{}};
+  for(const k of ['nombre','num_doc','domicilio','telefono','email','detalle','pedido']) if(!d[k]){ err.textContent='Completa todos los campos marcados con *.'; document.getElementById(k).focus(); return; }
+  if(!/^\S+@\S+\.\S+$/.test(d.email)){ err.textContent='Revisa tu correo electrónico.'; return; }
+  err.textContent=''; b.disabled=true; b.textContent='Registrando…';
+  let r=null; try{ const res=await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify(d)}); r=await res.json(); }catch(x){ r={ok:false,error:'No pudimos conectar. Revisa tu internet e inténtalo otra vez.'}; }
+  b.disabled=false; b.textContent='Registrar';
+  if(!r.ok){ err.textContent=r.error||'No se pudo registrar. Inténtalo otra vez.'; return; }
+  document.getElementById('form').hidden=true;
+  const l=document.getElementById('listo'); l.hidden=false;
+  l.innerHTML='<div class="ok"><h2>Registrado con el número '+r.numero+'</h2><p>Te enviamos una copia a <b>'+d.email.replace(/[<>&"]/g,'')+'</b>. Te responderemos a más tardar el <b>'+r.limite+'</b>.</p></div>';
+  scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>

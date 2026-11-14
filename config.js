@@ -16,6 +16,15 @@ window.CFG = {
   // Precio de la asesoría en soles
   PRECIO: 49,
 
+  // Datos legales (aparecen en Privacidad, Términos y Libro de Reclamaciones)
+  LEGAL: {
+    titular:   "Carlos Moreno Carrasco",            // tu nombre completo, como figura en SUNAT
+    ruc:       "10XXXXXXXXX",                        // tu RUC de persona natural (empieza con 10)
+    domicilio: "COMPLETAR: dirección fiscal, distrito, Lima",
+    correo:    "COMPLETAR@correo.com",               // correo para temas de datos personales y reclamos
+    marca:     "7Legend"
+  },
+
   // No cambiar
   RESERVA_URL: "reservar.html"
 };
