@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>¿Inviertes en anuncios y nadie te compra? Diagnóstico gratis | 7Legend</title>
+<title>¿Inviertes en anuncios, pero nadie te compra? Diagnóstico gratis | 7Legend</title>
 <meta name="description" content="Mora, la IA de 7Legend, te muestra en 3 minutos dónde se pierden tus ventas. Diagnóstico gratis.">
-<meta property="og:title" content="¿Inviertes en anuncios y nadie te compra?">
+<meta property="og:title" content="¿Inviertes en anuncios, pero nadie te compra?">
 <meta property="og:description" content="Descubre en 3 minutos dónde se pierden tus ventas. Diagnóstico gratis con IA.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#FFFFFF">
@@ -118,6 +118,14 @@ a{color:inherit;text-decoration:none}
 .op:last-child{margin-bottom:0}
 .op:hover{background:var(--azul-s);border-color:rgba(30,107,255,.35);transform:translateX(4px)}
 .op.sel{background:var(--azul-s);border-color:var(--azul)}
+.arranque .op{position:relative;overflow:hidden}
+.arranque .op.brilla{border-color:rgba(30,107,255,.45);background:var(--azul-s)}
+.arranque .op.brilla:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.85) 50%,transparent 80%);animation:barre .7s var(--ease) forwards}
+@keyframes barre{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.toca{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--azul);background:var(--azul-s);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.toca svg{animation:toque 1.4s ease-in-out infinite}
+@keyframes toque{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(-8deg)}}
+.arranque.tocado .toca{display:none}
 .op .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid #C9CBD1;flex:none;display:grid;place-items:center;transition:border-color .2s}
 .op.sel .rd{border-color:var(--azul)}
 .op.sel .rd:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--azul)}
@@ -195,10 +203,10 @@ a{color:inherit;text-decoration:none}
 .cinta small{display:block;text-align:center;font-size:13px;color:var(--gris2);margin-bottom:10px}
 
 /* ═════════ HISTORIA FIJADA (100 mensajes) ═════════ */
-.historia{background:var(--noche);color:#fff;position:relative;height:520vh}
+.historia{background:var(--noche);color:#fff;position:relative;height:450vh}
 .h-fija{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center;padding-top:68px}
 .h-fija:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(30,107,255,.22),transparent 70%);transition:background 1s}
-.historia[data-e="4"] .h-fija:before,.historia[data-e="5"] .h-fija:before{background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(229,72,77,.22),transparent 70%)}
+.historia[data-e="4"] .h-fija:before{background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(229,72,77,.22),transparent 70%)}
 .h-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;width:100%}
 .h-tit{font-size:clamp(30px,3.6vw,48px);line-height:1.05;letter-spacing:-.045em;font-weight:700;margin-bottom:34px}
 .h-tit span{color:rgba(255,255,255,.45)}
@@ -214,18 +222,18 @@ a{color:inherit;text-decoration:none}
 .contador{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
 .contador b{font-size:clamp(70px,9vw,128px);line-height:.9;font-weight:700;letter-spacing:-.06em;font-variant-numeric:tabular-nums;transition:color .5s}
 .contador span{font-size:18px;color:rgba(255,255,255,.6);max-width:180px;line-height:1.3}
-.historia[data-e="5"] .contador b{color:#FF6B70}
+.historia[data-e="3"] .contador b{color:var(--menta)}
 .puntos{display:grid;grid-template-columns:repeat(10,1fr);gap:clamp(6px,1vw,11px);max-width:min(480px,50vh)}
 .puntos i{aspect-ratio:1;border-radius:50%;background:var(--azul);box-shadow:0 0 12px rgba(30,107,255,.65);transition:background .6s var(--ease),box-shadow .6s,transform .6s var(--ease),opacity .6s}
 .puntos i.fuera{background:rgba(255,255,255,.1);box-shadow:none;transform:scale(.6)}
 .puntos i.cae{background:var(--rojo);box-shadow:0 0 14px rgba(229,72,77,.8);transform:scale(1.15)}
 .puntos i.vende{background:var(--menta);box-shadow:0 0 18px rgba(110,231,160,.9);transform:scale(1.25)}
 .nota{font-size:12.5px;color:rgba(255,255,255,.35);margin-top:18px}
-.h-final{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(11,13,20,.86);backdrop-filter:blur(6px);
+.h-final{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:var(--noche);
   opacity:0;pointer-events:none;transition:opacity .7s var(--ease)}
-.historia[data-e="5"] .h-final{opacity:1;pointer-events:auto}
+.historia[data-e="4"] .h-final{opacity:1;pointer-events:auto}
 .h-final h2{font-size:clamp(36px,5.4vw,76px);line-height:1;letter-spacing:-.05em;font-weight:700;max-width:900px;transform:translateY(20px);transition:transform .8s var(--ease)}
-.historia[data-e="5"] .h-final h2{transform:none}
+.historia[data-e="4"] .h-final h2{transform:none}
 .h-final p{color:rgba(255,255,255,.6);font-size:19px;margin:18px 0 30px}
 
 /* ═════════ CÓMO FUNCIONA ═════════ */
@@ -304,6 +312,19 @@ a{color:inherit;text-decoration:none}
 .hall h4 i{font-style:normal;color:var(--rojo)}
 .hall p{font-size:14.5px;color:var(--gris);margin:3px 0 0 20px}
 .hall.blur{filter:blur(4px);user-select:none}
+#reporte{position:relative;overflow:hidden}
+.escaner{position:absolute;left:0;right:0;top:0;height:90px;pointer-events:none;z-index:2;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(30,107,255,.10) 70%,rgba(30,107,255,.55) 98%,transparent);border-bottom:2px solid var(--azul);transform:translateY(-100px)}
+.escaner.va{opacity:1;animation:escanea 2.6s var(--ease) forwards}
+@keyframes escanea{0%{transform:translateY(-100px)}100%{transform:translateY(560px);opacity:0}}
+.r-it{opacity:.08;filter:blur(3px);transition:opacity .6s var(--ease),filter .6s var(--ease)}
+.r-it.ve{opacity:1;filter:none}
+.hall.bloq{position:relative}
+.hall.bloq h4{filter:blur(5px);user-select:none}
+.candado-r{position:absolute;inset:8px 0 0;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:600;color:var(--azul);
+  background:rgba(255,255,255,.55);border-radius:12px;opacity:0;transform:scale(.95);transition:all .5s var(--ease) .3s}
+.hall.bloq.ve .candado-r{opacity:1;transform:none}
+.candado-r svg{animation:toque 1.6s ease-in-out infinite}
 
 /* ═════════ OFERTA ═════════ */
 .of-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
@@ -350,7 +371,8 @@ a{color:inherit;text-decoration:none}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:after{content:"+";font-size:26px;font-weight:400;color:var(--gris);transition:transform .35s var(--ease)}
 .faq details[open] summary:after{transform:rotate(45deg)}
-.faq p{color:var(--gris);padding:0 40px 24px 0;animation:aparece .4s var(--ease)}
+.faq p{color:var(--gris);padding:0 40px 24px 0;animation:aparece .4s var(--ease);max-width:640px}
+.faq p b{color:var(--tinta);font-weight:600}
 
 /* cierre */
 .cierre{background:var(--noche);color:#fff;padding:130px 0 40px;position:relative;overflow:hidden;isolation:isolate}
@@ -368,6 +390,28 @@ a{color:inherit;text-decoration:none}
 .movil .btn{width:100%;box-shadow:0 14px 34px -10px rgba(30,107,255,.7)}
 
 
+ /* notificaciones reales */
+#social{position:fixed;right:20px;bottom:20px;z-index:44;display:flex;gap:12px;align-items:center;max-width:340px;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);border:1px solid var(--linea);border-radius:16px;padding:12px 16px 12px 12px;box-shadow:0 24px 50px -22px rgba(22,22,26,.45);
+  opacity:0;transform:translateY(16px) scale(.97);transition:opacity .45s var(--ease),transform .45s var(--ease);pointer-events:none}
+#social.on{opacity:1;transform:none;pointer-events:auto}
+#social .bd{position:relative;flex:none;width:40px;height:40px;border-radius:12px;background:var(--suave);display:grid;place-items:center}
+#social .bd img{width:24px;height:auto;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+#social .bd b{font-size:12px;font-weight:700;color:var(--tinta2)}
+#social .bd i{position:absolute;right:-4px;bottom:-4px;width:17px;height:17px;border-radius:50%;background:var(--verde);border:2px solid #fff;display:grid;place-items:center}
+#social .bd i:after{content:"";width:6px;height:3px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+#social strong{display:block;font-size:14px;line-height:1.25;letter-spacing:-.01em}
+#social span{font-size:13px;color:var(--gris)}
+#social button{position:absolute;right:6px;top:4px;background:none;border:0;color:var(--gris2);cursor:pointer;font-size:12px;padding:4px}
+@media (max-width:980px){ #social{left:12px;right:12px;bottom:84px;max-width:none} }
+ /* aviso de salida */
+#salida{position:fixed;inset:0;z-index:90;background:rgba(11,13,20,.55);backdrop-filter:blur(6px);display:none;place-items:center;padding:20px}
+#salida.on{display:grid;animation:qin .35s var(--ease)}
+.sal-box{position:relative;background:#fff;border-radius:26px;padding:36px;max-width:440px;width:100%;box-shadow:0 40px 90px -30px rgba(0,0,0,.5);animation:sube-s .5s var(--ease)}
+@keyframes sube-s{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.sal-box h3{font-size:28px;line-height:1.1;letter-spacing:-.04em;margin:16px 0 8px}
+.sal-box p{color:var(--gris);margin-bottom:22px}
+.sal-x{position:absolute;right:16px;top:14px;background:none;border:0;font-size:18px;color:var(--gris);cursor:pointer;padding:6px}
 /* ═════════ QUIZ ═════════ */
 #quiz{position:fixed;inset:0;z-index:100;background:#fff;display:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
 #quiz.on{display:block;animation:qin .4s var(--ease)}
@@ -422,6 +466,13 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 .res .hall{padding:18px 0}
 .res .hall h4{font-size:18px}
 .res .hall p{font-size:15.5px}
+.escribe-f{opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.escribe-f.va{opacity:1;transform:none}
+.escribe-f span:after{content:"";display:inline-block;width:2px;height:1em;background:var(--azul);margin-left:2px;vertical-align:-2px;animation:cursorT .8s steps(1) infinite}
+.escribe-f.listo span:after{display:none}
+@keyframes cursorT{50%{opacity:0}}
+.escribe-f p{opacity:0;transition:opacity .5s var(--ease)}
+.escribe-f.listo p{opacity:1}
 .candado{display:flex;gap:10px;align-items:center;border:1px dashed #CDD0D6;border-radius:14px;padding:14px 16px;color:var(--gris);margin-top:8px;font-size:15px}
 .res .precio{margin-top:28px;padding:32px 28px}
 .res .monto b{font-size:76px}
@@ -484,10 +535,10 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div class="wrap hero-grid">
     <div>
       <span class="etiqueta"><b>Gratis</b>Diagnóstico con IA en 3 minutos</span>
-      <h1 id="titular">¿Inviertes en anuncios y <span class="trazo">nadie te compra?<svg viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 90 4, 200 18, 396 7"/></svg></span></h1>
+      <h1 id="titular">¿Inviertes en anuncios, pero <span class="trazo">nadie te compra?<svg viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 90 4, 200 18, 396 7"/></svg></span></h1>
       <p class="sub">Casi nunca es el anuncio. Mora, nuestra IA, te muestra en 3 minutos <strong>dónde se pierden tus ventas</strong>.</p>
       <div class="arranque" id="arranque">
-        <div class="tit"><strong>Empieza aquí: ¿qué te pasa hoy?</strong><span>Pregunta 1 de 11</span></div>
+        <div class="tit"><strong>Empieza aquí: ¿qué te pasa hoy?</strong><span class="toca"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a2 2 0 014 0v6M13 10V8a2 2 0 014 0v4M17 11a2 2 0 014 0v3a7 7 0 01-7 7h-1a7 7 0 01-6-3l-3-5a2 2 0 013-2l2 2V11"/></svg>Toca una opción</span></div>
         <div id="ops0"></div>
       </div>
       <div class="garantias">
@@ -543,7 +594,6 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
           <li data-e="1"><small>1 · El filtro</small><b>Respondes 3 horas después</b><em>Le compraron a otro.</em></li>
           <li data-e="2"><small>2 · La venta</small><b>Sueltas el precio sin mostrar valor</b><em>Te dejaron en visto.</em></li>
           <li data-e="3"><small>3 · El seguimiento</small><b>Nadie les vuelve a escribir</b><em>Se enfriaron solos.</em></li>
-          <li data-e="4"><small>4 · El anuncio</small><b>Y la solución que te venden: más anuncios</b><em>Más mensajes que se pierden igual.</em></li>
         </ol>
       </div>
       <div>
@@ -567,7 +617,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <ol class="pasos-c" id="pasosC">
       <li class="on"><div class="c">1</div><div><b>Respondes 11 preguntas <span class="pill g">Gratis</span></b><span>Con un toque. 3 minutos.</span></div></li>
       <li><div class="c">2</div><div><b>Ves dónde pierdes ventas <span class="pill g">Gratis</span></b><span>Tu puntaje y tus 3 fugas, al instante.</span></div></li>
-      <li><div class="c">3</div><div><b>Las corregimos contigo <span class="pill p">S/49 · Opcional</span></b><span>Asesoría 1 a 1 por Google Meet.</span></div></li>
+      <li><div class="c">3</div><div><b>Lo revisamos contigo <span class="pill p">S/49 · Opcional</span></b><span>Asesoría 1 a 1 por Google Meet.</span></div></li>
     </ol>
     <div class="sellos rv d1">
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Gratis</span>
@@ -603,7 +653,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
       <div class="mini-precio">
         <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Google Meet</span></div>
         <div class="monto"><sup>S/</sup><b>49</b></div>
-        <p>Corregimos tus 3 fugas, en vivo.</p>
+        <p>Analizamos tu sistema contigo.</p>
         <div class="btn full" id="dBtn">Elegir mi horario</div>
       </div>
     </div>
@@ -614,40 +664,38 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 <!-- ═════════ REPORTE ═════════ -->
 <section class="sec gris"><div class="wrap rep-grid">
   <div>
-    <h2 class="h2 rv">Esto es lo que recibes en 3 minutos.</h2>
-    <ul class="lista rv d1">
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tu puntaje, pilar por pilar</b><span>Filtro, venta, seguimiento y anuncio.</span></div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tus 3 errores principales</b><span>Escritos para tu negocio.</span></div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Cuánto podrías estar perdiendo</b><span>Según tu ticket.</span></div></li>
-    </ul>
-    <button class="btn rv d2" data-abrir>Hacer mi diagnóstico gratis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <h2 class="h2 rv">Tu reporte, en 3 minutos.</h2>
+    <p class="lead rv d1">Tu puntaje, tus fugas y cuánto te cuestan.</p>
+    <button class="btn rv d2" data-abrir style="margin-top:32px">Ver mi reporte gratis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
   <div class="reporte rv d1" id="reporte">
-    <div class="rep-top"><span class="logo">7Legend<i>.</i></span><span>Ejemplo · Clínica estética</span></div>
-    <div class="rep-score"><div class="anillo" id="exAn"><b id="exN">0</b></div>
-      <div><small>Salud comercial: crítica</small><p>Te escriben, pero la venta se pierde después.</p></div></div>
-    <div class="pilares" id="exPil">
+    <div class="escaner" id="escaner"></div>
+    <div class="rep-top"><span class="logo">7Legend<i>.</i></span><span id="repEstado">Analizando…</span></div>
+    <div class="rep-score r-it"><div class="anillo" id="exAn"><b id="exN">0</b></div>
+      <div><small>Salud comercial</small><p id="exNivel">—</p></div></div>
+    <div class="pilares r-it" id="exPil">
       <div class="pil"><span>Filtro y respuesta</span><div class="bar"><i data-v="30"></i></div><b>30</b></div>
       <div class="pil"><span>Estructura de venta</span><div class="bar"><i data-v="30"></i></div><b>30</b></div>
       <div class="pil"><span>CRM y seguimiento</span><div class="bar"><i data-v="40"></i></div><b>40</b></div>
       <div class="pil ult"><span>Anuncios</span><div class="bar"><i data-v="60"></i></div><b>60</b></div>
     </div>
-    <div class="perd">Recuperar 4 clientes al mes serían S/1,400.</div>
-    <div class="hall"><h4><i>1</i>Respondes horas después</h4><p>La paciente ya reservó en otra clínica.</p></div>
-    <div class="hall"><h4><i>2</i>Das el precio antes que el valor</h4><p>S/350 suena caro y te dejan en visto.</p></div>
-    <div class="hall blur"><h4><i>3</i>No sabes en qué quedó cada paciente</h4><p>Nadie les vuelve a escribir.</p></div>
+    <div class="perd r-it">Podrías estar perdiendo S/1,400 al mes.</div>
+    <div class="hall r-it"><h4><i>1</i>Respondes horas después</h4></div>
+    <div class="hall r-it"><h4><i>2</i>Das el precio antes que el valor</h4></div>
+    <div class="hall r-it bloq"><h4><i>3</i>No sabes en qué quedó cada cliente</h4>
+      <div class="candado-r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Descubre tu fuga n.º 3 en tu diagnóstico</div></div>
   </div>
 </div></section>
 
 <!-- ═════════ ASESORÍA S/49 ═════════ -->
 <section class="sec"><div class="wrap of-grid">
   <div>
-    <h2 class="h2 rv">¿Quieres corregirlas? Lo hacemos contigo.</h2>
-    <p class="lead rv d1">Una hora por Google Meet, sobre tus chats reales. Sales con todo listo para aplicar.</p>
+    <h2 class="h2 rv">¿Quieres ir más a fondo? Lo revisamos contigo.</h2>
+    <p class="lead rv d1">Una hora por Google Meet. Analizamos tu sistema completo y sales con un plan claro.</p>
     <div class="ruta rv d2" id="ruta">
       <div class="etapa"><div class="c">1</div><div><h3>Haces tu diagnóstico</h3><p>Gratis, en 3 minutos.</p></div></div>
       <div class="etapa"><div class="c">2</div><div><h3>Eliges tu horario y pagas</h3><p>Yape, Plin o PayPal.</p></div></div>
-      <div class="etapa"><div class="c">3</div><div><h3>Nos vemos por Meet</h3><p>Llegas con tu diagnóstico listo.</p></div></div>
+      <div class="etapa"><div class="c">3</div><div><h3>Nos vemos por Meet</h3><p>Sales con tu plan de mejora.</p></div></div>
     </div>
   </div>
   <div class="precio rv d1">
@@ -655,10 +703,10 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <div class="monto"><sup>S/</sup><b>49</b></div>
     <p class="det">Pago único.</p>
     <ul>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus chats reales</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Armamos tu filtro de curiosos</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Tu guion: del “¿precio?” al cierre</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ordenamos tu seguimiento y tu anuncio</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus anuncios y sus resultados</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Analizamos cómo respondes, con tus chats reales</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Vemos cómo vendes y dónde se cae cada venta</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Te llevas un plan de mejora claro</li>
     </ul>
     <button class="btn full" data-abrir>Empezar con mi diagnóstico gratis</button>
     <p class="nota-p">Primero tu diagnóstico. Después eliges tu horario.</p>
@@ -666,28 +714,16 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   </div>
 </div></section>
 
-<!-- ═════════ RESPALDO ═════════ -->
-<section class="sec gris respaldo"><div class="wrap">
-  <h2 class="h2 rv">Trabajas con una empresa peruana.</h2>
-  <p class="lead rv d1">7Legend · Sistemas de venta con IA · Lima.</p>
-  <div class="confianza">
-    <div class="cf rv"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div><h4>Empresa formal</h4><p>RUC <span data-l="ruc"></span></p></div>
-    <div class="cf rv d1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div><h4>Pago seguro</h4><p>Yape, Plin o PayPal. Con comprobante.</p></div>
-    <div class="cf rv d2"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h4>Garantía total</h4><p>Si no te sirve, te devolvemos tu pago.</p></div>
-    <div class="cf rv d3"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></div><h4>Libro de Reclamaciones</h4><p><a href="libro-reclamaciones.html">Disponible en línea</a>.</p></div>
-  </div>
-</div></section>
-
 <!-- ═════════ FAQ ═════════ -->
 <section class="sec"><div class="wrap faq-grid">
   <h2 class="h2 rv" style="font-size:clamp(30px,3.4vw,44px)">Preguntas frecuentes</h2>
   <div class="faq rv d1">
-    <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí. Respondes 11 preguntas y ves tu resultado completo. No pedimos tarjeta.</p></details>
-    <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. Ves tu diagnóstico y tú decides si reservas la asesoría.</p></details>
-    <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. Casi siempre la venta se pierde después del mensaje, no en el anuncio.</p></details>
-    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu resultado en pantalla. Si quieres corregirlo, eliges un horario para la asesoría de S/49. Es opcional.</p></details>
-    <details><summary>¿En la asesoría me van a vender algo?</summary><p>Al final te mostramos cómo trabajamos mes a mes. Tú decides, sin presión.</p></details>
-    <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no empezamos por el anuncio: la fuga suele estar en lo que pasa después.</p></details>
+    <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí, <b>es 100% gratis y no pedimos tarjeta</b>. Respondes 11 preguntas rápidas y ves tu resultado completo en pantalla, en unos 3 minutos.</p></details>
+    <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. <b>Nadie te va a llamar.</b> Ves tu diagnóstico y, si quieres ir más a fondo, tú decides si reservas la asesoría.</p></details>
+    <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. <b>La mayoría de ventas se pierde después del mensaje</b>, no en el anuncio: en cómo respondes y das seguimiento. Todo está explicado en lenguaje simple.</p></details>
+    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu puntaje y tus fugas al instante. Si quieres que lo revisemos contigo, <b>eliges un horario para la asesoría de S/49</b> y pagas con Yape, Plin o PayPal. Es opcional.</p></details>
+    <details><summary>¿Qué pasa en la asesoría?</summary><p>Revisamos tus anuncios, cómo respondes y cómo vendes, y <b>sales con un plan de mejora claro</b>. Al final te mostramos cómo trabajamos mes a mes; tú decides, sin presión.</p></details>
+    <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no empezamos por el anuncio. <b>Casi siempre la fuga está en lo que pasa después</b>: la respuesta, la forma de vender y el seguimiento.</p></details>
   </div>
 </div></section>
 </main>
@@ -701,6 +737,18 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div class="pie"><span class="logo" style="font-size:18px;color:#fff">7Legend<i>.</i></span><span>Sistemas de venta con IA · Lima, Perú · © <span id="y"></span></span></div>
   <nav class="legal" aria-label="Información legal"><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos y condiciones</a><a href="libro-reclamaciones.html">Libro de Reclamaciones</a></nav>
 </div></footer>
+
+<div id="social" role="status" aria-live="polite"><div class="bd"><img id="soF" alt=""><b id="soC"></b><i></i></div><div><strong id="soQ"></strong><span id="soA"></span></div><button id="soX" aria-label="Ocultar">✕</button></div>
+
+<div id="salida" role="dialog" aria-modal="true" aria-labelledby="salTit">
+  <div class="sal-box">
+    <button class="sal-x" id="salX" aria-label="Cerrar">✕</button>
+    <span class="etiqueta"><b>Gratis</b>3 minutos</span>
+    <h3 id="salTit">Antes de irte: descubre dónde se pierden tus ventas.</h3>
+    <p>Tu diagnóstico es gratis y lo ves al instante.</p>
+    <button class="btn full" id="salOk">Hacer mi diagnóstico gratis</button>
+  </div>
+</div>
 
 <div class="movil" id="movil"><button class="btn" data-abrir>Hacer mi diagnóstico gratis</button></div>
 
@@ -729,7 +777,7 @@ function alScroll(){
   $('nav').classList.toggle('sombra',scrollY>10);
   const hr=$('historia').getBoundingClientRect(); $('nav').classList.toggle('oscuro',hr.top<=68&&hr.bottom>68);
   const fuera=$('arranque').getBoundingClientRect().bottom<0;
-  $('movil').classList.toggle('on',fuera && !$('quiz').classList.contains('on') && $('historia').dataset.e!=='5');
+  $('movil').classList.toggle('on',fuera && !$('quiz').classList.contains('on') && $('historia').dataset.e!=='4');
   historia();
 }
 addEventListener('scroll',alScroll,{passive:true});
@@ -788,12 +836,28 @@ function cuenta(el,to,{ms=1400,pre='',fmt=v=>v.toLocaleString('en-US'),desde=0}=
   }
 })();
 
+/* brillo que recorre las opciones de la primera pregunta hasta que toquen una */
+(function(){
+  if(reduce) return;
+  let parar=false, k=0;
+  const ar=$('arranque');
+  ar.addEventListener('pointerdown',()=>{ parar=true; ar.classList.add('tocado'); },{capture:true});
+  function paso(){
+    if(parar||$('quiz').classList.contains('on')) return;
+    const ops=[...$('ops0').children]; if(!ops.length) return setTimeout(paso,500);
+    ops.forEach(o=>o.classList.remove('brilla'));
+    if(k<ops.length){ ops[k].classList.add('brilla'); k++; setTimeout(paso,420); }
+    else { k=0; setTimeout(paso,2600); }
+  }
+  setTimeout(paso,2300);
+})();
+
 /* cinta infinita */
 $('cinta').innerHTML+=$('cinta').innerHTML;
 
 /* ═════════ HISTORIA: 100 mensajes ═════════ */
-const H=$('historia'), PH=$('puntosH'), QUEDAN=[100,42,14,3,3,3];
-const TXT=['personas interesadas','siguen interesadas','siguen interesadas','siguen interesadas','ventas de 100','ventas de 100'];
+const H=$('historia'), PH=$('puntosH'), QUEDAN=[100,42,14,3,3];
+const TXT=['personas interesadas','siguen interesadas','siguen interesadas','compran','compran'];
 let orden=[...Array(100).keys()], semilla=7; const rnd=()=>(semilla=(semilla*16807)%2147483647)/2147483647;
 for(let i=99;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [orden[i],orden[j]]=[orden[j],orden[i]]; }
 const rango=[]; orden.forEach((d,r)=>rango[d]=r);
@@ -804,19 +868,19 @@ function pintaEtapa(e){
   const q=QUEDAN[e];
   DOT.forEach((d,i)=>{
     const vivo=rango[i]<q;
-    d.classList.toggle('vende',e>=4&&vivo);
+    d.classList.toggle('vende',e>=3&&vivo);
     if(vivo){ d.classList.remove('fuera','cae'); }
     else if(!d.classList.contains('fuera')){ d.classList.add('cae'); setTimeout(()=>{ if(rango[i]>=QUEDAN[etapa]){ d.classList.remove('cae'); d.classList.add('fuera'); } },reduce?0:650); }
   });
   const el=$('cuentaH'), desde=+el.textContent||100, tk=++tokenH, t0=performance.now();
   const f=t=>{ if(tk!==tokenH) return; const k=reduce?1:Math.min(1,(t-t0)/900); el.textContent=Math.round(desde+(q-desde)*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f);
   $('cuentaTxt').textContent=TXT[e];
-  [...$('pasosH').children].forEach(li=>{ const n=+li.dataset.e; li.classList.toggle('on',n===Math.min(e,4)&&e>0); li.classList.toggle('hecho',n<e); });
+  [...$('pasosH').children].forEach(li=>{ const n=+li.dataset.e; li.classList.toggle('on',n===Math.min(e,3)&&e>0); li.classList.toggle('hecho',n<e); });
 }
 function historia(){
   const r=H.getBoundingClientRect(), total=r.height-innerHeight;
   const p=Math.min(1,Math.max(0,-r.top/total));
-  pintaEtapa(Math.min(5,Math.floor(p*6.2)));
+  pintaEtapa(Math.min(4,Math.floor(p*5.2)));
 }
 
 /* ═════════ CÓMO FUNCIONA: demo del diagnóstico ═════════ */
@@ -851,12 +915,69 @@ function historia(){
   enVista(demo,v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.3);
 })();
 
-/* ejemplo de reporte: el puntaje y las barras se llenan al verlo */
-new IntersectionObserver((e,o)=>{ if(!e[0].isIntersecting) return; o.disconnect();
-  document.querySelectorAll('#exPil i').forEach(i=>{const v=+i.dataset.v; i.style.setProperty('--c',v<40?'var(--rojo)':v<70?'#F59E0B':'var(--verde)'); i.style.width=v+'%';});
-  const an=$('exAn'), n=$('exN'); const t0=performance.now();
-  const f=t=>{const k=Math.min(1,(t-t0)/1300), v=Math.round(38*(1-Math.pow(1-k,3))); n.textContent=v; an.style.setProperty('--p',v); if(k<1&&!reduce) requestAnimationFrame(f); else {n.textContent=38;an.style.setProperty('--p',38);}}; requestAnimationFrame(f);
-},{threshold:.4}).observe($('reporte'));
+/* reporte que se arma solo (se repite mientras se ve) */
+(function(){
+  const R=$('reporte'), it=[...R.querySelectorAll('.r-it')], bars=[...R.querySelectorAll('#exPil i')];
+  let timers=[], activo=false;
+  const T=(ms,fn)=>timers.push(setTimeout(fn,reduce?0:ms));
+  function ciclo(){
+    timers.forEach(clearTimeout); timers=[];
+    it.forEach(e=>e.classList.remove('ve')); bars.forEach(b=>b.style.width='0'); $('exN').textContent='0'; $('exAn').style.setProperty('--p',0);
+    $('exNivel').textContent='—'; $('repEstado').textContent='Analizando…';
+    const sc=$('escaner'); sc.classList.remove('va'); void sc.offsetWidth; sc.classList.add('va');
+    T(250,()=>{ it[0].classList.add('ve'); const t0=performance.now(); const f=t=>{const k=Math.min(1,(t-t0)/1100), v=Math.round(38*(1-Math.pow(1-k,3))); $('exN').textContent=v; $('exAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f); else $('exNivel').textContent='Crítica: te escriben, pero no compran.';}; requestAnimationFrame(f); });
+    T(700,()=>{ it[1].classList.add('ve'); bars.forEach(b=>{const v=+b.dataset.v; b.style.setProperty('--c',v<40?'var(--rojo)':v<70?'#F59E0B':'var(--verde)'); b.style.width=v+'%';}); });
+    T(1300,()=>it[2].classList.add('ve'));
+    T(1700,()=>it[3].classList.add('ve'));
+    T(2050,()=>it[4].classList.add('ve'));
+    T(2400,()=>{ it[5].classList.add('ve'); $('repEstado').textContent='Diagnóstico listo'; });
+    if(!reduce) T(9000,()=>{ if(activo) ciclo(); });
+  }
+  enVista(R,v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.35);
+})();
+
+/* aviso al intentar salir (computadora, una vez por visita) */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches) return;
+  let visto=false; try{ visto=sessionStorage.getItem('sal7')==='1'; }catch(e){}
+  const S=$('salida'), cerrarS=()=>S.classList.remove('on');
+  document.addEventListener('mouseout',e=>{
+    if(visto||e.relatedTarget||e.clientY>8||$('quiz').classList.contains('on')||scrollY<300) return;
+    visto=true; try{ sessionStorage.setItem('sal7','1'); }catch(x){} S.classList.add('on');
+  });
+  $('salX').onclick=cerrarS; S.addEventListener('click',e=>{ if(e.target===S) cerrarS(); });
+  $('salOk').onclick=()=>{ cerrarS(); abrir(); };
+  addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarS(); });
+})();
+
+/* notificaciones con clientes y leads reales (desde tu Google Sheet) */
+(function(){
+  if(!window.CFG||!CFG.API_URL||!/^https?:/.test(CFG.API_URL)) return;
+  const S=$('social'), PN={pe:'Perú',co:'Colombia',mx:'México',cl:'Chile',ec:'Ecuador',ar:'Argentina',bo:'Bolivia',ve:'Venezuela',py:'Paraguay',uy:'Uruguay',pa:'Panamá',cr:'Costa Rica',gt:'Guatemala',do:'República Dominicana',es:'España',us:'Estados Unidos'};
+  let lista=[], k=0, mostradas=0, apagado=false;
+  const hace=ms=>{ if(!ms) return ''; const m=Math.max(1,Math.round((Date.now()-ms)/6e4));
+    if(m<60) return `hace ${m} min`; const hh=Math.round(m/60); if(hh<24) return `hace ${hh} h`; const d=Math.round(hh/24); if(d<14) return `hace ${d} día${d>1?'s':''}`;
+    const sem=Math.round(d/7); if(d<60) return `hace ${sem} semanas`; return 'hace unos meses'; };
+  const ocupado=()=>$('quiz').classList.contains('on')||$('salida').classList.contains('on');
+  function una(){
+    if(apagado||mostradas>=8||!lista.length) return;
+    const ar=$('arranque').getBoundingClientRect(), tapa=innerWidth<=980&&ar.bottom>0&&ar.top<innerHeight;
+    if(ocupado()||document.hidden||tapa) return setTimeout(una,3000);
+    const it=lista[k++%lista.length];
+    const fl=$('soF'); fl.style.display=''; $('soC').textContent=''; fl.onerror=()=>{ fl.style.display='none'; $('soC').textContent=it.p.toUpperCase(); };
+    fl.src=`https://flagcdn.com/w40/${it.p}.png`; fl.alt=PN[it.p]||'';
+    $('soQ').textContent=it.q+(it.c?` · ${it.c}`:'')+` · ${PN[it.p]||''}`;
+    $('soA').textContent=[it.a,hace(it.t)].filter(Boolean).join(' · ');
+    S.classList.add('on'); mostradas++;
+    setTimeout(()=>{ S.classList.remove('on'); setTimeout(una,9000+Math.random()*8000); },5200);
+  }
+  $('soX').onclick=()=>{ apagado=true; S.classList.remove('on'); };
+  fetch(CFG.API_URL+'?action=social').then(r=>r.json()).then(d=>{
+    lista=(d&&d.items||[]).filter(x=>x&&x.q);
+    for(let i=lista.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [lista[i],lista[j]]=[lista[j],lista[i]]; }
+    if(lista.length) setTimeout(una,8000);
+  }).catch(()=>{});
+})();
 
 /* luz del cierre */
 $('cierre').addEventListener('pointermove',e=>{ const r=$('cierre').getBoundingClientRect(); $('cierre').style.setProperty('--fx',(e.clientX-r.left)+'px'); $('cierre').style.setProperty('--fy',(e.clientY-r.top)+'px'); });
@@ -1030,21 +1151,21 @@ function resultado(r){
   const P=(r.pilares&&r.pilares.filtro!=null)?r.pilares:pilares(A);
   x+=`<div class="pilares" id="rPil">`+['filtro','ventas','crm','anuncios'].map(k=>{const v=Math.max(0,Math.min(100,+P[k]||0)); return `<div class="pil${k==='anuncios'?' ult':''}"><span>${PIL_N[k]}</span><div class="bar"><i data-v="${v}" style="--c:${v<40?'var(--rojo)':v<70?'#F59E0B':'var(--verde)'}"></i></div><b>${v}</b></div>`;}).join('')+`</div>`;
   if(r.perdida_estimada) x+=`<div class="perd">${h(r.perdida_estimada)}</div>`;
-  (r.hallazgos||[]).slice(0,3).forEach((f,k)=>x+=`<div class="hall"><h4><i>${k+1}</i>${h(f.titulo)}</h4><p>${h(f.detalle)}</p></div>`);
-  x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>El plan para corregir cada error lo armamos contigo en la asesoría.</div>`;
+  (r.hallazgos||[]).slice(0,3).forEach((f,k)=>x+=`<div class="hall escribe-f"><h4><i>${k+1}</i><span data-t="${h(f.titulo)}"></span></h4><p>${h(f.detalle)}</p></div>`);
+  x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Cómo corregir cada fuga lo vemos contigo en la asesoría.</div>`;
   if(r.califica!==false){
     try{ localStorage.setItem('mora_lead',JSON.stringify({lead_id:r.lead_id||'',nombre:A.nombre,negocio:A.negocio,whatsapp:A.whatsapp,email:A.email})); }catch(e){}
     const pay=CFG.RESERVA_URL+'?ref='+encodeURIComponent(r.lead_id||'');
     x+=`<div class="precio">
       <div class="top"><span>Asesoría 1 a 1 por Google Meet · 60 min</span><span>Precio de lanzamiento</span></div>
-      <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Corrijamos estas 3 fugas juntos, en vivo.</h3>
+      <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Revisemos juntos estas 3 fugas.</h3>
       <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
       <p class="det">Pago único · eliges tu horario y pagas con Yape, Plin o PayPal</p>
       <ul>
-        <li>${CHK}Revisamos tus chats reales</li>
-        <li>${CHK}Armamos tu filtro de curiosos</li>
-        <li>${CHK}Tu guion: del “¿precio?” al cierre</li>
-        <li>${CHK}Ordenamos tu seguimiento y tu anuncio</li>
+        <li>${CHK}Revisamos tus anuncios y sus resultados</li>
+        <li>${CHK}Analizamos cómo respondes, con tus chats reales</li>
+        <li>${CHK}Vemos cómo vendes y dónde se cae cada venta</li>
+        <li>${CHK}Te llevas un plan de mejora claro</li>
       </ul>
       <a class="btn full" href="${pay}" id="pagar">Elegir mi horario</a>
       <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si al terminar sientes que no te sirvió, te devolvemos el pago completo.</span></div>
@@ -1060,6 +1181,13 @@ function resultado(r){
   const t0=performance.now(), f=t=>{const k=Math.min(1,(t-t0)/1200), v=Math.round(p*(1-Math.pow(1-k,3))); const n=$('rN'); if(!n) return; n.textContent=v; $('rAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);
   setTimeout(()=>document.querySelectorAll('#rPil i').forEach(i=>i.style.width=i.dataset.v+'%'),reduce?0:150);
   const pg=$('pagar'); pg&&pg.addEventListener('click',()=>track('InitiateCheckout',{value:CFG.PRECIO,currency:'PEN'}));
+  /* Mora escribe cada fuga */
+  const fs=[...esc.querySelectorAll('.escribe-f')];
+  fs.forEach((el,k)=>setTimeout(()=>{
+    const sp=el.querySelector('span'), txt=sp.dataset.t; el.classList.add('va');
+    if(reduce){ sp.textContent=txt; el.classList.add('listo'); return; }
+    let n=0; const tk=setInterval(()=>{ sp.textContent=txt.slice(0,++n); if(n>=txt.length){ clearInterval(tk); el.classList.add('listo'); } },22);
+  },reduce?0:900+k*1500));
 }
 
 </script>
