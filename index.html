@@ -228,51 +228,41 @@ a{color:inherit;text-decoration:none}
 .historia[data-e="5"] .h-final h2{transform:none}
 .h-final p{color:rgba(255,255,255,.6);font-size:19px;margin:18px 0 30px}
 
-/* ═════════ ANTES / DESPUÉS ═════════ */
+/* ═════════ CÓMO FUNCIONA ═════════ */
 .sec{padding:120px 0}
 .sec.gris{background:var(--suave)}
 .h2{font-size:clamp(32px,4.2vw,54px);line-height:1.04;letter-spacing:-.05em;font-weight:700;max-width:780px}
 .lead{font-size:19px;color:var(--gris);max-width:560px;margin-top:16px}
-.centro{text-align:center}.centro .h2,.centro .lead{margin-left:auto;margin-right:auto}
-.duelo{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:64px}
-.lado{border-radius:28px;padding:30px 30px 0;position:relative;overflow:hidden;min-height:450px;display:flex;flex-direction:column}
-.lado.sin{background:#fff;border:1px solid var(--linea)}
-.lado.con{background:var(--noche);color:#fff}
-.lado.con:before{content:"";position:absolute;width:500px;height:500px;right:-200px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(30,107,255,.45),transparent 65%)}
-.lado>*{position:relative}
-.lado .cab{display:flex;justify-content:space-between;align-items:center}
-.lado h3{font-size:24px;letter-spacing:-.03em}
-.chip{font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px}
-.sin .chip{background:var(--rojo-s);color:var(--rojo)}
-.con .chip{background:rgba(110,231,160,.15);color:var(--menta)}
-.mini{flex:1;margin-top:24px;background:var(--wa);border-radius:22px 22px 0 0;padding:16px 14px;display:flex;flex-direction:column;gap:7px;
-  background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:14px 14px;color:var(--tinta)}
-.con .mini{background-color:#E9EDF5}
-.reloj{align-self:center;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;opacity:0;transition:opacity .4s}
-.reloj.on{opacity:1}
-.sin .reloj{background:#fff;color:var(--rojo);border:1px solid var(--rojo-s)}
-.con .reloj{background:#fff;color:var(--verde);border:1px solid #CBEFD9}
-.etq{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;
-  opacity:0;transform:scale(.8);transition:all .45s var(--ease)}
-.etq.on{opacity:1;transform:none}
-.etq.ok{background:var(--verde-s);color:var(--verde)}
-.etq.mal{background:var(--rojo-s);color:var(--rojo);align-self:center}
-.crm{position:absolute;left:30px;right:30px;bottom:24px;background:#fff;color:var(--tinta);border-radius:16px;padding:12px 14px;display:flex;gap:12px;align-items:center;
-  box-shadow:0 24px 50px -20px rgba(0,0,0,.55);opacity:0;transform:translateY(30px);transition:all .6s var(--ease)}
-.crm.on{opacity:1;transform:none}
-.crm .ic{width:36px;height:36px;border-radius:10px;background:var(--azul);color:#fff;display:grid;place-items:center;flex:none}
-.crm strong{display:block;font-size:14px;line-height:1.25}
-.crm span{font-size:12.5px;color:var(--gris)}
-.pilares-of{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
-.pilar{border:1px solid var(--linea);border-radius:20px;padding:22px;background:#fff;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
-.pilar:hover{transform:translateY(-4px);box-shadow:0 24px 40px -26px rgba(22,22,26,.35)}
-.pilar:before{content:"";position:absolute;inset:0;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(30,107,255,.1),transparent 60%);opacity:0;transition:opacity .3s}
-.pilar:hover:before{opacity:1}
-.pilar .n{width:34px;height:34px;border-radius:10px;background:var(--azul-s);color:var(--azul);display:grid;place-items:center;font-weight:700;font-size:15px;margin-bottom:14px}
-.pilar h4{font-size:18px;letter-spacing:-.02em;line-height:1.2}
-.pilar p{font-size:14.5px;color:var(--gris);margin-top:4px;line-height:1.45}
-.pilar.ult{border-style:dashed;background:transparent}
-.pilar.ult .n{background:var(--suave);color:var(--gris)}
+.como{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.pasos-c{list-style:none;margin:36px 0 30px;display:grid;gap:10px}
+.pasos-c li{display:flex;gap:16px;align-items:center;padding:16px 18px;border-radius:16px;border:1px solid transparent;color:var(--gris2);transition:all .5s var(--ease)}
+.pasos-c li .c{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;border:2px solid var(--linea);background:#fff;transition:all .5s var(--ease)}
+.pasos-c li b{display:block;font-size:19px;letter-spacing:-.02em;color:inherit}
+.pasos-c li span{font-size:15px}
+.pasos-c li.on{color:var(--tinta);background:#fff;border-color:var(--linea);box-shadow:0 20px 40px -28px rgba(22,22,26,.35)}
+.pasos-c li.on .c{border-color:var(--azul);background:var(--azul);color:#fff}
+.pasos-c li.on span{color:var(--gris)}
+.sellos{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+.sellos span{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;padding:7px 13px;border-radius:999px;background:#fff;border:1px solid var(--linea)}
+.sellos svg{color:var(--verde)}
+.demo{position:relative;background:#fff;border:1px solid var(--linea);border-radius:28px;padding:28px;min-height:410px;box-shadow:0 50px 90px -45px rgba(22,22,26,.4);overflow:hidden}
+.demo .barra-d{height:6px;border-radius:6px;background:var(--suave);overflow:hidden;margin-bottom:8px}
+.demo .barra-d i{display:block;height:100%;width:30%;background:var(--azul);border-radius:6px;transition:width .6s var(--ease)}
+.demo .meta-d{display:flex;justify-content:space-between;font-size:13px;color:var(--gris);margin-bottom:26px}
+.vista{position:absolute;left:28px;right:28px;top:76px;opacity:0;transform:translateX(30px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.vista.on{opacity:1;transform:none}
+.vista h4{font-size:24px;line-height:1.15;letter-spacing:-.035em;margin-bottom:18px}
+.vista .op{cursor:default}
+.vista .op:hover{transform:none;background:var(--suave);border-color:transparent}
+.vista .op.sel,.vista .op.sel:hover{background:var(--azul-s);border-color:var(--azul)}
+.cursor{position:absolute;width:22px;height:22px;z-index:3;left:70%;top:85%;transition:left .9s var(--ease),top .9s var(--ease),transform .15s;pointer-events:none;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+.cursor.clic{transform:scale(.8)}
+.vista .paso-a{font-size:16px}
+.vista .res-d{display:flex;gap:18px;align-items:center;margin-bottom:16px}
+.vista .res-d small{color:var(--gris);font-size:13px;display:block}
+.vista .res-d strong{font-size:17px;letter-spacing:-.02em;line-height:1.3}
+.vista .hall{opacity:0;transform:translateY(8px);transition:all .45s var(--ease)}
+.vista .hall.on{opacity:1;transform:none}
 
 /* ═════════ REPORTE ═════════ */
 .rep-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center}
@@ -423,7 +413,10 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 /* ═════════ RESPONSIVE ═════════ */
 @media (max-width:980px){
   .hero{padding:30px 0 56px}
-  .hero-grid,.rep-grid,.of-grid,.faq-grid,.duelo{grid-template-columns:1fr;gap:44px}
+  .hero-grid,.rep-grid,.faq-grid,.como{grid-template-columns:1fr;gap:44px}
+  .demo{min-height:430px;padding:22px}
+  .vista{left:22px;right:22px;top:70px}
+  .vista h4{font-size:21px}
   .escena{height:auto;display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:10px}
   .capa{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}
   .tel{width:280px;height:560px;order:2}
@@ -437,19 +430,12 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   .pasos-h li.on{display:block}
   .contador{margin-bottom:14px}
   .puntos{max-width:min(340px,42vh);gap:7px}
-  .pilares-of{grid-template-columns:1fr 1fr}
-  .lado{min-height:400px;padding:24px 22px 0}
-  .lado.sin{min-height:300px}
-  .crm{left:22px;right:22px}
   .reporte{transform:none}
   .movil{display:block}
 }
 @media (max-width:520px){
-  .pilares-of{grid-template-columns:1fr}
   .pil{grid-template-columns:118px 1fr 30px;font-size:13px}
   .arranque{padding:16px}
-  .precio{padding:30px 24px}
-  .monto b{font-size:86px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}
@@ -549,39 +535,46 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   </div>
 </section>
 
-<!-- ═════════ ANTES / DESPUÉS ═════════ -->
-<section class="sec"><div class="wrap">
-  <div class="centro">
-    <h2 class="h2 rv">El mismo mensaje. Otro final.</h2>
-    <p class="lead rv d1">Cuando la venta no depende de que tengas tiempo.</p>
-  </div>
-  <div class="duelo" id="duelo">
-    <div class="lado sin rv">
-      <div class="cab"><h3>Sin sistema</h3><span class="chip">Venta perdida</span></div>
-      <div class="mini" id="miniSin">
-        <div class="msg el">¿Precio?</div>
-        <div class="reloj">⏱ 3 h 12 min</div>
-        <div class="msg yo">S/350</div>
-        <div class="etq mal">✓✓ Visto · sin respuesta</div>
-      </div>
+<!-- ═════════ CÓMO FUNCIONA ═════════ -->
+<section class="sec"><div class="wrap como">
+  <div>
+    <h2 class="h2 rv">Tu diagnóstico, en 3 minutos.</h2>
+    <ol class="pasos-c" id="pasosC">
+      <li class="on"><div class="c">1</div><div><b>Respondes 11 preguntas</b><span>Con un toque. Sin escribir casi nada.</span></div></li>
+      <li><div class="c">2</div><div><b>Mora analiza tu negocio</b><span>Nuestra IA revisa cada respuesta.</span></div></li>
+      <li><div class="c">3</div><div><b>Ves dónde pierdes ventas</b><span>Tu puntaje y tus 3 fugas, al instante.</span></div></li>
+    </ol>
+    <div class="sellos rv d1">
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Gratis</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Sin tarjeta</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Sin llamadas</span>
     </div>
-    <div class="lado con rv d1">
-      <div class="cab"><h3>Con 7Legend</h3><span class="chip">Lista para cerrar</span></div>
-      <div class="mini" id="miniCon">
-        <div class="msg el">¿Precio?</div>
-        <div class="reloj">⚡ 3 segundos</div>
-        <div class="msg yo ia"><b>Mora · IA</b>¡Hola! Te doy el precio exacto: ¿es para ti y para cuándo?</div>
-        <div class="msg el">Para mí, esta semana</div>
-        <div class="etq ok">✓ Calificada por Mora</div>
-      </div>
-      <div class="crm" id="crmAviso"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div><div><strong>Nueva prospecta lista para cerrar</strong><span>CRM · María C. quiere agendar esta semana</span></div></div>
-    </div>
+    <button class="btn rv d2" data-abrir>Empezar mi diagnóstico <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
-  <div class="pilares-of" id="pilaresOf">
-    <div class="pilar rv"><div class="n">1</div><h4>Mora filtra</h4><p>Responde en segundos y separa curiosos de compradores.</p></div>
-    <div class="pilar rv d1"><div class="n">2</div><h4>Tú vendes mejor</h4><p>Guion y capacitación de ventas.</p></div>
-    <div class="pilar rv d2"><div class="n">3</div><h4>El CRM te avisa</h4><p>Nadie se queda sin seguimiento.</p></div>
-    <div class="pilar ult rv d3"><div class="n">4</div><h4>Y al final, anuncios</h4><p>Sobre un proceso que ya vende.</p></div>
+  <div class="demo rv d1" id="demo" aria-hidden="true">
+    <div class="barra-d"><i id="dBar"></i></div>
+    <div class="meta-d"><span id="dTxt">Pregunta 2 de 11</span><span>Mora · IA</span></div>
+    <div class="vista on" id="v1">
+      <h4>Cuando alguien te escribe, ¿en cuánto tiempo le respondes?</h4>
+      <div class="op"><span class="rd"></span>En menos de 5 minutos</div>
+      <div class="op"><span class="rd"></span>Entre 5 y 30 minutos</div>
+      <div class="op" id="dOp"><span class="rd"></span>Entre 1 y 3 horas</div>
+      <div class="op"><span class="rd"></span>Más de 3 horas</div>
+    </div>
+    <div class="vista analiza" id="v2">
+      <h4>Mora está analizando tu negocio…</h4>
+      <div class="paso-a"><span class="ic"></span>Tu filtro y tu respuesta</div>
+      <div class="paso-a"><span class="ic"></span>Cómo vendes</div>
+      <div class="paso-a"><span class="ic"></span>Tu seguimiento</div>
+      <div class="paso-a"><span class="ic"></span>Tu anuncio</div>
+    </div>
+    <div class="vista" id="v3">
+      <div class="res-d"><div class="anillo" id="dAn"><b id="dN">0</b></div><div><small>Salud comercial: crítica</small><strong>Te escriben, pero la venta se pierde después.</strong></div></div>
+      <div class="hall"><h4><i>1</i>Respondes horas después</h4></div>
+      <div class="hall"><h4><i>2</i>Das el precio antes que el valor</h4></div>
+      <div class="hall"><h4><i>3</i>Nadie vuelve a escribir</h4></div>
+    </div>
+    <svg class="cursor" id="dCur" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#16161A" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
   </div>
 </div></section>
 
@@ -613,38 +606,14 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   </div>
 </div></section>
 
-<!-- ═════════ OFERTA ═════════ -->
-<section class="sec"><div class="wrap of-grid">
-  <div>
-    <h2 class="h2 rv">El diagnóstico es gratis. Si quieres, lo corregimos contigo.</h2>
-    <div class="ruta" id="ruta">
-      <div class="etapa"><div class="c">1</div><div><h3>Haces tu diagnóstico <span class="pill g">Gratis</span></h3><p>11 preguntas rápidas.</p></div></div>
-      <div class="etapa"><div class="c">2</div><div><h3>Ves tus errores al instante <span class="pill g">Gratis</span></h3><p>Puntaje y tus 3 fugas.</p></div></div>
-      <div class="etapa"><div class="c">3</div><div><h3>Los corregimos en vivo <span class="pill p">Opcional</span></h3><p>60 min por Google Meet.</p></div></div>
-    </div>
-  </div>
-  <div class="precio rv d1">
-    <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Precio de lanzamiento</span></div>
-    <div class="monto"><sup>S/</sup><b>49</b></div>
-    <p class="det">Pago único. Solo si quieres, después de tu diagnóstico.</p>
-    <ul>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus chats reales</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Armamos tu filtro de curiosos</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Tu guion: del “¿precio?” al cierre</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ordenamos tu seguimiento y tu anuncio</li>
-    </ul>
-    <button class="btn full" data-abrir>Empezar mi diagnóstico gratis</button>
-    <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si no te sirvió, te devolvemos el pago completo.</span></div>
-  </div>
-</div></section>
-
 <!-- ═════════ FAQ ═════════ -->
-<section class="sec gris"><div class="wrap faq-grid">
+<section class="sec"><div class="wrap faq-grid">
   <h2 class="h2 rv" style="font-size:clamp(30px,3.4vw,44px)">Preguntas frecuentes</h2>
   <div class="faq rv d1">
     <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí. Respondes 11 preguntas y ves tu resultado completo. No pedimos tarjeta.</p></details>
     <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. Ves tu diagnóstico y tú decides.</p></details>
     <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. Casi siempre la venta se pierde después del mensaje, no en el anuncio.</p></details>
+    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu resultado en pantalla. Si quieres ayuda para corregirlo, puedes reservar una asesoría. Es opcional.</p></details>
     <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no empezamos por el anuncio: la fuga suele estar en lo que pasa después.</p></details>
   </div>
 </div></section>
@@ -694,7 +663,7 @@ addEventListener('scroll',alScroll,{passive:true});
 
 /* revelado */
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.18});
-document.querySelectorAll('.rv,#ruta').forEach(el=>io.observe(el));
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
 /* contador */
 function cuenta(el,to,{ms=1400,pre='',fmt=v=>v.toLocaleString('en-US'),desde=0}={}){
@@ -776,30 +745,32 @@ function historia(){
   pintaEtapa(Math.min(5,Math.floor(p*6.2)));
 }
 
-/* ═════════ ANTES / DESPUÉS ═════════ */
+/* ═════════ CÓMO FUNCIONA: demo del diagnóstico ═════════ */
 (function(){
-  const sin=[...$('miniSin').children], con=[...$('miniCon').children], crm=$('crmAviso');
+  const V=[$('v1'),$('v2'),$('v3')], P=[...$('pasosC').children], cur=$('dCur'), demo=$('demo');
   let timers=[], activo=false;
-  const set=(el,on)=>el.classList.toggle('on',on);
+  const T=(ms,fn)=>timers.push(setTimeout(fn,reduce?0:ms));
+  const ver=k=>{ V.forEach((v,i)=>v.classList.toggle('on',i===k)); P.forEach((p,i)=>p.classList.toggle('on',i===k)); };
   function ciclo(){
     timers.forEach(clearTimeout); timers=[];
-    [...sin,...con,crm].forEach(e=>set(e,false));
-    const T=(ms,fn)=>timers.push(setTimeout(fn,reduce?0:ms));
-    T(300,()=>{ set(sin[0],true); set(con[0],true); });
-    T(1000,()=>set(con[1],true));
-    T(1300,()=>set(sin[1],true));
-    T(1700,()=>set(con[2],true));
-    T(2600,()=>set(sin[2],true));
-    T(2900,()=>set(con[3],true));
-    T(3700,()=>{ set(sin[3],true); set(con[4],true); });
-    T(4500,()=>set(crm,true));
-    if(!reduce) T(10000,()=>{ if(activo) ciclo(); });
+    ver(0); $('dOp').classList.remove('sel'); $('dBar').style.width='18%'; $('dTxt').textContent='Pregunta 2 de 11';
+    cur.style.opacity=1; cur.style.left='72%'; cur.style.top='88%';
+    V[1].querySelectorAll('.paso-a').forEach(e=>e.classList.remove('act','ok'));
+    V[2].querySelectorAll('.hall').forEach(e=>e.classList.remove('on')); $('dN').textContent='0'; $('dAn').style.setProperty('--p',0);
+    T(700,()=>{ const o=$('dOp'), r=o.getBoundingClientRect(), d=demo.getBoundingClientRect(); cur.style.left=(r.left-d.left+r.width*.55)+'px'; cur.style.top=(r.top-d.top+r.height*.45)+'px'; });
+    T(1700,()=>{ cur.classList.add('clic'); $('dOp').classList.add('sel'); });
+    T(1850,()=>cur.classList.remove('clic'));
+    T(2300,()=>{ cur.style.opacity=0; $('dBar').style.width='100%'; $('dTxt').textContent='Analizando'; ver(1); });
+    const pa=[...V[1].querySelectorAll('.paso-a')];
+    pa.forEach((el,k)=>T(2500+k*650,()=>{ el.classList.add('act'); if(k>0){ pa[k-1].classList.remove('act'); pa[k-1].classList.add('ok'); } }));
+    T(2500+4*650,()=>{ pa[3].classList.remove('act'); pa[3].classList.add('ok'); });
+    T(5500,()=>{ ver(2); $('dTxt').textContent='Diagnóstico listo';
+      const t0=performance.now(), f=t=>{ const k=Math.min(1,(t-t0)/1000), v=Math.round(38*(1-Math.pow(1-k,3))); $('dN').textContent=v; $('dAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+    [...V[2].querySelectorAll('.hall')].forEach((el,k)=>T(6100+k*300,()=>el.classList.add('on')));
+    if(!reduce) T(10500,()=>{ if(activo) ciclo(); });
   }
-  enVista($('duelo'),v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.3);
+  enVista(demo,v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.3);
 })();
-
-/* luz que sigue al mouse en los pilares */
-document.querySelectorAll('.pilar').forEach(p=>p.addEventListener('pointermove',e=>{ const r=p.getBoundingClientRect(); p.style.setProperty('--mx',(e.clientX-r.left)+'px'); p.style.setProperty('--my',(e.clientY-r.top)+'px'); }));
 
 /* ejemplo de reporte: el puntaje y las barras se llenan al verlo */
 new IntersectionObserver((e,o)=>{ if(!e[0].isIntersecting) return; o.disconnect();
