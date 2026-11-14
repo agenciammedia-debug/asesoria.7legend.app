@@ -143,6 +143,12 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .guardar-bar{position:sticky;bottom:16px;margin-top:16px;display:flex;justify-content:flex-end}
 .guardar-bar .btn{box-shadow:0 10px 30px -10px rgba(30,107,255,.6);padding:12px 20px}
 
+/* avisos push */
+.aviso-push{display:flex;gap:14px;align-items:center;background:var(--as);border:1px solid rgba(30,107,255,.25);border-radius:16px;padding:14px 16px;margin-bottom:18px}
+.aviso-push p{flex:1;font-size:14px;color:#123B8F}
+.aviso-push p b{display:block;font-size:15px}
+.estado-push{font-size:13.5px;margin-top:10px;color:var(--g)}
+.estado-push.ok{color:var(--v);font-weight:600}
 /* toast */
 #toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--t);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;transition:all .35s var(--e);z-index:60;pointer-events:none;max-width:90vw}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -192,6 +198,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
   <main>
     <!-- HOY -->
     <div class="vista on" id="v-hoy">
+      <div class="aviso-push" id="avisoPush" hidden><p id="avisoPushTxt"><b>Activa las notificaciones</b>Te avisamos al instante de cada lead nuevo, cada pago y 30 min antes de cada asesoría.</p><button class="btn" id="btnPush">Activar</button></div>
       <div class="kpis" id="kpis"></div>
       <div class="grid2">
         <div class="pila">
@@ -276,6 +283,16 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
           <div class="ayuda">Aquí te envían la captura de su pago.</div>
           <label class="lb" for="aClave">Nueva clave del panel (opcional)</label><input class="campo" id="aClave" type="password" inputmode="numeric" maxlength="10">
         </div>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <h2>Notificaciones push <small>OneSignal</small></h2>
+        <div class="gestion">
+          <div><label class="lb" for="aOsApp">OneSignal App ID</label><input class="campo" id="aOsApp" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
+          <div><label class="lb" for="aOsKey">REST API Key</label><input class="campo" id="aOsKey" type="password" autocomplete="off"></div>
+        </div>
+        <p class="ayuda">La API Key se guarda en tu Apps Script, no en el Sheet ni en GitHub.</p>
+        <div class="acciones"><button class="btn sec" id="btnPush2">Activar en este dispositivo</button><button class="btn sec" id="btnPrueba">Enviar notificación de prueba</button></div>
+        <div class="estado-push" id="estadoPush"></div>
       </div>
       <div class="guardar-bar"><button class="btn" id="guardarAj">Guardar ajustes</button></div>
     </div>
@@ -507,13 +524,49 @@ document.addEventListener('click',async e=>{
 $('bAdd').onclick=async()=>{ const f=$('bFecha').value; if(!f) return toast('Elige una fecha',true);
   try{ await run('adm_bloqueo',f,$('bMotivo').value,false); $('bFecha').value=''; $('bMotivo').value=''; await cargar(); toast('Día bloqueado'); }catch(e){ toast(e.message,true); } };
 
+/* ── NOTIFICACIONES PUSH (OneSignal) ── */
+const esIOS=/iPhone|iPad|iPod/.test(navigator.userAgent), enApp=navigator.standalone||matchMedia('(display-mode: standalone)').matches;
+let PUSH_APP='';
+function iniciarPush(appId){
+  if(!appId||PUSH_APP===appId) return estadoPush();
+  PUSH_APP=appId;
+  window.OneSignalDeferred=window.OneSignalDeferred||[];
+  const sc=document.createElement('script'); sc.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; sc.defer=true; document.head.appendChild(sc);
+  OneSignalDeferred.push(async OS=>{
+    try{
+      await OS.init({appId, serviceWorkerPath:'panel/push/OneSignalSDKWorker.js', serviceWorkerParam:{scope:'/panel/push/'}});
+      await OS.login('7legend-panel');
+      OS.User.PushSubscription.addEventListener('change',estadoPush);
+      window._OS=OS; estadoPush();
+    }catch(e){ $('estadoPush').textContent='No se pudo iniciar OneSignal: '+(e.message||e); }
+  });
+}
+function estadoPush(){
+  const OS=window._OS, banner=$('avisoPush'), est=$('estadoPush');
+  if(!D||!D.config.onesignalAppId){ banner.hidden=true; est.textContent='Pega tu App ID y tu REST API Key de OneSignal y guarda.'; est.className='estado-push'; return; }
+  if(esIOS&&!enApp){ banner.hidden=false; $('avisoPushTxt').innerHTML='<b>Instala el panel para recibir avisos</b>En iPhone: botón Compartir → “Agregar a pantalla de inicio”, y abre el panel desde ese ícono.'; $('btnPush').hidden=true; est.textContent='En iPhone, las notificaciones solo funcionan desde el ícono en la pantalla de inicio.'; return; }
+  if(!OS){ est.textContent='Conectando con OneSignal…'; return; }
+  const on=OS.User.PushSubscription.optedIn;
+  banner.hidden=on; $('btnPush').hidden=false;
+  est.textContent=on?'✓ Este dispositivo recibe notificaciones.':(OS.Notifications.permissionNative==='denied'?'Bloqueaste las notificaciones. Actívalas en la configuración de tu navegador o teléfono para este sitio.':'Este dispositivo aún no recibe notificaciones.');
+  est.className='estado-push'+(on?' ok':'');
+}
+async function activarPush(){
+  if(!window._OS) return toast(D&&D.config.onesignalAppId?'OneSignal aún está cargando, intenta en unos segundos':'Primero guarda tu App ID de OneSignal en Pagos y ajustes',true);
+  try{ await _OS.User.PushSubscription.optIn(); await _OS.login('7legend-panel'); estadoPush(); if(_OS.User.PushSubscription.optedIn) toast('Notificaciones activadas'); }
+  catch(e){ toast('No se pudo activar: '+(e.message||e),true); }
+}
+$('btnPush').onclick=activarPush; $('btnPush2').onclick=activarPush;
+$('btnPrueba').onclick=async()=>{ $('btnPrueba').disabled=true; try{ const r=await run('adm_pushPrueba'); toast(r.detalle,!r.ok); }catch(e){ toast(e.message,true); } $('btnPrueba').disabled=false; };
+
 /* ── AJUSTES ── */
 const AJ={aYape:'yape',aYapeTit:'yapeTit',aPlin:'plin',aPlinTit:'plinTit',aPaypal:'paypal',aPaypalUsd:'paypalUsd',aPrecio:'precio',aDur:'duracion',aZoom:'zoom',aWa:'whatsapp'};
-function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; }
+function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; $('aOsApp').value=D.config.onesignalAppId||''; $('aOsKey').value=''; $('aOsKey').placeholder=D.config.onesignalKeySet?'•••••• guardada (escribe para cambiarla)':'os_v2_app_...'; iniciarPush(D.config.onesignalAppId); }
 $('guardarAj').onclick=async()=>{
   const c={}; Object.entries(AJ).forEach(([id,k])=>c[k]=$(id).value.trim());
   if(c.whatsapp&&c.whatsapp.replace(/\D/g,'').length===9) c.whatsapp='51'+c.whatsapp.replace(/\D/g,'');
   const nc=$('aClave').value.trim(); if(nc) c.nuevaClave=nc;
+  c.onesignalAppId=$('aOsApp').value.trim(); if($('aOsKey').value.trim()) c.onesignalKey=$('aOsKey').value.trim();
   $('guardarAj').disabled=true;
   try{ await run('adm_config',c); if(nc){ PIN=nc; guardaPin(nc); } await cargar(); toast('Ajustes guardados'); }catch(e){ toast(e.message,true); }
   $('guardarAj').disabled=false;
