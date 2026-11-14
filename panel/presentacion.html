@@ -289,7 +289,7 @@ h2 span{color:var(--g2)}
         <ul><li>Mora, filtro con IA 24/7</li><li>Capacitación de ventas quincenal</li><li>CRM con notificaciones</li><li>Gestión de anuncios</li><li>Reporte semanal</li></ul>
       </div>
       <div class="plan a" style="--i:3">
-        <div class="top"><h3>Plan Base</h3><span class="reco" id="recoBase" hidden>Recomendado para ti</span></div>
+        <div class="top"><h3>Plan Básico</h3><span class="reco" id="recoBase" hidden>Recomendado para ti</span></div>
         <div class="precio">S/<span data-c="planBase" style="font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit">800</span> <span>al mes</span></div>
         <span class="paga" id="pagaBase" hidden></span>
         <ul><li>Mora, filtro con IA 24/7</li><li>Capacitación de ventas mensual</li><li>CRM con notificaciones</li><li class="no">Gestión de anuncios</li><li>Reporte mensual</li></ul>
@@ -314,11 +314,11 @@ h2 span{color:var(--g2)}
     <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Próximos pasos</span></div>
     <h2 class="a" style="--i:1">Empezamos así.</h2>
     <div class="ruta">
-      <div class="r a" style="--i:2"><div class="n">1</div><h3>Pago por Yape o Plin</h3><p id="pagoNum">—</p></div>
-      <div class="r a" style="--i:3"><div class="n">2</div><h3>Firmamos el acuerdo</h3><p>Una página.</p></div>
+      <div class="r a" style="--i:2"><div class="n">1</div><h3>Eliges tu plan</h3><p>Hoy mismo activamos tu cupo.</p></div>
+      <div class="r a" style="--i:3"><div class="n">2</div><h3>Formalizamos el acuerdo</h3><p>Todo claro y por escrito.</p></div>
       <div class="r a" style="--i:4"><div class="n">3</div><h3>En 5 días, Mora filtrando</h3><p>Primer reporte al día 7.</p></div>
     </div>
-    <p class="pregunta a" style="--i:6">¿Empezamos con <span>el Pro o el Base</span>?</p>
+    <p class="pregunta a" style="--i:6">¿Empezamos con <span>el Pro o el Básico</span>?</p>
   </section>
 
   <div class="pie" id="pie"><span><span class="logo" style="color:inherit">7Legend<i>.</i></span> · <span data-c="negocio"></span></span><div class="puntos" id="puntos"></div><span id="num">1 / 9</span></div>
@@ -456,7 +456,6 @@ function pintar(l){
   document.querySelectorAll('[data-c="planPro"]').forEach(e=>e.textContent=soles(c.planPro||1500));
   document.querySelectorAll('[data-c="planBase"]').forEach(e=>e.textContent=soles(c.planBase||800));
   document.querySelectorAll('[data-c="precio"]').forEach(e=>e.textContent=num(c.precio)||49);
-  $('pagoNum').textContent=(c.yape||c.plin)?`Al ${c.yape||c.plin}`:'—';
   // pilares y diagnóstico
   PP=pilaresDe(x);
   $('pilares').innerHTML=PIL.map(p=>`<div class="pil${p.k==='anuncios'?' ult':''}"><span>${p.n}</span><div class="bar"><i data-v="${PP[p.k]}" style="--c:${col(PP[p.k])}"></i></div><b>${PP[p.k]}</b></div>`).join('');
@@ -473,7 +472,7 @@ function pintar(l){
   P=Math.max(0,Math.min(100,+x.puntaje||0)); $('nivel').textContent=x.nivel||'—';
   $('anillo').style.setProperty('--c',col(P));
   // plan recomendado
-  const base=/Plan:\s*Base/i.test(x.angulo_venta||'');
+  const base=/Plan:\s*(Base|B[aá]sico)/i.test(x.angulo_venta||'');
   $('recoPro').hidden=base; $('recoBase').hidden=!base;
   // bono: 72 horas
   const v=new Date(Date.now()+3*864e5);
