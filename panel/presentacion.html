@@ -41,40 +41,53 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
 .paso .min{margin-top:14px;font-size:14px;font-weight:600;color:var(--a)}
 
 /* 2 diagnóstico */
-.diag{display:grid;grid-template-columns:330px 1fr;gap:40px;margin-top:26px;flex:1;align-items:start}
-.puntaje{background:#fff;border:1px solid var(--l);border-radius:24px;padding:30px;text-align:center}
-.anillo{--p:0;--c:var(--r);width:190px;height:190px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:conic-gradient(var(--c) calc(var(--p)*1%),#EEF0F3 0);transition:--p 1s}
-.anillo b{width:150px;height:150px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:58px;font-weight:700;letter-spacing:-.04em}
+.diag{display:grid;grid-template-columns:380px 1fr;gap:36px;margin-top:20px;flex:1;align-items:start}
+.puntaje{background:#fff;border:1px solid var(--l);border-radius:24px;padding:24px 22px}
+.pt{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.pilares{display:grid;gap:11px}
+.pil{display:grid;grid-template-columns:158px 1fr 30px;gap:10px;align-items:center;font-size:15px}
+.pil span{font-weight:500}
+.pil .bar{height:9px;border-radius:99px;background:#EEF0F3;overflow:hidden}
+.pil .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--c,var(--r));transition:width 1s var(--e)}
+.pil b{text-align:right;font-variant-numeric:tabular-nums}
+.pil.ult span{color:var(--g)}
+.anillo{--p:0;--c:var(--r);width:120px;height:120px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--c) calc(var(--p)*1%),#EEF0F3 0);transition:--p 1s}
+.anillo b{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:40px;font-weight:700;letter-spacing:-.04em}
 .puntaje small{display:block;color:var(--g);font-size:15px}
 .puntaje strong{font-size:22px;letter-spacing:-.02em}
 .fugas{display:grid;gap:12px}
-.fuga{display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--l);border-radius:18px;padding:18px 22px;font-size:21px;font-weight:600;letter-spacing:-.02em}
+.fuga{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--l);border-radius:18px;padding:16px 20px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.fuga small{display:block;font-size:13px;font-weight:600;color:var(--r);letter-spacing:0;margin-bottom:2px}
 .fuga i{font-style:normal;width:36px;height:36px;border-radius:50%;background:var(--rs);color:var(--r);display:grid;place-items:center;font-size:17px;flex:none}
 .calc{margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--rs);border:1px solid #F6C9CB;border-radius:18px;padding:16px 22px;font-size:19px;color:#8E1D22}
 .calc input{width:120px;border:1px solid #E9AEB1;background:#fff;border-radius:10px;padding:8px 10px;font-size:19px;font-weight:600;text-align:right;color:var(--t)}
 .calc b{font-size:26px;letter-spacing:-.03em;color:var(--r)}
 
 /* 3 brecha */
-.brecha{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:auto}
-.br{border-radius:22px;padding:28px;border:2px solid var(--l);background:#fff;cursor:pointer;transition:all .3s var(--e);min-height:230px;display:flex;flex-direction:column}
-.br .estado{font-size:14px;font-weight:700;padding:5px 12px;border-radius:999px;align-self:flex-start;background:var(--rs);color:var(--r)}
-.br h3{font-size:24px;letter-spacing:-.03em;line-height:1.2;margin-top:18px}
-.br p{margin-top:auto;color:var(--g);font-size:16px}
-.br.ok{border-color:var(--v);background:var(--vs)}
-.br.ok .estado{background:var(--v);color:#fff}
+.brecha{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:auto}
+.br{border-radius:22px;padding:22px;border:1px solid var(--l);background:#fff;display:flex;flex-direction:column;gap:12px}
+.br .tt{display:flex;justify-content:space-between;align-items:center}
+.br h3{font-size:21px;letter-spacing:-.03em;line-height:1.15}
+.br .sc{font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--rs);color:var(--r)}
+.br .hoy,.br .falta{font-size:15px;line-height:1.4;padding:12px 14px;border-radius:14px}
+.br .hoy{background:var(--vs);color:#14532D}
+.br .falta{background:var(--s);color:var(--t2);margin-top:auto}
+.br small{display:block;font-size:12px;font-weight:700;margin-bottom:3px;opacity:.75}
+.br.ult{border-style:dashed;background:transparent}
 
 /* 4 planes */
-.planes{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:22px;flex:1}
-.plan{border-radius:24px;padding:30px 32px;border:1px solid var(--l);background:#fff;display:flex;flex-direction:column}
+.planes{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:14px;flex:1;max-height:390px}
+.plan{border-radius:24px;padding:24px 30px;border:1px solid var(--l);background:#fff;display:flex;flex-direction:column}
 .plan.pro{background:var(--t);color:#fff;border:0;position:relative;overflow:hidden}
 .plan.pro:before{content:"";position:absolute;width:420px;height:420px;right:-170px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(30,107,255,.5),transparent 65%)}
 .plan>*{position:relative}
 .plan .top{display:flex;justify-content:space-between;align-items:center}
 .plan h3{font-size:26px;letter-spacing:-.03em}
 .reco{font-size:13px;font-weight:700;background:var(--a);color:#fff;padding:5px 12px;border-radius:999px}
-.precio{font-size:62px;font-weight:700;letter-spacing:-.05em;margin:14px 0 2px;line-height:1}
+.precio{font-size:50px;font-weight:700;letter-spacing:-.05em;margin:8px 0 0;line-height:1}
 .precio span{font-size:20px;font-weight:500;letter-spacing:0;opacity:.6}
-.plan ul{list-style:none;margin-top:16px;display:grid;gap:9px;font-size:17.5px}
+.plan ul{list-style:none;margin-top:14px;display:grid;gap:7px;font-size:16px;line-height:1.32}
+.plan li b{font-weight:600}
 .plan li{display:flex;gap:10px}
 .plan li:before{content:"✓";font-weight:700;color:var(--v)}
 .plan.pro li:before{color:#6EE7A0}
@@ -125,11 +138,11 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
   <section class="lamina on" data-n="1">
     <div class="cab"><span class="logo">7Legend<i>.</i></span><span>Asesoría 1 a 1</span></div>
     <span class="eti"><b>60 min</b><span data-c="negocio">Tu negocio</span></span>
-    <h1>Hoy salimos con tu campaña lanzada, <span data-c="nombre">bienvenido</span>.</h1>
+    <h1>Hoy ordenamos lo que pasa después del mensaje, <span data-c="nombre">bienvenido</span>.</h1>
     <p class="sub">Así vamos a usar esta hora:</p>
     <div class="pasos">
-      <div class="paso"><div class="n">1</div><h3>Entiendo tu negocio</h3><p>Qué pasa hoy con tus anuncios y cuánto te cuesta.</p><div class="min">10 minutos</div></div>
-      <div class="paso"><div class="n">2</div><h3>Corregimos y lanzamos</h3><p>Tu oferta, tu público y tu anuncio, publicado en vivo.</p><div class="min">30 minutos</div></div>
+      <div class="paso"><div class="n">1</div><h3>Tus chats reales</h3><p>Me muestras 3 conversaciones y vemos en qué punto se cayó la venta.</p><div class="min">10 minutos</div></div>
+      <div class="paso"><div class="n">2</div><h3>Corregimos en vivo</h3><p>Tus preguntas filtro, tu guion de respuesta y cómo ordenar a tus prospectos. Al final, tu anuncio.</p><div class="min">35 minutos</div></div>
       <div class="paso"><div class="n">3</div><h3>Cómo seguimos</h3><p>Te muestro cómo trabajamos mes a mes. Tú decides si te interesa.</p><div class="min">10 minutos</div></div>
     </div>
   </section>
@@ -137,9 +150,9 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
   <!-- 2 · DIAGNÓSTICO -->
   <section class="lamina" data-n="2">
     <div class="cab"><span class="logo">7Legend<i>.</i></span><span>Tu diagnóstico</span></div>
-    <h2>Esto es lo que está frenando las ventas de <span data-c="negocio">tu negocio</span>.</h2>
+    <h2>Dónde se pierden las ventas de <span data-c="negocio">tu negocio</span>.</h2>
     <div class="diag">
-      <div class="puntaje"><div class="anillo" id="anillo"><b id="numP">0</b></div><small>Salud comercial</small><strong id="nivel">—</strong></div>
+      <div class="puntaje"><div class="pt"><div class="anillo" id="anillo"><b id="numP">0</b></div><div><small>Salud comercial</small><strong id="nivel">—</strong></div></div><div class="pilares" id="pilares"></div></div>
       <div>
         <div class="fugas" id="fugas"></div>
         <div class="calc">Cada cliente vale <span>S/</span><input id="cVal" inputmode="numeric" placeholder="500"> y se escapan <input id="cNum" inputmode="numeric" placeholder="4" style="width:70px"> al mes → <b id="cRes">S/ 0 al mes</b></div>
@@ -150,25 +163,25 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
   <!-- 3 · BRECHA -->
   <section class="lamina" data-n="3">
     <div class="cab"><span class="logo">7Legend<i>.</i></span><span>Lo que hicimos hoy</span></div>
-    <h2>Hoy cerramos una fuga. Las otras dos siguen abiertas.</h2>
-    <p class="sub">Esas no se arreglan en una hora: se arreglan con un sistema que trabaja todos los días.</p>
+    <h2>Hoy te llevas el plan. Lo difícil es cumplirlo todos los días.</h2>
+    <p class="sub">Responder en minutos, seguir el guion y anotar a cada prospecto, cada día y sin fallar. Eso no depende de las ganas: depende de un sistema.</p>
     <div class="brecha" id="brecha"></div>
   </section>
 
   <!-- 4 · PLANES -->
   <section class="lamina" data-n="4">
     <div class="cab"><span class="logo">7Legend<i>.</i></span><span>Cómo seguimos</span></div>
-    <h2>Un sistema que filtra y te avisa. Tú solo cierras.</h2>
+    <h2>Un sistema que filtra, te enseña a vender y no deja escapar a nadie.</h2>
     <div class="planes">
       <div class="plan pro" id="planPro">
         <div class="top"><h3>Plan Pro</h3><span class="reco" id="recoPro">Recomendado para ti</span></div>
         <div class="precio">S/<span data-c="planPro" style="font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit">1,500</span> <span>al mes</span></div>
-        <ul><li>Optimización semanal de tu embudo: si un anuncio vende, no se toca; corregimos lo que frena la venta</li><li>Mora, tu filtro con IA: solo hablas con prospectos que pueden comprar</li><li>CRM automatizado con notificaciones: cada prospecto ordenado y te avisa al instante</li><li>Landing de ventas 7Legend</li><li>Reporte semanal y reunión mensual</li></ul>
+        <ul><li><span><b>Mora, tu filtro con IA:</b> responde en segundos y te pasa solo a los que pueden comprar</span></li><li><span><b>Capacitación de ventas:</b> tu guion de respuesta y sesiones cada 15 días revisando chats reales</span></li><li><span><b>CRM automatizado con notificaciones:</b> cada prospecto ordenado y te avisa al instante</span></li><li><span><b>Gestión de tus anuncios:</b> si un anuncio vende, no se toca; optimizamos el flujo</span></li><li><span>Reporte semanal y reunión mensual</span></li></ul>
       </div>
       <div class="plan" id="planBase">
         <div class="top"><h3>Plan Base</h3><span class="reco" id="recoBase" hidden>Recomendado para ti</span></div>
         <div class="precio">S/<span data-c="planBase" style="font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit;color:inherit">800</span> <span>al mes</span></div>
-        <ul><li>Optimización semanal de tu embudo: si un anuncio vende, no se toca</li><li class="no">Mora, filtro de prospectos con IA</li><li class="no">CRM automatizado con notificaciones</li><li class="no">Landing de ventas</li><li>Reporte quincenal</li></ul>
+        <ul><li><span><b>Mora, tu filtro con IA</b></span></li><li><span><b>Guion de respuesta</b> y 1 capacitación al mes</span></li><li><span><b>CRM automatizado</b> con notificaciones</span></li><li class="no"><span>Gestión de anuncios (los manejas tú con nuestras recomendaciones)</span></li><li><span>Reporte mensual</span></li></ul>
       </div>
     </div>
   </section>
@@ -180,7 +193,7 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
     <h2>Tu asesoría de hoy se descuenta de tu primer mes.</h2>
     <div class="bono">
       <div class="c"><b>− S/<span data-c="precio">49</span></b><p>Descontamos lo que pagaste hoy de tu primer mes.</p></div>
-      <div class="c"><b>+ Setup incluido</b><p>Instalamos Mora y tu CRM automatizado sin costo adicional.</p></div>
+      <div class="c"><b>+ Setup incluido</b><p>Instalamos Mora, tu guion de respuesta y tu CRM sin costo adicional.</p></div>
     </div>
     <div class="vence">Válido hasta el <span id="vence">—</span> · permanencia mínima de 3 meses</div>
   </section>
@@ -192,7 +205,7 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
     <div class="ruta">
       <div class="r"><div class="n">1</div><div><h3>Confirmas y haces el primer pago</h3><p>Por Yape o Plin al <b id="pagoNum">—</b>. Te envío la propuesta por WhatsApp.</p></div></div>
       <div class="r"><div class="n">2</div><div><h3>Firmamos el acuerdo</h3><p>Una página: qué hacemos, cuánto cuesta y por cuánto tiempo.</p></div></div>
-      <div class="r"><div class="n">3</div><div><h3>En 3 a 5 días tu sistema está funcionando</h3><p>Campañas optimizadas, Mora filtrando a tus prospectos y tu CRM avisándote. Primer reporte a los 7 días.</p></div></div>
+      <div class="r"><div class="n">3</div><div><h3>En 3 a 5 días tu sistema está funcionando</h3><p>Mora filtrando, tu guion en uso y tu CRM avisándote. Los anuncios se ajustan sobre esa base. Primer reporte a los 7 días.</p></div></div>
     </div>
     <p class="pregunta">¿Con cuál te sentirías más cómodo empezando, <span>el Pro o el Base</span>?</p>
   </section>
@@ -277,12 +290,35 @@ $('selLead').onchange=()=>{ const id=$('selLead').value; history.replaceState(nu
 $('entrar').onclick=()=>{ PIN=$('pin').value.trim(); try{localStorage.setItem('mora_pin',PIN)}catch(e){} cargar(); };
 $('pin').addEventListener('keydown',e=>{ if(e.key==='Enter') $('entrar').click(); });
 
+/* pilares: del lead (columna "pilares") o calculados con sus respuestas */
+const PM={
+ filtro:{'Les respondo a todos por igual':15,'Hago algunas preguntas a mano':40,'Tengo respuestas automáticas o un bot':55,'Tengo un asistente con IA que los califica':90},
+ tiempo:{'En menos de 5 minutos':90,'Entre 5 y 30 minutos':60,'Entre 1 y 3 horas':30,'Más de 3 horas o al día siguiente':10},
+ estructura:{'Les doy el precio directo':20,'Explico un poco y doy el precio':40,'Sigo un guion: pregunto, muestro el valor y cierro':85,'Depende de quién responda o del día':25},
+ registro:{'En el mismo chat de WhatsApp':20,'En un cuaderno o Excel':40,'En un CRM':75,'No llevo registro':5},
+ resultado:{'Me escriben, pero casi nadie compra':60,'Me piden precio y desaparecen':55,'Llegan muy pocos mensajes':30,'Vendo, pero sin orden ni control':50,'Todavía no hago anuncios':20}
+};
+function pilaresDe(x){
+  const m=String(x.pilares||'').match(/Filtro\s*(\d+).*Ventas\s*(\d+).*CRM\s*(\d+).*Anuncios\s*(\d+)/i);
+  if(m) return {filtro:+m[1],ventas:+m[2],crm:+m[3],anuncios:+m[4]};
+  const g=(t,v,d)=>t[v]!=null?t[v]:d;
+  const P={filtro:Math.round(g(PM.filtro,x.filtro,30)*.6+g(PM.tiempo,x.tiempo_respuesta,35)*.4),ventas:g(PM.estructura,x.estructura,30),crm:g(PM.registro,x.registro,25),anuncios:g(PM.resultado,x.resultado,45)};
+  if(/Todavía no invierto/.test(x.inversion||'')) P.anuncios=Math.min(20,P.anuncios);
+  return P;
+}
+const PIL=[
+ {k:'filtro',n:'Filtro y respuesta',t:'Filtro con IA',hoy:'Tus preguntas filtro y tu mensaje de bienvenida.',falta:'Mora responde en segundos, 24/7, y te pasa solo a los que pueden comprar.'},
+ {k:'ventas',n:'Estructura de venta',t:'Ventas',hoy:'Tu guion: del “¿precio?” al cierre.',falta:'Practicarlo con chats reales hasta que tú y tu equipo lo hagan solos.'},
+ {k:'crm',n:'CRM y seguimiento',t:'CRM',hoy:'Los estados de tus prospectos y cuándo volver a escribir.',falta:'Un CRM que se llena solo y te avisa a quién escribirle hoy.'},
+ {k:'anuncios',n:'Anuncios',t:'Anuncios',hoy:'Qué ajustar en tu anuncio actual.',falta:'Medir qué anuncio vende y no tocar el que funciona.'}
+];
+const col=v=>v<40?'var(--r)':v<70?'var(--n)':'var(--v)';
 const num=v=>(+String(v||'').replace(/[^\d.]/g,''))||0;
 const soles=v=>num(v).toLocaleString('en-US');
 
 function pintar(l){
   lead=l; const c=(D&&D.config)||{};
-  const ej={nombre:'Ana',negocio:'Clínica Aura',puntaje:38,nivel:'Crítico',hallazgos:'• Le pagas a Meta para que te den likes\n• Respondes el precio horas después\n• Tu oferta no explica por qué tú',angulo_venta:'Plan: Pro'};
+  const ej={nombre:'Ana',negocio:'Clínica Aura',puntaje:38,nivel:'Crítico',pilares:'Filtro 30 · Ventas 30 · CRM 40 · Anuncios 60',hallazgos:'• Respondes horas después y a todas por igual\n• Das el precio antes que el valor\n• No sabes en qué quedó cada paciente',angulo_venta:'Plan: Pro'};
   const x=l||ej;
   const nombre=String(x.nombre||'').split(' ')[0];
   document.querySelectorAll('[data-c="nombre"]').forEach(e=>e.textContent=nombre);
@@ -291,12 +327,15 @@ function pintar(l){
   document.querySelectorAll('[data-c="planBase"]').forEach(e=>e.textContent=soles(c.planBase||800));
   document.querySelectorAll('[data-c="precio"]').forEach(e=>e.textContent=num(c.precio)||49);
   $('pagoNum').textContent=c.yape||c.plin||'—';
-  // hallazgos
+  // pilares
+  const PP=pilaresDe(x);
+  $('pilares').innerHTML=PIL.map(p=>`<div class="pil${p.k==='anuncios'?' ult':''}"><span>${p.n}</span><div class="bar"><i data-v="${PP[p.k]}" style="--c:${col(PP[p.k])}"></i></div><b>${PP[p.k]}</b></div>`).join('');
+  // hallazgos (orden de los pilares: filtro → ventas → CRM → anuncios)
   const fx=String(x.hallazgos||'').split('\n').map(s=>s.replace(/^[•\-\s]+/,'').trim()).filter(Boolean).slice(0,3);
+  let orden=PIL.map(p=>p.k).filter(k=>PP[k]<70); PIL.forEach(p=>{ if(!orden.includes(p.k)) orden.push(p.k); }); orden=orden.slice(0,3);
   while(fx.length<3) fx.push('—');
-  $('fugas').innerHTML=fx.map((f,k)=>`<div class="fuga"><i>${k+1}</i>${h(f)}</div>`).join('');
-  $('brecha').innerHTML=fx.map((f,k)=>`<div class="br ${k===0?'ok':''}" data-k="${k}" title="Toca para marcar si quedó corregida"><span class="estado">${k===0?'Corregida hoy':'Abierta'}</span><h3>${h(f)}</h3><p>${k===0?'Oferta, anuncio y campaña lanzada en esta sesión.':'Necesita trabajo constante cada semana.'}</p></div>`).join('');
-  $('brecha').querySelectorAll('.br').forEach(b=>b.onclick=()=>{ const ok=!b.classList.contains('ok'); b.classList.toggle('ok',ok); b.querySelector('.estado').textContent=ok?'Corregida hoy':'Abierta'; b.querySelector('p').textContent=ok?'Oferta, anuncio y campaña lanzada en esta sesión.':'Necesita trabajo constante cada semana.'; });
+  $('fugas').innerHTML=fx.map((f,k)=>`<div class="fuga"><i>${k+1}</i><div>${(x.pilares||x.filtro)?`<small>${PIL.find(p=>p.k===orden[k]).t}</small>`:''}${h(f)}</div></div>`).join('');
+  $('brecha').innerHTML=PIL.map(p=>`<div class="br${p.k==='anuncios'?' ult':''}"><div class="tt"><h3>${p.t}</h3><span class="sc" style="background:transparent;color:${col(PP[p.k])}">${PP[p.k]}/100</span></div><div class="hoy"><small>Te llevas hoy</small>${p.hoy}</div><div class="falta"><small>Para que funcione solo</small>${p.falta}</div></div>`).join('');
   // puntaje
   P=Math.max(0,Math.min(100,+x.puntaje||0)); $('nivel').textContent=x.nivel||'—';
   $('anillo').style.setProperty('--c',P<40?'var(--r)':P<60?'var(--n)':'var(--v)');
@@ -311,7 +350,7 @@ function pintar(l){
   $('cVal').value=''; $('cNum').value=''; calc();
 }
 let P=0;
-function animarPuntaje(){ const t0=performance.now(); const f=t=>{ const k=Math.min(1,(t-t0)/1100), v=Math.round(P*(1-Math.pow(1-k,3))); $('numP').textContent=v; $('anillo').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
+function animarPuntaje(){ document.querySelectorAll('#pilares i').forEach(e=>{ e.style.width='0'; requestAnimationFrame(()=>requestAnimationFrame(()=>e.style.width=e.dataset.v+'%')); }); const t0=performance.now(); const f=t=>{ const k=Math.min(1,(t-t0)/1100), v=Math.round(P*(1-Math.pow(1-k,3))); $('numP').textContent=v; $('anillo').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
 function calc(){ const r=num($('cVal').value)*num($('cNum').value); $('cRes').textContent='S/ '+r.toLocaleString('en-US')+' al mes'; }
 $('cVal').oninput=calc; $('cNum').oninput=calc;
 
