@@ -278,6 +278,7 @@ $('ir3').onclick=()=>{ paso(3); setTimeout(()=>$('fOp').focus(),350); };
 $('reservar').onclick=async()=>{
   const d={action:'reservar',lead_id:LEAD.lead_id||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
     operacion:$('fOp').value.trim(),email:$('fEmail').value.trim()||LEAD.email||'',nombre:$('fNombre').value.trim(),negocio:$('fNegocio').value.trim(),whatsapp:$('fWa').value.replace(/\D/g,'')};
+  { const ck=n=>(document.cookie.match('(?:^|; )'+n+'=([^;]+)')||[])[1]||''; Object.assign(d,{fbp:ck('_fbp'),fbc:ck('_fbc'),ua:navigator.userAgent,url:location.href.split('#')[0]}); }
   const err=$('err3');
   if(d.operacion.length<4) return err.textContent='Escribe el número de operación de tu pago.';
   if(d.nombre.length<2) return err.textContent='Escribe tu nombre.';
