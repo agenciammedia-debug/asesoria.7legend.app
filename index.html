@@ -1006,7 +1006,7 @@ function historia(){
   }
   $('soX').onclick=()=>{ apagado=true; S.classList.remove('on'); };
   fetch(CFG.API_URL+'?action=social').then(r=>r.json()).then(d=>{
-    lista=(d&&d.items||[]).filter(x=>x&&x.q);
+    lista=(d&&d.items||[]).filter(x=>x&&x.q&&(!x.t||x.t<=Date.now()));
     for(let i=lista.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [lista[i],lista[j]]=[lista[j],lista[i]]; }
     if(lista.length) setTimeout(una,8000);
   }).catch(()=>{});
