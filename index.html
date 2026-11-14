@@ -1080,7 +1080,7 @@ async function enviar(){
   if(!$('c_priv').checked) return err.textContent='Para preparar tu diagnóstico necesitamos que aceptes la Política de Privacidad.';
   c.acepta_privacidad=true; c.acepta_marketing=$('c_mkt').checked;
   enviando=true; c.whatsapp=tel.length===9?'51'+tel:tel; Object.assign(A,c);
-  const p=new URLSearchParams(location.search), eid='lead_'+Date.now();
+  const p=new URLSearchParams(location.search), eid='lead_'+Date.now(); window._eid=eid;
   const datos={...A, event_id:eid, utm_source:p.get('utm_source')||'', utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||'', fbclid:p.get('fbclid')||'', url:location.href};
   delete datos._listo;
   track('Lead',{content_name:'diagnostico'},eid);
@@ -1136,6 +1136,8 @@ function respaldoLead(r){
     const lead={...A, lead_id:r.lead_id||'', califica:r.califica===false?'NO':'SI', puntaje:r.puntaje||'', nivel:r.nivel||'',
       hallazgos:(r.hallazgos||[]).map(x=>'• '+x.titulo).join('\n'), pilares:pilTxt(r.pilares||pilares(A)), utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||''};
     delete lead._listo;
+    const ck=n=>(document.cookie.match('(?:^|; )'+n+'=([^;]+)')||[])[1]||'';
+    Object.assign(lead,{event_id:window._eid||'',fbp:ck('_fbp'),fbc:ck('_fbc')||(p.get('fbclid')?'fb.1.'+Date.now()+'.'+p.get('fbclid'):''),ua:navigator.userAgent,url:location.href.split('#')[0]});
     const body=JSON.stringify({action:'respaldo',lead});
     if(CFG.API_URL&&CFG.API_URL.startsWith('http')) fetch(CFG.API_URL,{method:'POST',body,keepalive:true,mode:'no-cors'}).catch(()=>{});
   }catch(e){}
