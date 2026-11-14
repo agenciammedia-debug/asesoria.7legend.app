@@ -143,6 +143,23 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .guardar-bar{position:sticky;bottom:16px;margin-top:16px;display:flex;justify-content:flex-end}
 .guardar-bar .btn{box-shadow:0 10px 30px -10px rgba(30,107,255,.6);padding:12px 20px}
 
+/* grilla de horarios */
+.atajos{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.grilla{display:grid;grid-template-columns:46px repeat(6,1fr);gap:3px;user-select:none;-webkit-user-select:none}
+.g-dia{position:sticky;top:calc(env(safe-area-inset-top) + 102px);z-index:3;background:#fff;text-align:center;font-weight:600;font-size:13px;padding:8px 0 6px;cursor:pointer;border-bottom:1px solid var(--l)}
+.g-dia small{display:block;font-weight:500;color:var(--g);font-size:11px}
+.g-dia:hover{color:var(--a)}
+.g-h{font-size:11.5px;color:var(--g);text-align:right;padding-right:6px;height:30px;line-height:30px;touch-action:pan-y}
+.g-h.media{color:transparent}
+.g-h.media:after{content:"·";color:var(--g2)}
+.c{height:30px;border-radius:7px;background:var(--s);border:1px solid var(--l);touch-action:none;cursor:pointer;display:grid;place-items:center;font-size:11px;font-weight:600;color:transparent;transition:background .12s,border-color .12s,transform .12s}
+.c:hover{border-color:rgba(30,107,255,.5)}
+.c.on{background:var(--a);border-color:var(--a);color:#fff}
+.c.hora{margin-top:4px}
+.g-pie{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:13px}
+.g-pie i{display:inline-block;width:12px;height:12px;border-radius:4px;background:var(--a);margin-right:6px;vertical-align:-1px}
+.g-pie b{margin-left:auto;font-weight:600;color:var(--v)}
+@media (max-width:520px){ .grilla{grid-template-columns:38px repeat(6,1fr);gap:2px} .c{height:28px;font-size:10px} .g-h{height:28px;line-height:28px} .g-dia{top:calc(env(safe-area-inset-top) + 96px)} }
 /* avisos push */
 .aviso-push{display:flex;gap:14px;align-items:center;background:var(--as);border:1px solid rgba(30,107,255,.25);border-radius:16px;padding:14px 16px;margin-bottom:18px}
 .aviso-push p{flex:1;font-size:14px;color:#123B8F}
@@ -230,8 +247,16 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
       <div class="grid2">
         <div>
           <div class="card">
-            <h2>Tu semana <small>Horas en las que aceptas asesorías</small></h2>
-            <div id="semana"></div>
+            <h2>Tu semana</h2>
+            <p class="ayuda" style="margin:-4px 0 12px">Toca o <b>desliza el dedo</b> sobre las casillas para marcar desde qué hora puedes empezar una asesoría. Se guarda solo.</p>
+            <div class="atajos">
+              <button class="btn sec mini" data-preset="manana">+ Mañanas 9–12</button>
+              <button class="btn sec mini" data-preset="tarde">+ Tardes 3–7</button>
+              <button class="btn sec mini" data-preset="copiar">Copiar lunes a toda la semana</button>
+              <button class="btn sec mini" data-preset="limpiar">Limpiar</button>
+            </div>
+            <div class="grilla" id="grilla" aria-label="Horarios disponibles por día"></div>
+            <div class="g-pie"><span><i></i>Disponible</span><span class="ayuda" style="margin:0">Para bajar o subir, desliza sobre la columna de horas.</span><b id="estadoHor"></b></div>
           </div>
           <div class="card" style="margin-top:20px">
             <h2>Reglas</h2>
@@ -240,7 +265,6 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
               <div><label class="lb" for="cDias">Mostrar los próximos (días)</label><input class="campo" id="cDias" type="number" min="1" max="60"></div>
             </div>
           </div>
-          <div class="guardar-bar"><button class="btn" id="guardarHor">Guardar horarios</button></div>
         </div>
         <div class="pila">
           <div class="card">
@@ -490,32 +514,80 @@ function reservas(){
         <a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`).join(''):'<div class="vacio">No hay reservas todavía.</div>';
 }
 
-/* ── HORARIOS ── */
+/* ── HORARIOS: grilla para marcar con el dedo ── */
+const G_DIAS=['Lun','Mar','Mié','Jue','Vie','Sáb'];      // índices 0–5 de HOR (Lunes…Sábado)
+const G_HORAS=[]; for(let m=8*60;m<=20*60+30;m+=30) G_HORAS.push(String(Math.floor(m/60)).padStart(2,'0')+':'+(m%60?'30':'00'));
+const rango=(a,b)=>G_HORAS.filter(x=>x>=a&&x<=b);
 function horarios(){
-  $('semana').innerHTML=HOR.map((d,k)=>`<div class="dia ${d.on?'':'off'}" data-k="${k}">
-    <label class="sw"><input type="checkbox" ${d.on?'checked':''} data-on="${k}"><i></i>${d.dia}</label>
-    <div class="horas">${d.horas.map((hr,j)=>`<span class="chip">${hr}<button data-quita="${k}-${j}" aria-label="Quitar ${hr}">×</button></span>`).join('')}
-      <span class="add"><input type="time" class="campo" step="900" id="t${k}" aria-label="Nueva hora ${d.dia}"><button class="btn sec mini" data-agrega="${k}">Agregar</button></span></div></div>`).join('');
+  let x='<div></div>'+G_DIAS.map((d,k)=>`<div class="g-dia" data-col="${k}" title="Marcar o vaciar todo el día">${d}<small>${HOR[k].horas.length?HOR[k].horas.length:'—'}</small></div>`).join('');
+  G_HORAS.forEach(hr=>{
+    const media=hr.endsWith(':30');
+    x+=`<div class="g-h ${media?'media':''}">${hr}</div>`+G_DIAS.map((_,k)=>`<div class="c ${HOR[k].horas.includes(hr)?'on':''} ${media?'':'hora'}" data-d="${k}" data-h="${hr}">${hr}</div>`).join('');
+  });
+  $('grilla').innerHTML=x;
   $('cAntic').value=D.config.anticipacion; $('cDias').value=D.config.dias;
   preview(D.slots);
   $('bloqueos').innerHTML=D.bloqueos.length?D.bloqueos.map(b=>`<div class="bloq"><span><b>${h(b.valor)}</b> ${b.motivo?'· '+h(b.motivo):''}</span><button class="btn sec mini" data-desbloq="${h(b.valor)}">Quitar</button></div>`).join(''):'<p class="ayuda">No tienes días bloqueados.</p>';
 }
 function preview(S){
-  $('preview').innerHTML=S.length?S.slice(0,10).map(s=>`<div class="prev-dia"><small>${h(s.label)}</small>${s.horas.map(hr=>`<span class="slot" data-bloq="${s.fecha} ${hr}" title="Bloquear">${hr}</span>`).join('')}</div>`).join(''):'<div class="vacio">No hay horarios disponibles. Activa días y agrega horas.</div>';
+  $('preview').innerHTML=S.length?S.slice(0,10).map(s=>`<div class="prev-dia"><small>${h(s.label)}</small>${s.horas.map(hr=>`<span class="slot" data-bloq="${s.fecha} ${hr}" title="Bloquear">${hr}</span>`).join('')}</div>`).join(''):'<div class="vacio">No hay horarios disponibles. Marca horas en tu semana.</div>';
 }
-$('semana').addEventListener('click',e=>{
-  const q=e.target.dataset.quita, a=e.target.dataset.agrega;
-  if(q){ const [k,j]=q.split('-').map(Number); HOR[k].horas.splice(j,1); horarios(); }
-  if(a!=null&&a!==undefined){ const k=+a, v=$('t'+k).value; if(!v) return toast('Elige una hora',true);
-    if(!HOR[k].horas.includes(v)){ HOR[k].horas.push(v); HOR[k].horas.sort(); } horarios(); }
+function setHora(k,hr,on){
+  const s=new Set(HOR[k].horas); on?s.add(hr):s.delete(hr);
+  HOR[k].horas=[...s].sort(); HOR[k].on=HOR[k].horas.length>0;
+}
+function contarDia(k){ const el=$('grilla').querySelector(`.g-dia[data-col="${k}"] small`); if(el) el.textContent=HOR[k].horas.length?HOR[k].horas.length:'—'; }
+/* pintar con el dedo o el mouse */
+let pinta=null;
+const grilla=$('grilla');
+function marcar(c){
+  if(!c||c.classList.contains('on')===pinta) return;
+  c.classList.toggle('on',pinta); setHora(+c.dataset.d,c.dataset.h,pinta); contarDia(+c.dataset.d);
+  if(navigator.vibrate) navigator.vibrate(6);
+}
+grilla.addEventListener('pointerdown',e=>{
+  const c=e.target.closest('.c'); if(!c) return;
+  e.preventDefault(); pinta=!c.classList.contains('on'); marcar(c);
+  try{ grilla.setPointerCapture(e.pointerId); }catch(_){}
 });
-$('semana').addEventListener('change',e=>{ const k=e.target.dataset.on; if(k!=null){ HOR[+k].on=e.target.checked; horarios(); } });
-$('guardarHor').onclick=async()=>{
-  $('guardarHor').disabled=true;
-  try{ await run('adm_config',{anticipacion:$('cAntic').value,dias:$('cDias').value}); D.slots=await run('adm_horarios',HOR); D.horarios=JSON.parse(JSON.stringify(HOR)); D.config.anticipacion=$('cAntic').value; D.config.dias=$('cDias').value; preview(D.slots); toast('Horarios guardados'); }
+grilla.addEventListener('pointermove',e=>{
+  if(pinta===null) return;
+  const el=document.elementFromPoint(e.clientX,e.clientY); marcar(el&&el.closest?el.closest('.c'):null);
+});
+['pointerup','pointercancel','lostpointercapture'].forEach(ev=>grilla.addEventListener(ev,()=>{ if(pinta!==null){ pinta=null; guardarPronto(); } }));
+/* tocar el nombre del día: marcar o vaciar todo */
+grilla.addEventListener('click',e=>{
+  const d=e.target.closest('.g-dia'); if(!d) return;
+  const k=+d.dataset.col, lleno=HOR[k].horas.length>0;
+  HOR[k].horas=lleno?[]:[...rango('09:00','11:30'),...rango('15:00','18:30')]; HOR[k].on=!lleno;
+  horarios(); guardarPronto();
+});
+/* atajos */
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{
+  const p=b.dataset.preset;
+  if(p==='limpiar'&&!confirm('¿Quitar todos los horarios de la semana?')) return;
+  for(let k=0;k<6;k++){
+    if(p==='manana') rango('09:00','11:30').forEach(hr=>setHora(k,hr,true));
+    if(p==='tarde') rango('15:00','18:30').forEach(hr=>setHora(k,hr,true));
+    if(p==='copiar'&&k>0){ HOR[k].horas=[...HOR[0].horas]; HOR[k].on=HOR[k].horas.length>0; }
+    if(p==='limpiar'){ HOR[k].horas=[]; HOR[k].on=false; }
+  }
+  horarios(); guardarPronto();
+});
+/* guardado automático */
+let tGuardar=null;
+function guardarPronto(){
+  $('estadoHor').style.color='var(--g)'; $('estadoHor').textContent='Guardando…';
+  clearTimeout(tGuardar);
+  tGuardar=setTimeout(async()=>{
+    try{ D.slots=await run('adm_horarios',HOR); D.horarios=JSON.parse(JSON.stringify(HOR)); preview(D.slots); $('estadoHor').style.color=''; $('estadoHor').textContent='Guardado ✓'; }
+    catch(e){ $('estadoHor').style.color='var(--r)'; $('estadoHor').textContent='No se guardó: '+e.message; }
+  },900);
+}
+['cAntic','cDias'].forEach(id=>$(id).addEventListener('change',async()=>{
+  try{ await run('adm_config',{anticipacion:$('cAntic').value,dias:$('cDias').value}); D.config.anticipacion=$('cAntic').value; D.config.dias=$('cDias').value; D.slots=await run('adm_horarios',HOR); preview(D.slots); toast('Reglas guardadas'); }
   catch(e){ toast(e.message,true); }
-  $('guardarHor').disabled=false;
-};
+}));
 document.addEventListener('click',async e=>{
   const b=e.target.dataset.bloq, d=e.target.dataset.desbloq;
   if(b){ if(!confirm('¿Bloquear '+b+'? Nadie podrá reservar ese horario.')) return; try{ D.slots=await run('adm_bloqueo',b,'',false); await cargar(); toast('Horario bloqueado'); }catch(x){ toast(x.message,true); } }
