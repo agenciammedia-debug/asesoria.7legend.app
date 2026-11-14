@@ -405,7 +405,7 @@ function tarjetaRes(r,modo){
   if(modo==='verificar') acc=`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>
       <button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`;
   if(modo==='proxima') acc=`${D.config.zoom?`<a class="btn sec mini" href="${h(D.config.zoom)}" target="_blank">Abrir Meet</a>`:''}
-      ${lead?`<button class="btn sec mini" data-lead="${h(lead.lead_id)}">Ver ficha</button>`:''}
+      ${lead?`<button class="btn sec mini" data-lead="${h(lead.lead_id)}">Ver ficha</button><a class="btn sec mini" href="presentacion.html?lead=${encodeURIComponent(lead.lead_id)}" target="_blank">Presentar</a>`:''}
       <button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button>
       <button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`;
   return `<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
@@ -472,6 +472,7 @@ function abrirLead(id){
     <div class="dr-top"><span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span><div><h3>${h(l.nombre)}</h3><p>${h(l.negocio)} · ${h(l.fecha)}</p></div><button class="x" id="cerrarDr" aria-label="Cerrar">×</button></div>
     <div class="dr-sec"><div class="acciones" style="margin:0">
       <a class="btn wa" href="${wa(l.whatsapp,'Hola '+nombre+', soy de 7Legend. Vi tu diagnóstico de Mora sobre '+(l.negocio||'tu negocio')+'. ¿Tienes 2 minutos para contarte cómo corregir lo que encontró?')}" target="_blank">Escribir por WhatsApp</a>
+      <a class="btn sec" href="presentacion.html?lead=${encodeURIComponent(l.lead_id)}" target="_blank">Presentar</a>
       ${l.email?`<a class="btn sec" href="mailto:${h(l.email)}">${h(l.email)}</a>`:''}</div></div>
     ${l.angulo_venta?`<div class="dr-sec"><h4>Para tu llamada</h4><div class="llamada">${h(l.angulo_venta)}</div></div>`:''}
     <div class="dr-sec"><h4>Diagnóstico · ${h(l.nivel)}</h4>${String(l.hallazgos||'').split('\n').filter(Boolean).map(x=>`<div class="hall">${h(x)}</div>`).join('')||'<p class="ayuda">Sin hallazgos.</p>'}</div>
