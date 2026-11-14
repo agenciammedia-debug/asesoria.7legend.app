@@ -201,7 +201,18 @@ const qs=new URLSearchParams(location.search);
 let LEAD={}; try{ LEAD=JSON.parse(localStorage.getItem('mora_lead')||'{}'); }catch(e){}
 if(qs.get('ref')) LEAD.lead_id=qs.get('ref');
 $('fNombre').value=LEAD.nombre||''; $('fEmail').value=LEAD.email||''; $('fNegocio').value=LEAD.negocio||''; $('fWa').value=(LEAD.whatsapp||'').replace(/^51(?=\d{9}$)/,'');
-track('InitiateCheckout',{content_name:'asesoria'});
+/* modo "cambio de horario": el cliente llega desde el enlace que le enviamos */
+const CAMBIO=qs.get('cambio'), KC=qs.get('k');
+if(CAMBIO&&KC){
+  document.querySelector('.pasos').style.display='none';
+  $('s1').querySelector('h1').textContent='Elige tu nuevo horario';
+  $('s1').querySelector('.sub').textContent='Tu pago se mantiene. Solo elige el día y la hora que te acomoden.';
+  $('ir2').textContent='Confirmar nuevo horario';
+  fetch(CFG.API_URL,{method:'POST',body:JSON.stringify({action:'cambiar',id:CAMBIO,k:KC,solo_ver:true})}).then(r=>r.json()).then(r=>{
+    if(!r.ok){ $('dias').innerHTML=''; $('horas').innerHTML=''; $('ir2').style.display='none'; $('err1').textContent=r.error; }
+    else $('s1').querySelector('h1').textContent=`${r.nombre}, elige tu nuevo horario`;
+  }).catch(()=>{});
+} else track('InitiateCheckout',{content_name:'asesoria'});
 
 function paso(n){
   [1,2,3,4].forEach(k=>$('s'+k).classList.toggle('on',k===n));
@@ -236,7 +247,19 @@ function pintarHoras(s){
   $('horas').innerHTML=s.horas.map(hr=>`<button class="hora ${hr===sel.hora?'on':''}" data-h="${hr}">${hr}</button>`).join('');
   $('horas').querySelectorAll('.hora').forEach(b=>b.onclick=()=>{ sel.hora=b.dataset.h; pintarHoras(s); $('ir2').disabled=false; $('err1').textContent=''; });
 }
-$('ir2').onclick=()=>{ const t=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>${h(sel.label)} · ${h(sel.hora)}`; $('cita2').innerHTML=t; $('cita3').innerHTML=t; paso(2); };
+$('ir2').onclick=async()=>{
+  if(CAMBIO&&KC){
+    const b=$('ir2'); b.disabled=true; b.textContent='Guardando…';
+    let r=null; try{ r=await (await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify({action:'cambiar',id:CAMBIO,k:KC,fecha:sel.fecha,hora:sel.hora})})).json(); }catch(e){ r={ok:false,error:'No pudimos conectar. Revisa tu internet e inténtalo otra vez.'}; }
+    b.textContent='Confirmar nuevo horario';
+    if(!r.ok){ $('err1').textContent=r.error||'No pudimos guardar el cambio.'; if(r.ocupado){ sel.hora=''; await cargar(); } else b.disabled=false; return; }
+    document.querySelector('#s4 h1').textContent='¡Listo, nuevo horario confirmado!';
+    document.querySelector('#s4 .sub').textContent='Te enviamos el nuevo horario a tu correo. El link de Google Meet es el mismo.';
+    $('detalle').innerHTML=`<div><span>Fecha</span><b>${h(r.label)}</b></div><div><span>Hora</span><b>${h(r.hora)} (Perú)</b></div><div><span>Código</span><b>${h(r.reserva_id)}</b></div>`;
+    $('waCaptura').style.display='none'; document.querySelector('#s4 .ayuda').style.display='none';
+    paso(4); return;
+  }
+  const t=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>${h(sel.label)} · ${h(sel.hora)}`; $('cita2').innerHTML=t; $('cita3').innerHTML=t; paso(2); };
 
 /* ── paso 2: pago ── */
 function metodos(){
