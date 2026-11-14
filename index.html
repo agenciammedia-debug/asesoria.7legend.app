@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>¿Inviertes en anuncios y nadie te compra? Diagnóstico gratis | 7Legend</title>
-<meta name="description" content="Mora, la IA de 7Legend, te dice en 3 minutos en qué punto se están perdiendo tus ventas. Diagnóstico gratis.">
+<meta name="description" content="Mora, la IA de 7Legend, revisa qué pasa después de que te escriben y te dice en 3 minutos dónde se pierden tus ventas. Diagnóstico gratis.">
 <meta property="og:title" content="¿Inviertes en anuncios y nadie te compra?">
 <meta property="og:description" content="Descubre en 3 minutos dónde se pierden tus ventas. Diagnóstico gratis con IA.">
 <meta property="og:type" content="website">
@@ -141,13 +141,37 @@ a{color:inherit;text-decoration:none}
 .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}
 
 /* las 3 causas */
-.causas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.causas{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
 .causa{background:#fff;border:1px solid var(--linea);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
 .causa .viz{height:200px;background:var(--suave);border-bottom:1px solid var(--linea);display:grid;place-items:center;padding:20px;position:relative}
-.causa .txt{padding:24px 24px 28px}
+.causa .txt{padding:22px 22px 26px}
 .causa .n{font-size:13px;font-weight:600;color:var(--rojo);margin-bottom:8px}
-.causa h3{font-size:21px;letter-spacing:-.03em;line-height:1.2;margin-bottom:8px}
-.causa p{color:var(--gris);font-size:15.5px}
+.causa h3{font-size:20px;letter-spacing:-.03em;line-height:1.2;margin-bottom:8px}
+.causa p{color:var(--gris);font-size:15px}
+.causa.ultimo{background:transparent;border-style:dashed}
+.causa.ultimo .viz{background:transparent}
+.causa.ultimo .n{color:var(--gris)}
+/* viz filtro: bandeja sin responder */
+.bandeja{width:100%;max-width:240px;background:#fff;border:1px solid var(--linea);border-radius:12px;font-size:12.5px;overflow:hidden}
+.bandeja div{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--linea)}
+.bandeja div:last-child{border:0}
+.bandeja i{width:22px;height:22px;border-radius:50%;background:#E4E6EA;flex:none}
+.bandeja span{flex:1;color:var(--gris);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bandeja b{font-size:11px;color:var(--rojo);font-weight:600;white-space:nowrap}
+/* viz CRM: ¿en qué quedó? */
+.quedo{width:100%;max-width:240px;display:flex;flex-direction:column;gap:6px;font-size:12.5px}
+.quedo div{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:8px 10px;display:flex;justify-content:space-between;gap:8px}
+.quedo b{font-weight:600}
+.quedo span{color:var(--rojo);font-weight:500}
+/* barras por pilar (resultado y ejemplo) */
+.pilares{display:grid;gap:10px;margin:4px 0 16px}
+.pil{display:grid;grid-template-columns:150px 1fr 34px;gap:12px;align-items:center;font-size:14px}
+.pil span{color:var(--tinta);font-weight:500}
+.pil .bar{height:8px;border-radius:99px;background:#EEF0F3;overflow:hidden}
+.pil .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--c,var(--rojo));transition:width 1s var(--ease)}
+.pil b{font-variant-numeric:tabular-nums;text-align:right;font-size:14px}
+.pil.ult span{color:var(--gris)}
+@media (max-width:520px){ .pil{grid-template-columns:110px 1fr 30px;font-size:13px} }
 
 /* viz 1: post con likes */
 .post{width:100%;max-width:250px;background:#fff;border-radius:12px;border:1px solid var(--linea);padding:12px;font-size:12.5px}
@@ -311,11 +335,12 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   .ads{width:100%;max-width:340px}
   .met{grid-template-columns:repeat(3,1fr)}
   .met div:first-child{grid-column:auto}
-  .causas{grid-template-columns:1fr}
+  .causas{grid-template-columns:1fr 1fr}
   .sec{padding:80px 0}
   .movil{display:block}
   .cierre-in{flex-direction:column;align-items:flex-start}
 }
+@media (max-width:620px){ .causas{grid-template-columns:1fr} }
 @media (max-width:420px){ .arranque{padding:16px} }
 @media (prefers-reduced-motion:reduce){ *,*:before,*:after{animation:none!important;transition:none!important} .rv,.msg{opacity:1;transform:none} }
 </style>
@@ -332,10 +357,10 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div>
     <span class="etiqueta"><b>Gratis</b>Diagnóstico con IA en 3 minutos</span>
     <h1>¿Inviertes en anuncios y nadie te compra?</h1>
-    <p class="sub">Mora, nuestra IA, revisa tu negocio y te dice <strong>en qué punto exacto se están perdiendo tus ventas</strong>: en el anuncio, en el chat o en tu oferta.</p>
+    <p class="sub">Casi nunca es el anuncio. Mora, nuestra IA, revisa qué pasa <strong>después de que te escriben</strong> y te dice dónde se pierden tus ventas: en cómo filtras, cómo respondes, cómo das seguimiento o, al final, en el anuncio.</p>
 
     <div class="arranque" id="arranque">
-      <div class="tit"><strong>Empieza aquí: ¿qué te pasa hoy?</strong><span>Pregunta 1 de 9</span></div>
+      <div class="tit"><strong>Empieza aquí: ¿qué te pasa hoy?</strong><span>Pregunta 1 de 11</span></div>
       <div id="ops0"></div>
     </div>
     <div class="garantias">
@@ -372,19 +397,19 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 </div></header>
 
 <main>
-<!-- ═════════ 3 CAUSAS ═════════ -->
+<!-- ═════════ 4 CAUSAS ═════════ -->
 <section class="sec gris"><div class="wrap">
-  <h2 class="h2 rv">El problema casi nunca es Facebook. Casi siempre es una de estas tres cosas.</h2>
-  <p class="lead rv d1">Mora detecta cuál pesa más en tu negocio y cuánto te está costando.</p>
+  <h2 class="h2 rv">El anuncio trae gente. La venta se pierde después del mensaje.</h2>
+  <p class="lead rv d1">Mora revisa estos 4 puntos, en el orden en que más ventas cuestan.</p>
   <div class="causas">
     <article class="causa rv">
-      <div class="viz"><div class="post">
-        <div class="fila"><span>Me gusta</span><b>248</b></div>
-        <div class="fila"><span>Comentarios</span><b>12</b></div>
-        <div class="fila v"><span>Ventas</span><b>0</b></div>
-        <div class="promo">Promocionar publicación</div>
+      <div class="viz"><div class="bandeja">
+        <div><i></i><span>¿Precio del tratamiento?</span><b>hace 3 h</b></div>
+        <div><i></i><span>Info por favor</span><b>hace 5 h</b></div>
+        <div><i></i><span>¿Atienden sábado?</span><b>ayer</b></div>
+        <div><i></i><span>Hola, quiero agendar</span><b>ayer</b></div>
       </div></div>
-      <div class="txt"><div class="n">En el anuncio</div><h3>Le pagas a Meta por likes, no por clientes</h3><p>El botón “Promocionar” le pide a Meta interacción. Meta cumple: te trae gente que da like, no gente que compra.</p></div>
+      <div class="txt"><div class="n">1 · El filtro</div><h3>Respondes tarde y a todos por igual</h3><p>Contestas a mano, cuando puedes. El que iba a comprar ya le escribió a otro, y tu tiempo se fue en curiosos.</p></div>
     </article>
     <article class="causa rv d1">
       <div class="viz"><div class="mini-chat">
@@ -392,14 +417,24 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
         <div class="msg yo">S/350</div>
         <span class="visto">✓✓ Visto · sin respuesta</span>
       </div></div>
-      <div class="txt"><div class="n">En el chat</div><h3>Te piden precio y desaparecen</h3><p>Respondes tarde o solo con un número. Sin explicar el valor, cualquier precio suena caro y la persona se va.</p></div>
+      <div class="txt"><div class="n">2 · La venta</div><h3>Sueltas el precio y te dejan en visto</h3><p>Sin una estructura de respuesta, el precio llega antes que el valor. Cualquier número suena caro y la persona se va.</p></div>
     </article>
     <article class="causa rv d2">
-      <div class="viz"><div class="compara">
-        <div class="etq tu">Tu negocio<b>S/350</b><span class="tag">Descartado</span></div>
-        <div class="etq gana">La competencia<b>S/290</b><span class="tag">Elegido</span></div>
+      <div class="viz"><div class="quedo">
+        <div><b>Lucía R.</b><span>¿Le escribí?</span></div>
+        <div><b>Jorge M.</b><span>Pidió precio el lunes</span></div>
+        <div><b>+51 98…</b><span>¿Quién era?</span></div>
       </div></div>
-      <div class="txt"><div class="n">En la oferta</div><h3>Te comparan y eligen al más barato</h3><p>Si tu oferta no explica por qué tú, el cliente solo puede decidir por precio. Y ahí siempre pierdes.</p></div>
+      <div class="txt"><div class="n">3 · El seguimiento</div><h3>Tus prospectos se pierden en el chat</h3><p>Sin un CRM no sabes quién te escribió, qué necesitaba ni en qué quedó. Los interesados se enfrían solos.</p></div>
+    </article>
+    <article class="causa ultimo rv d2">
+      <div class="viz"><div class="post">
+        <div class="fila"><span>Me gusta</span><b>248</b></div>
+        <div class="fila"><span>Mensajes</span><b>86</b></div>
+        <div class="fila v"><span>Ventas</span><b>0</b></div>
+        <div class="promo">Promocionar publicación</div>
+      </div></div>
+      <div class="txt"><div class="n">4 · Recién aquí, el anuncio</div><h3>Más anuncios no arreglan lo de atrás</h3><p>Si lo anterior falla, más presupuesto solo trae más mensajes perdidos. El anuncio se ajusta al final.</p></div>
     </article>
   </div>
 </div></section>
@@ -409,20 +444,26 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div>
     <h2 class="h2 rv">Esto es lo que recibes en 3 minutos.</h2>
     <ul class="puntos rv d1">
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tu puntaje de salud comercial</b><span>Del 0 al 100, para saber qué tan grave es.</span></div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tus 3 errores principales, en orden</b><span>Escritos para tu negocio, no una lista genérica.</span></div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Cuánto podrías estar perdiendo</b><span>Una estimación según tu inversión y tu ticket.</span></div></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tu puntaje, pilar por pilar</b><span>Filtro, venta, seguimiento y anuncios, del 0 al 100.</span></div></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tus 3 errores principales, en orden</b><span>Escritos para tu negocio y en el orden en que conviene corregirlos.</span></div></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Cuánto podrías estar perdiendo</b><span>Una estimación según tu ticket y lo que hoy se te escapa.</span></div></li>
     </ul>
     <button class="btn rv d2" data-abrir>Hacer mi diagnóstico gratis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
   <div class="reporte rv d1" id="reporte">
     <div class="rep-top"><span class="logo">7Legend<i>.</i></span><span>Ejemplo · Clínica estética</span></div>
     <div class="rep-score"><div class="anillo" id="exAn"><b id="exN">0</b></div>
-      <div><small>Salud comercial: crítica</small><p>Tus anuncios atraen gente, pero tu proceso deja escapar a casi todos.</p></div></div>
+      <div><small>Salud comercial: crítica</small><p>Te escriben bastante, pero la venta se pierde después del mensaje.</p></div></div>
+    <div class="pilares" id="exPil">
+      <div class="pil"><span>Filtro y respuesta</span><div class="bar"><i data-v="30"></i></div><b>30</b></div>
+      <div class="pil"><span>Estructura de venta</span><div class="bar"><i data-v="30"></i></div><b>30</b></div>
+      <div class="pil"><span>CRM y seguimiento</span><div class="bar"><i data-v="40"></i></div><b>40</b></div>
+      <div class="pil ult"><span>Anuncios</span><div class="bar"><i data-v="60"></i></div><b>60</b></div>
+    </div>
     <div class="perd">Con tu ticket, recuperar 4 clientes al mes serían S/1,400 que hoy se te escapan.</div>
-    <div class="hall"><h4><i>1</i>Le pagas a Meta para que te den likes</h4><p>El botón Promocionar busca reacciones, no pacientes. Por eso llegan curiosos y casi nadie reserva.</p></div>
-    <div class="hall"><h4><i>2</i>Respondes el precio horas después</h4><p>Cuando contestas, la persona ya reservó en otra clínica que respondió primero.</p></div>
-    <div class="hall blur"><h4><i>3</i>Tu oferta no explica por qué tú</h4><p>Sin diferenciarte, te comparan con la clínica más barata de la zona.</p></div>
+    <div class="hall"><h4><i>1</i>Respondes horas después a todas por igual</h4><p>Cuando contestas, la paciente ya reservó en otra clínica que respondió en minutos.</p></div>
+    <div class="hall"><h4><i>2</i>Das el precio antes que el valor</h4><p>Sin preguntar qué busca ni explicar el resultado, S/350 suena caro y te dejan en visto.</p></div>
+    <div class="hall blur"><h4><i>3</i>No sabes en qué quedó cada paciente</h4><p>Las interesadas se quedan en el chat y nadie les vuelve a escribir.</p></div>
   </div>
 </div></section>
 
@@ -431,9 +472,9 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div>
     <h2 class="h2 rv">El diagnóstico es gratis. Si quieres, después lo corregimos contigo.</h2>
     <div class="ruta rv d1">
-      <div class="etapa gratis"><div class="c">1</div><div><h3>Haces tu diagnóstico <span class="pill g">Gratis</span></h3><p>9 preguntas rápidas. 3 minutos.</p></div></div>
-      <div class="etapa gratis"><div class="c">2</div><div><h3>Ves tus errores al instante <span class="pill g">Gratis</span></h3><p>Puntaje, tus 3 fugas y cuánto te cuestan.</p></div></div>
-      <div class="etapa"><div class="c">3</div><div><h3>Los corregimos en vivo <span class="pill p">Opcional</span></h3><p>Asesoría 1 a 1 por Google Meet. Sales con tu campaña lanzada.</p></div></div>
+      <div class="etapa gratis"><div class="c">1</div><div><h3>Haces tu diagnóstico <span class="pill g">Gratis</span></h3><p>11 preguntas rápidas. 3 minutos.</p></div></div>
+      <div class="etapa gratis"><div class="c">2</div><div><h3>Ves tus errores al instante <span class="pill g">Gratis</span></h3><p>Tu puntaje por pilar, tus 3 fugas y cuánto te cuestan.</p></div></div>
+      <div class="etapa"><div class="c">3</div><div><h3>Los corregimos en vivo <span class="pill p">Opcional</span></h3><p>Asesoría 1 a 1 por Google Meet. Sales con tu filtro, tu guion de respuesta y tu orden de seguimiento listos.</p></div></div>
     </div>
   </div>
   <div class="precio rv d1">
@@ -441,10 +482,10 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <div class="monto"><sup>S/</sup><b>49</b></div>
     <p class="det">Pago único. Solo si quieres, después de ver tu diagnóstico.</p>
     <ul>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Corregimos tus 3 errores principales</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Reescribimos tu oferta para que te elijan sin bajar el precio</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Creamos tu anuncio y lo lanzamos durante la llamada</li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Te llevas un plan para seguir aplicando</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus conversaciones reales y vemos dónde se cae la venta</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Armamos tus preguntas filtro para separar curiosos de compradores</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Te llevas tu guion de respuesta: del “¿precio?” al cierre</li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ordenamos tu seguimiento y, al final, ajustamos tu anuncio</li>
     </ul>
     <button class="btn full" data-abrir>Empezar mi diagnóstico gratis</button>
     <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si al terminar la asesoría sientes que no te sirvió, te devolvemos el pago completo.</span></div>
@@ -455,17 +496,18 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 <section class="sec"><div class="wrap faq-grid">
   <h2 class="h2 rv" style="font-size:clamp(30px,3.4vw,42px)">Preguntas frecuentes</h2>
   <div class="faq rv d1">
-    <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí. Respondes 9 preguntas y ves tu resultado completo en pantalla. No pedimos tarjeta.</p></details>
+    <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí. Respondes 11 preguntas y ves tu resultado completo en pantalla. No pedimos tarjeta.</p></details>
+    <details><summary>¿Necesito tener un equipo de ventas?</summary><p>No. Funciona igual si respondes tú solo. Justamente el filtro y la estructura sirven para que no dependas de tener tiempo libre.</p></details>
     <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. Ves tu diagnóstico y tú decides. Si quieres la asesoría, la reservas tú mismo.</p></details>
-    <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. Muchas veces el problema no es cuánto inviertes, sino dónde se pierde la gente. El diagnóstico está en lenguaje simple.</p></details>
-    <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no revisamos solo el anuncio: también el chat y tu oferta. Casi siempre la fuga más grande está fuera del anuncio.</p></details>
+    <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. La mayoría de ventas no se pierde en el anuncio, sino en cómo respondes y das seguimiento. El diagnóstico está en lenguaje simple.</p></details>
+    <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso empezamos por lo que pasa después del mensaje: el filtro, la respuesta y el seguimiento. El anuncio va al final, cuando lo de atrás ya funciona.</p></details>
   </div>
 </div></section>
 </main>
 
 <footer class="cierre"><div class="wrap">
   <div class="cierre-in">
-    <div><h2 class="h2">Deja de pagar por anuncios que no venden.</h2><p>Descubre dónde se pierden tus ventas. 3 minutos, gratis.</p></div>
+    <div><h2 class="h2">Deja de perder a los que ya te escribieron.</h2><p>Descubre en qué punto se cae tu venta. 3 minutos, gratis.</p></div>
     <button class="btn" data-abrir>Hacer mi diagnóstico gratis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
   <div class="pie"><span class="logo" style="font-size:18px;color:#fff">7Legend<i>.</i></span><span>Sistemas de venta con IA · Lima, Perú · © <span id="y"></span></span></div>
@@ -479,7 +521,7 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
   <div class="qz">
     <div class="qz-top"><span class="logo" style="font-size:19px">7Legend<i>.</i></span><button class="qz-x" id="cerrar" aria-label="Cerrar">Cerrar ✕</button></div>
     <div class="barra"><i id="bq"></i></div>
-    <div class="barra-txt"><span id="bq-txt">Pregunta 1 de 9</span><span id="bq-min">≈ 3 min</span></div>
+    <div class="barra-txt"><span id="bq-txt">Pregunta 1 de 11</span><span id="bq-min">≈ 3 min</span></div>
     <div id="escena"></div>
   </div>
 </div>
@@ -527,22 +569,40 @@ function cuenta(el,to,{ms=1400,pre='',fmt=v=>v.toLocaleString('en-US')}={}){
 
 /* ejemplo de reporte: el puntaje se llena al verlo */
 new IntersectionObserver((e,o)=>{ if(!e[0].isIntersecting) return; o.disconnect();
+  document.querySelectorAll('#exPil i').forEach(i=>{const v=+i.dataset.v; i.style.setProperty('--c',v<40?'var(--rojo)':v<70?'#F59E0B':'var(--verde)'); i.style.width=v+'%';});
   const an=$('exAn'), n=$('exN'); const t0=performance.now();
   const f=t=>{const k=Math.min(1,(t-t0)/1300), v=Math.round(38*(1-Math.pow(1-k,3))); n.textContent=v; an.style.setProperty('--p',v); if(k<1&&!reduce) requestAnimationFrame(f); else {n.textContent=38;an.style.setProperty('--p',38);}}; requestAnimationFrame(f);
 },{threshold:.5}).observe($('reporte'));
 
 /* ═════════ QUIZ ═════════ */
 const PREG=[
- {k:'resultado', t:'¿Qué te pasa hoy con tus anuncios?', o:['Me escriben pero casi nadie compra','Tengo likes y alcance, pero no clientes','Llegan muy pocos mensajes','Vendo algo, pero no sé si gano o pierdo','Todavía no hago anuncios']},
- {k:'objetivo', t:'¿Cómo lanzas tus anuncios normalmente?', o:['Botón "Promocionar" de la publicación','Objetivo de mensajes a WhatsApp/Messenger','Tráfico a web o formulario','Lo maneja otra persona o agencia','No estoy seguro']},
+ {k:'resultado', t:'¿Qué te pasa hoy con tus ventas?', o:['Me escriben, pero casi nadie compra','Me piden precio y desaparecen','Llegan muy pocos mensajes','Vendo, pero sin orden ni control','Todavía no hago anuncios']},
+ {k:'tiempo_respuesta', t:'Cuando alguien te escribe, ¿en cuánto tiempo le respondes?', hl:'Sé honesto: nadie más ve tus respuestas.', o:['En menos de 5 minutos','Entre 5 y 30 minutos','Entre 1 y 3 horas','Más de 3 horas o al día siguiente']},
+ {k:'filtro', t:'¿Cómo separas a los curiosos de los que sí pueden comprar?', o:['Les respondo a todos por igual','Hago algunas preguntas a mano','Tengo respuestas automáticas o un bot','Tengo un asistente con IA que los califica']},
+ {k:'estructura', t:'Cuando te preguntan “¿precio?”, ¿qué haces?', o:['Les doy el precio directo','Explico un poco y doy el precio','Sigo un guion: pregunto, muestro el valor y cierro','Depende de quién responda o del día']},
+ {k:'registro', t:'¿Dónde anotas a tus prospectos y en qué quedó cada uno?', o:['En el mismo chat de WhatsApp','En un cuaderno o Excel','En un CRM','No llevo registro']},
  {k:'inversion', t:'¿Cuánto inviertes al mes en anuncios?', o:['Todavía no invierto','Menos de S/300','S/300 – S/1,000','S/1,000 – S/3,000','Más de S/3,000']},
- {k:'seguimiento', t:'Cuando alguien te escribe, ¿qué pasa?', o:['Respondo yo cuando puedo','Tengo a alguien que responde','Tengo respuestas automáticas','No hago seguimiento si no compra']},
  {k:'rubro', t:'¿A qué se dedica tu negocio?', o:['Servicios profesionales (abogado, contador, consultor…)','Salud, estética o bienestar','Educación o cursos','Tienda o e-commerce','Inmobiliaria o construcción','Restaurante o alimentos','Otro']},
  {k:'ticket', t:'¿Cuánto cuesta en promedio lo que vendes?', o:['Menos de S/100','S/100 – S/500','S/500 – S/2,000','Más de S/2,000']},
  {k:'facturacion', t:'¿Cuánto factura tu negocio al mes, aproximadamente?', hl:'Es confidencial. Sirve para que el diagnóstico sea realista para tu tamaño.', o:['Menos de S/3,000','S/3,000 – S/10,000','S/10,000 – S/30,000','Más de S/30,000']},
  {k:'frustracion', t:'En una frase: ¿qué es lo que más te frustra de tus ventas?', hl:'Opcional, pero hace tu diagnóstico mucho más preciso.', libre:true, ph:'Ej: me piden precio por WhatsApp y luego no responden'},
  {k:'contacto', t:'Listo. ¿A nombre de quién preparamos tu diagnóstico?', hl:'Lo verás en pantalla en unos segundos.', contacto:true}
 ];
+/* puntaje por pilar: el mismo cálculo que usa Mora en n8n */
+const PM={
+ filtro:{'Les respondo a todos por igual':15,'Hago algunas preguntas a mano':40,'Tengo respuestas automáticas o un bot':55,'Tengo un asistente con IA que los califica':90},
+ tiempo:{'En menos de 5 minutos':90,'Entre 5 y 30 minutos':60,'Entre 1 y 3 horas':30,'Más de 3 horas o al día siguiente':10},
+ estructura:{'Les doy el precio directo':20,'Explico un poco y doy el precio':40,'Sigo un guion: pregunto, muestro el valor y cierro':85,'Depende de quién responda o del día':25},
+ registro:{'En el mismo chat de WhatsApp':20,'En un cuaderno o Excel':40,'En un CRM':75,'No llevo registro':5},
+ resultado:{'Me escriben, pero casi nadie compra':60,'Me piden precio y desaparecen':55,'Llegan muy pocos mensajes':30,'Vendo, pero sin orden ni control':50,'Todavía no hago anuncios':20}
+};
+const PIL_N={filtro:'Filtro y respuesta',ventas:'Estructura de venta',crm:'CRM y seguimiento',anuncios:'Anuncios'};
+function pilares(a){
+  const g=(m,v,d)=>m[v]!=null?m[v]:d;
+  const P={filtro:Math.round(g(PM.filtro,a.filtro,30)*.6+g(PM.tiempo,a.tiempo_respuesta,35)*.4), ventas:g(PM.estructura,a.estructura,30), crm:g(PM.registro,a.registro,25), anuncios:g(PM.resultado,a.resultado,45)};
+  if(/Todavía no invierto/.test(a.inversion||'')) P.anuncios=Math.min(20,P.anuncios);
+  return P;
+}
 let i=0, A={}, enviando=false;
 const esc=$('escena'), quiz=$('quiz');
 
@@ -567,7 +627,7 @@ addEventListener('keydown',e=>{
   const q=PREG[i]; if(!q||!q.o||enviando||A._listo) return;
   const n=parseInt(e.key,10); if(n>=1&&n<=q.o.length) elige(q.o[n-1]);
 });
-function avance(){ const p=i/PREG.length*100; $('bq').style.width=p+'%'; $('bq-txt').textContent=i<PREG.length?`Pregunta ${i+1} de ${PREG.length}`:'Analizando'; $('bq-min').textContent=i<PREG.length?`≈ ${Math.max(1,Math.ceil((PREG.length-i)*20/60))} min`:''; }
+function avance(){ const p=i/PREG.length*100; $('bq').style.width=p+'%'; $('bq-txt').textContent=i<PREG.length?`Pregunta ${i+1} de ${PREG.length}`:'Analizando'; $('bq-min').textContent=i<PREG.length?`≈ ${Math.max(1,Math.ceil((PREG.length-i)*16/60))} min`:''; }
 
 function pinta(){
   avance(); const q=PREG[i];
@@ -632,7 +692,7 @@ async function enviar(){
 
 /* análisis: checklist que avanza (lo mismo que revisa Mora) */
 function analiza(){
-  const pasos=['Revisando cómo lanzas tus anuncios','Revisando qué pasa en tu chat','Revisando tu oferta y tu precio','Calculando cuánto podrías estar perdiendo'];
+  const pasos=['Revisando cómo filtras y qué tan rápido respondes','Revisando cómo respondes cuando te piden precio','Revisando cómo das seguimiento a tus prospectos','Revisando tus anuncios y calculando lo que pierdes'];
   esc.innerHTML=`<div class="q analiza"><h2>Mora está analizando ${h(A.negocio||'tu negocio')}…</h2>`+pasos.map(p=>`<div class="paso-a"><span class="ic"></span>${p}</div>`).join('')+`</div>`;
   const els=[...esc.querySelectorAll('.paso-a')];
   els.forEach((el,k)=>{ setTimeout(()=>{ el.classList.add('act'); if(k>0){ els[k-1].classList.remove('act'); els[k-1].classList.add('ok'); } }, k*1200); });
@@ -640,27 +700,32 @@ function analiza(){
 }
 
 function respaldo(a){
-  const H=[]; let s=70;
-  if(/Promocionar/.test(a.objetivo)){H.push({titulo:'Le pagas a Meta para que te den likes',detalle:'El botón Promocionar le pide a Meta interacción, no clientes. Por eso llegan reacciones y curiosos, pero pocas personas listas para comprar.'});s-=18}
-  if(/No estoy seguro|otra persona/.test(a.objetivo)){H.push({titulo:'No sabes por qué resultado estás pagando',detalle:'Si no conoces el objetivo de tu campaña, no puedes saber si tu dinero busca clientes o solo alcance.'});s-=10}
-  if(/casi nadie compra/.test(a.resultado)){H.push({titulo:'Te escriben curiosos, no compradores',detalle:'Muchos mensajes y pocas ventas suele significar un anuncio que no filtra y una oferta que no explica por qué elegirte.'});s-=12}
-  if(/muy pocos/.test(a.resultado)){H.push({titulo:'Tu anuncio no detiene a nadie',detalle:'La imagen o la promesa no conectan con un problema concreto de tu cliente, así que la gente sigue de largo.'});s-=12}
-  if(/likes/.test(a.resultado)&&!/Promocionar/.test(a.objetivo)){H.push({titulo:'Tu campaña optimiza para alcance, no para ventas',detalle:'Si Meta te trae likes y alcance, es porque eso es lo que le estás pidiendo.'});s-=10}
-  if(/no sé si gano/.test(a.resultado)){H.push({titulo:'Inviertes sin saber qué funciona',detalle:'Sin medir ventas, Meta optimiza a ciegas y tú decides por intuición qué anuncio dejar activo.'});s-=10}
-  if(/cuando puedo|No hago/.test(a.seguimiento)){H.push({titulo:'Tus ventas dependen de tu tiempo libre',detalle:'Quien no recibe respuesta en minutos le escribe a otro. Y casi nadie compra en el primer mensaje: sin seguimiento, se enfría.'});s-=12}
-  if(H.length<3) H.push({titulo:'Tu oferta no explica por qué tú',detalle:'Sin una diferencia clara, el cliente compara solo por precio y elige al más barato.'});
-  if(H.length<3) H.push({titulo:'No tienes un proceso después del mensaje',detalle:'Entre el primer “hola” y la venta no hay pasos definidos, así que cada conversación depende de la suerte.'});
+  const P=pilares(a), O=['filtro','ventas','crm','anuncios'];
+  let el=O.filter(k=>P[k]<70); O.forEach(k=>{ if(!el.includes(k)) el.push(k); }); el=el.slice(0,3);
+  const R={
+    filtro:/Más de 3 horas|Entre 1 y 3/.test(a.tiempo_respuesta||'')
+      ?{titulo:'Respondes tarde y a todos por igual',detalle:'Quien escribe y no recibe respuesta en minutos le escribe a otro. Y sin filtro, tu tiempo se va en curiosos mientras el que sí iba a comprar espera.'}
+      :{titulo:'Atiendes igual al curioso que al comprador',detalle:'Sin preguntas que filtren, cada mensaje te pide el mismo tiempo y los que sí pueden pagar quedan mezclados con los que solo preguntan precio.'},
+    ventas:/precio directo/.test(a.estructura||'')
+      ?{titulo:'Das el precio antes de mostrar el valor',detalle:'Si el precio llega primero, el cliente solo puede comparar precios. Sin preguntas ni valor antes, el más barato siempre gana.'}
+      :{titulo:'Cada conversación depende del día',detalle:'Sin una estructura de respuesta, cada chat se maneja distinto y nadie sabe qué decir para cerrar. Eso no se arregla con más anuncios.'},
+    crm:{titulo:'Tus prospectos se pierden en el chat',detalle:'No tienes un lugar donde ver a cada prospecto y en qué quedó. Los interesados se olvidan y nadie sabe a quién volver a escribir.'},
+    anuncios:/pocos mensajes|no hago anuncios/.test(a.resultado||'')
+      ?{titulo:'Te llegan pocos mensajes de calidad',detalle:'Hoy tu anuncio no trae suficientes interesados. Es lo último a corregir: primero tu proceso debe estar listo para no perder a los que lleguen.'}
+      :{titulo:'Tu anuncio atrae a cualquiera',detalle:'Llegan mensajes, pero no siempre del cliente que puede pagarte. Se ajusta al final, cuando lo que pasa después del mensaje ya funciona.'}
+  };
+  const s=Math.round(P.filtro*.3+P.ventas*.3+P.crm*.2+P.anuncios*.2);
   const califica=!/Menos de S\/3,000/.test(a.facturacion||'')||/S\/300 – S\/1,000|S\/1,000 – S\/3,000|Más de S\/3,000/.test(a.inversion||'');
-  s=Math.max(22,s);
-  return {puntaje:s,nivel:s<40?'Crítico':s<60?'En riesgo':'Mejorable',titular:'Tu negocio tiene demanda, pero la estás perdiendo en partes clave del proceso.',hallazgos:H.slice(0,3),perdida_estimada:'',califica,lead_id:''};
+  return {puntaje:s,nivel:s<40?'Crítico':s<60?'En riesgo':'Mejorable',titular:'Te escriben, pero la venta se pierde después del mensaje: en el filtro, la respuesta y el seguimiento.',pilares:P,hallazgos:el.map(k=>({...R[k],pilar:k})),perdida_estimada:'',califica,lead_id:''};
 }
 
 /* copia de seguridad del lead en tu Google Sheet (por si n8n falla) */
+function pilTxt(P){ return `Filtro ${P.filtro} · Ventas ${P.ventas} · CRM ${P.crm} · Anuncios ${P.anuncios}`; }
 function respaldoLead(r){
   try{
     const p=new URLSearchParams(location.search);
     const lead={...A, lead_id:r.lead_id||'', califica:r.califica===false?'NO':'SI', puntaje:r.puntaje||'', nivel:r.nivel||'',
-      hallazgos:(r.hallazgos||[]).map(x=>'• '+x.titulo).join('\n'), utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||''};
+      hallazgos:(r.hallazgos||[]).map(x=>'• '+x.titulo).join('\n'), pilares:pilTxt(r.pilares||pilares(A)), utm_campaign:p.get('utm_campaign')||'', utm_content:p.get('utm_content')||''};
     delete lead._listo;
     const body=JSON.stringify({action:'respaldo',lead});
     if(CFG.API_URL&&CFG.API_URL.startsWith('http')) fetch(CFG.API_URL,{method:'POST',body,keepalive:true,mode:'no-cors'}).catch(()=>{});
@@ -674,6 +739,8 @@ function resultado(r){
   let x=`<div class="q res"><h2>${nom}, esto es lo que está frenando tus ventas.</h2>
     <div class="res-score"><div class="anillo" id="rAn" style="--c:${col}"><b id="rN">0</b></div>
       <div><small>Salud comercial: ${h((r.nivel||'').toLowerCase())}</small><p>${h(r.titular||'')}</p></div></div>`;
+  const P=(r.pilares&&r.pilares.filtro!=null)?r.pilares:pilares(A);
+  x+=`<div class="pilares" id="rPil">`+['filtro','ventas','crm','anuncios'].map(k=>{const v=Math.max(0,Math.min(100,+P[k]||0)); return `<div class="pil${k==='anuncios'?' ult':''}"><span>${PIL_N[k]}</span><div class="bar"><i data-v="${v}" style="--c:${v<40?'var(--rojo)':v<70?'#F59E0B':'var(--verde)'}"></i></div><b>${v}</b></div>`;}).join('')+`</div>`;
   if(r.perdida_estimada) x+=`<div class="perd">${h(r.perdida_estimada)}</div>`;
   (r.hallazgos||[]).slice(0,3).forEach((f,k)=>x+=`<div class="hall"><h4><i>${k+1}</i>${h(f.titulo)}</h4><p>${h(f.detalle)}</p></div>`);
   x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>El plan para corregir cada error lo armamos contigo en la asesoría.</div>`;
@@ -682,14 +749,14 @@ function resultado(r){
     const pay=CFG.RESERVA_URL+'?ref='+encodeURIComponent(r.lead_id||'');
     x+=`<div class="precio">
       <div class="top"><span>Asesoría 1 a 1 por Google Meet · 60 min</span><span>Precio de lanzamiento</span></div>
-      <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Corrijamos estos 3 errores juntos, en vivo.</h3>
+      <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Corrijamos estas 3 fugas juntos, en vivo.</h3>
       <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
       <p class="det">Pago único · eliges tu horario y pagas con Yape, Plin o PayPal</p>
       <ul>
-        <li>${CHK}Corregimos tus 3 errores, uno por uno</li>
-        <li>${CHK}Reescribimos tu oferta para que te elijan sin bajar el precio</li>
-        <li>${CHK}Creamos tu anuncio y lo lanzamos durante la llamada</li>
-        <li>${CHK}Te llevas un plan para seguir aplicando</li>
+        <li>${CHK}Revisamos tus conversaciones reales y vemos dónde se cae la venta</li>
+        <li>${CHK}Armamos tus preguntas filtro para separar curiosos de compradores</li>
+        <li>${CHK}Te llevas tu guion de respuesta: del “¿precio?” al cierre</li>
+        <li>${CHK}Ordenamos tu seguimiento y, al final, ajustamos tu anuncio</li>
       </ul>
       <a class="btn full" href="${pay}" id="pagar">Elegir mi horario</a>
       <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Si al terminar sientes que no te sirvió, te devolvemos el pago completo.</span></div>
@@ -703,6 +770,7 @@ function resultado(r){
   }
   esc.innerHTML=x+'</div>'; quiz.scrollTop=0;
   const t0=performance.now(), f=t=>{const k=Math.min(1,(t-t0)/1200), v=Math.round(p*(1-Math.pow(1-k,3))); const n=$('rN'); if(!n) return; n.textContent=v; $('rAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);
+  setTimeout(()=>document.querySelectorAll('#rPil i').forEach(i=>i.style.width=i.dataset.v+'%'),reduce?0:150);
   const pg=$('pagar'); pg&&pg.addEventListener('click',()=>track('InitiateCheckout',{value:CFG.PRECIO,currency:'PEN'}));
 }
 </script>
