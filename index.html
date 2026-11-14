@@ -433,6 +433,15 @@ a{color:inherit;text-decoration:none}
   #informe .in-it b{color:#16161A}#informe .in-it b.r{color:#E5484D}#informe .in-it b.a{color:#1E6BFF}
   #informe .in-cta{background:#0B0D14;color:#E6E7EB;padding:16px 18px;border-radius:10px;margin-top:18px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   #informe .in-cta b{color:#fff}
+  #informe .in-p2{break-before:page;page-break-before:always}
+  #informe .in-p2 h2{margin-top:22px}
+  #informe .in-cta{break-inside:avoid;padding:22px 24px;margin-top:22px}
+  #informe .in-pr{display:flex;gap:26px;align-items:center}
+  #informe .in-pr small{display:block;color:#9A9AA2;font-size:10.5px;letter-spacing:.02em}
+  #informe .in-pv{display:block;font-size:46px;line-height:1.05;color:#fff;letter-spacing:-.02em;margin-top:4px}
+  #informe .in-pl{display:flex;flex-direction:column;gap:4px;border-left:1px solid #2A2D36;padding-left:22px}
+  #informe .in-pl b{font-size:15px;margin-bottom:4px}
+  #informe .in-rs{margin-top:14px;padding-top:12px;border-top:1px solid #2A2D36;color:#C9CBD1}
   #informe .in-nota{color:#9A9AA2;font-size:10.5px;margin-top:14px}
 }
  /* aviso de salida */
@@ -1190,10 +1199,11 @@ function informe(r,P){
     ${r.perdida_estimada?`<p class="in-perd">${h(r.perdida_estimada)}</p>`:''}
     <h2>Dónde se pierden tus ventas</h2>
     ${(r.hallazgos||[]).slice(0,3).map((f,k)=>`<div class="in-it"><b class="r">${k+1}.</b> <b>${h(f.titulo)}</b><br>${h(f.detalle)}</div>`).join('')}
+    <section class="in-p2"><div class="in-top"><b class="logo">7Legend<i>.</i></b><span>${h(A.negocio||'')} · Plan de acción</span></div>
     <h2>Por dónde empezar</h2>
     ${rec.map((x,k)=>`<div class="in-it"><b class="a">${k+1}.</b> <b>${x[1]}:</b> ${x[2]}</div>`).join('')}
-    <div class="in-cta">${r.califica!==false?`<b>¿Quieres ir más a fondo? Lo revisamos contigo.</b><br>Asesoría 1 a 1 por Google Meet · 60 min · S/${CFG.PRECIO}.<br>Reserva: <a href="https://asesoria.7legend.app/reservar.html?ref=${encodeURIComponent(r.lead_id||'')}" style="color:#7FB0FF">asesoria.7legend.app/reservar.html</a>`:`<b>Tu siguiente paso</b><br>Aplica estos ajustes y revisa la guía gratuita: asesoria.7legend.app/guia.html`}</div>
-    <p class="in-nota">Diagnóstico orientativo generado con IA a partir de tus respuestas. No garantiza resultados. 7Legend · Lima, Perú.</p>`;
+    <div class="in-cta">${r.califica!==false?`<div class="in-pr"><div><small>Asesoría 1 a 1 · Google Meet · 60 min</small><b class="in-pv">S/${CFG.PRECIO}</b></div><div class="in-pl"><b>Revisemos juntos estas fugas.</b><span>✓ Revisamos tus anuncios y sus resultados</span><span>✓ Analizamos tus chats reales</span><span>✓ Vemos dónde se cae cada venta</span><span>✓ Te llevas un plan de mejora claro</span></div></div><p class="in-rs">Reserva tu horario: <a href="https://asesoria.7legend.app/reservar.html?ref=${encodeURIComponent(r.lead_id||'')}" style="color:#7FB0FF">asesoria.7legend.app/reservar.html</a></p>`:`<b>Tu siguiente paso</b><br>Aplica estos ajustes y revisa la guía gratuita: asesoria.7legend.app/guia.html`}</div>
+    <p class="in-nota">Diagnóstico orientativo generado con IA a partir de tus respuestas. No garantiza resultados. 7Legend · Lima, Perú.</p></section>`;
 }
 
 function resultado(r){
