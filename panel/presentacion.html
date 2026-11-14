@@ -18,8 +18,8 @@ button,input{font:inherit;color:inherit}
 .logo{font-weight:800;letter-spacing:-.045em}.logo i{font-style:normal;color:var(--a)}
 
 /* escenario 16:9 que se escala a la pantalla */
-#escena{position:fixed;inset:0;display:grid;place-items:center}
-#lienzo{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(180deg,#fff 0%,#F7F9FD 100%);border-radius:14px;overflow:hidden;box-shadow:0 40px 120px -40px rgba(0,0,0,.6)}
+#escena{position:fixed;inset:0;overflow:hidden}
+#lienzo{width:1280px;height:720px;position:absolute;left:50%;top:50%;transform-origin:center;background:linear-gradient(180deg,#fff 0%,#F7F9FD 100%);border-radius:14px;overflow:hidden;box-shadow:0 40px 120px -40px rgba(0,0,0,.6)}
 .lamina{position:absolute;inset:0;padding:64px 80px 90px;display:flex;flex-direction:column;opacity:0;transform:translateX(40px);pointer-events:none;transition:opacity .5s var(--e),transform .5s var(--e)}
 .lamina.on{opacity:1;transform:none;pointer-events:auto}
 .lamina.antes{transform:translateX(-40px)}
@@ -102,10 +102,11 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
 .puntos{display:flex;gap:8px}
 .puntos i{width:28px;height:4px;border-radius:4px;background:var(--l);transition:background .3s}
 .puntos i.on{background:var(--a)}
-#barra{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px;z-index:5;opacity:.25;transition:opacity .3s}
-#barra:hover{opacity:1}
+#barra{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px;z-index:5;transition:opacity .3s;max-width:calc(100vw - 20px)}
+:fullscreen #barra{opacity:.15}
+:fullscreen #barra:hover{opacity:1}
 #barra button,#barra select{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-size:14px;cursor:pointer;backdrop-filter:blur(8px)}
-#barra select{max-width:220px}
+#barra select{max-width:260px;background:#fff;color:#111;font-weight:600}
 #barra select option{color:#111}
 /* acceso */
 #acceso{position:fixed;inset:0;background:var(--s);display:none;place-items:center;z-index:10;padding:20px}
@@ -208,9 +209,10 @@ h2{font-size:46px;line-height:1.06;letter-spacing:-.045em;font-weight:700;margin
 
 <div id="acceso"><div class="box">
   <span class="logo" style="font-size:20px">7Legend<i>.</i></span>
-  <h3>Presentación de asesoría</h3>
-  <p>Escribe la clave de tu panel para cargar los datos de tus leads.</p>
+  <h3 id="accTit">Presentación de asesoría</h3>
+  <p id="accTxt">Escribe la clave de tu panel para cargar los datos de tus leads.</p>
   <input id="pin" type="password" inputmode="numeric" placeholder="Clave del panel">
+  <select id="elegir" hidden></select>
   <div class="err" id="err"></div>
   <button id="entrar">Entrar</button>
 </div></div>
@@ -223,7 +225,7 @@ let i=0, D=null, lead=null, PIN='';
 try{ PIN=localStorage.getItem('mora_pin')||''; }catch(e){}
 
 /* escala 16:9 */
-function escala(){ const k=Math.min(innerWidth/1280,innerHeight/720)*0.96; $('lienzo').style.transform=`scale(${k})`; }
+function escala(){ const k=Math.min(innerWidth/1280,(innerHeight-70)/720)*0.96; $('lienzo').style.transform=`translate(-50%,-50%) translateY(-28px) scale(${k})`; }
 addEventListener('resize',escala); escala();
 
 /* navegación */
@@ -260,8 +262,16 @@ async function cargar(){
   const lista=D.leads.filter(l=>l.nombre);
   $('selLead').innerHTML='<option value="">— Ejemplo sin datos —</option>'+lista.map(l=>`<option value="${h(l.lead_id)}">${h(l.nombre)} · ${h(l.negocio)}</option>`).join('');
   const q=new URLSearchParams(location.search).get('lead');
-  if(q){ $('selLead').value=q; }
-  pintar(lista.find(l=>l.lead_id===q)||null);
+  if(q){ $('selLead').value=q; pintar(lista.find(l=>l.lead_id===q)||null); return; }
+  pintar(null);
+  // sin lead en el link: preguntar a quién se presenta
+  $('accTit').textContent='¿A quién le vas a presentar?';
+  $('accTxt').textContent='Elige el lead. Las láminas se llenan con su diagnóstico.';
+  $('pin').hidden=true; $('err').textContent='';
+  $('elegir').hidden=false; $('elegir').innerHTML=$('selLead').innerHTML; $('elegir').selectedIndex=lista.length?1:0;
+  $('entrar').textContent='Empezar presentación';
+  $('entrar').onclick=()=>{ $('selLead').value=$('elegir').value; $('selLead').onchange(); $('acceso').style.display='none'; };
+  $('acceso').style.display='grid';
 }
 $('selLead').onchange=()=>{ const id=$('selLead').value; history.replaceState(null,'',id?'?lead='+encodeURIComponent(id):location.pathname); pintar(D.leads.find(l=>l.lead_id===id)||null); ir(0); };
 $('entrar').onclick=()=>{ PIN=$('pin').value.trim(); try{localStorage.setItem('mora_pin',PIN)}catch(e){} cargar(); };
