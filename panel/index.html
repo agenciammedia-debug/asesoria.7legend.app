@@ -270,7 +270,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
             <div><label class="lb" for="aPrecio">Precio (S/)</label><input class="campo" id="aPrecio" inputmode="decimal"></div>
             <div><label class="lb" for="aDur">Duración (min)</label><input class="campo" id="aDur" type="number"></div>
           </div>
-          <label class="lb" for="aZoom">Link de Zoom (fijo)</label><input class="campo" id="aZoom" placeholder="https://us05web.zoom.us/j/...">
+          <label class="lb" for="aZoom">Link de Google Meet (fijo)</label><input class="campo" id="aZoom" placeholder="https://meet.google.com/xxx-xxxx-xxx">
           <div class="ayuda">Se envía automáticamente en el mensaje de confirmación.</div>
           <label class="lb" for="aWa">Tu WhatsApp (con 51)</label><input class="campo" id="aWa" inputmode="tel" placeholder="51987654321">
           <div class="ayuda">Aquí te envían la captura de su pago.</div>
@@ -363,7 +363,7 @@ function tarjetaRes(r,modo){
   let acc='';
   if(modo==='verificar') acc=`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>
       <button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`;
-  if(modo==='proxima') acc=`${D.config.zoom?`<a class="btn sec mini" href="${h(D.config.zoom)}" target="_blank">Abrir Zoom</a>`:''}
+  if(modo==='proxima') acc=`${D.config.zoom?`<a class="btn sec mini" href="${h(D.config.zoom)}" target="_blank">Abrir Meet</a>`:''}
       ${lead?`<button class="btn sec mini" data-lead="${h(lead.lead_id)}">Ver ficha</button>`:''}
       <button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button>
       <button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`;
@@ -396,7 +396,7 @@ document.addEventListener('click',async e=>{
     const r=await run('adm_reserva',id,acc);
     toast('Reserva: '+r.estado);
     await cargar();
-    if(r.wa) mostrarWa(r.wa, acc==='confirmar'?'Enviar confirmación con el Zoom':'Avisarle por WhatsApp');
+    if(r.wa) mostrarWa(r.wa, acc==='confirmar'?'Enviar confirmación con el link de Meet':'Avisarle por WhatsApp');
   }catch(err){ toast(err.message,true); b.disabled=false; }
 });
 function mostrarWa(link,txt){

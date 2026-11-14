@@ -427,11 +427,11 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <div class="ruta rv d1">
       <div class="etapa gratis"><div class="c">1</div><div><h3>Haces tu diagnóstico <span class="pill g">Gratis</span></h3><p>9 preguntas rápidas. 3 minutos.</p></div></div>
       <div class="etapa gratis"><div class="c">2</div><div><h3>Ves tus errores al instante <span class="pill g">Gratis</span></h3><p>Puntaje, tus 3 fugas y cuánto te cuestan.</p></div></div>
-      <div class="etapa"><div class="c">3</div><div><h3>Los corregimos en vivo <span class="pill p">Opcional</span></h3><p>Asesoría 1 a 1 por Zoom. Sales con tu campaña lanzada.</p></div></div>
+      <div class="etapa"><div class="c">3</div><div><h3>Los corregimos en vivo <span class="pill p">Opcional</span></h3><p>Asesoría 1 a 1 por Google Meet. Sales con tu campaña lanzada.</p></div></div>
     </div>
   </div>
   <div class="precio rv d1">
-    <div class="top"><span>Asesoría 1 a 1 por Zoom · 60 min</span><span>Precio de lanzamiento</span></div>
+    <div class="top"><span>Asesoría 1 a 1 por Google Meet · 60 min</span><span>Precio de lanzamiento</span></div>
     <div class="monto"><sup>S/</sup><b>49</b></div>
     <p class="det">Pago único. Solo si quieres, después de ver tu diagnóstico.</p>
     <ul>
@@ -657,7 +657,7 @@ function resultado(r){
     try{ localStorage.setItem('mora_lead',JSON.stringify({lead_id:r.lead_id||'',nombre:A.nombre,negocio:A.negocio,whatsapp:A.whatsapp,email:A.email})); }catch(e){}
     const pay=CFG.RESERVA_URL+'?ref='+encodeURIComponent(r.lead_id||'');
     x+=`<div class="precio">
-      <div class="top"><span>Asesoría 1 a 1 por Zoom · 60 min</span><span>Precio de lanzamiento</span></div>
+      <div class="top"><span>Asesoría 1 a 1 por Google Meet · 60 min</span><span>Precio de lanzamiento</span></div>
       <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Corrijamos estos 3 errores juntos, en vivo.</h3>
       <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
       <p class="det">Pago único · eliges tu horario y pagas con Yape, Plin o PayPal</p>

@@ -5,7 +5,7 @@ window.CFG = {
   WEBHOOK_URL: "https://n8n-n8n.nl4pe6.easypanel.host/webhook/mora-diagnostico",
 
   // Apps Script: URL de la app web (termina en /exec)
-  API_URL: "https://script.google.com/macros/s/AKfycbwE094maJ4vFxjeVaZzlA8XoIicgRS8I4bw0qozweJJaycad2-s-MgfpcBEtctb2FyunQ/exec",
+  API_URL: "PEGA_AQUI_TU_URL_EXEC",
 
   // Tu WhatsApp con 51
   WHATSAPP: "51987968939",
