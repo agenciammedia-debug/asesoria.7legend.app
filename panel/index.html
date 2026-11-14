@@ -88,7 +88,22 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--s);color:var(--t2);white-space:nowrap}
 .pill.Diagnosticado{background:#EEF2FF;color:#4338CA}.pill.Agendado,.pill.Confirmada{background:var(--as);color:var(--a)}
 .pill.Cliente,.pill.Realizada{background:var(--vs);color:var(--v)}.pill.Seguimiento{background:#F3E8FF;color:#7E22CE}
-.pill.Perdido,.pill.Rechazada,.pill.Cancelada{background:#EEE;color:#555}.pill[class*="No asisti"]{background:var(--rs);color:var(--r)}
+.pill.Perdido,.pill.Rechazada,.pill.Cancelada,.pill.Reembolsada{background:#EEE;color:#555}
+.pill.Reembolsar{background:var(--rs);color:var(--r)}.pill[class*="Por reprogramar"]{background:var(--ns);color:#B45309}
+#modal{position:fixed;inset:0;z-index:60;background:rgba(15,15,20,.45);display:none;place-items:center;padding:16px}
+#modal.on{display:grid}
+#modal .caja{background:#fff;border-radius:18px;width:100%;max-width:440px;max-height:88vh;overflow:auto;padding:22px;box-shadow:0 30px 80px -30px rgba(0,0,0,.5)}
+#modal h3{font-size:19px;letter-spacing:-.02em;margin-bottom:4px}
+#modal .sub{color:var(--g);font-size:14px;margin-bottom:16px}
+.opcion{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--l);border-radius:12px;padding:13px 14px;margin-bottom:8px;cursor:pointer;font:inherit}
+.opcion:hover{border-color:var(--a);background:var(--as)}
+.opcion b{display:block;font-size:15px}.opcion span{font-size:13px;color:var(--g)}
+.dias-m{display:grid;gap:12px;margin-bottom:14px}
+.dias-m small{display:block;font-weight:600;color:var(--t2);margin-bottom:6px}
+.dias-m .hs{display:flex;flex-wrap:wrap;gap:6px}
+.dias-m button{border:1px solid var(--l);background:#fff;border-radius:8px;padding:6px 10px;font:inherit;font-size:13.5px;cursor:pointer}
+.dias-m button.sel{background:var(--a);color:#fff;border-color:var(--a)}
+#modal .pie-m{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}.pill[class*="No asisti"]{background:var(--rs);color:var(--r)}
 .pill.verificar,.pill[class*="Por verificar"]{background:var(--ns);color:#B45309}.pill.Asistió{background:#E0F2FE;color:#0369A1}
 .score{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;font-weight:700;font-size:13px;flex:none}
 .score.malo{background:var(--rs);color:var(--r)}.score.medio{background:var(--ns);color:#B45309}.score.bueno{background:var(--vs);color:var(--v)}
@@ -238,7 +253,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 
     <!-- RESERVAS -->
     <div class="vista" id="v-reservas">
-      <div class="filtros"><select class="campo" id="fRes" aria-label="Filtrar reservas"><option value="">Todas las reservas</option><option>Por verificar</option><option>Confirmada</option><option>Realizada</option><option>No asistió</option><option>Rechazada</option><option>Cancelada</option></select></div>
+      <div class="filtros"><select class="campo" id="fRes" aria-label="Filtrar reservas"><option value="">Todas las reservas</option><option>Por verificar</option><option>Confirmada</option><option>Realizada</option><option>No asistió</option><option>Rechazada</option><option>Por reprogramar</option><option>Reembolsar</option><option>Reembolsada</option><option>Cancelada</option></select></div>
       <div class="card" id="listaRes"></div>
     </div>
 
@@ -331,6 +346,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 <div id="velo"></div>
 <aside id="drawer" aria-label="Ficha del lead"></aside>
 <div id="toast" role="status"></div>
+<div id="modal" role="dialog" aria-modal="true"><div class="caja" id="modalCaja"></div></div>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -436,7 +452,9 @@ document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-acc]'); if(!b) return;
   const acc=b.dataset.acc, id=b.dataset.id;
   if(acc==='rechazar'&&!confirm('¿Marcar este pago como no encontrado? El horario quedará libre otra vez.')) return;
-  if(acc==='cancelar'&&!confirm('¿Cancelar esta reserva? El horario quedará libre otra vez.')) return;
+  if(acc==='cancelar') return elegirCancelacion(id);
+  if(acc==='reprogramar') return elegirHorario(id);
+  if(acc==='reembolsada'&&!confirm('¿Ya le devolviste el pago a este cliente?')) return;
   b.disabled=true;
   try{
     const r=await run('adm_reserva',id,acc);
@@ -445,6 +463,34 @@ document.addEventListener('click',async e=>{
     if(r.wa) mostrarWa(r.wa, acc==='confirmar'?'Enviar confirmación con el link de Meet':'Avisarle por WhatsApp');
   }catch(err){ toast(err.message,true); b.disabled=false; }
 });
+/* modal: cancelar con opciones / reprogramar */
+function modal(html){ $('modalCaja').innerHTML=html; $('modal').classList.add('on'); }
+function cerrarModal(){ $('modal').classList.remove('on'); }
+$('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.closest('[data-cerrar]')) cerrarModal(); });
+const resPor=id=>D.reservas.find(r=>r.reserva_id===id)||{};
+function elegirCancelacion(id){
+  const r=resPor(id);
+  modal(`<h3>Cancelar la asesoría de ${h(r.nombre)}</h3><p class="sub">${h(r.label||r.fecha)} · ${h(r.hora)}. El horario quedará libre. ¿Qué le ofreces?</p>
+    <button class="opcion" data-modo="reprogramar"><b>Que elija otro horario</b><span>Le llega un correo y un WhatsApp con un enlace para elegir su nuevo horario, sin volver a pagar.</span></button>
+    <button class="opcion" data-modo="reembolso"><b>Devolverle el pago</b><span>Le llega la confirmación del reembolso y la reserva queda en "Reembolsar" para que no se te olvide.</span></button>
+    <button class="opcion" data-modo=""><b>Solo cancelar</b><span>Sin avisarle. Tú le escribes.</span></button>
+    <div class="pie-m"><button class="btn sec" data-cerrar>Volver</button></div>`);
+  $('modalCaja').querySelectorAll('[data-modo]').forEach(b=>b.onclick=async()=>{
+    b.disabled=true;
+    try{ const x=await run('adm_reserva',id,'cancelar',b.dataset.modo); cerrarModal(); toast('Reserva: '+x.estado); await cargar(); if(x.wa) mostrarWa(x.wa,'Avisarle por WhatsApp'); }
+    catch(err){ toast(err.message,true); b.disabled=false; }
+  });
+}
+function elegirHorario(id){
+  const r=resPor(id), S=D.slots||[]; let sel=null;
+  modal(`<h3>Reprogramar a ${h(r.nombre)}</h3><p class="sub">Ahora: ${h(r.label||r.fecha)} · ${h(r.hora)}. Elige el nuevo horario; el pago se mantiene.</p>
+    <div class="dias-m">${S.length?S.slice(0,10).map(d=>`<div><small>${h(d.label)}</small><div class="hs">${d.horas.map(hr=>`<button data-f="${d.fecha}" data-h="${hr}">${hr}</button>`).join('')}</div></div>`).join(''):'<div class="vacio">No hay horarios libres. Agrega horas en Horarios.</div>'}</div>
+    <div class="pie-m"><button class="btn sec" data-cerrar>Volver</button><button class="btn" id="mOk" disabled>Mover y avisarle</button></div>`);
+  $('modalCaja').querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{ $('modalCaja').querySelectorAll('[data-f]').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); sel=[b.dataset.f,b.dataset.h]; $('mOk').disabled=false; });
+  $('mOk').onclick=async()=>{ if(!sel) return; $('mOk').disabled=true; $('mOk').textContent='Moviendo…';
+    try{ const x=await run('adm_reprogramar',id,sel[0],sel[1]); cerrarModal(); toast('Reserva movida'); await cargar(); if(x.wa) mostrarWa(x.wa,'Avisarle por WhatsApp'); }
+    catch(err){ toast(err.message,true); $('mOk').disabled=false; $('mOk').textContent='Mover y avisarle'; } };
+}
 function mostrarWa(link,txt){
   const t=$('toast'); t.innerHTML=''; clearTimeout(t._t);
   const a=document.createElement('a'); a.href=link; a.target='_blank'; a.className='btn wa'; a.textContent=txt+' →'; a.style.pointerEvents='auto';
@@ -485,7 +531,7 @@ function abrirLead(id){
       ${[['Pilares','pilares'],['Resultado','resultado'],['Responde en','tiempo_respuesta'],['Filtro','filtro'],['Ante el precio','estructura'],['Registro','registro'],['Inversión','inversion'],['Rubro','rubro'],['Ticket','ticket'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncios','objetivo'],['Seguimiento','seguimiento'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
     </dl></div>
     ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${h(r.metodo)} · <span class="op">${h(r.operacion)}</span></p>
-      ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
+      ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
       <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
       <div><label class="lb">Resultado de la llamada</label>${sel('resultado_llamada',['Cerró','Lo pensará','No califica','No le interesa','Reagendar'])}</div>
@@ -504,7 +550,7 @@ function abrirLead(id){
 }
 function cerrarLead(){ $('drawer').classList.remove('on'); $('velo').classList.remove('on'); }
 $('velo').onclick=cerrarLead;
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarLead(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ cerrarLead(); cerrarModal(); } });
 
 /* ── RESERVAS ── */
 $('fRes').addEventListener('input',reservas);
@@ -515,7 +561,10 @@ function reservas(){
       <p>${h(r.negocio)} · ${h(r.metodo)} · ${h(r.monto)} · Op. <span class="op">${h(r.operacion)}</span> · reservó ${h(r.creado)}</p>
       <div class="acciones">
         ${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button><button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`:''}
-        ${r.estado==='Confirmada'?`<button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button><button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button>`:''}
+        ${r.estado==='Confirmada'?`<button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button><button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`:''}
+        ${['Confirmada','Por verificar','Por reprogramar'].includes(r.estado)?`<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button>`:''}
+        ${['Confirmada','Por verificar'].includes(r.estado)?`<button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button>`:''}
+        ${r.estado==='Reembolsar'?`<button class="btn ok mini" data-acc="reembolsada" data-id="${h(r.reserva_id)}">Reembolso hecho</button>`:''}
         ${r.lead_id&&leadPor(r.lead_id)?`<button class="btn sec mini" data-lead="${h(r.lead_id)}">Ver ficha</button>`:''}
         <a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`).join(''):'<div class="vacio">No hay reservas todavía.</div>';
 }
