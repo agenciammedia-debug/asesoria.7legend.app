@@ -16,12 +16,12 @@ window.CFG = {
     nombre: "Carlos Moreno",
     cargo: "Fundador de 7Legend",
     foto: "carlos-moreno.jpg",
-    bio: "No soy un curso ni un bot. Vendo con anuncios todos los días en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
+    bio: "No soy un curso ni un bot. Soy un empresario que domina perfectamente los canales de ventas y los aplico en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
     numeros: [
-      { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
-      { valor: "+300", texto: "clientes high ticket cerrados (+US$500)" },
-      { valor: "2", texto: "negocios propios con este método" },
-      { valor: "+5 años", texto: "vendiendo con anuncios" }
+      { valor: "+ S/ 250,000", texto: "invertidos en anuncios de Meta" },
+      { valor: "+300", texto: "clientes high ticket cerrados [+ US$500]" },
+      { valor: "2", texto: "negocios propios semiautomatizados" },
+      { valor: "+8 años", texto: "Escalando mis propios negocios" }
     ],
     // Al tocar un negocio se abre una ventana (sin salir de la página) con:
     //  - usuario: cómo encontrarlo (solo texto, no es enlace)
@@ -29,10 +29,10 @@ window.CFG = {
     //  - posts: enlaces de publicaciones de Instagram (ej: "https://www.instagram.com/p/ABC123/"); se ven dentro de la ventana
     // Usa **texto** para poner en negrita.
     negocios: [
-      { nombre: "Essence Studio", detalle: "Salón de belleza con **2 sedes en Surco y Miraflores**. Toda su captación viene de anuncios y WhatsApp.",
-        usuario: "Instagram: @essence.studio_pe", fotos: [], posts: [] },
-      { nombre: "MMedia Perú", detalle: "**Growth partner para negocios en Latinoamérica**: anuncios, ventas y seguimiento.",
-        usuario: "Web: mmediaperu.com", fotos: [], posts: [] }
+      { nombre: "Essence Studio", detalle: "Studio de uñas con **sedes en Surco y Miraflores**. Toda sus clientas viene de anuncios y automatización con Mora ai.",
+        usuario: "Instagram: @essence.studio_pe", captura: "essence-feed.jpg", fotos: [], posts: [] },
+      { nombre: "MMedia Perú", detalle: "**Growth partner para especialistas en Latinoamérica**: anuncios, automatización, CRM y ventas.",
+        usuario: "mmediaperu.com", captura: "mmedia-feed.jpg", fotos: [], posts: [] }
     ],
     video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview",
     testimonios: [
