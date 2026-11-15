@@ -47,6 +47,6 @@ window.CFG = {
       { texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes.", nombre: "Daniel G.", negocio: "Inmobiliaria · Arequipa", foto: "" },
       { texto: "Salí con un plan claro, lo apliqué y dejé de perder clientes.", nombre: "Andrea P.", negocio: "Centro Estético · Trujillo", foto: "" }
     ],
-    conferencia: { foto: "conferencia.jpg", texto: "Dando una conferencia sobre ventas de alto ticket." }
+    conferencia: { foto: "conferencia.jpg", texto: "Conferencia sobre ventas de alto ticket· Clínica Andrea Contreras · Marzo 2026." }
   }
 };
