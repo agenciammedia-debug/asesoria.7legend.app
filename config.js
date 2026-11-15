@@ -18,10 +18,10 @@ window.CFG = {
     foto: "carlos-moreno.jpg",
     bio: "No soy un curso ni un bot. Soy empresario y aplico estos canales de venta todos los días en mis propios negocios. En la asesoría te enseño lo que a mí me funciona, con tus números reales.",
     numeros: [
-      { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
-      { valor: "+300", texto: "clientes high ticket cerrados (+US$500)" },
+      { valor: "+ S/ 250,000", texto: "invertidos en anuncios de Meta" },
+      { valor: "+ 300", texto: "clientes high ticket cerrados (+US$500)" },
       { valor: "2", texto: "negocios propios que funcionan así" },
-      { valor: "+8 años", texto: "escalando mis propios negocios" }
+      { valor: "+ 8 años", texto: "escalando mis propios negocios" }
     ],
     // Al tocar un negocio se abre una ventana (sin salir de la página) con:
     //  - captura: screenshot del feed (se ve en miniatura y grande al abrir)
