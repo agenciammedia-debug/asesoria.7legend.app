@@ -98,6 +98,10 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .opcion{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--l);border-radius:12px;padding:13px 14px;margin-bottom:8px;cursor:pointer;font:inherit}
 .opcion:hover{border-color:var(--a);background:var(--as)}
 .opcion b{display:block;font-size:15px}.opcion span{font-size:13px;color:var(--g)}
+.opcion.reco{border-color:#25D366;background:#F0FBF4}.opcion .tag{display:inline-block;font-size:11px;font-weight:700;color:#127A3A;background:#DDF5E6;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.opcion em{display:block;font-style:normal;font-size:12.5px;color:var(--g2,#9A9AA2);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa-txt{width:100%;min-height:220px;border:1px solid var(--l);border-radius:12px;padding:12px;font:inherit;font-size:14.5px;line-height:1.5;resize:vertical}
+.wa-pie{display:flex;gap:8px;margin-top:12px}.wa-pie .btn{flex:1;justify-content:center}
 .dias-m{display:grid;gap:12px;margin-bottom:14px}
 .dias-m small{display:block;font-weight:600;color:var(--t2);margin-bottom:6px}
 .dias-m .hs{display:flex;flex-wrap:wrap;gap:6px}
@@ -407,7 +411,8 @@ if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch
 
 async function cargar(aviso){
   document.body.classList.add('cargando');
-  try{ D=await run('adm_data'); HOR=JSON.parse(JSON.stringify(D.horarios)); pintarTodo(); if(aviso) toast('Datos actualizados'); }
+  try{ D=await run('adm_data'); HOR=JSON.parse(JSON.stringify(D.horarios)); pintarTodo(); if(aviso) toast('Datos actualizados');
+    const q=new URLSearchParams(location.search).get('lead'); if(q&&leadPor(q)){ history.replaceState(null,'',location.pathname); abrirLead(q); } }
   catch(e){ toast(e.message,true); }
   document.body.classList.remove('cargando');
 }
@@ -417,14 +422,14 @@ function pintarTodo(){ $('actualizado').textContent='Actualizado '+D.hoy.slice(1
 const wa=(n,t)=>'https://wa.me/'+String(n||'').replace(/\D/g,'')+(t?'?text='+encodeURIComponent(t):'');
 const scoreCls=p=>+p<40?'malo':+p<60?'medio':'bueno';
 const fechaBox=(f,hr)=>{ const d=new Date(f+'T12:00:00'); const dia=['dom','lun','mar','mié','jue','vie','sáb'][d.getDay()];
-  return `<div class="fecha-box"><small>${dia} · ${MESES[d.getMonth()]}</small><b>${d.getDate()}</b><span>${h(hr)}</span></div>`; };
+  return `<div class="fecha-box"><small>${dia} · ${MESES[d.getMonth()]}</small><b>${d.getDate()}</b><span>${h(hr||'—')}</span></div>`; };
 const esFutura=r=>(r.fecha+' '+r.hora)>=D.hoy.slice(0,16);
 const leadPor=id=>D.leads.find(l=>l.lead_id===id);
 
 /* ── KPIs ── */
 const enLlamada=r=>r.metodo==='En llamada';
 const pagada=r=>['Confirmada','Realizada','No asistió'].includes(r.estado)&&!enLlamada(r);
-const opTxt=r=>enLlamada(r)?'<b style="color:#B45309">Paga en la llamada</b>':'Operación <span class="op">'+h(r.operacion)+'</span>';
+const opTxt=r=>enLlamada(r)?'<b style="color:#B45309">Paga S/'+h((D.config&&D.config.precio)||49)+' en la videollamada</b>':'Operación <span class="op">'+h(r.operacion)+'</span>';
 const btnPago=r=>enLlamada(r)&&['Confirmada','Realizada'].includes(r.estado)?`<button class="btn ok mini" data-acc="pago_llamada" data-id="${h(r.reserva_id)}">Pagó S/${h(D.config.precio||49)}</button>`:'';
 function kpis(){
   const L=D.leads, R=D.reservas, hace7=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
@@ -453,8 +458,8 @@ function tarjetaRes(r,modo){
       <button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`;
   return `<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
     <strong>${h(r.nombre)}${r.negocio?` · <span style="font-weight:500;color:var(--g)">${h(r.negocio)}</span>`:''}</strong>
-    <p>${enLlamada(r)?'':h(r.metodo)+' · '}${h(r.monto)} · ${opTxt(r)}</p>
-    <div class="acciones">${acc}<a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`;
+    <p>${enLlamada(r)?opTxt(r):h(r.metodo)+' · '+h(r.monto)+' · '+opTxt(r)}</p>
+    <div class="acciones">${acc}<button class="btn wa mini" data-wa-res="${h(r.reserva_id)}">WhatsApp ▾</button></div></div></div>`;
 }
 function hoy(){
   const R=D.reservas;
@@ -487,6 +492,72 @@ document.addEventListener('click',async e=>{
   }catch(err){ toast(err.message,true); b.disabled=false; }
 });
 /* modal: cancelar con opciones / reprogramar */
+/* ── Mensajes de WhatsApp predeterminados ── */
+const URL_RES=id=>'https://asesoria.7legend.app/reservar.html'+(id?'?ref='+encodeURIComponent(id):'');
+function plantillasWa(l,r){
+  const c=D.config||{}, n=String((r&&r.nombre)||(l&&l.nombre)||'').trim().split(' ')[0]||'', neg=(l&&l.negocio)||(r&&r.negocio)||'tu negocio';
+  const fuga=String((l&&l.hallazgos)||'').split('\n').map(x=>x.replace(/^[•\-\s]+/,'').trim()).filter(Boolean)[0]||'';
+  const meet=c.zoom||'[link de Meet]', P=c.precio||49, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
+  const pagos=[c.yape?`• Yape: ${c.yape}${c.yapeTit?' ('+c.yapeTit+')':''}`:'',c.plin?`• Plin: ${c.plin}${c.plinTit?' ('+c.plinTit+')':''}`:'',c.paypal?`• PayPal: ${c.paypal}${c.paypalUsd?' (US$'+c.paypalUsd+')':''}`:''].filter(Boolean).join('\n')||'• Yape / Plin: [tu número]';
+  const plan=l&&l.plan==='Básico'?['Básico',c.planBase||'800']:['Pro',c.planPro||'1,500'];
+  const T=[];
+  if(!r){
+    T.push({id:'contacto',t:'Primer contacto',c:'Lead nuevo que no reservó (mejor en la primera hora)',
+      m:`Hola ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi tu diagnóstico de ${neg}${fuga?`: lo que más ventas te está costando es «${fuga}»`:''}. Tiene solución.\n\n¿Lo revisamos juntos en una videollamada de 60 minutos? Reservas tu horario aquí y pagas S/${P} en la videollamada, no antes:\n${URL_RES(l&&l.lead_id)}`});
+    T.push({id:'seguimiento',t:'Seguimiento',c:'2 o 3 días después, si no respondió',
+      m:`Hola ${n}, ¿pudiste ver tu diagnóstico de ${neg}? Esta semana me quedan pocos horarios para revisarlo contigo. Si quieres, te separo uno 👇\n${URL_RES(l&&l.lead_id)}`});
+    T.push({id:'guia',t:'Guía gratuita',c:'Lead que no califica todavía',
+      m:`Hola ${n}, gracias por hacer el diagnóstico de ${neg} 🙌 Por la etapa de tu negocio, te recomiendo empezar por estos 5 ajustes (es gratis):\nhttps://asesoria.7legend.app/guia.html\n\nCualquier duda, escríbeme por aquí.`});
+  } else {
+    T.push({id:'presentar',t:'Presentarme y confirmar',c:'Apenas reserva',
+      m:`Hola ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi que reservaste tu asesoría para el ${fl} a las ${hora}. Ya revisé tu diagnóstico de ${neg} y tengo varias ideas para ti.\n\nTe llegó el link de Google Meet a tu correo. ¿Me confirmas que nos vemos? 🙌`});
+    T.push({id:'r24',t:'Recordatorio (día anterior)',c:'La noche anterior',
+      m:`Hola ${n}, te recuerdo nuestra videollamada de mañana, ${fl} a las ${hora} 🗓️\n\nLink: ${meet}\n\nTen a mano 3 chats de clientes que te pidieron precio. ¿Todo bien para mañana?`});
+    T.push({id:'r1',t:'Recordatorio (1 hora antes)',c:'El mismo día',
+      m:`Hola ${n}, en 1 hora nos vemos 👉 ${meet}\n\nConéctate desde una computadora si puedes.`});
+    T.push({id:'conectado',t:'Ya estoy conectado',c:'Si a los 5 minutos no entra',
+      m:`Hola ${n}, ya estoy en la videollamada esperándote 👉 ${meet}\n\n¿Te conectas?`});
+    T.push({id:'pago',t:'Datos de pago',c:'Durante la videollamada',
+      m:`Te dejo los datos para la asesoría (S/${P}):\n\n${pagos}\n\nApenas lo envíes, seguimos con tu plan 🙌`});
+    T.push({id:'gracias',t:'Gracias + resumen',c:'Al terminar la videollamada',
+      m:`Gracias por tu tiempo hoy, ${n} 🙌 Te resumo lo que acordamos:\n\n1. \n2. \n3. \n\nCualquier duda, escríbeme por aquí.`});
+    T.push({id:'plan',t:'Propuesta del plan',c:'1 o 2 días después de la asesoría',
+      m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (Mora respondiendo 24/7, capacitación de ventas y CRM), arrancamos esta semana con el Plan ${plan[0]} (S/${plan[1]} al mes).\n\n¿Lo conversamos 10 minutos?`});
+    T.push({id:'noasistio',t:'No se conectó',c:'Si no asistió',
+      m:`Hola ${n}, te esperé hoy a las ${hora} y no pudimos conectarnos. ¿Todo bien? Si quieres, la movemos: dime qué día y hora te acomoda.`});
+  }
+  return T;
+}
+function waRecomendado(l,r){
+  if(!r) return String((l&&l.califica)||'').toUpperCase()==='NO'?'guia':'contacto';
+  const ini=new Date(r.fecha+'T'+(r.hora||'00:00')+':00-05:00').getTime(), m=(ini-Date.now())/60e3;
+  if(r.estado==='No asistió') return 'noasistio';
+  if(r.estado==='Realizada') return 'plan';
+  if(m>24*60) return 'presentar';
+  if(m>3*60) return 'r24';
+  if(m>0) return 'r1';
+  if(m>-15) return 'conectado';
+  if(m>-75) return 'pago';
+  return 'gracias';
+}
+function abrirWa(l,r){
+  const tel=(r&&r.whatsapp)||(l&&l.whatsapp); if(!tel){ toast('Este contacto no tiene WhatsApp.',true); return; }
+  const T=plantillasWa(l,r), reco=waRecomendado(l,r), nom=(r&&r.nombre)||(l&&l.nombre)||'';
+  const lista=()=>{ modal(`<h3>Escribir a ${h(nom)}</h3><p class="sub">Elige un mensaje. Puedes editarlo antes de enviarlo.</p>
+    ${[...T].sort((a,b)=>(b.id===reco)-(a.id===reco)).map(x=>`<button class="opcion${x.id===reco?' reco':''}" data-tpl="${x.id}"><b>${h(x.t)}${x.id===reco?'<span class="tag">Recomendado ahora</span>':''}</b><span>${h(x.c)}</span><em>${h(x.m.replace(/\n+/g,' '))}</em></button>`).join('')}
+    <button class="opcion" data-tpl="libre"><b>Mensaje en blanco</b><span>Escribir desde cero</span></button>
+    <div class="pie-m"><button class="btn sec" data-cerrar>Cerrar</button></div>`);
+    $('modalCaja').querySelectorAll('[data-tpl]').forEach(b=>b.onclick=()=>editor(T.find(x=>x.id===b.dataset.tpl)||{t:'Mensaje',m:''})); };
+  const editor=x=>{ modal(`<h3>${h(x.t)}</h3><p class="sub">Para ${h(nom)} · ${h(tel)}</p><textarea class="wa-txt" id="waTxt">${h(x.m)}</textarea>
+    <div class="wa-pie"><button class="btn sec" id="waVolver">← Otros mensajes</button><a class="btn wa" id="waIr" target="_blank" rel="noopener">Abrir WhatsApp</a></div>`);
+    const ir=$('waIr'), ta=$('waTxt'), up=()=>ir.href=wa(tel,ta.value); up(); ta.oninput=up; ta.focus();
+    ir.onclick=()=>setTimeout(cerrarModal,300); $('waVolver').onclick=lista; };
+  lista();
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-wa-res]'); if(a){ const r=D.reservas.find(x=>x.reserva_id===a.dataset.waRes); if(r) abrirWa(leadPor(r.lead_id),r); return; }
+  const b=e.target.closest('[data-wa-lead]'); if(b){ const l=leadPor(b.dataset.waLead); const r=D.reservas.filter(x=>x.lead_id===b.dataset.waLead&&['Confirmada','Por verificar','Realizada','No asistió'].includes(x.estado)).sort((x,y)=>(y.fecha+y.hora).localeCompare(x.fecha+x.hora))[0]; abrirWa(l,r||null); }
+});
 function modal(html){ $('modalCaja').innerHTML=html; $('modal').classList.add('on'); }
 function cerrarModal(){ $('modal').classList.remove('on'); }
 $('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.closest('[data-cerrar]')) cerrarModal(); });
@@ -583,7 +654,7 @@ function abrirLead(id){
   $('drawer').innerHTML=`
     <div class="dr-top"><span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span><div><h3>${h(l.nombre)}</h3><p>${h(l.negocio)} · ${h(l.fecha)}</p></div><button class="x" id="cerrarDr" aria-label="Cerrar">×</button></div>
     <div class="dr-sec"><div class="acciones" style="margin:0">
-      <a class="btn wa" href="${wa(l.whatsapp,'Hola '+nombre+', soy de 7Legend. Vi tu diagnóstico de Mora sobre '+(l.negocio||'tu negocio')+'. ¿Tienes 2 minutos para contarte cómo corregir lo que encontró?')}" target="_blank">Escribir por WhatsApp</a>
+      <button class="btn wa" data-wa-lead="${h(l.lead_id)}">Escribir por WhatsApp ▾</button>
       <a class="btn sec" href="presentacion.html?lead=${encodeURIComponent(l.lead_id)}" target="_blank">Presentar</a>
       ${l.email?`<a class="btn sec" href="mailto:${h(l.email)}">${h(l.email)}</a>`:''}</div></div>
     ${l.angulo_venta?`<div class="dr-sec"><h4>Para tu llamada</h4><div class="llamada">${h(l.angulo_venta)}</div></div>`:''}
@@ -627,7 +698,7 @@ function reservas(){
         ${['Confirmada','Por verificar'].includes(r.estado)?`<button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button>`:''}
         ${r.estado==='Reembolsar'?`<button class="btn ok mini" data-acc="reembolsada" data-id="${h(r.reserva_id)}">Reembolso hecho</button>`:''}
         ${r.lead_id&&leadPor(r.lead_id)?`<button class="btn sec mini" data-lead="${h(r.lead_id)}">Ver ficha</button>`:''}
-        <a class="btn wa mini" href="${wa(r.whatsapp)}" target="_blank">WhatsApp</a></div></div></div>`).join(''):'<div class="vacio">No hay reservas todavía.</div>';
+        <button class="btn wa mini" data-wa-res="${h(r.reserva_id)}">WhatsApp ▾</button></div></div></div>`).join(''):'<div class="vacio">No hay reservas todavía.</div>';
 }
 
 /* ── HORARIOS: grilla para marcar con el dedo ── */
