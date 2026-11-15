@@ -222,14 +222,14 @@ if(CAMBIO&&KC){
 const GRATIS=!(CAMBIO&&KC)&&(window.CFG&&CFG.COBRO)==='llamada';
 if(GRATIS){
   $('p2').querySelector('span').textContent='2. Tus datos'; $('p3').querySelector('span').textContent='3. Listo';
-  $('rDur').textContent='60 minutos · agendar es gratis';
-  $('s1').querySelector('h1').textContent='Agenda tu asesoría';
-  $('s1').querySelector('.sub').textContent='Elige el día y la hora. No pagas nada ahora.';
+  $('rDur').textContent='60 minutos · se paga en la videollamada';
+  $('s1').querySelector('h1').textContent='Reserva tu horario';
+  $('s1').querySelector('.sub').textContent='Elige el día y la hora. Pagas en la videollamada, no antes.';
   $('ir2').textContent='Continuar';
   $('s3').querySelector('h1').textContent='Tus datos';
-  $('s3').querySelector('.sub').innerHTML='Te enviamos el link de Google Meet a tu correo. <b>Los primeros 10 minutos te explico tu diagnóstico sin costo</b>; si decides continuar, pagas S/<span class="pz">49</span> ahí mismo con Yape, Plin o PayPal.';
+  $('s3').querySelector('.sub').innerHTML='Te enviamos el link de Google Meet a tu correo. <b>Pagas S/<span class="pz">49</span> en la videollamada</b>, con Yape, Plin o PayPal. Al reservar no pagas nada.';
   ['lbOp','fOp','ayOp'].forEach(k=>$(k).style.display='none');
-  $('reservar').textContent='Agendar mi asesoría';
+  $('reservar').textContent='Reservar mi horario';
   $('s3').querySelector('[data-volver]').dataset.volver='1'; $('s3').querySelector('[data-volver]').textContent='← Cambiar horario';
 }
 
@@ -248,7 +248,7 @@ async function cargar(){
   }catch(e){
     $('dias').innerHTML=''; $('err1').textContent='No pudimos cargar los horarios. Revisa tu conexión y recarga la página.'; return;
   }
-  $('rPrecio').textContent='S/'+API.precio; $('rDur').textContent=API.duracion+(GRATIS?' minutos · agendar es gratis, pagas en la llamada':' minutos · sales con tu plan de mejora');
+  $('rPrecio').textContent='S/'+API.precio; $('rDur').textContent=API.duracion+(GRATIS?' minutos · se paga en la videollamada':' minutos · sales con tu plan de mejora');
   document.querySelectorAll('.pz').forEach(e=>e.textContent=API.precio);
   if(!API.slots.length){
     $('dias').innerHTML=''; $('horas').innerHTML='';
@@ -331,7 +331,7 @@ $('reservar').onclick=async()=>{
   let r=null;
   try{ const res=await fetch(CFG.API_URL,{method:'POST',body:JSON.stringify(d)}); r=await res.json(); }
   catch(e){ r={ok:false,error:'No pudimos conectar. Revisa tu internet e inténtalo otra vez.'}; }
-  b.disabled=false; b.textContent=GRATIS?'Agendar mi asesoría':'Confirmar mi reserva';
+  b.disabled=false; b.textContent=GRATIS?'Reservar mi horario':'Confirmar mi reserva';
   if(!r.ok){
     err.textContent=r.error||'No pudimos reservar. Inténtalo otra vez.';
     if(r.ocupado){ sel.fecha=''; sel.hora=''; $('ir2').disabled=true; await cargar(); paso(1); $('err1').textContent=r.error; }
@@ -340,9 +340,9 @@ $('reservar').onclick=async()=>{
   if(r.gratis){
     track('Schedule',{content_name:'asesoria'},r.reserva_id);
     try{ localStorage.setItem('mora_reserva',JSON.stringify(r)); }catch(e){}
-    document.querySelector('#s4 h1').textContent='¡Listo, tu asesoría está agendada!';
+    document.querySelector('#s4 h1').textContent='¡Listo, tu horario está reservado!';
     document.querySelector('#s4 .sub').textContent='Te enviamos el link de Google Meet a tu correo. Te escribiré por WhatsApp para presentarme antes de la llamada.';
-    $('detalle').innerHTML=`<div><span>Fecha</span><b>${h(r.label)}</b></div><div><span>Hora</span><b>${h(r.hora)} (Perú)</b></div><div><span>Pago</span><b>S/${h(API.precio)} en la llamada, solo si continúas</b></div><div><span>Código</span><b>${h(r.reserva_id)}</b></div>`;
+    $('detalle').innerHTML=`<div><span>Fecha</span><b>${h(r.label)}</b></div><div><span>Hora</span><b>${h(r.hora)} (Perú)</b></div><div><span>Pago</span><b>S/${h(API.precio)} en la videollamada</b></div><div><span>Código</span><b>${h(r.reserva_id)}</b></div>`;
     const m2=`Hola Carlos, soy ${d.nombre}. Agendé mi asesoría para el ${r.label} a las ${r.hora}.`;
     if(API.whatsapp){ $('waCaptura').href=`https://wa.me/${API.whatsapp}?text=${encodeURIComponent(m2)}`; $('waCaptura').textContent='Escríbeme por WhatsApp'; document.querySelector('#s4 .ayuda').textContent='Si tienes alguna duda antes de la llamada.'; } else { $('waCaptura').remove(); }
     paso(4); return;
