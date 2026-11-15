@@ -430,33 +430,70 @@ a{color:inherit;text-decoration:none}
 #social button{position:absolute;right:6px;top:4px;background:none;border:0;color:var(--gris2);cursor:pointer;font-size:12px;padding:4px}
 @media (max-width:980px){ #social{left:12px;right:12px;bottom:84px;max-width:none} }
  /* botón PDF */
-.yo{background:#fff;border:1px solid var(--linea);border-radius:24px;padding:28px;box-shadow:0 30px 60px -40px rgba(11,13,20,.25)}
-.yo-top{display:flex;gap:18px;align-items:center}
-.yo-foto{width:92px;height:92px;border-radius:50%;object-fit:cover;object-position:50% 25%;flex:none;border:3px solid var(--azul-s)}
-.yo-top small{display:block;font-size:13px;color:var(--azul);font-weight:600}
-.yo-top h3{font-size:24px;letter-spacing:-.03em;line-height:1.15}
-.yo-top p{color:var(--gris);font-size:15px}
-.yo-bio{margin:18px 0 0;font-size:16px;color:var(--tinta2)}
-.yo-num{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:18px}
-.yo-num div{background:var(--suave);border-radius:14px;padding:14px}
-.yo-num b{display:block;font-size:22px;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
-.yo-num span{display:block;font-size:13px;color:var(--gris);margin-top:4px;line-height:1.35}
-.yo-neg{display:grid;gap:8px;margin-top:18px}
-.yo-neg a{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--linea);border-radius:14px;padding:12px 14px;color:var(--tinta);text-decoration:none;transition:border-color .2s}
-.yo-neg a:hover{border-color:var(--azul)}
-.yo-neg a b{display:block;font-size:15.5px}.yo-neg a span{display:block;font-size:13.5px;color:var(--gris)}
-.yo-neg a i{font-style:normal;color:var(--azul);font-weight:600;flex:none}
-.yo-conf{margin:18px 0 0}
-.yo-conf img{width:100%;border-radius:16px;display:block;aspect-ratio:707/440;object-fit:cover}
-.yo-conf figcaption{font-size:13px;color:var(--gris);margin-top:8px}
-.yo-video{margin-top:18px;border-radius:16px;overflow:hidden;background:var(--noche);position:relative;aspect-ratio:16/9}
-.yo-video button{all:unset;cursor:pointer;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;font-weight:600;font-size:16px;text-align:center}
-.yo-video button i{width:64px;height:64px;border-radius:50%;background:var(--azul);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(30,107,255,.2)}
-.yo-video button:focus-visible{outline:3px solid var(--cielo);outline-offset:-3px}
-.yo-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.yo-wa{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;padding:14px;border-radius:14px;background:#E9F9EF;color:#127A3A;font-weight:600;text-decoration:none;font-size:15.5px}
-.q .yo{margin-top:22px}
+.cnf{display:grid;gap:14px;margin-top:22px}
+.cf-card{background:#fff;border:1px solid var(--linea);border-radius:22px;padding:26px}
+.cf-card>h4{font-size:19px;letter-spacing:-.03em;line-height:1.2;margin-bottom:14px}
+.cf-paso{border:2px solid var(--azul);box-shadow:0 24px 50px -34px rgba(30,107,255,.55)}
+.cf-paso h3{font-size:25px;letter-spacing:-.04em;line-height:1.1}
+.cf-paso>p{color:var(--gris);font-size:15.5px;margin-top:6px}
+.cf-ruta{list-style:none;margin:20px 0 22px;display:grid;gap:0;counter-reset:r}
+.cf-ruta li{counter-increment:r;display:grid;grid-template-columns:34px 1fr;gap:2px 12px;position:relative;padding-bottom:16px}
+.cf-ruta li:before{content:counter(r);grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--azul-s);color:var(--azul);font-weight:700;font-size:14.5px;display:grid;place-items:center}
+.cf-ruta li:not(:last-child):after{content:"";position:absolute;left:14.5px;top:32px;bottom:2px;width:1px;background:var(--linea)}
+.cf-ruta li:last-child{padding-bottom:0}
+.cf-ruta b{font-size:16px;line-height:30px}.cf-ruta span{font-size:14.5px;color:var(--gris);line-height:1.45}
+.cf-mini{text-align:center;font-size:13.5px;color:var(--gris);margin-top:10px}
+.cf-yo{display:grid;grid-template-columns:132px 1fr;gap:20px;align-items:center}
+.cf-yo img{width:132px;height:165px;border-radius:16px;object-fit:cover;object-position:50% 20%}
+.cf-yo small{font-size:13px;color:var(--azul);font-weight:600}
+.cf-yo h3{font-size:24px;letter-spacing:-.035em;line-height:1.1;margin-top:2px}
+.cf-yo .cg{color:var(--gris);font-size:14.5px}
+.cf-yo p.bio{font-size:15px;color:var(--tinta2);margin-top:10px;line-height:1.5}
+@media(max-width:520px){.cf-yo{grid-template-columns:96px 1fr;gap:14px;align-items:start}.cf-yo img{width:96px;height:120px}.cf-yo p.bio{grid-column:1/-1;margin-top:4px}}
+.cf-num{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.cf-num div{background:var(--suave);border-radius:14px;padding:14px 14px 12px;position:relative}
+.cf-num b{display:block;font-size:22px;white-space:nowrap;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}
+.cf-num span{display:block;font-size:13px;color:var(--gris);margin-top:5px;line-height:1.35}
+.cf-neg{display:grid;gap:10px}
+.cf-neg>div{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border:1px solid var(--linea);border-radius:16px;padding:12px 14px;position:relative}
+.cf-neg i{width:48px;height:48px;border-radius:12px;background:var(--noche);color:#fff;font-style:normal;font-weight:700;display:grid;place-items:center;font-size:16px;overflow:hidden}
+.cf-neg i img{width:100%;height:100%;object-fit:cover}
+.cf-neg b{display:block;font-size:15.5px}.cf-neg span{display:block;font-size:13.5px;color:var(--gris);line-height:1.4}
+.cf-video{border-radius:16px;overflow:hidden;background:var(--noche);position:relative;aspect-ratio:16/9;margin-bottom:12px}
+.cf-video button{all:unset;cursor:pointer;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;font-weight:600;font-size:15.5px;text-align:center;background:radial-gradient(ellipse at 50% 40%,rgba(30,107,255,.35),transparent 60%)}
+.cf-video button i{width:62px;height:62px;border-radius:50%;background:var(--azul);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(30,107,255,.22)}
+.cf-video button:focus-visible{outline:3px solid var(--cielo);outline-offset:-3px}
+.cf-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cf-tes{display:grid;gap:10px}
+.cf-tes figure{margin:0;background:var(--suave);border-radius:16px;padding:16px 18px;position:relative}
+.cf-tes blockquote{font-size:15px;line-height:1.55;color:var(--tinta2)}
+.cf-tes figcaption{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13.5px;color:var(--gris)}
+.cf-tes figcaption b{color:var(--tinta);font-size:14px}
+.cf-tes figcaption i{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--linea);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:12.5px;color:var(--tinta2);overflow:hidden;flex:none}
+.cf-tes figcaption i img{width:100%;height:100%;object-fit:cover}
+.cf-estrellas{color:#F5A524;letter-spacing:2px;font-size:14px;margin-bottom:6px}
+.cf-conf{margin:0}
+.cf-conf img{width:100%;border-radius:16px;display:block;aspect-ratio:707/440;object-fit:cover}
+.cf-conf figcaption{font-size:13.5px;color:var(--gris);margin-top:10px}
+.cf-faq details{border-top:1px solid var(--linea);padding:13px 0}
+.cf-faq details:first-of-type{border-top:0;padding-top:2px}
+.cf-faq summary{cursor:pointer;font-weight:600;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.cf-faq summary::-webkit-details-marker{display:none}
+.cf-faq summary:after{content:"+";color:var(--azul);font-weight:500;font-size:20px;line-height:1}
+.cf-faq details[open] summary:after{content:"–"}
+.cf-faq p{font-size:14.5px;color:var(--gris);margin-top:8px;line-height:1.5}
+.cf-wa{text-decoration:none!important;display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:16px;background:#E9F9EF;color:#127A3A;font-weight:600;text-decoration:none;font-size:15.5px;border:1px solid #CDEFD9}
+.cf-wa:hover{background:#DDF5E6}
+.cf-pago .monto{margin-top:6px}
+.cf-cuando{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;margin:4px 0 22px;font-size:15px;color:rgba(255,255,255,.88);line-height:1.45}
+.cf-cuando svg{flex:none;color:var(--menta);margin-top:2px}
+.cf-cuando b{color:#fff}
+.cf-medios{display:flex;gap:8px;flex-wrap:wrap;margin:-8px 0 24px}
+.cf-medios span{border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 12px;font-size:13px;color:rgba(255,255,255,.8)}
+.ej{outline:2px dashed #F59E0B;outline-offset:3px}
+.ej:after{content:"Ejemplo · cámbialo en config.js";position:absolute;top:-11px;right:10px;background:#F59E0B;color:#fff;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:6px;white-space:nowrap}
 .quien-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+.quien-grid .cnf{margin-top:0}
 @media(max-width:900px){.quien-grid{grid-template-columns:1fr;gap:28px}}
 .pdf-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 10px}
 .btn-pdf{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--azul);color:var(--azul);font-weight:600;font-size:15px;padding:11px 16px;border-radius:12px;cursor:pointer;transition:background .2s}
@@ -872,23 +909,62 @@ document.getElementById('y').textContent=new Date().getFullYear();
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=id=>document.getElementById(id);
 const h=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-/* ── Quién te atiende (datos en config.js → CFG.YO) ── */
-function yoHTML(){
+/* ── Bloques de confianza (datos en config.js → CFG.YO) ── */
+const VISTA=new URLSearchParams(location.search).get('vista')==='resultado';
+const ini=n=>String(n||'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const SVG_OK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>';
+function confianzaHTML(){
   const Y=(window.CFG&&CFG.YO)||null; if(!Y||!Y.nombre) return '';
-  const num=[[Y.inversion,'invertidos en anuncios de Meta'],[Y.clientes,'clientes high ticket cerrados (más de US$500)'],[(Y.negocios||[]).length?String((Y.negocios||[]).length):'','negocios propios funcionando hoy']].filter(n=>n[0]);
-  return `<div class="yo">
-    <div class="yo-top">${Y.foto?`<img class="yo-foto" src="${h(Y.foto)}" alt="${h(Y.nombre)}" width="92" height="92" loading="lazy">`:''}
-      <div><small>Quién te atiende</small><h3>${h(Y.nombre)}</h3><p>${h(Y.cargo||'')}</p></div></div>
-    <p class="yo-bio">Vendo con anuncios todos los días en mis propios negocios. En la asesoría te enseño lo que a mí me funciona, con tus números reales.</p>
-    ${num.length?`<div class="yo-num">${num.map(n=>`<div><b>${h(n[0])}</b><span>${h(n[1])}</span></div>`).join('')}</div>`:''}
-    ${(Y.negocios||[]).length?`<div class="yo-neg">${Y.negocios.map(n=>`<a href="${h(n.link||'#')}" target="_blank" rel="noopener"><div><b>${h(n.nombre)}</b><span>${h(n.detalle||'')}</span></div><i>Ver ↗</i></a>`).join('')}</div>`:''}
-    ${Y.video?`<div class="yo-video"><button type="button" data-video="${h(Y.video)}"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i>Mira lo que dicen mis clientes</button></div>`:''}
-    ${Y.conferencia?`<figure class="yo-conf"><img src="${h(Y.conferencia)}" alt="Carlos Moreno dando una conferencia sobre ventas de alto ticket" loading="lazy"><figcaption>Conferencia sobre ventas de alto ticket.</figcaption></figure>`:''}
-    ${CFG.WHATSAPP?`<a class="yo-wa" href="https://wa.me/${CFG.WHATSAPP}?text=${encodeURIComponent('Hola Carlos, tengo una duda sobre la asesoría.')}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>¿Dudas? Escríbeme por WhatsApp</a>`:''}
+  const nums=(Y.numeros||[]).map(n=>n.valor?{v:n.valor,t:n.texto}:(VISTA&&n.ejemplo?{v:n.ejemplo,t:n.texto,ej:1}:null)).filter(Boolean);
+  const tes=(Y.testimonios||[]).filter(t=>t.texto&&(!t.ejemplo||VISTA));
+  const ej=x=>x?' ej':'';
+  let o=`<div class="cf-card"><div class="cf-yo">${Y.foto?`<img src="${h(Y.foto)}" alt="${h(Y.nombre)}" loading="lazy">`:''}
+      <div><small>Quién te atiende</small><h3>${h(Y.nombre)}</h3><div class="cg">${h(Y.cargo||'')}</div></div>
+      ${Y.bio?`<p class="bio">${h(Y.bio)}</p>`:''}</div>
+    ${nums.length?`<div class="cf-num">${nums.map(n=>`<div class="${ej(n.ej)}"><b>${h(n.v)}</b><span>${h(n.t)}</span></div>`).join('')}</div>`:''}</div>`;
+  if((Y.negocios||[]).length) o+=`<div class="cf-card"><h4>Mis negocios</h4><div class="cf-neg">${Y.negocios.map(n=>`<div class="${ej(n.ejemplo)}"><i>${n.foto?`<img src="${h(n.foto)}" alt="">`:h(ini(n.nombre))}</i><div><b>${h(n.nombre)}</b><span>${h(n.detalle||'')}</span></div></div>`).join('')}</div></div>`;
+  if(Y.video||tes.length) o+=`<div class="cf-card"><h4>Lo que dicen mis clientes</h4>
+    ${Y.video?`<div class="cf-video"><button type="button" data-video="${h(Y.video)}"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i>Ver testimonios en video</button></div>`:''}
+    ${tes.length?`<div class="cf-tes">${tes.map(t=>`<figure class="${ej(t.ejemplo)}"><div class="cf-estrellas" aria-label="5 de 5">★★★★★</div><blockquote>“${h(t.texto)}”</blockquote><figcaption><i>${t.foto?`<img src="${h(t.foto)}" alt="">`:h(ini(t.nombre))}</i><span><b>${h(t.nombre)}</b> · ${h(t.negocio||'')}</span></figcaption></figure>`).join('')}</div>`:''}</div>`;
+  const C=Y.conferencia; if(C&&C.foto) o+=`<div class="cf-card"><figure class="cf-conf"><img src="${h(C.foto)}" alt="${h(C.texto||'Conferencia')}" loading="lazy"><figcaption>${h(C.texto||'')}</figcaption></figure></div>`;
+  return o;
+}
+function siguientePasoHTML(pay){
+  return `<div class="cf-card cf-paso"><h3>Agenda tu asesoría. Es gratis.</h3><p>60 minutos por Google Meet, conmigo, con cámara.</p>
+    <ol class="cf-ruta"><li><b>Eliges tu horario</b><span>Sin pagar nada y sin tarjeta.</span></li>
+      <li><b>Te explico tu diagnóstico</b><span>Los primeros 10 minutos son gratis: ves conmigo qué está frenando tus ventas.</span></li>
+      <li><b>Tú decides si seguimos</b><span>Si quieres el análisis completo y tu plan de mejora, pagas S/${CFG.PRECIO} ahí mismo. Si no, no pagas nada.</span></li></ol>
+    <a class="btn full" href="${pay}" id="pagar">Elegir mi horario gratis</a>
+    <p class="cf-mini">No pedimos ningún pago por adelantado.</p></div>`;
+}
+function dudasHTML(){
+  const P=CFG.PRECIO, f=[
+    ['¿Tengo que pagar para agendar?',`No. Agendar es gratis. Los S/${P} se pagan en la misma reunión, y solo si decides continuar.`],
+    ['¿Y si en la reunión veo que no me sirve?','No pagas nada. Los primeros 10 minutos te explico tu diagnóstico; si no te convence, terminamos ahí y no me debes nada.'],
+    ['¿Me van a presionar para comprar algo más?','No. Al final te cuento cómo trabajamos mes a mes, por si te interesa. Tú decides, sin presión.'],
+    ['¿Qué necesito para la reunión?','Una computadora o celular con internet y 3 chats reales de clientes que te pidieron precio. Si haces anuncios, el acceso a tu cuenta de Meta.'],
+    ['¿Quién está detrás de 7Legend?',`${h((CFG.LEGAL&&CFG.LEGAL.titular)||'Carlos Moreno')}, con RUC ${h((CFG.LEGAL&&CFG.LEGAL.ruc)||'')}. Tenemos Libro de Reclamaciones y términos claros.`]];
+  return `<div class="cf-card cf-faq"><h4>Antes de agendar</h4>${f.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join('')}</div>`;
+}
+function waHTML(){ return CFG.WHATSAPP?`<a class="cf-wa" href="https://wa.me/${CFG.WHATSAPP}?text=${encodeURIComponent('Hola Carlos, hice mi diagnóstico y tengo una duda sobre la asesoría.')}" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>¿Dudas? Escríbeme por WhatsApp</a>`:''; }
+function pagoHTML(pay){
+  return `<div class="precio cf-pago">
+    <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Precio de lanzamiento</span></div>
+    <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
+    <div class="cf-cuando"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Se paga en la misma reunión, no antes.</b> Primero te explico tu diagnóstico; si decides continuar, pagas ahí.</span></div>
+    <div class="cf-medios"><span>Yape</span><span>Plin</span><span>PayPal</span></div>
+    <ul>
+      <li>${CHK}Revisamos tus anuncios y sus resultados</li>
+      <li>${CHK}Analizamos cómo respondes, con tus chats reales</li>
+      <li>${CHK}Vemos cómo vendes y dónde se cae cada venta</li>
+      <li>${CHK}Te llevas un plan de mejora claro</li>
+    </ul>
+    <a class="btn full" href="${pay}" id="pagar2">Agendar mi asesoría gratis</a>
+    <div class="garantia">${SVG_OK}<span>Si en los primeros 10 minutos no te convence, no pagas nada.</span></div>
   </div>`;
 }
 function montarYo(raiz){
-  (raiz||document).querySelectorAll('[data-yo]').forEach(el=>{ if(!el.dataset.ok){ el.innerHTML=yoHTML(); el.dataset.ok=1; } });
+  (raiz||document).querySelectorAll('[data-yo]').forEach(el=>{ if(!el.dataset.ok){ el.innerHTML='<div class="cnf">'+confianzaHTML()+'</div>'; el.dataset.ok=1; } });
   (raiz||document).querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>{ const f=document.createElement('iframe'); f.src=b.dataset.video; f.allow='autoplay; fullscreen'; f.allowFullscreen=true; f.title='Testimonios de clientes'; b.replaceWith(f); });
 }
 document.addEventListener('DOMContentLoaded',()=>montarYo());
@@ -1308,20 +1384,24 @@ function resultado(r){
   if(r.califica!==false){
     try{ localStorage.setItem('mora_lead',JSON.stringify({lead_id:r.lead_id||'',nombre:A.nombre,negocio:A.negocio,whatsapp:A.whatsapp,email:A.email})); }catch(e){}
     const pay=CFG.RESERVA_URL+'?ref='+encodeURIComponent(r.lead_id||'');
+    if(LLAM){
+      x+=`<div class="cnf">${siguientePasoHTML(pay)}${confianzaHTML()}${dudasHTML()}${waHTML()}${pagoHTML(pay)}</div>`;
+    } else {
     x+=`<div class="precio">
       <div class="top"><span>Asesoría 1 a 1 por Google Meet · 60 min</span><span>Precio de lanzamiento</span></div>
       <h3 style="font-size:24px;letter-spacing:-.03em;margin-top:18px">Revisemos juntos estas 3 fugas.</h3>
       <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
-      <p class="det">${LLAM?'Agendar es gratis. Pagas en la llamada, solo si decides continuar.':'Pago único · eliges tu horario y pagas con Yape, Plin o PayPal'}</p>
+      <p class="det">Pago único · eliges tu horario y pagas con Yape, Plin o PayPal</p>
       <ul>
         <li>${CHK}Revisamos tus anuncios y sus resultados</li>
         <li>${CHK}Analizamos cómo respondes, con tus chats reales</li>
         <li>${CHK}Vemos cómo vendes y dónde se cae cada venta</li>
         <li>${CHK}Te llevas un plan de mejora claro</li>
       </ul>
-      <a class="btn full" href="${pay}" id="pagar">${LLAM?'Agendar mi asesoría gratis':'Elegir mi horario'}</a>
-      <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>${LLAM?'Los primeros 10 minutos te explico tu diagnóstico sin costo. Si no te convence, no pagas nada.':'Si al terminar sientes que no te sirvió, te devolvemos el pago completo.'}</span></div>
+      <a class="btn full" href="${pay}" id="pagar">Elegir mi horario</a>
+      <div class="garantia">${SVG_OK}<span>Si al terminar sientes que no te sirvió, te devolvemos el pago completo.</span></div>
     </div><div data-yo></div>`;
+    }
   } else {
     const msg=encodeURIComponent(`Hola, soy ${A.nombre}. Hice el diagnóstico de Mora y quiero la guía gratuita.`);
     x+=`<div class="precio"><h3 style="font-size:24px;letter-spacing:-.03em;margin-bottom:10px">Tu siguiente paso</h3>
@@ -1332,7 +1412,7 @@ function resultado(r){
   esc.innerHTML=x+'</div>'; quiz.scrollTop=0; montarYo(esc);
   const t0=performance.now(), f=t=>{const k=Math.min(1,(t-t0)/1200), v=Math.round(p*(1-Math.pow(1-k,3))); const n=$('rN'); if(!n) return; n.textContent=v; $('rAn').style.setProperty('--p',v); if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);
   setTimeout(()=>document.querySelectorAll('#rPil i').forEach(i=>i.style.width=i.dataset.v+'%'),reduce?0:150);
-  const pg=$('pagar'); pg&&pg.addEventListener('click',()=>track('InitiateCheckout',{value:CFG.PRECIO,currency:'PEN'}));
+  ['pagar','pagar2'].forEach(k=>{ const pg=$(k); pg&&pg.addEventListener('click',()=>track('InitiateCheckout',{value:CFG.PRECIO,currency:'PEN'})); });
   informe(r,P);
   /* Mora escribe cada fuga */
   const fs=[...esc.querySelectorAll('.escribe-f')];
