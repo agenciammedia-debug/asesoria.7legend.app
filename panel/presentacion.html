@@ -206,6 +206,12 @@ h2 span{color:var(--g2)}
 .pg-m img{width:150px;height:150px;object-fit:contain;background:#fff;border-radius:12px;padding:6px;margin:0 auto 10px;display:block}
 .pg-m b{display:block;font-size:22px;letter-spacing:.02em}.pg-m small{display:block;color:rgba(255,255,255,.55);font-size:13.5px;margin-top:4px}
 .lamina.salta{display:none}
+.pg-pagado{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:rgba(255,255,255,.6);font-size:15px}
+.pg-pagado #pgBtns{display:flex;gap:8px}
+.pg-pagado button{all:unset;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid rgba(110,231,160,.5);color:#6EE7A0;font-weight:600;font-size:15px}
+.pg-pagado button:hover{background:rgba(110,231,160,.12)}.pg-pagado button:focus-visible{outline:2px solid #6EE7A0;outline-offset:2px}
+.pg-pagado button[disabled]{opacity:.5;cursor:wait}
+.pg-pagado .ok{color:#6EE7A0;font-weight:700;font-size:16px}
 </style>
 </head>
 <body>
@@ -249,7 +255,8 @@ h2 span{color:var(--g2)}
         </ul>
         <div class="pg-precio"><small>Asesoría completa</small><b>S/<span id="pgMonto">49</span></b><span>Pago único · 45 minutos más</span></div>
       </div>
-      <div class="pg-medios a" style="--i:3" id="pgMedios"></div>
+      <div class="a" style="--i:3"><div class="pg-medios" id="pgMedios"></div>
+        <div class="pg-pagado" id="pgPagado" hidden><span>¿Ya pagó? Márcalo aquí:</span><div id="pgBtns"></div></div></div>
     </div>
   </section>
 
@@ -519,7 +526,24 @@ function pintar(l){
   calcNumeros(); calcPerdida();
   const yaPago=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo&&r.metodo!=='En llamada'&&['Confirmada','Realizada'].includes(r.estado)));
   document.querySelector('[data-n="pago"]').classList.toggle('salta',yaPago);
+  pintarPagado(l);
   if(L[i].dataset.n==='2') animarPuntaje();
+}
+/* botón "Ya pagó": registra el pago de la asesoría sin salir de la presentación */
+function pintarPagado(l){
+  const box=$('pgPagado'); if(!box) return;
+  const r=l&&D&&(D.reservas||[]).filter(x=>x.lead_id===l.lead_id&&x.metodo==='En llamada'&&['Confirmada','Realizada','No asistió'].includes(x.estado)).sort((a,b)=>(b.fecha+b.hora).localeCompare(a.fecha+a.hora))[0];
+  if(!r){ box.hidden=true; return; }
+  box.hidden=false; box.querySelector('span').textContent='¿Ya pagó? Márcalo aquí:';
+  $('pgBtns').innerHTML=['Yape','Plin','PayPal'].map(m=>`<button type="button" data-m="${m}">${m}</button>`).join('');
+  $('pgBtns').querySelectorAll('button').forEach(b=>b.onclick=async()=>{
+    $('pgBtns').querySelectorAll('button').forEach(x=>x.disabled=true);
+    try{
+      await api('adm_reserva',r.reserva_id,'pago_llamada',b.dataset.m);
+      r.metodo=b.dataset.m;
+      box.querySelector('span').innerHTML=`<span class="ok">✓ Pago registrado · ${h(b.dataset.m)}</span>`; $('pgBtns').innerHTML='';
+    }catch(e){ box.querySelector('span').textContent='No se pudo registrar: '+e.message; $('pgBtns').querySelectorAll('button').forEach(x=>x.disabled=false); }
+  });
 }
 let P=0;
 function animarPuntaje(){
