@@ -19,9 +19,9 @@ window.CFG = {
     bio: "No soy un curso ni un bot. Vendo con anuncios todos los días en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
     numeros: [
       { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
-      { valor: "300+", texto: "clientes high ticket cerrados (+US$500)" },
+      { valor: "+300", texto: "clientes high ticket cerrados (+US$500)" },
       { valor: "2", texto: "negocios propios con este método" },
-      { valor: "", ejemplo: "8 años", texto: "vendiendo con anuncios" }
+      { valor: "+5 años", texto: "vendiendo con anuncios" }
     ],
     // Al tocar un negocio se abre una ventana (sin salir de la página) con:
     //  - usuario: cómo encontrarlo (solo texto, no es enlace)
@@ -36,9 +36,9 @@ window.CFG = {
     ],
     video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview",
     testimonios: [
-      { ejemplo: true, texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era cómo respondía. Ese mismo mes cerré el doble.", nombre: "Lucía R.", negocio: "Clínica estética · Lima", foto: "" },
-      { ejemplo: true, texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes que ya me habían escrito.", nombre: "Jorge M.", negocio: "Inmobiliaria · Arequipa", foto: "" },
-      { ejemplo: true, texto: "Lo mejor fue que trabajó con mis chats reales. Salí con un plan claro y lo apliqué al día siguiente.", nombre: "Andrea P.", negocio: "Tienda de ropa · Trujillo", foto: "" }
+      { texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio. Ese mismo mes cerré el doble.", nombre: "Johan B.", negocio: "Implantólogo · Bogotá", foto: "" },
+      { texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes.", nombre: "Daniel G.", negocio: "Inmobiliaria · Arequipa", foto: "" },
+      { texto: "Salí con un plan claro, lo apliqué y dejé de perder clientes.", nombre: "Andrea P.", negocio: "Centro Estético · Trujillo", foto: "" }
     ],
     conferencia: { foto: "conferencia.jpg", texto: "Dando una conferencia sobre ventas de alto ticket." }
   }
