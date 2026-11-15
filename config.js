@@ -36,7 +36,9 @@ window.CFG = {
       { nombre: "MMedia Perú", detalle: "**Growth partner para especialistas en Latinoamérica**: anuncios, automatización, CRM y ventas.",
         usuario: "mmediaperu.com", pie: "www.mmediaperu.com", captura: "mmedia-feed.jpg", fotos: [], posts: [] }
     ],
-    video: "https://drive.google.com/file/d/1byye80GegfEGhaGFFRkdlriNjPDKsf1C/preview",
+    video: "testimonios.mp4",          // video subido a GitHub (o un enlace /preview de Google Drive)
+    video_portada: "testimonios.jpg",  // imagen que se ve antes de darle play
+    video_duracion: "3:10",
 
     testimonios: [
       { texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio. Ese mismo mes cerré el doble.", nombre: "Johan B.", negocio: "Implantólogo · Bogotá", foto: "" },
