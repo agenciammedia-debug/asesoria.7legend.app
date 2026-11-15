@@ -470,6 +470,14 @@ a{color:inherit;text-decoration:none}
 .cf-video button{all:unset;cursor:pointer;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;font-weight:600;font-size:15.5px;text-align:center;background:radial-gradient(ellipse at 50% 40%,rgba(30,107,255,.35),transparent 60%)}
 .cf-video button i{width:62px;height:62px;border-radius:50%;background:var(--azul);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(30,107,255,.22)}
 .cf-video button:focus-visible{outline:3px solid var(--cielo);outline-offset:-3px}
+.cf-video{aspect-ratio:4/3}
+.cf-video button{background-size:cover;background-position:center;padding-top:34px}
+.cf-video button i{width:56px!important;height:56px!important}
+.cf-video .cv-t{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(11,13,20,.75);padding:6px 12px;border-radius:999px;font-size:13.5px}
+.cf-video .cv-f{position:absolute;top:0;left:0;right:0;padding:14px 16px 26px;text-align:left;background:linear-gradient(rgba(11,13,20,.85),rgba(11,13,20,0))}
+.cf-video .cv-f b{display:block;font-size:16.5px;line-height:1.25;letter-spacing:-.02em;font-weight:700}
+.cf-video .cv-f small{display:block;font-size:12.5px;font-weight:500;opacity:.8;margin-top:4px}
+.cf-video video{position:absolute;inset:0;width:100%;height:100%;background:#000}
 .cf-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .cf-tes{display:grid;gap:10px}
 .cf-tes figure{margin:0;background:var(--suave);border-radius:16px;padding:16px 18px;position:relative}
@@ -983,7 +991,7 @@ function confianzaHTML(){
     ${nums.length?`<div class="cf-num">${nums.map(n=>{ const v=/^\d$/.test(String(n.v).trim())?'0'+String(n.v).trim():String(n.v); return `<div class="${ej(n.ej)}"><b class="${v.length>9?'chico':''}">${h(v)}</b><span>${h(n.t)}</span></div>`;}).join('')}</div>`:''}</div>`;
   if((Y.negocios||[]).length) o+=`<div class="cf-card"><h4>Negocios que manejo con este método</h4><div class="cf-neg">${Y.negocios.map((n,k)=>`<button type="button" class="${ej(n.ejemplo)}${n.captura?' cap':''}" data-neg="${k}">${n.captura?`<i class="mini-feed"><img src="${h(n.captura)}" alt="Feed de ${h(n.nombre)}" loading="lazy"></i>`:`<i>${n.foto?`<img src="${h(n.foto)}" alt="">`:h(ini(n.nombre))}</i>`}<div><b>${h(n.nombre)}</b><span>${md(n.detalle||'')}</span>${n.pie?`<em>${h(n.pie)}</em>`:''}</div></button>`).join('')}</div></div>`;
   if(Y.video||tes.length) o+=`<div class="cf-card"><h4>Lo que dicen mis clientes</h4>
-    ${Y.video?`<div class="cf-video"><button type="button" data-video="${h(Y.video)}"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i>Ver testimonios en video</button></div>`:''}
+    ${Y.video?`<div class="cf-video"><button type="button" data-video="${h(Y.video)}"${Y.video_portada?` style="background-image:url('${h(Y.video_portada)}')"`:''}>${Y.video_frase?`<span class="cv-f"><b>“${h(Y.video_frase)}”</b>${Y.video_autor?`<small>${h(Y.video_autor)}</small>`:''}</span>`:''}<i><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i><span class="cv-t">Ver testimonios de clientes${Y.video_duracion?` · ${h(Y.video_duracion)}`:''}</span></button></div>`:''}
     ${tes.length?`<div class="cf-tes">${tes.map(t=>`<figure class="${ej(t.ejemplo)}"><div class="cf-estrellas" aria-label="5 de 5">★★★★★</div><blockquote>“${h(t.texto)}”</blockquote><figcaption><i>${t.foto?`<img src="${h(t.foto)}" alt="">`:h(ini(t.nombre))}</i><span><b>${h(t.nombre)}</b> · ${h(t.negocio||'')}</span></figcaption></figure>`).join('')}</div>`:''}</div>`;
   const C=Y.conferencia; if(C&&C.foto) o+=`<div class="cf-card"><figure class="cf-conf"><img src="${h(C.foto)}" alt="${h(C.texto||'Conferencia')}" loading="lazy"><figcaption>${h(C.texto||'')}</figcaption></figure></div>`;
   return o;
@@ -1054,7 +1062,11 @@ function potenciarResultado(pay){
 }
 function montarYo(raiz){
   (raiz||document).querySelectorAll('[data-yo]').forEach(el=>{ if(!el.dataset.ok){ el.innerHTML='<div class="cnf">'+confianzaHTML()+'</div>'; el.dataset.ok=1; } });
-  (raiz||document).querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>{ const f=document.createElement('iframe'); f.src=b.dataset.video; f.allow='autoplay; fullscreen'; f.allowFullscreen=true; f.title='Testimonios de clientes'; b.replaceWith(f); });
+  (raiz||document).querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>{
+    const u=b.dataset.video;
+    if(/\.(mp4|webm|mov)(\?|$)/i.test(u)){ const v=document.createElement('video'); v.src=u; v.controls=true; v.autoplay=true; v.playsInline=true; v.preload='auto'; const P=(CFG.YO||{}).video_portada; if(P) v.poster=P; b.replaceWith(v); v.play().catch(()=>{}); }
+    else { const f=document.createElement('iframe'); f.src=u; f.allow='autoplay; fullscreen'; f.allowFullscreen=true; f.title='Testimonios de clientes'; b.replaceWith(f); }
+  });
 }
 document.addEventListener('DOMContentLoaded',()=>montarYo());
 if(document.readyState!=='loading') montarYo();
