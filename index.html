@@ -442,14 +442,15 @@ a{color:inherit;text-decoration:none}
 .cf-ruta li:not(:last-child):after{content:"";position:absolute;left:14.5px;top:32px;bottom:2px;width:1px;background:var(--linea)}
 .cf-ruta li:last-child{padding-bottom:0}
 .cf-ruta b{font-size:16px;line-height:30px}.cf-ruta span{font-size:14.5px;color:var(--gris);line-height:1.45}
+.bt2{display:flex;flex-direction:column;align-items:center;line-height:1.2;text-align:center}.bt2 small{font-size:13px;font-weight:500;opacity:.85;margin-top:4px}
 .cf-mini{text-align:center;font-size:13.5px;color:var(--gris);margin-top:10px}
-.cf-yo{display:grid;grid-template-columns:132px 1fr;gap:20px;align-items:center}
-.cf-yo img{width:132px;height:165px;border-radius:16px;object-fit:cover;object-position:50% 20%}
+.cf-yo{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center}
+.cf-yo img{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:3px solid var(--azul-s)}
 .cf-yo small{font-size:13px;color:var(--azul);font-weight:600}
 .cf-yo h3{font-size:24px;letter-spacing:-.035em;line-height:1.1;margin-top:2px}
 .cf-yo .cg{color:var(--gris);font-size:14.5px}
-.cf-yo p.bio{font-size:15px;color:var(--tinta2);margin-top:10px;line-height:1.5}
-@media(max-width:520px){.cf-yo{grid-template-columns:96px 1fr;gap:14px;align-items:start}.cf-yo img{width:96px;height:120px}.cf-yo p.bio{grid-column:1/-1;margin-top:4px}}
+.cf-bio{font-size:16px;color:var(--tinta2);line-height:1.6;margin-top:18px;padding-top:18px;border-top:1px solid var(--linea);text-wrap:pretty}
+@media(max-width:520px){.cf-yo{grid-template-columns:80px 1fr;gap:14px}.cf-yo img{width:80px;height:80px}.cf-yo h3{font-size:22px}}
 .cf-num{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
 .cf-num div{background:var(--suave);border-radius:14px;padding:14px 14px 12px;position:relative}
 .cf-num b{display:block;font-size:22px;white-space:nowrap;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}
@@ -824,14 +825,14 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <p class="lead rv d1">Una hora por Google Meet. Analizamos tu sistema completo y sales con un plan claro.</p>
     <div class="ruta rv d2" id="ruta">
       <div class="etapa"><div class="c">1</div><div><h3>Haces tu diagnóstico</h3><p>Gratis, en 3 minutos.</p></div></div>
-      <div class="etapa"><div class="c">2</div><div><h3>Agendas tu horario</h3><p>Sin pagar nada por adelantado.</p></div></div>
-      <div class="etapa"><div class="c">3</div><div><h3>Nos vemos por Meet</h3><p>Te explico tu diagnóstico y, si decides seguir, pagas ahí.</p></div></div>
+      <div class="etapa"><div class="c">2</div><div><h3>Reservas tu horario</h3><p>Al reservar no pagas nada.</p></div></div>
+      <div class="etapa"><div class="c">3</div><div><h3>Nos vemos por Meet</h3><p>Te explico tu diagnóstico y pagas en la videollamada.</p></div></div>
     </div>
   </div>
   <div class="precio rv d1">
     <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Precio de lanzamiento</span></div>
     <div class="monto"><sup>S/</sup><b>49</b></div>
-    <p class="det">Pago único, en la llamada. Agendar es gratis.</p>
+    <p class="det">Pago único, en la videollamada. No antes.</p>
     <ul>
       <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Revisamos tus anuncios y sus resultados</li>
       <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Analizamos cómo respondes, con tus chats reales</li>
@@ -839,8 +840,8 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
       <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Te llevas un plan de mejora claro</li>
     </ul>
     <button class="btn full" data-abrir>Empezar con mi diagnóstico gratis</button>
-    <p class="nota-p">Primero tu diagnóstico. Después agendas, sin pagar.</p>
-    <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>No pagas por adelantado. Los primeros 10 minutos te explico tu diagnóstico; si no te convence, no pagas nada.</span></div>
+    <p class="nota-p">Primero tu diagnóstico. Después reservas tu horario.</p>
+    <div class="garantia"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Se paga en la videollamada, no antes. Si después de ver tu diagnóstico decides no seguir, no pagas nada.</span></div>
   </div>
 </div></section>
 
@@ -860,8 +861,8 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
     <details><summary>¿El diagnóstico es realmente gratis?</summary><p>Sí, <b>es 100% gratis y no pedimos tarjeta</b>. Respondes 11 preguntas rápidas y ves tu resultado completo en pantalla, en unos 3 minutos.</p></details>
     <details><summary>¿Me van a llamar para venderme algo?</summary><p>No. <b>Nadie te va a llamar.</b> Ves tu diagnóstico y, si quieres ir más a fondo, tú decides si reservas la asesoría.</p></details>
     <details><summary>¿Sirve si invierto poco o no sé de Meta Ads?</summary><p>Sí. <b>La mayoría de ventas se pierde después del mensaje</b>, no en el anuncio: en cómo respondes y das seguimiento. Todo está explicado en lenguaje simple.</p></details>
-    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu puntaje y tus fugas al instante. Si quieres que lo revisemos contigo, <b>agendas tu asesoría sin pagar nada por adelantado</b>. En la llamada te explico tu diagnóstico y, solo si decides continuar, pagas S/49 con Yape, Plin o PayPal.</p></details>
-    <details><summary>¿Cómo sé que no es una estafa?</summary><p>Porque <b>no pagas nada para agendar</b>. Te conectas, me ves por cámara, te explico tu diagnóstico y recién ahí decides si sigues. Además, la empresa está registrada (RUC 10444594794) y tienes nuestro Libro de Reclamaciones.</p></details>
+    <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ves tu puntaje y tus fugas al instante. Si quieres que lo revisemos contigo, <b>reservas tu horario y pagas S/49 en la videollamada</b>, no antes, con Yape, Plin o PayPal.</p></details>
+    <details><summary>¿Cómo sé que no es una estafa?</summary><p>Porque <b>pagas en la videollamada, no antes</b>. Te conectas, me ves por cámara, te explico tu diagnóstico y recién ahí pagas. Además, la empresa está registrada (RUC 10444594794) y tienes nuestro Libro de Reclamaciones.</p></details>
     <details><summary>¿Qué pasa en la asesoría?</summary><p>Revisamos tus anuncios, cómo respondes y cómo vendes, y <b>sales con un plan de mejora claro</b>. Al final te mostramos cómo trabajamos mes a mes; tú decides, sin presión.</p></details>
     <details><summary>Ya probé con una agencia y no funcionó.</summary><p>Por eso no empezamos por el anuncio. <b>Casi siempre la fuga está en lo que pasa después</b>: la respuesta, la forma de vender y el seguimiento.</p></details>
   </div>
@@ -920,9 +921,10 @@ function confianzaHTML(){
   const ej=x=>x?' ej':'';
   let o=`<div class="cf-card"><div class="cf-yo">${Y.foto?`<img src="${h(Y.foto)}" alt="${h(Y.nombre)}" loading="lazy">`:''}
       <div><small>Quién te atiende</small><h3>${h(Y.nombre)}</h3><div class="cg">${h(Y.cargo||'')}</div></div>
-      ${Y.bio?`<p class="bio">${h(Y.bio)}</p>`:''}</div>
+</div>
+    ${Y.bio?`<p class="cf-bio">${h(Y.bio)}</p>`:''}
     ${nums.length?`<div class="cf-num">${nums.map(n=>`<div class="${ej(n.ej)}"><b>${h(n.v)}</b><span>${h(n.t)}</span></div>`).join('')}</div>`:''}</div>`;
-  if((Y.negocios||[]).length) o+=`<div class="cf-card"><h4>Mis negocios</h4><div class="cf-neg">${Y.negocios.map(n=>`<div class="${ej(n.ejemplo)}"><i>${n.foto?`<img src="${h(n.foto)}" alt="">`:h(ini(n.nombre))}</i><div><b>${h(n.nombre)}</b><span>${h(n.detalle||'')}</span></div></div>`).join('')}</div></div>`;
+  if((Y.negocios||[]).length) o+=`<div class="cf-card"><h4>Negocios que manejo con este método</h4><div class="cf-neg">${Y.negocios.map(n=>`<div class="${ej(n.ejemplo)}"><i>${n.foto?`<img src="${h(n.foto)}" alt="">`:h(ini(n.nombre))}</i><div><b>${h(n.nombre)}</b><span>${h(n.detalle||'')}</span></div></div>`).join('')}</div></div>`;
   if(Y.video||tes.length) o+=`<div class="cf-card"><h4>Lo que dicen mis clientes</h4>
     ${Y.video?`<div class="cf-video"><button type="button" data-video="${h(Y.video)}"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i>Ver testimonios en video</button></div>`:''}
     ${tes.length?`<div class="cf-tes">${tes.map(t=>`<figure class="${ej(t.ejemplo)}"><div class="cf-estrellas" aria-label="5 de 5">★★★★★</div><blockquote>“${h(t.texto)}”</blockquote><figcaption><i>${t.foto?`<img src="${h(t.foto)}" alt="">`:h(ini(t.nombre))}</i><span><b>${h(t.nombre)}</b> · ${h(t.negocio||'')}</span></figcaption></figure>`).join('')}</div>`:''}</div>`;
@@ -930,28 +932,29 @@ function confianzaHTML(){
   return o;
 }
 function siguientePasoHTML(pay){
-  return `<div class="cf-card cf-paso"><h3>Agenda hoy. Pagas en la videollamada.</h3><p>60 minutos por Google Meet, conmigo, con cámara.</p>
-    <ol class="cf-ruta"><li><b>Eliges tu horario</b><span>Sin pagar nada por adelantado.</span></li>
-      <li><b>Te explico tu diagnóstico</b><span>Los primeros 10 minutos son gratis: ves conmigo qué está frenando tus ventas.</span></li>
-      <li><b>Tú decides si seguimos</b><span>Si quieres el análisis completo y tu plan de mejora, pagas S/${CFG.PRECIO} ahí mismo. Si no, no pagas nada.</span></li></ol>
-    <a class="btn full" href="${pay}" id="pagar">Agendar · pago en la videollamada</a>
-    <p class="cf-mini">Los S/${CFG.PRECIO} se pagan en la videollamada, no antes.</p></div>`;
+  return `<div class="cf-card cf-paso"><h3>Revisemos juntos tu diagnóstico.</h3><p>Una videollamada de 60 minutos por Google Meet, conmigo y con cámara.</p>
+    <ol class="cf-ruta"><li><b>Reservas tu horario</b><span>Eliges el día y la hora. Al reservar no pagas nada.</span></li>
+      <li><b>Te explico tu diagnóstico</b><span>Ves conmigo, en pantalla, dónde se están perdiendo tus ventas y por qué.</span></li>
+      <li><b>Pagas S/${CFG.PRECIO} y armamos tu plan</b><span>Con Yape, Plin o PayPal, en la misma videollamada. Si en ese punto decides no seguir, no pagas.</span></li></ol>
+    <a class="btn full" href="${pay}" id="pagar"><span class="bt2">Reservar mi horario<small>Pagas S/${CFG.PRECIO} en la videollamada</small></span></a>
+    <p class="cf-mini">Al reservar no pagas nada.</p></div>`;
 }
 function dudasHTML(){
-  const P=CFG.PRECIO, f=[
-    ['¿Cuándo pago?',`En la videollamada, no antes. Primero te explico tu diagnóstico y, si decides continuar, pagas S/${P} ahí mismo.`],
-    ['¿Y si en la reunión veo que no me sirve?','No pagas nada. Los primeros 10 minutos te explico tu diagnóstico; si no te convence, terminamos ahí y no me debes nada.'],
-    ['¿Me van a presionar para comprar algo más?','No. Al final te cuento cómo trabajamos mes a mes, por si te interesa. Tú decides, sin presión.'],
-    ['¿Qué necesito para la reunión?','Una computadora o celular con internet y 3 chats reales de clientes que te pidieron precio. Si haces anuncios, el acceso a tu cuenta de Meta.'],
-    ['¿Quién está detrás de 7Legend?',`${h((CFG.LEGAL&&CFG.LEGAL.titular)||'Carlos Moreno')}, con RUC ${h((CFG.LEGAL&&CFG.LEGAL.ruc)||'')}. Tenemos Libro de Reclamaciones y términos claros.`]];
-  return `<div class="cf-card cf-faq"><h4>Antes de agendar</h4>${f.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join('')}</div>`;
+  const P=CFG.PRECIO, L=CFG.LEGAL||{}, f=[
+    ['¿Cuándo pago?',`En la videollamada, no antes. Al reservar no pagas nada: primero te explico tu diagnóstico y, para pasar a tu plan de mejora, pagas S/${P} ahí mismo.`],
+    ['¿Cómo pago?','Con Yape, Plin o PayPal, desde tu celular, en la misma llamada. Te envío tu comprobante.'],
+    ['¿Y si no me convence?','Si después de ver tu diagnóstico decides no seguir, terminamos ahí y no pagas nada.'],
+    ['¿Me vas a vender algo más?','Al final te cuento cómo trabajamos mes a mes, por si te interesa. Es opcional y sin presión.'],
+    ['¿Qué tengo que preparar?','Conéctate desde una computadora y ten a mano 3 chats reales de clientes que te pidieron precio. Si haces anuncios, el acceso a tu cuenta de Meta.'],
+    ['¿Quién está detrás de 7Legend?',`${h(L.titular||'Carlos Moreno')}, con RUC ${h(L.ruc||'')}. Tenemos Libro de Reclamaciones y términos publicados.`]];
+  return `<div class="cf-card cf-faq"><h4>Antes de reservar</h4>${f.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join('')}</div>`;
 }
-function waHTML(){ return CFG.WHATSAPP?`<a class="cf-wa" href="https://wa.me/${CFG.WHATSAPP}?text=${encodeURIComponent('Hola Carlos, hice mi diagnóstico y tengo una duda sobre la asesoría.')}" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>¿Dudas? Escríbeme por WhatsApp</a>`:''; }
+function waHTML(){ return CFG.WHATSAPP?`<a class="cf-wa" href="https://wa.me/${CFG.WHATSAPP}?text=${encodeURIComponent('Hola Carlos, hice mi diagnóstico y tengo una duda antes de reservar.')}" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>¿Tienes dudas? Escríbeme por WhatsApp</a>`:''; }
 function pagoHTML(pay){
   return `<div class="precio cf-pago">
     <div class="top"><span>Asesoría 1 a 1 · 60 min</span><span>Precio de lanzamiento</span></div>
     <div class="monto"><sup>S/</sup><b>${CFG.PRECIO}</b></div>
-    <div class="cf-cuando"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Se paga en la videollamada, no antes.</b> Primero te explico tu diagnóstico; si decides continuar, pagas ahí.</span></div>
+    <div class="cf-cuando"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Se paga en la videollamada, no antes.</b> Al reservar no pagas nada.</span></div>
     <div class="cf-medios"><span>Yape</span><span>Plin</span><span>PayPal</span></div>
     <ul>
       <li>${CHK}Revisamos tus anuncios y sus resultados</li>
@@ -959,8 +962,8 @@ function pagoHTML(pay){
       <li>${CHK}Vemos cómo vendes y dónde se cae cada venta</li>
       <li>${CHK}Te llevas un plan de mejora claro</li>
     </ul>
-    <a class="btn full" href="${pay}" id="pagar2">Agendar · pago en la videollamada</a>
-    <div class="garantia">${SVG_OK}<span>Si en los primeros 10 minutos no te convence, no pagas nada.</span></div>
+    <a class="btn full" href="${pay}" id="pagar2"><span class="bt2">Reservar mi horario<small>Pagas S/${CFG.PRECIO} en la videollamada</small></span></a>
+    <div class="garantia">${SVG_OK}<span>Si después de ver tu diagnóstico decides no seguir, no pagas nada.</span></div>
   </div>`;
 }
 function montarYo(raiz){
