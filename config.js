@@ -19,7 +19,7 @@ window.CFG = {
     bio: "No soy un curso ni un bot. Vendo con anuncios todos los días en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
     numeros: [
       { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
-      { valor: "", ejemplo: "300+", texto: "clientes high ticket cerrados (+US$500)" },
+      { valor: "300+", texto: "clientes high ticket cerrados (+US$500)" },
       { valor: "2", texto: "negocios propios con este método" },
       { valor: "", ejemplo: "8 años", texto: "vendiendo con anuncios" }
     ],
