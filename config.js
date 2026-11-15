@@ -19,13 +19,20 @@ window.CFG = {
     bio: "No soy un curso ni un bot. Vendo con anuncios todos los días en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
     numeros: [
       { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
-      { valor: "", ejemplo: "300+", texto: "clientes high ticket cerrados (más de US$500)" },
-      { valor: "2", texto: "negocios propios que funcionan con este método" },
+      { valor: "", ejemplo: "300+", texto: "clientes high ticket cerrados (+US$500)" },
+      { valor: "2", texto: "negocios propios con este método" },
       { valor: "", ejemplo: "8 años", texto: "vendiendo con anuncios" }
     ],
+    // Al tocar un negocio se abre una ventana (sin salir de la página) con:
+    //  - usuario: cómo encontrarlo (solo texto, no es enlace)
+    //  - fotos: imágenes que subas a GitHub (ej: "essence-1.jpg")
+    //  - posts: enlaces de publicaciones de Instagram (ej: "https://www.instagram.com/p/ABC123/"); se ven dentro de la ventana
+    // Usa **texto** para poner en negrita.
     negocios: [
-      { nombre: "Essence Studio", detalle: "Salón de belleza con 2 sedes en Surco y Miraflores. Toda su captación viene de anuncios y WhatsApp.", foto: "" },
-      { nombre: "MMedia Perú", detalle: "Growth partner para negocios en Latinoamérica: anuncios, ventas y seguimiento.", foto: "" }
+      { nombre: "Essence Studio", detalle: "Salón de belleza con **2 sedes en Surco y Miraflores**. Toda su captación viene de anuncios y WhatsApp.",
+        usuario: "Instagram: @essence.studio_pe", fotos: [], posts: [] },
+      { nombre: "MMedia Perú", detalle: "**Growth partner para negocios en Latinoamérica**: anuncios, ventas y seguimiento.",
+        usuario: "Web: mmediaperu.com", fotos: [], posts: [] }
     ],
     video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview",
     testimonios: [
