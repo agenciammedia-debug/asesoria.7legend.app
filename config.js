@@ -29,12 +29,13 @@ window.CFG = {
     //  - posts: enlaces de publicaciones de Instagram (ej: "https://www.instagram.com/p/ABC123/"); se ven dentro de la ventana
     // Usa **texto** para poner en negrita.
     negocios: [
-      { nombre: "Essence Studio", detalle: "Studio de uñas con **sedes en Surco y Miraflores**. Toda sus clientas viene de anuncios y automatización con Mora ai.",
+            { nombre: "Essence Studio", detalle: "Estudio de uñas con **sedes en Surco y Miraflores**. Todas sus clientas llegan por anuncios y por la automatización con Mora AI.",
         usuario: "Instagram: @essence.studio_pe", captura: "essence-feed.jpg", fotos: [], posts: [] },
       { nombre: "MMedia Perú", detalle: "**Growth partner para especialistas en Latinoamérica**: anuncios, automatización, CRM y ventas.",
-        usuario: "mmediaperu.com", captura: "mmedia-feed.jpg", fotos: [], posts: [] }
+        usuario: "mmediaperu.com", pie: "www.mmediaperu.com", captura: "mmedia-feed.jpg", fotos: [], posts: [] }
     ],
-    video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview",
+    video: "https://drive.google.com/file/d/1byye80GegfEGhaGFFRkdlriNjPDKsf1C/preview",
+    
     testimonios: [
       { texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio. Ese mismo mes cerré el doble.", nombre: "Johan B.", negocio: "Implantólogo · Bogotá", foto: "" },
       { texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes.", nombre: "Daniel G.", negocio: "Inmobiliaria · Arequipa", foto: "" },
