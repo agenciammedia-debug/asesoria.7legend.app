@@ -1343,6 +1343,18 @@ function resultado(r){
   },reduce?0:900+k*1500));
 }
 
+/* Vista previa del resultado: asesoria.7legend.app/?vista=resultado (no guarda nada ni envía eventos) */
+if(new URLSearchParams(location.search).get('vista')==='resultado'){
+  window.track=function(){}; window.vis=function(){};
+  A={nombre:'Ana Torres',negocio:'Spa Luz',email:'ana@ejemplo.com',whatsapp:'987654321',_listo:true};
+  addEventListener('load',()=>{ quiz.classList.add('on'); document.body.style.overflow='hidden';
+    resultado({califica:true,lead_id:'',puntaje:42,nivel:'Media',titular:'Tus anuncios traen mensajes, pero se pierden al responder.',
+      perdida_estimada:'Estás dejando de vender aprox. S/ 3,600 al mes.',
+      hallazgos:[{titulo:'Respondes tarde',detalle:'Tardas más de 1 hora en contestar y el cliente le compra a otro.'},
+                 {titulo:'No tienes un guion de venta',detalle:'Cada conversación es distinta y muchas terminan en el precio.'},
+                 {titulo:'No haces seguimiento',detalle:'Quien no compra el primer día no vuelve a saber de ti.'}]});
+  });
+}
 </script>
 </body>
 </html>
