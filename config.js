@@ -16,7 +16,7 @@ window.CFG = {
     nombre: "Carlos Moreno",
     cargo: "Fundador de 7Legend",
     foto: "carlos-moreno.jpg",
-    bio: "Vendo con anuncios todos los días en mis propios negocios. En la asesoría no te doy teoría: te enseño lo que a mí me funciona, aplicado a tus números reales.",
+    bio: "No soy un curso ni un bot. Vendo con anuncios todos los días en mis propios negocios y en la asesoría te enseño lo que a mí me funciona, aplicado a tus números reales.",
     numeros: [
       { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
       { valor: "", ejemplo: "300+", texto: "clientes high ticket cerrados (más de US$500)" },
