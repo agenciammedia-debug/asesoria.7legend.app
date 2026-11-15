@@ -9,18 +9,30 @@ window.CFG = {
   RESERVA_URL: "reservar.html",
   // Cómo se cobra la asesoría: "llamada" (agenda gratis y paga en la llamada) o "adelantado" (paga al reservar)
   COBRO: "llamada",
-  // Sección "Quién te atiende" (deja un dato vacío "" para ocultarlo)
+  // ── Sección de confianza (resultado del diagnóstico y landing) ──
+  // Los datos con "ejemplo" solo se ven en la vista previa (?vista=resultado), nunca en la página real.
+  // Para publicarlos, escribe tu dato real en "valor" / "texto" y borra la línea "ejemplo".
   YO: {
     nombre: "Carlos Moreno",
     cargo: "Fundador de 7Legend",
     foto: "carlos-moreno.jpg",
-    inversion: "S/ 250,000+",          // invertidos en Meta
-    clientes: "",                       // clientes high ticket cerrados (más de US$500) → ej: "296+"
-    negocios: [
-      { nombre: "Essence Studio", detalle: "Salón de belleza · 2 sedes (Surco y Miraflores)", link: "https://www.instagram.com/essence.studio_pe/" },
-      { nombre: "MMedia Perú", detalle: "Growth partner para negocios en Latinoamérica", link: "https://www.mmediaperu.com" }
+    bio: "Vendo con anuncios todos los días en mis propios negocios. En la asesoría no te doy teoría: te enseño lo que a mí me funciona, aplicado a tus números reales.",
+    numeros: [
+      { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
+      { valor: "", ejemplo: "300+", texto: "clientes high ticket cerrados (más de US$500)" },
+      { valor: "2", texto: "negocios propios que funcionan con este método" },
+      { valor: "", ejemplo: "8 años", texto: "vendiendo con anuncios" }
     ],
-    conferencia: "conferencia.jpg",
-    video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview"
+    negocios: [
+      { nombre: "Essence Studio", detalle: "Salón de belleza con 2 sedes en Surco y Miraflores. Toda su captación viene de anuncios y WhatsApp.", foto: "" },
+      { nombre: "MMedia Perú", detalle: "Growth partner para negocios en Latinoamérica: anuncios, ventas y seguimiento.", foto: "" }
+    ],
+    video: "https://drive.google.com/file/d/1i1hAbcL6oqANSSs6PS20ojoQjhHl0pwE/preview",
+    testimonios: [
+      { ejemplo: true, texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era cómo respondía. Ese mismo mes cerré el doble.", nombre: "Lucía R.", negocio: "Clínica estética · Lima", foto: "" },
+      { ejemplo: true, texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes que ya me habían escrito.", nombre: "Jorge M.", negocio: "Inmobiliaria · Arequipa", foto: "" },
+      { ejemplo: true, texto: "Lo mejor fue que trabajó con mis chats reales. Salí con un plan claro y lo apliqué al día siguiente.", nombre: "Andrea P.", negocio: "Tienda de ropa · Trujillo", foto: "" }
+    ],
+    conferencia: { foto: "conferencia.jpg", texto: "Dando una conferencia sobre ventas de alto ticket." }
   }
 };
