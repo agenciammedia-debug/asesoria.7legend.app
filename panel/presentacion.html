@@ -193,6 +193,19 @@ h2 span{color:var(--g2)}
 #acceso button{width:100%;background:var(--a);color:#fff;border:0;border-radius:12px;padding:13px;font-weight:600;cursor:pointer}
 #acceso .err{color:var(--r);font-size:14px;min-height:20px}
 @media (prefers-reduced-motion:reduce){ .a{opacity:1;transform:none;filter:none} .lamina.on .a{animation:none} }
+.pg-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;flex:1}
+.pg-lista{list-style:none;display:grid;gap:16px;font-size:22px;color:rgba(255,255,255,.85)}
+.pg-lista li{display:flex;gap:14px}.pg-lista li:before{content:"✓";color:#6EE7A0;font-weight:700}
+.pg-precio{margin-top:34px;display:flex;flex-direction:column}
+.pg-precio small{color:rgba(255,255,255,.55);font-size:16px}
+.pg-precio b{font-size:96px;line-height:1;letter-spacing:-.05em}
+.pg-precio>span{color:rgba(255,255,255,.55);font-size:16px;margin-top:6px}
+.pg-medios{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.pg-m{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px;text-align:center}
+.pg-m h4{font-size:20px;margin-bottom:10px}
+.pg-m img{width:150px;height:150px;object-fit:contain;background:#fff;border-radius:12px;padding:6px;margin:0 auto 10px;display:block}
+.pg-m b{display:block;font-size:22px;letter-spacing:.02em}.pg-m small{display:block;color:rgba(255,255,255,.55);font-size:13.5px;margin-top:4px}
+.lamina.salta{display:none}
 </style>
 </head>
 <body>
@@ -220,6 +233,23 @@ h2 span{color:var(--g2)}
         <div class="pilares" id="pilares"></div>
       </div>
       <div class="fugas" id="fugas"></div>
+    </div>
+  </section>
+
+  <!-- 2b · PAGO EN LA LLAMADA -->
+  <section class="lamina osc" data-n="pago">
+    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Para seguir</span></div>
+    <h2 class="a" style="--i:1">Ya viste dónde se pierden tus ventas.<br><span>Ahora vemos cómo recuperarlas.</span></h2>
+    <div class="pg-grid">
+      <div class="a" style="--i:2">
+        <ul class="pg-lista">
+          <li>Tus números reales: cuánto te cuesta cada mensaje y cada venta</li>
+          <li>Lo que se te escapa al mes, en soles</li>
+          <li>Tu plan de mejora, en orden y por escrito</li>
+        </ul>
+        <div class="pg-precio"><small>Asesoría completa</small><b>S/<span id="pgMonto">49</span></b><span>Pago único · 45 minutos más</span></div>
+      </div>
+      <div class="pg-medios a" style="--i:3" id="pgMedios"></div>
     </div>
   </section>
 
@@ -356,15 +386,17 @@ addEventListener('resize',escala); escala();
 /* navegación */
 $('puntos').innerHTML=L.map(()=>'<i></i>').join('');
 function ir(n){
+  const dir=n<i?-1:1; while(n>0&&n<N-1&&L[n].classList.contains('salta')) n+=dir;
   i=Math.max(0,Math.min(N-1,n));
   L.forEach((l,k)=>{ l.classList.toggle('on',k===i); });
   [...$('puntos').children].forEach((p,k)=>p.classList.toggle('on',k<=i));
   $('num').textContent=(i+1)+' / '+N;
   $('pie').classList.toggle('claro',L[i].classList.contains('osc')||L[i].classList.contains('roja'));
   if(document.activeElement&&document.activeElement.tagName==='INPUT') document.activeElement.blur();
-  if(i===1) animarPuntaje();
-  if(i===3) calcPerdida(true);
-  if(i===2) setTimeout(()=>{ const v=[...L[2].querySelectorAll('input')].find(x=>!x.value); v&&v.focus({preventScroll:true}); },900);
+  const dn=L[i].dataset.n;
+  if(dn==='2') animarPuntaje();
+  if(dn==='4') calcPerdida(true);
+  if(dn==='3') setTimeout(()=>{ const v=[...L[i].querySelectorAll('input')].find(x=>!x.value); v&&v.focus({preventScroll:true}); },900);
 }
 addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'&&e.target.type!=='range'){
@@ -485,7 +517,9 @@ function pintar(l){
   $('gTic').value=g.tic!=null?g.tic:medio(x.ticket);
   $('pMeta').value=g.meta||10;
   calcNumeros(); calcPerdida();
-  if(i===1) animarPuntaje();
+  const yaPago=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo&&r.metodo!=='En llamada'&&['Confirmada','Realizada'].includes(r.estado)));
+  document.querySelector('[data-n="pago"]').classList.toggle('salta',yaPago);
+  if(L[i].dataset.n==='2') animarPuntaje();
 }
 let P=0;
 function animarPuntaje(){
@@ -521,6 +555,16 @@ function calcPerdida(desdeCero){
 $('pMeta').addEventListener('input',()=>{ calcPerdida(); guardar(); });
 
 ir(0);
+/* medios de pago (lámina "Para seguir") */
+(async()=>{ try{
+  const A=await (await fetch(CFG.API_URL+'?action=slots')).json(); if(!A.ok) return;
+  $('pgMonto').textContent=A.precio; const P=A.pagos, m=[];
+  const num=n=>String(n).replace(/(\d{3})(\d{3})(\d{3})/,'$1 $2 $3');
+  if(P.yape.numero) m.push(`<div class="pg-m"><h4>Yape</h4><img src="../yape-qr.png" alt="QR de Yape" onerror="this.remove()"><b>${h(num(P.yape.numero))}</b><small>${h(P.yape.titular||'')}</small></div>`);
+  if(P.plin.numero) m.push(`<div class="pg-m"><h4>Plin</h4><img src="../plin-qr.png" alt="QR de Plin" onerror="this.remove()"><b>${h(num(P.plin.numero))}</b><small>${h(P.plin.titular||'')}</small></div>`);
+  if(P.paypal.link) m.push(`<div class="pg-m"><h4>PayPal</h4><b>US$${h(P.paypal.usd)}</b><small>${h(String(P.paypal.link).replace(/^https?:\/\//,''))}</small></div>`);
+  $('pgMedios').innerHTML=m.join('');
+}catch(e){} })();
 if(!window.CFG||!CFG.API_URL){ pintar(null); } else if(PIN){ cargar(); } else { pintar(null); $('acceso').style.display='grid'; }
 </script>
 </body>
