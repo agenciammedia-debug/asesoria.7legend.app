@@ -116,6 +116,13 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .tabla{background:#fff;border:1px solid var(--l);border-radius:16px;overflow:hidden}
 .fila{display:grid;grid-template-columns:44px 1.4fr 1.2fr 110px 120px 120px;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid var(--l);cursor:pointer;transition:background .15s}
 .fila:hover{background:var(--s)}
+.fila-ad{display:grid;grid-template-columns:1.6fr repeat(6,minmax(64px,.6fr));gap:10px;align-items:center;padding:12px 16px;border-top:1px solid var(--l);font-variant-numeric:tabular-nums}
+.fila-ad.cab{border-top:0;font-size:12.5px;color:var(--g);font-weight:500;background:var(--s)}
+.fila-ad.tot{background:var(--s);font-weight:700}
+.fila-ad .an strong{display:block;font-size:14.5px}.fila-ad .an small{color:var(--g);font-size:12.5px}
+.fila-ad span:not(.an){text-align:right}.fila-ad em{display:block;font-style:normal;color:var(--g);font-size:12px;font-weight:500}
+.nota-ads{color:var(--g);font-size:13px;margin-top:12px;line-height:1.5}
+@media(max-width:760px){.fila-ad{grid-template-columns:1.3fr repeat(3,1fr)}.fila-ad .x6,.fila-ad .x5,.fila-ad .x4{display:none}}
 .fila.cab{border-top:0;font-size:12.5px;color:var(--g);font-weight:500;cursor:default;background:var(--s)}
 .fila .nom strong{display:block}.fila .nom small,.fila .det{color:var(--g);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
@@ -221,6 +228,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
     <nav class="tabs" role="tablist">
       <button class="tab on" data-v="hoy">Hoy <span class="cnt" id="cntVer" hidden></span></button>
       <button class="tab" data-v="leads">Leads</button>
+      <button class="tab" data-v="anuncios">Anuncios</button>
       <button class="tab" data-v="reservas">Reservas</button>
       <button class="tab" data-v="horarios">Horarios</button>
       <button class="tab" data-v="ajustes">Pagos y ajustes</button>
@@ -249,6 +257,16 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
         <select class="campo" id="fCalifica" aria-label="Filtrar por calificación"><option value="">Califica: todos</option><option>SI</option><option>NO</option></select>
       </div>
       <div class="tabla" id="tablaLeads"></div>
+    </div>
+
+    <!-- ANUNCIOS -->
+    <div class="vista" id="v-anuncios">
+      <div class="filtros">
+        <select class="campo" id="fRango" aria-label="Periodo"><option value="0">Hoy</option><option value="7" selected>Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="90">Últimos 90 días</option></select>
+      </div>
+      <div class="kpis" id="kpisAds"></div>
+      <div class="tabla" id="tablaAds"></div>
+      <p class="nota-ads">Visitas: personas que abrieron la landing. Iniciaron: tocaron una respuesta del diagnóstico. Leads: terminaron el diagnóstico. Pagadas: reservas con pago confirmado. El gasto y el costo por lead los ves en el Administrador de anuncios.</p>
     </div>
 
     <!-- RESERVAS -->
@@ -393,7 +411,7 @@ async function cargar(aviso){
   catch(e){ toast(e.message,true); }
   document.body.classList.remove('cargando');
 }
-function pintarTodo(){ $('actualizado').textContent='Actualizado '+D.hoy.slice(11); kpis(); hoy(); leads(); reservas(); horarios(); ajustes(); }
+function pintarTodo(){ $('actualizado').textContent='Actualizado '+D.hoy.slice(11); kpis(); hoy(); leads(); anuncios(); reservas(); horarios(); ajustes(); }
 
 /* ── utilidades ── */
 const wa=(n,t)=>'https://wa.me/'+String(n||'').replace(/\D/g,'')+(t?'?text='+encodeURIComponent(t):'');
@@ -514,6 +532,33 @@ function leads(){
       <span><span class="pill ${h(l.pago==='Por verificar'?'verificar':l.estado)}">${h(l.pago==='Por verificar'?'Por verificar':l.estado||'—')}</span></span>
       <span class="det c5">${h(l.inversion)}</span><span class="det c6">${h(l.fecha)}</span></div>`).join(''):'<div class="vacio" style="margin:16px">No hay leads con esos filtros.</div>');
 }
+/* ── ANUNCIOS: de la visita al cliente, por anuncio ── */
+function anuncios(){
+  if(!D) return;
+  const dias=+$('fRango').value, hoyF=D.hoy.slice(0,10);
+  const desde=dias? new Date(new Date(hoyF+'T12:00:00').getTime()-(dias-1)*864e5).toISOString().slice(0,10) : hoyF;
+  const nom=a=>String(a||'').trim()||'Sin anuncio (directo u orgánico)';
+  const M={}, fila=a=>M[a]||(M[a]={a,c:'',v:0,i:0,l:0,p:0,cl:0,mrr:0});
+  (D.visitas||[]).filter(x=>x.f>=desde&&x.f<=hoyF).forEach(x=>{ const o=fila(nom(x.a)); o.v+=x.v; o.i+=x.i; if(x.c) o.c=x.c; });
+  const pagada=['Confirmada','Realizada','No asistió'];
+  D.leads.filter(l=>(l.fecha||'').slice(0,10)>=desde&&(l.fecha||'').slice(0,10)<=hoyF).forEach(l=>{
+    const o=fila(nom(l.utm_content)); o.l++; if(l.utm_campaign) o.c=l.utm_campaign;
+    if(D.reservas.some(r=>r.lead_id===l.lead_id&&pagada.includes(r.estado))) o.p++;
+    if(l.estado==='Cliente'){ o.cl++; o.mrr+=+String(l.mrr).replace(/[^\d.]/g,'')||0; }
+  });
+  const F=Object.values(M).sort((a,b)=>(b.l-a.l)||(b.v-a.v));
+  const T=F.reduce((t,o)=>{ ['v','i','l','p','cl','mrr'].forEach(k=>t[k]+=o[k]); return t; },{a:'Total',v:0,i:0,l:0,p:0,cl:0,mrr:0});
+  const pct=(a,b)=>b?Math.round(a/b*100)+'%':'–';
+  $('kpisAds').innerHTML=[['Visitas',T.v],['Iniciaron',T.i],['Leads',T.l,'azul'],['Visita → lead',pct(T.l,T.v)],['Asesorías pagadas',T.p],['Clientes',T.cl,'azul']]
+    .map(k=>`<div class="kpi ${k[2]||''}"><small>${k[0]}</small><b>${k[1]}</b></div>`).join('');
+  const linea=(o,cls)=>`<div class="fila-ad ${cls||''}"><span class="an"><strong>${h(o.a)}</strong>${o.c?`<small>${h(o.c)}</small>`:''}</span>
+    <span>${o.v}</span><span>${o.i}<em>${pct(o.i,o.v)}</em></span><span>${o.l}<em>${pct(o.l,o.v)}</em></span>
+    <span class="x4">${o.p}<em>${pct(o.p,o.l)}</em></span><span class="x5">${o.cl}</span><span class="x6">${o.mrr?'S/ '+o.mrr.toLocaleString('en-US'):'–'}</span></div>`;
+  $('tablaAds').innerHTML=`<div class="fila-ad cab"><span class="an">Anuncio</span><span>Visitas</span><span>Iniciaron</span><span>Leads</span><span class="x4">Pagadas</span><span class="x5">Clientes</span><span class="x6">MRR</span></div>`+
+    (F.length? F.map(o=>linea(o)).join('')+linea(T,'tot') : '<div class="vacio" style="margin:16px">Aún no hay visitas en este periodo. Aparecen apenas alguien abre la landing.</div>');
+}
+$('fRango').onchange=anuncios;
+
 function abrirLead(id){
   const l=leadPor(id); if(!l) return;
   const res=D.reservas.filter(r=>r.lead_id===id);
@@ -535,7 +580,7 @@ function abrirLead(id){
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
       <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
       <div><label class="lb">Resultado de la llamada</label>${sel('resultado_llamada',['Cerró','Lo pensará','No califica','No le interesa','Reagendar'])}</div>
-      <div><label class="lb">Plan</label>${sel('plan',['Base','Pro','Setup único'])}</div>
+      <div><label class="lb">Plan</label>${sel('plan',['Básico','Pro','Setup único'])}</div>
       <div><label class="lb">MRR (S/)</label><input class="campo" data-campo="mrr" inputmode="numeric" value="${h(l.mrr)}"></div>
     </div><button class="btn" id="guardarLead" style="margin-top:16px;width:100%">Guardar cambios</button>
     <p class="ayuda">Si marcas "Cerró", pasa a Cliente. Al elegir un plan se completa el MRR.</p></div>`;
