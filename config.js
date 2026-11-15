@@ -39,6 +39,8 @@ window.CFG = {
     video: "testimonios.mp4",          // video subido a GitHub (o un enlace /preview de Google Drive)
     video_portada: "testimonios.jpg",  // imagen que se ve antes de darle play
     video_duracion: "3:10",
+    video_frase: "Hemos cumplido todos los objetivos a cabalidad.",  // frase real dicha en el video
+    video_autor: "Johan B., implantólogo · y 3 clientes más",
 
     testimonios: [
       { texto: "Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio. Ese mismo mes cerré el doble.", nombre: "Johan B.", negocio: "Implantólogo · Bogotá", foto: "" },
