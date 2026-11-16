@@ -205,11 +205,13 @@ h2 span{color:var(--g2)}
 .pg-precio small{color:rgba(255,255,255,.55);font-size:16px}
 .pg-precio b{font-size:96px;line-height:1;letter-spacing:-.05em}
 .pg-precio>span{color:rgba(255,255,255,.55);font-size:16px;margin-top:6px}
-.pg-medios{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-.pg-m{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px;text-align:center}
-.pg-m h4{font-size:20px;margin-bottom:10px}
-.pg-m img{width:150px;height:150px;object-fit:contain;background:#fff;border-radius:12px;padding:6px;margin:0 auto 10px;display:block}
-.pg-m b{display:block;font-size:22px;letter-spacing:.02em}.pg-m small{display:block;color:rgba(255,255,255,.55);font-size:13.5px;margin-top:4px}
+.pg-q{font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:16px}
+.pg-medios{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pg-m{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px 16px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;min-width:0}
+.pg-m i{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:22px;color:#fff}
+.pg-m h4{font-size:19px;font-weight:700}
+.pg-m p{font-size:14px;line-height:1.4;color:rgba(255,255,255,.6)}
+.pg-m p b{display:block;color:#fff;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .lamina.salta{display:none}
 .pg-pagado{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:rgba(255,255,255,.6);font-size:15px}
 .pg-pagado #pgBtns{display:flex;gap:8px}
@@ -260,7 +262,7 @@ h2 span{color:var(--g2)}
         </ul>
         <div class="pg-precio"><small>Asesoría completa</small><b>S/<span id="pgMonto">49</span></b><span>Pago único · 45 minutos más</span></div>
       </div>
-      <div class="a" style="--i:3"><div class="pg-medios" id="pgMedios"></div>
+      <div class="a" style="--i:3"><p class="pg-q">¿Con cuál prefieres pagar?</p><div class="pg-medios" id="pgMedios"></div>
         <div class="pg-pagado" id="pgPagado" hidden><span>¿Ya pagó? Márcalo aquí:</span><div id="pgBtns"></div></div></div>
     </div>
   </section>
@@ -600,9 +602,11 @@ ir(0);
   const A=await (await fetch(CFG.API_URL+'?action=slots')).json(); if(!A.ok) return;
   $('pgMonto').textContent=A.precio; const P=A.pagos, m=[];
   const num=n=>String(n).replace(/(\d{3})(\d{3})(\d{3})/,'$1 $2 $3');
-  if(P.yape.numero) m.push(`<div class="pg-m"><h4>Yape</h4><img src="../yape-qr.png" alt="QR de Yape" onerror="this.remove()"><b>${h(num(P.yape.numero))}</b><small>${h(P.yape.titular||'')}</small></div>`);
-  if(P.plin.numero) m.push(`<div class="pg-m"><h4>Plin</h4><img src="../plin-qr.png" alt="QR de Plin" onerror="this.remove()"><b>${h(num(P.plin.numero))}</b><small>${h(P.plin.titular||'')}</small></div>`);
-  if(P.paypal.link) m.push(`<div class="pg-m"><h4>PayPal</h4><b>US$${h(P.paypal.usd)}</b><small>${h(String(P.paypal.link).replace(/^https?:\/\//,''))}</small></div>`);
+  const card=(n,col,letra,txt)=>`<div class="pg-m"><i style="background:${col}">${letra}</i><h4>${n}</h4><p>${txt}</p></div>`;
+  if(P.yape.numero) m.push(card('Yape','#742284','Y',`<b>${h(num(P.yape.numero))}</b>${h(P.yape.titular||'')}`));
+  if(P.plin.numero) m.push(card('Plin','#00B2A9','P',`<b>${h(num(P.plin.numero))}</b>${h(P.plin.titular||'')}`));
+  if(P.paypal.link) m.push(card('PayPal','#003087','P',`<b>US$${h(P.paypal.usd)}</b>Te envío el link por WhatsApp`));
+  if(m.length) $('pgMedios').style.gridTemplateColumns=`repeat(${m.length},1fr)`;
   $('pgMedios').innerHTML=m.join('');
 }catch(e){} })();
 if(!window.CFG||!CFG.API_URL){ pintar(null); } else if(PIN){ cargar(); } else { pintar(null); $('acceso').style.display='grid'; }
