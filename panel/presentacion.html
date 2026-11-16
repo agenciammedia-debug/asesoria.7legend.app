@@ -133,8 +133,13 @@ h2 span{color:var(--g2)}
 .br.ult{border-style:dashed;background:transparent}
 
 /* 7 · planes */
-.planes{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:22px;flex:1;max-height:430px}
-.plan{border-radius:26px;padding:28px 32px;border:1px solid var(--l);background:#fff;display:flex;flex-direction:column}
+.planes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px;flex:1;max-height:460px}
+.plan{border-radius:24px;padding:24px 26px;border:1px solid var(--l);background:#fff;display:flex;flex-direction:column;cursor:pointer;transition:transform .3s var(--e)}
+.plan .pv{font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit}
+.plan .cond{margin-top:auto;padding-top:14px;font-size:14px;color:var(--g);font-weight:500}
+.plan.pro .cond{color:rgba(255,255,255,.6)}
+.plan.pro{transform:translateY(-6px)}
+.nota-pl{font-size:14px;color:var(--g);margin-top:14px}
 .plan.pro{background:var(--noche);color:#fff;border:0;position:relative;overflow:hidden}
 .plan.pro:before{content:"";position:absolute;width:460px;height:460px;right:-180px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(30,107,255,.55),transparent 65%);animation:flota 10s ease-in-out infinite alternate}
 @keyframes flota{to{transform:translate(-50px,40px) scale(1.1)}}
@@ -143,18 +148,18 @@ h2 span{color:var(--g2)}
 .plan h3{font-size:26px;letter-spacing:-.03em}
 .reco{font-size:13px;font-weight:700;background:var(--a);color:#fff;padding:6px 13px;border-radius:999px;box-shadow:0 0 0 0 rgba(30,107,255,.6);animation:late 2s infinite}
 @keyframes late{70%{box-shadow:0 0 0 10px rgba(30,107,255,0)}100%{box-shadow:0 0 0 0 rgba(30,107,255,0)}}
-.precio{font-size:60px;font-weight:700;letter-spacing:-.05em;margin:8px 0 0;line-height:1}
+.precio{font-size:52px;font-weight:700;letter-spacing:-.05em;margin:8px 0 0;line-height:1}
 .precio span{font-size:20px;font-weight:500;letter-spacing:0;opacity:.55}
 .paga{display:inline-flex;align-self:flex-start;margin-top:10px;font-size:14px;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--vs);color:var(--v)}
 .pro .paga{background:rgba(110,231,160,.15);color:var(--menta)}
-.plan ul{list-style:none;margin-top:18px;display:grid;gap:11px;font-size:19px}
+.plan ul{list-style:none;margin-top:16px;display:grid;gap:9px;font-size:16.5px;line-height:1.3}
 .plan li{display:flex;gap:10px}
 .plan li:before{content:"✓";font-weight:700;color:var(--v)}
 .plan.pro li:before{color:var(--menta)}
 .plan li.no{opacity:.35}.plan li.no:before{content:"–";color:inherit}
 
 /* 8 · bono */
-.bono{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bono{margin-top:auto;display:grid;grid-template-columns:minmax(0,560px);gap:20px}
 .bono .c{background:#fff;border:1px solid var(--l);border-radius:26px;padding:34px;position:relative;overflow:hidden}
 .bono .c b{display:block;font-size:64px;letter-spacing:-.05em;color:var(--a);line-height:1;margin-bottom:10px}
 .bono .c p{font-size:21px;color:var(--t2)}
@@ -319,19 +324,29 @@ h2 span{color:var(--g2)}
     <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Cómo seguimos</span></div>
     <h2 class="a" style="--i:1">Tú cierras. Nosotros hacemos el resto.</h2>
     <div class="planes">
-      <div class="plan pro a" style="--i:2">
-        <div class="top"><h3>Plan Pro</h3><span class="reco" id="recoPro">Recomendado para ti</span></div>
-        <div class="precio">S/<span data-c="planPro" style="font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit">1,500</span> <span>al mes</span></div>
-        <span class="paga" id="pagaPro" hidden></span>
-        <ul><li>Mora, filtro con IA 24/7</li><li>Capacitación de ventas quincenal</li><li>CRM con notificaciones</li><li>Gestión de anuncios</li><li>Reporte semanal</li></ul>
+      <div class="plan a" style="--i:2" data-plan="Basic">
+        <div class="top"><h3>Basic</h3><span class="reco" hidden>Recomendado para ti</span></div>
+        <div class="precio">S/<span data-c="planBasic" class="pv">550</span> <span>1 mes</span></div>
+        <span class="paga" hidden></span>
+        <ul><li>Acompañamiento 1 a 1</li><li>4 reuniones de 1 hora</li><li>Optimización de tus creativos y tu marketing</li><li class="no">Gestión de anuncios</li><li class="no">Mora AI</li></ul>
+        <p class="cond">Sin permanencia</p>
       </div>
-      <div class="plan a" style="--i:3">
-        <div class="top"><h3>Plan Básico</h3><span class="reco" id="recoBase" hidden>Recomendado para ti</span></div>
-        <div class="precio">S/<span data-c="planBase" style="font-size:inherit;opacity:1;font-weight:inherit;letter-spacing:inherit">800</span> <span>al mes</span></div>
-        <span class="paga" id="pagaBase" hidden></span>
-        <ul><li>Mora, filtro con IA 24/7</li><li>Capacitación de ventas mensual</li><li>CRM con notificaciones</li><li class="no">Gestión de anuncios</li><li>Reporte mensual</li></ul>
+      <div class="plan a" style="--i:3" data-plan="PRO">
+        <div class="top"><h3>PRO</h3><span class="reco" hidden>Recomendado para ti</span></div>
+        <div class="precio">S/<span data-c="planPRO" class="pv">1,100</span> <span>al mes</span></div>
+        <span class="paga" hidden></span>
+        <ul><li>Gestión de anuncios</li><li>Mora AI, filtro 24/7</li><li>Capacitación de ventas + script personalizado</li><li>Auditoría quincenal</li><li class="no">CRM personalizable</li></ul>
+        <p class="cond">Mínimo 3 meses · instalación sin costo</p>
+      </div>
+      <div class="plan a" style="--i:4" data-plan="Legend">
+        <div class="top"><h3>Legend</h3><span class="reco" hidden>Recomendado para ti</span></div>
+        <div class="precio">S/<span data-c="planLegend" class="pv">2,100</span> <span>al mes</span></div>
+        <span class="paga" hidden></span>
+        <ul><li>Gestión de anuncios</li><li>Mora AI, filtro 24/7</li><li>Capacitación de ventas y scripts</li><li>CRM personalizable con avisos al celular</li><li>Auditoría semanal</li></ul>
+        <p class="cond">Mínimo 3 meses · instalación sin costo</p>
       </div>
     </div>
+    <p class="nota-pl a" style="--i:5">La inversión en anuncios y herramientas (Meta, ManyChat) la paga directamente tu negocio.</p>
   </section>
 
   <!-- 8 · BONO -->
@@ -341,7 +356,7 @@ h2 span{color:var(--g2)}
     <h2 class="a" style="--i:2">Si empiezas hoy:</h2>
     <div class="bono">
       <div class="c a" style="--i:3"><b>− S/<span data-c="precio">49</span></b><p>Tu asesoría, descontada del primer mes.</p></div>
-      <div class="c a" style="--i:4"><b>Setup gratis</b><p>Mora, guion y CRM instalados.</p></div>
+
     </div>
     <div class="vence a" style="--i:5">Hasta el <span id="vence">—</span></div>
   </section>
@@ -352,10 +367,10 @@ h2 span{color:var(--g2)}
     <h2 class="a" style="--i:1">Empezamos así.</h2>
     <div class="ruta">
       <div class="r a" style="--i:2"><div class="n">1</div><h3>Eliges tu plan</h3><p>Hoy mismo activamos tu cupo.</p></div>
-      <div class="r a" style="--i:3"><div class="n">2</div><h3>Formalizamos el acuerdo</h3><p>Todo claro y por escrito.</p></div>
-      <div class="r a" style="--i:4"><div class="n">3</div><h3>En 5 días, Mora filtrando</h3><p>Primer reporte al día 7.</p></div>
+      <div class="r a" style="--i:3"><div class="n">2</div><h3>Firmamos el contrato</h3><p>Todo claro y por escrito.</p></div>
+      <div class="r a" style="--i:4"><div class="n">3</div><h3>Arrancamos esta semana</h3><p>Primera reunión de auditoría en 7 días.</p></div>
     </div>
-    <p class="pregunta a" style="--i:6">¿Empezamos con <span>el Pro o el Básico</span>?</p>
+    <p class="pregunta a" style="--i:6">¿Con qué plan <span>empezamos</span>?</p>
   </section>
 
   <div class="pie" id="pie"><span><span class="logo" style="color:inherit">7Legend<i>.</i></span> · <span data-c="negocio"></span></span><div class="puntos" id="puntos"></div><span id="num">1 / 9</span></div>
@@ -492,8 +507,7 @@ function pintar(l){
   const nombre=String(x.nombre||'').split(' ')[0];
   document.querySelectorAll('[data-c="nombre"]').forEach(e=>e.textContent=nombre);
   document.querySelectorAll('[data-c="negocio"]').forEach(e=>e.textContent=x.negocio||'tu negocio');
-  document.querySelectorAll('[data-c="planPro"]').forEach(e=>e.textContent=soles(c.planPro||1500));
-  document.querySelectorAll('[data-c="planBase"]').forEach(e=>e.textContent=soles(c.planBase||800));
+  [['planBasic',550],['planPRO',1100],['planLegend',2100]].forEach(([k,d])=>document.querySelectorAll(`[data-c="${k}"]`).forEach(e=>e.textContent=soles(c[k]||d)));
   document.querySelectorAll('[data-c="precio"]').forEach(e=>e.textContent=num(c.precio)||49);
   // pilares y diagnóstico
   PP=pilaresDe(x);
@@ -511,8 +525,7 @@ function pintar(l){
   P=Math.max(0,Math.min(100,+x.puntaje||0)); $('nivel').textContent=x.nivel||'—';
   $('anillo').style.setProperty('--c',col(P));
   // plan recomendado
-  const base=/Plan:\s*(Base|B[aá]sico)/i.test(x.angulo_venta||'');
-  $('recoPro').hidden=base; $('recoBase').hidden=!base;
+  const pa=String(x.angulo_venta||''); recomendar(/Plan:\s*Legend/i.test(pa)||(+x.puntaje>0&&+x.puntaje<40)?'Legend':/Plan:\s*Basic/i.test(pa)?'Basic':'PRO');
   // bono: 72 horas
   const v=new Date(Date.now()+3*864e5);
   $('vence').textContent=v.toLocaleDateString('es-PE',{weekday:'long',day:'numeric',month:'long'});
@@ -545,6 +558,9 @@ function pintarPagado(l){
     }catch(e){ box.querySelector('span').textContent='No se pudo registrar: '+e.message; $('pgBtns').querySelectorAll('button').forEach(x=>x.disabled=false); }
   });
 }
+/* plan recomendado: se resalta; tocando otro plan cambias la recomendación en vivo */
+function recomendar(k){ document.querySelectorAll('[data-plan]').forEach(p=>{ const on=p.dataset.plan===k; p.classList.toggle('pro',on); p.querySelector('.reco').hidden=!on; }); }
+document.addEventListener('click',e=>{ const p=e.target.closest('[data-plan]'); if(p) recomendar(p.dataset.plan); });
 let P=0;
 function animarPuntaje(){
   document.querySelectorAll('#pilares i').forEach(e=>{ e.style.width='0'; setTimeout(()=>e.style.width=e.dataset.v+'%',450); });
@@ -563,7 +579,7 @@ function calcNumeros(){
   else { $('kVen').textContent='S/—'; $('kVen').dataset.v=0; $('kVenTxt').textContent='en anuncios'; }
   // se paga con N ventas
   const t=num($('gTic').value), c=(D&&D.config)||{};
-  [['pagaPro',num(c.planPro)||1500],['pagaBase',num(c.planBase)||800]].forEach(([id,pr])=>{ const e=$(id); if(t){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} venta${n>1?'s':''} al mes`; } else e.hidden=true; });
+  [['Basic',num(c.planBasic)||550],['PRO',num(c.planPRO)||1100],['Legend',num(c.planLegend)||2100]].forEach(([k,pr])=>{ const e=document.querySelector(`[data-plan="${k}"] .paga`); if(t){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} venta${n>1?'s':''}${k==='Basic'?'':' al mes'}`; } else e.hidden=true; });
 }
 ['gGasto','gMsj','gVen','gTic'].forEach(id=>$(id).addEventListener('input',()=>{ calcNumeros(); calcPerdida(); guardar(); }));
 
