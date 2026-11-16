@@ -338,6 +338,12 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
             <div><label class="lb" for="aPrecio">Precio (S/)</label><input class="campo" id="aPrecio" inputmode="decimal"></div>
             <div><label class="lb" for="aDur">Duración (min)</label><input class="campo" id="aDur" type="number"></div>
           </div>
+          <div class="gestion" style="margin-top:12px">
+            <div><label class="lb" for="aPlanBasic">Basic (S/, 1 mes)</label><input class="campo" id="aPlanBasic" inputmode="decimal"></div>
+            <div><label class="lb" for="aPlanPRO">PRO (S/ al mes)</label><input class="campo" id="aPlanPRO" inputmode="decimal"></div>
+            <div><label class="lb" for="aPlanLegend">Legend (S/ al mes)</label><input class="campo" id="aPlanLegend" inputmode="decimal"></div>
+          </div>
+          <div class="ayuda">Precios de tus planes: se usan en la presentación y para calcular tus ingresos mensuales.</div>
           <label class="lb" for="aZoom">Link de Google Meet (fijo)</label><input class="campo" id="aZoom" placeholder="https://meet.google.com/xxx-xxxx-xxx">
           <div class="ayuda">Se envía automáticamente en el mensaje de confirmación.</div>
           <label class="lb" for="aWa">Tu WhatsApp (con 51)</label><input class="campo" id="aWa" inputmode="tel" placeholder="51987654321">
@@ -499,7 +505,7 @@ function plantillasWa(l,r){
   const fuga=String((l&&l.hallazgos)||'').split('\n').map(x=>x.replace(/^[•\-\s]+/,'').trim()).filter(Boolean)[0]||'';
   const meet=c.zoom||'[link de Meet]', P=c.precio||49, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
   const pagos=[c.yape?`• Yape: ${c.yape}${c.yapeTit?' ('+c.yapeTit+')':''}`:'',c.plin?`• Plin: ${c.plin}${c.plinTit?' ('+c.plinTit+')':''}`:'',c.paypal?`• PayPal: ${c.paypal}${c.paypalUsd?' (US$'+c.paypalUsd+')':''}`:''].filter(Boolean).join('\n')||'• Yape / Plin: [tu número]';
-  const plan=l&&l.plan==='Básico'?['Básico',c.planBase||'800']:['Pro',c.planPro||'1,500'];
+  const plan=l&&l.plan==='Legend'?['Legend',c.planLegend||2100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['PRO',c.planPRO||1100];
   const T=[];
   if(!r){
     T.push({id:'contacto',t:'Primer contacto',c:'Lead nuevo que no reservó (mejor en la primera hora)',
@@ -522,7 +528,7 @@ function plantillasWa(l,r){
     T.push({id:'gracias',t:'Gracias + resumen',c:'Al terminar la videollamada',
       m:`Gracias por tu tiempo hoy, ${n} 🙌 Te resumo lo que acordamos:\n\n1. \n2. \n3. \n\nCualquier duda, escríbeme por aquí.`});
     T.push({id:'plan',t:'Propuesta del plan',c:'1 o 2 días después de la asesoría',
-      m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (Mora respondiendo 24/7, capacitación de ventas y CRM), arrancamos esta semana con el Plan ${plan[0]} (S/${plan[1]} al mes).\n\n¿Lo conversamos 10 minutos?`});
+      m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (Mora respondiendo 24/7, capacitación de ventas y CRM), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?', 1 mes':' al mes'}).\n\n¿Lo conversamos 10 minutos?`});
     T.push({id:'noasistio',t:'No se conectó',c:'Si no asistió',
       m:`Hola ${n}, te esperé hoy a las ${hora} y no pudimos conectarnos. ¿Todo bien? Si quieres, la movemos: dime qué día y hora te acomoda.`});
   }
@@ -667,7 +673,7 @@ function abrirLead(id){
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
       <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
       <div><label class="lb">Resultado de la llamada</label>${sel('resultado_llamada',['Cerró','Lo pensará','No califica','No le interesa','Reagendar'])}</div>
-      <div><label class="lb">Plan</label>${sel('plan',['Básico','Pro','Setup único'])}</div>
+      <div><label class="lb">Plan</label>${sel('plan',['Basic','PRO','Legend'])}</div>
       <div><label class="lb">MRR (S/)</label><input class="campo" data-campo="mrr" inputmode="numeric" value="${h(l.mrr)}"></div>
     </div><button class="btn" id="guardarLead" style="margin-top:16px;width:100%">Guardar cambios</button>
     <p class="ayuda">Si marcas "Cerró", pasa a Cliente. Al elegir un plan se completa el MRR.</p></div>`;
@@ -819,7 +825,7 @@ $('btnPush').onclick=activarPush; $('btnPush2').onclick=activarPush;
 $('btnPrueba').onclick=async()=>{ $('btnPrueba').disabled=true; try{ const r=await run('adm_pushPrueba'); toast(r.detalle,!r.ok); }catch(e){ toast(e.message,true); } $('btnPrueba').disabled=false; };
 
 /* ── AJUSTES ── */
-const AJ={aYape:'yape',aYapeTit:'yapeTit',aPlin:'plin',aPlinTit:'plinTit',aPaypal:'paypal',aPaypalUsd:'paypalUsd',aPrecio:'precio',aDur:'duracion',aZoom:'zoom',aWa:'whatsapp'};
+const AJ={aYape:'yape',aYapeTit:'yapeTit',aPlin:'plin',aPlinTit:'plinTit',aPaypal:'paypal',aPaypalUsd:'paypalUsd',aPrecio:'precio',aDur:'duracion',aZoom:'zoom',aWa:'whatsapp',aPlanBasic:'planBasic',aPlanPRO:'planPRO',aPlanLegend:'planLegend'};
 function ajustes(){ Object.entries(AJ).forEach(([id,k])=>$(id).value=D.config[k]||''); $('aClave').value=''; $('aOsApp').value=D.config.onesignalAppId||''; $('aOsKey').value=''; $('aOsKey').placeholder=D.config.onesignalKeySet?'•••••• guardada (escribe para cambiarla)':'os_v2_app_...'; $('aMetaTok').value=''; $('aMetaTok').placeholder=D.config.metaTokenSet?'•••••• guardado (escribe para cambiarlo)':'EAA...'; iniciarPush(D.config.onesignalAppId); }
 $('guardarAj').onclick=async()=>{
   const c={}; Object.entries(AJ).forEach(([id,k])=>c[k]=$(id).value.trim());
