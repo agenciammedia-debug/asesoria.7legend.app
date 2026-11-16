@@ -504,7 +504,6 @@ function plantillasWa(l,r){
   const c=D.config||{}, n=String((r&&r.nombre)||(l&&l.nombre)||'').trim().split(' ')[0]||'', neg=(l&&l.negocio)||(r&&r.negocio)||'tu negocio';
   const fuga=String((l&&l.hallazgos)||'').split('\n').map(x=>x.replace(/^[•\-\s]+/,'').trim()).filter(Boolean)[0]||'';
   const meet=c.zoom||'[link de Meet]', P=c.precio||49, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
-  const pagos=[c.yape?`• Yape: ${c.yape}${c.yapeTit?' ('+c.yapeTit+')':''}`:'',c.plin?`• Plin: ${c.plin}${c.plinTit?' ('+c.plinTit+')':''}`:'',c.paypal?`• PayPal: ${c.paypal}${c.paypalUsd?' (US$'+c.paypalUsd+')':''}`:''].filter(Boolean).join('\n')||'• Yape / Plin: [tu número]';
   const plan=l&&l.plan==='Legend'?['Legend',c.planLegend||2100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['PRO',c.planPRO||1100];
   const T=[];
   if(!r){
@@ -523,8 +522,15 @@ function plantillasWa(l,r){
       m:`Hola ${n}, en 1 hora nos vemos 👉 ${meet}\n\nConéctate desde una computadora si puedes.`});
     T.push({id:'conectado',t:'Ya estoy conectado',c:'Si a los 5 minutos no entra',
       m:`Hola ${n}, ya estoy en la videollamada esperándote 👉 ${meet}\n\n¿Te conectas?`});
-    T.push({id:'pago',t:'Datos de pago',c:'Durante la videollamada',
-      m:`Te dejo los datos para la asesoría (S/${P}):\n\n${pagos}\n\nApenas lo envíes, seguimos con tu plan 🙌`});
+    const num=x=>String(x||'').replace(/\D/g,'').replace(/^51(?=\d{9}$)/,'').replace(/(\d{3})(\d{3})(\d{3})/,'$1 $2 $3');
+    const cierre='\n\nApenas lo envíes, mándame la captura y seguimos con tu plan 🙌';
+    if(c.yape) T.push({id:'pago_yape',t:'Pago por Yape',c:'Si elige Yape (durante la videollamada)',
+      m:`Te dejo los datos para la asesoría 👇\n\n💜 *Yape:* ${num(c.yape)}\n👤 A nombre de: ${c.yapeTit||'Carlos Moreno'}\n💰 Monto: S/${P}${cierre}`});
+    if(c.plin) T.push({id:'pago_plin',t:'Pago por Plin',c:'Si elige Plin (durante la videollamada)',
+      m:`Te dejo los datos para la asesoría 👇\n\n💙 *Plin:* ${num(c.plin)}\n👤 A nombre de: ${c.plinTit||'Carlos Moreno'}\n💰 Monto: S/${P}${cierre}`});
+    if(c.paypal) T.push({id:'pago_paypal',t:'Pago por PayPal (link)',c:'Si elige PayPal o paga desde el extranjero',
+      m:`Te dejo el link para pagar la asesoría con PayPal o tarjeta 👇\n\n${/^https?:/.test(c.paypal)?c.paypal:'https://'+c.paypal}\n💰 Monto: US$${c.paypalUsd||''}${cierre}`});
+    if(!c.yape&&!c.plin&&!c.paypal) T.push({id:'pago_yape',t:'Datos de pago',c:'Configura tus medios de pago en Ajustes',m:`Te dejo los datos para la asesoría (S/${P}):\n\n• Yape / Plin: [tu número]${cierre}`});
     T.push({id:'gracias',t:'Gracias + resumen',c:'Al terminar la videollamada',
       m:`Gracias por tu tiempo hoy, ${n} 🙌 Te resumo lo que acordamos:\n\n1. \n2. \n3. \n\nCualquier duda, escríbeme por aquí.`});
     T.push({id:'plan',t:'Propuesta del plan',c:'1 o 2 días después de la asesoría',
@@ -535,6 +541,7 @@ function plantillasWa(l,r){
   return T;
 }
 function waRecomendado(l,r){
+  const c0=D.config||{};
   if(!r) return String((l&&l.califica)||'').toUpperCase()==='NO'?'guia':'contacto';
   const ini=new Date(r.fecha+'T'+(r.hora||'00:00')+':00-05:00').getTime(), m=(ini-Date.now())/60e3;
   if(r.estado==='No asistió') return 'noasistio';
@@ -543,7 +550,7 @@ function waRecomendado(l,r){
   if(m>3*60) return 'r24';
   if(m>0) return 'r1';
   if(m>-15) return 'conectado';
-  if(m>-75) return 'pago';
+  if(m>-75) return c0.yape?'pago_yape':c0.plin?'pago_plin':'pago_paypal';
   return 'gracias';
 }
 function abrirWa(l,r){
