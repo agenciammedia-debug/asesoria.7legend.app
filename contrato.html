@@ -81,7 +81,7 @@ function fin(ic,t,txt){ $('app').innerHTML=`<div class="card estado"><div class=
 
 async function cargar(){
   if(!TOKEN||!window.CFG||!CFG.API_URL) return fin('!','Enlace incompleto','Abre el enlace completo que te llegó por correo.');
-  try{ C=await (await fetch(CFG.API_URL+'?action=contrato&c='+encodeURIComponent(TOKEN))).json(); }
+  try{ C=await (await fetch(CFG.API_URL+'?action=contrato&t='+encodeURIComponent(TOKEN))).json(); }
   catch(e){ return fin('!','No pudimos cargar tu contrato','Revisa tu conexión y vuelve a abrir el enlace.'); }
   if(!C.ok) return fin('!','Enlace no válido',h(C.error||''));
   $('cod').textContent=C.id;
