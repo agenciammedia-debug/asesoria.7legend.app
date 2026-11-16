@@ -100,6 +100,9 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .opcion b{display:block;font-size:15px}.opcion span{font-size:13px;color:var(--g)}
 .opcion.reco{border-color:#25D366;background:#F0FBF4}.opcion .tag{display:inline-block;font-size:11px;font-weight:700;color:#127A3A;background:#DDF5E6;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
 .opcion em{display:block;font-style:normal;font-size:12.5px;color:var(--g2,#9A9AA2);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.con-f{border:1px solid var(--l);border-radius:12px;padding:12px 14px;margin-bottom:8px}.con-f b{display:block;font-size:14.5px}.con-f span{display:block;font-size:12.5px;color:var(--g);margin-top:2px}
+.con-planes{display:grid;gap:8px}.con-p{display:flex;align-items:center;gap:10px;border:1px solid var(--l);border-radius:12px;padding:12px 14px;cursor:pointer}
+.con-p:has(input:checked){border-color:var(--a);background:#EAF1FF}.con-p input{accent-color:var(--a)}.con-p b{min-width:62px}.con-p span{font-size:13.5px;color:var(--g)}
 .wa-txt{width:100%;min-height:220px;border:1px solid var(--l);border-radius:12px;padding:12px;font:inherit;font-size:14.5px;line-height:1.5;resize:vertical}
 .wa-pie{display:flex;gap:8px;margin-top:12px}.wa-pie .btn{flex:1;justify-content:center}
 .dias-m{display:grid;gap:12px;margin-bottom:14px}
@@ -506,6 +509,9 @@ function plantillasWa(l,r){
   const meet=c.zoom||'[link de Meet]', P=c.precio||49, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
   const plan=l&&l.plan==='Legend'?['Legend',c.planLegend||2100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['PRO',c.planPRO||1100];
   const T=[];
+  const con=l&&(D.contratos||[]).filter(x=>x.lead_id===l.lead_id&&['Enviado','Visto'].includes(x.estado)).sort((a,b)=>b.creado.localeCompare(a.creado))[0];
+  if(con) T.push({id:'contrato',t:'Contrato para firmar',c:con.estado==='Visto'?'Lo abrió pero aún no firma':'Le enviaste el contrato',
+    m:con.estado==='Visto'?`Hola ${n}, vi que abriste el contrato 🙌 ¿Te quedó alguna duda? Si todo está bien, lo firmas desde aquí en 3 minutos:\n${con.url}`:`Hola ${n}, te acabo de enviar el contrato del Plan ${con.plan} a tu correo 📩 También puedes abrirlo aquí:\n${con.url}\n\nLo revisas, completas tus datos y firmas desde el celular en 3 minutos.`});
   if(!r){
     T.push({id:'contacto',t:'Primer contacto',c:'Lead nuevo que no reservó (mejor en la primera hora)',
       m:`Hola ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi tu diagnóstico de ${neg}${fuga?`: lo que más ventas te está costando es «${fuga}»`:''}. Tiene solución.\n\n¿Lo revisamos juntos en una videollamada de 60 minutos? Reservas tu horario aquí y pagas S/${P} en la videollamada, no antes:\n${URL_RES(l&&l.lead_id)}`});
@@ -542,6 +548,7 @@ function plantillasWa(l,r){
 }
 function waRecomendado(l,r){
   const c0=D.config||{};
+  if(l&&(D.contratos||[]).some(x=>x.lead_id===l.lead_id&&['Enviado','Visto'].includes(x.estado))) return 'contrato';
   if(!r) return String((l&&l.califica)||'').toUpperCase()==='NO'?'guia':'contacto';
   const ini=new Date(r.fecha+'T'+(r.hora||'00:00')+':00-05:00').getTime(), m=(ini-Date.now())/60e3;
   if(r.estado==='No asistió') return 'noasistio';
@@ -677,6 +684,7 @@ function abrirLead(id){
     </dl></div>
     ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${enLlamada(r)?opTxt(r):h(r.metodo)+' · <span class="op">'+h(r.operacion)+'</span>'}</p>
       ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
+    <div class="dr-sec"><h4>Contrato</h4>${contratoHTML(l)}</div>
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
       <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
       <div><label class="lb">Resultado de la llamada</label>${sel('resultado_llamada',['Cerró','Lo pensará','No califica','No le interesa','Reagendar'])}</div>
@@ -693,6 +701,47 @@ function abrirLead(id){
     try{ await run('adm_lead',id,c); toast('Lead actualizado'); await cargar(); abrirLead(id); }catch(e){ toast(e.message,true); $('guardarLead').disabled=false; }
   };
 }
+/* ── CONTRATOS: enviar para firma electrónica y seguir su estado ── */
+const CON_ICO={Enviado:'📩',Visto:'👀',Firmado:'✅',Anulado:'—'};
+function contratoHTML(l){
+  const C=(D.contratos||[]).filter(c=>c.lead_id===l.lead_id).sort((a,b)=>b.creado.localeCompare(a.creado));
+  const vivo=C.find(c=>c.estado!=='Anulado');
+  const filas=C.map(c=>`<div class="con-f"><div><b>${CON_ICO[c.estado]||''} ${h(c.estado)} · Plan ${h(c.plan)}</b>
+      <span>${h(c.id)} · enviado ${h(c.creado)}${c.visto?' · abierto '+h(c.visto):''}${c.firmado?' · firmado '+h(c.firmado.slice(0,16)):''}</span></div>
+      <div class="acciones" style="margin:6px 0 0">${c.estado==='Firmado'&&c.pdf?`<a class="btn ok mini" href="${h(c.pdf)}" target="_blank" rel="noopener">Ver PDF firmado</a>`:''}
+      ${['Enviado','Visto'].includes(c.estado)?`<button class="btn sec mini" data-con="reenviar" data-cid="${h(c.id)}">Reenviar correo</button><button class="btn sec mini" data-con-copiar="${h(c.url)}">Copiar enlace</button><button class="btn sec mini" data-con="anular" data-cid="${h(c.id)}">Anular</button>`:''}</div></div>`).join('');
+  return (filas||'<p class="ayuda">Aún no le enviaste contrato.</p>')+(!vivo||vivo.estado==='Firmado'?`<button class="btn" data-con-nuevo="${h(l.lead_id)}" style="width:100%;margin-top:10px">${vivo?'Enviar otro contrato':'Enviar contrato para firmar'}</button>`:'');
+}
+function nuevoContrato(id){
+  const l=leadPor(id), c=D.config||{}, hoy=new Date(Date.now()-5*3600e3).toISOString().slice(0,10);
+  const pr={Basic:c.planBasic||550,PRO:c.planPRO||1100,Legend:c.planLegend||2100};
+  const plan0=['Basic','PRO','Legend'].includes(l.plan)?l.plan:'PRO';
+  modal(`<h3>Enviar contrato a ${h(l.nombre)}</h3><p class="sub">Le llega por correo un enlace para revisarlo, completar sus datos y firmar con el dedo. Al firmar, ambos reciben el PDF.</p>
+    <label class="lb">Plan</label><div class="con-planes">${['Basic','PRO','Legend'].map(k=>`<label class="con-p"><input type="radio" name="cplan" value="${k}" ${k===plan0?'checked':''}><b>${k}</b><span>S/${Number(pr[k]).toLocaleString('en-US')}${k==='Basic'?' · 1 mes':' /mes · 3 meses mín.'}</span></label>`).join('')}</div>
+    <div class="gestion" style="margin-top:12px">
+      <div><label class="lb" for="cIni">Fecha de inicio</label><input class="campo" id="cIni" type="date" value="${hoy}"></div>
+      <div><label class="lb" for="cMail">Correo del cliente</label><input class="campo" id="cMail" type="email" value="${h(l.email||'')}"></div>
+    </div>
+    <label class="lb" for="cRs" style="margin-top:12px">Razón social o negocio <span style="font-weight:400;color:var(--g)">(el cliente puede corregirlo)</span></label><input class="campo" id="cRs" value="${h(l.negocio||'')}">
+    <div class="pie-m"><button class="btn sec" data-cerrar>Cancelar</button><button class="btn" id="cEnviar">Enviar contrato</button></div>`);
+  $('cEnviar').onclick=async()=>{
+    const b=$('cEnviar'); b.disabled=true; b.textContent='Enviando…';
+    try{
+      await run('adm_contrato',{lead_id:id,plan:document.querySelector('[name=cplan]:checked').value,inicio:$('cIni').value,email:$('cMail').value.trim(),razon_social:$('cRs').value.trim(),nombre:l.nombre,negocio:l.negocio,whatsapp:l.whatsapp});
+      cerrarModal(); await cargar(); abrirLead(id);
+      toast('Contrato enviado ✓ · Avísale por WhatsApp desde «Escribir por WhatsApp»');
+    }catch(e){ toast(e.message,true); b.disabled=false; b.textContent='Enviar contrato'; }
+  };
+}
+document.addEventListener('click',async e=>{
+  const n=e.target.closest('[data-con-nuevo]'); if(n) return nuevoContrato(n.dataset.conNuevo);
+  const cp=e.target.closest('[data-con-copiar]'); if(cp){ try{ await navigator.clipboard.writeText(cp.dataset.conCopiar); toast('Enlace copiado'); }catch(x){ prompt('Copia el enlace:',cp.dataset.conCopiar); } return; }
+  const a=e.target.closest('[data-con]'); if(!a) return;
+  if(a.dataset.con==='anular'&&!window.confirm('¿Anular este contrato? El enlace dejará de funcionar.')) return;
+  a.disabled=true;
+  try{ await run('adm_contrato',{accion:a.dataset.con,id:a.dataset.cid}); toast(a.dataset.con==='anular'?'Contrato anulado':'Correo reenviado ✓'); const lid=(D.contratos.find(c=>c.id===a.dataset.cid)||{}).lead_id; await cargar(); if(lid) abrirLead(lid); }
+  catch(x){ toast(x.message,true); a.disabled=false; }
+});
 function cerrarLead(){ $('drawer').classList.remove('on'); $('velo').classList.remove('on'); }
 $('velo').onclick=cerrarLead;
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ cerrarLead(); cerrarModal(); } });
