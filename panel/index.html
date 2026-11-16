@@ -199,7 +199,26 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 #toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--t);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;transition:all .35s var(--e);z-index:60;pointer-events:none;max-width:90vw}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 #toast.mal{background:var(--r)}
-.cargando{opacity:.55;pointer-events:none}
+.cargando{pointer-events:none}
+/* pantalla de entrada */
+#splash{position:fixed;inset:0;z-index:100;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .45s var(--e,ease),visibility .45s}
+#splash.fuera{opacity:0;visibility:hidden}
+#splash .marca{font-weight:800;font-size:44px;letter-spacing:-.05em;display:flex;align-items:baseline}
+#splash .marca span{display:inline-block;opacity:0;transform:translateY(14px);animation:letra .55s cubic-bezier(.22,1,.36,1) forwards}
+#splash .marca i{font-style:normal;color:var(--a,#1E6BFF);display:inline-block;transform:scale(0);animation:punto .5s .6s cubic-bezier(.34,1.56,.64,1) forwards,late2 1.4s 1.2s ease-in-out infinite}
+@keyframes letra{to{opacity:1;transform:none}}
+@keyframes punto{to{transform:scale(1)}}
+@keyframes late2{50%{transform:scale(1.35)}}
+#splash .barra{width:140px;height:3px;border-radius:3px;background:#EEF0F4;overflow:hidden}
+#splash .barra b{display:block;height:100%;width:40%;border-radius:3px;background:var(--a,#1E6BFF);animation:corre 1.1s ease-in-out infinite}
+#splash p{font-size:13.5px;color:var(--g,#6E6E76);min-height:20px;transition:opacity .3s}
+@keyframes corre{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+/* barra de actualización (datos ya visibles) */
+#prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .3s}
+#prog b{display:block;height:100%;width:35%;background:linear-gradient(90deg,transparent,var(--a,#1E6BFF),transparent);animation:corre 1s ease-in-out infinite}
+body.actualizando #prog{opacity:1}
+body.actualizando #actualizado{color:var(--a,#1E6BFF)}
+@media(prefers-reduced-motion:reduce){#splash .marca span,#splash .marca i{animation:none;opacity:1;transform:none}#splash .barra b,#prog b{animation-duration:2.4s}}
 
 @media (max-width:900px){
   .kpis{grid-template-columns:repeat(3,1fr)}
@@ -225,6 +244,8 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
   </div>
 </section>
 
+<div id="splash" aria-live="polite"><div class="marca"><span style="animation-delay:0ms">7</span><span style="animation-delay:45ms">L</span><span style="animation-delay:90ms">e</span><span style="animation-delay:135ms">g</span><span style="animation-delay:180ms">e</span><span style="animation-delay:225ms">n</span><span style="animation-delay:270ms">d</span><i>.</i></div><div class="barra"><b></b></div><p id="splashTxt">Cargando tu panel…</p></div>
+<div id="prog"><b></b></div>
 <!-- APP -->
 <section id="app">
   <header class="top">
@@ -406,7 +427,7 @@ async function entrar(p){
 }
 $('entrar').onclick=()=>entrar($('pin').value.trim());
 $('pin').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar($('pin').value.trim()); });
-const guardado=leePin(); if(guardado) entrar(guardado);
+/* el arranque está al final del script */
 
 /* ── tabs ── */
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
@@ -414,17 +435,33 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.vista').forEach(v=>v.classList.toggle('on',v.id==='v-'+t.dataset.v));
 });
 $('refrescar').onclick=()=>cargar(true);
-$('salir').onclick=()=>{ try{localStorage.removeItem('mora_pin')}catch(e){} location.reload(); };
+$('salir').onclick=salirPanel;
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&PIN&&D) cargar(); });
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 
+/* Carga rápida: muestra al instante lo último guardado en este dispositivo y lo actualiza en segundo plano */
+var CACHE_K='panel_cache_v1';
+function leeCache(){ try{ return JSON.parse(localStorage.getItem(CACHE_K)||'null'); }catch(e){ return null; } }
+function guardaCache(d){ try{ localStorage.setItem(CACHE_K,JSON.stringify(d)); }catch(e){} }
+function ocultarSplash(){ const s=$('splash'); if(s&&!s.classList.contains('fuera')){ s.classList.add('fuera'); setTimeout(()=>s.remove(),500); } }
+var cargandoYa=null;
 async function cargar(aviso){
-  document.body.classList.add('cargando');
-  try{ D=await run('adm_data'); HOR=JSON.parse(JSON.stringify(D.horarios)); pintarTodo(); if(aviso) toast('Datos actualizados');
-    const q=new URLSearchParams(location.search).get('lead'); if(q&&leadPor(q)){ history.replaceState(null,'',location.pathname); abrirLead(q); } }
-  catch(e){ toast(e.message,true); }
-  document.body.classList.remove('cargando');
+  if(cargandoYa) return cargandoYa;
+  document.body.classList.add('actualizando'); if(D) $('actualizado').textContent='Actualizando…';
+  cargandoYa=(async()=>{
+    try{ const nuevo=await run('adm_data'); D=nuevo; guardaCache(D); HOR=JSON.parse(JSON.stringify(D.horarios));
+      const dr=$('drawer').classList.contains('on')&&$('drawer').dataset.lead; pintarTodo(); if(dr) abrirLead(dr);
+      if(aviso) toast('Datos actualizados');
+      const q=new URLSearchParams(location.search).get('lead'); if(q&&leadPor(q)){ history.replaceState(null,'',location.pathname); abrirLead(q); } }
+    catch(e){
+      if(/clave/i.test(e.message)){ salirPanel(); return; }
+      toast(D?'Sin conexión: mostrando los últimos datos guardados':e.message,true); if(D) $('actualizado').textContent='Sin actualizar';
+    }
+    finally{ document.body.classList.remove('actualizando'); ocultarSplash(); cargandoYa=null; }
+  })();
+  return cargandoYa;
 }
+function salirPanel(){ try{ localStorage.removeItem('mora_pin'); localStorage.removeItem(CACHE_K); }catch(e){} location.reload(); }
 function pintarTodo(){ $('actualizado').textContent='Actualizado '+D.hoy.slice(11); kpis(); hoy(); leads(); anuncios(); reservas(); horarios(); ajustes(); }
 
 /* ── utilidades ── */
@@ -667,7 +704,7 @@ function anuncios(){
 $('fRango').onchange=anuncios;
 
 function abrirLead(id){
-  const l=leadPor(id); if(!l) return;
+  const l=leadPor(id); if(!l) return; $('drawer').dataset.lead=id;
   const res=D.reservas.filter(r=>r.lead_id===id);
   const nombre=(l.nombre||'').split(' ')[0];
   const sel=(campo,opts)=>`<select class="campo" data-campo="${campo}"><option value=""></option>${opts.map(o=>`<option ${l[campo]===o?'selected':''}>${o}</option>`).join('')}</select>`;
@@ -892,6 +929,17 @@ $('guardarAj').onclick=async()=>{
   try{ await run('adm_config',c); if(nc){ PIN=nc; guardaPin(nc); } await cargar(); toast('Ajustes guardados'); }catch(e){ toast(e.message,true); }
   $('guardarAj').disabled=false;
 };
+
+/* ── arranque ── */
+const guardado=leePin();
+if(guardado){
+  /* entra directo: sin pedir la clave otra vez ni esperar dos llamadas */
+  PIN=guardado; $('login').style.display='none'; $('app').style.display='block';
+  const cache=leeCache();
+  if(cache){ D=cache; HOR=JSON.parse(JSON.stringify(D.horarios)); try{ pintarTodo(); $('actualizado').textContent='Actualizando…'; }catch(e){} setTimeout(ocultarSplash,350); }
+  else { const t=$('splashTxt'); setTimeout(()=>{ if(t) t.textContent='Trayendo tus leads y reservas…'; },1800); setTimeout(()=>{ if(t) t.textContent='Casi listo…'; },4500); }
+  cargar();
+} else ocultarSplash();
 </script>
 </body>
 </html>
