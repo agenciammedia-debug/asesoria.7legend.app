@@ -86,7 +86,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .acciones{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .vacio{color:var(--g);font-size:14px;padding:18px;text-align:center;border:1px dashed var(--l);border-radius:12px;background:var(--s)}
 .pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--s);color:var(--t2);white-space:nowrap}
-.pill.Diagnosticado{background:#EEF2FF;color:#4338CA}.pill.Agendado,.pill.Confirmada{background:var(--as);color:var(--a)}
+.pill.Diagnosticado{background:#EEF2FF;color:#4338CA}.pill[class*="Competencia"]{background:#F3F4F6;color:#6B7280;text-decoration:line-through}.aviso-falso{background:#F3F4F6;color:#4B5563;border-radius:10px;padding:10px 12px;font-size:13px}.pill.Agendado,.pill.Confirmada{background:var(--as);color:var(--a)}
 .pill.Cliente,.pill.Realizada{background:var(--vs);color:var(--v)}.pill.Seguimiento{background:#F3E8FF;color:#7E22CE}
 .pill.Perdido,.pill.Rechazada,.pill.Cancelada,.pill.Reembolsada{background:#EEE;color:#555}
 .pill.Reembolsar{background:var(--rs);color:var(--r)}.pill[class*="Por reprogramar"]{background:var(--ns);color:#B45309}
@@ -403,7 +403,9 @@ body.actualizando #actualizado{color:var(--a,#1E6BFF)}
 <script>
 const $=id=>document.getElementById(id);
 const h=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ESTADOS=['Diagnosticado','Pagó asesoría','Agendado','Asistió','Cliente','Seguimiento','No asistió','Perdido'];
+const FALSO='Competencia o falso';
+const ESTADOS=['Diagnosticado','Pagó asesoría','Agendado','Asistió','Cliente','Seguimiento','No asistió','Perdido',FALSO];
+const reales=()=>D.leads.filter(l=>l.estado!==FALSO);
 const MESES=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
 let PIN='', D=null, HOR=[];
 
@@ -478,7 +480,7 @@ const pagada=r=>['Confirmada','Realizada','No asistió'].includes(r.estado)&&!en
 const opTxt=r=>enLlamada(r)?'<b style="color:#B45309">Paga S/'+h((D.config&&D.config.precio)||49)+' en la videollamada</b>':'Operación <span class="op">'+h(r.operacion)+'</span>';
 const btnPago=r=>enLlamada(r)&&['Confirmada','Realizada'].includes(r.estado)?`<button class="btn ok mini" data-acc="pago_llamada" data-id="${h(r.reserva_id)}">Pagó S/${h(D.config.precio||49)}</button>`:'';
 function kpis(){
-  const L=D.leads, R=D.reservas, hace7=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
+  const L=reales(), R=D.reservas, hace7=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
   const porVer=R.filter(r=>r.estado==='Por verificar').length;
   const prox=R.filter(r=>r.estado==='Confirmada'&&esFutura(r)).length;
   const clientes=L.filter(l=>l.estado==='Cliente');
@@ -513,7 +515,7 @@ function hoy(){
   $('porVerificar').innerHTML=ver.length?ver.map(r=>tarjetaRes(r,'verificar')).join(''):'<div class="vacio">Todo al día. No hay pagos por verificar.</div>';
   const prox=R.filter(r=>r.estado==='Confirmada'&&esFutura(r)).sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora));
   $('proximas').innerHTML=prox.length?prox.map(r=>tarjetaRes(r,'proxima')).join(''):'<div class="vacio">Aún no tienes asesorías confirmadas.</div>';
-  $('ultimos').innerHTML=D.leads.length?D.leads.slice(0,8).map(l=>`<div class="item" style="cursor:pointer;align-items:center" data-lead="${h(l.lead_id)}">
+  $('ultimos').innerHTML=reales().length?reales().slice(0,8).map(l=>`<div class="item" style="cursor:pointer;align-items:center" data-lead="${h(l.lead_id)}">
     <span class="score ${scoreCls(l.puntaje)}">${h(l.puntaje||'–')}</span>
     <div class="info"><strong>${h(l.nombre)} <span style="font-weight:500;color:var(--g)">· ${h(l.negocio)}</span></strong><p>${h(l.rubro)} · ${h(l.fecha)}</p></div>
     <span class="pill ${h(l.pago==='Por verificar'?'verificar':l.estado)}">${h(l.pago==='Por verificar'?'Pago por verificar':l.estado||'—')}</span></div>`).join(''):'<div class="vacio">Todavía no hay leads. Llegarán desde tu landing.</div>';
@@ -684,7 +686,7 @@ function anuncios(){
   const nom=a=>String(a||'').trim()||'Sin anuncio (directo u orgánico)';
   const M={}, fila=a=>M[a]||(M[a]={a,c:'',v:0,i:0,l:0,ag:0,p:0,cl:0,mrr:0});
   (D.visitas||[]).filter(x=>x.f>=desde&&x.f<=hoyF).forEach(x=>{ const o=fila(nom(x.a)); o.v+=x.v; o.i+=x.i; if(x.c) o.c=x.c; });
-  D.leads.filter(l=>(l.fecha||'').slice(0,10)>=desde&&(l.fecha||'').slice(0,10)<=hoyF).forEach(l=>{
+  reales().filter(l=>(l.fecha||'').slice(0,10)>=desde&&(l.fecha||'').slice(0,10)<=hoyF).forEach(l=>{
     const o=fila(nom(l.utm_content)); o.l++; if(l.utm_campaign) o.c=l.utm_campaign;
     if(D.reservas.some(r=>r.lead_id===l.lead_id&&['Confirmada','Realizada','No asistió'].includes(r.estado))) o.ag++;
     if(D.reservas.some(r=>r.lead_id===l.lead_id&&pagada(r))) o.p++;
@@ -713,11 +715,12 @@ function abrirLead(id){
     <div class="dr-sec"><div class="acciones" style="margin:0">
       <button class="btn wa" data-wa-lead="${h(l.lead_id)}">Escribir por WhatsApp ▾</button>
       <a class="btn sec" href="presentacion.html?lead=${encodeURIComponent(l.lead_id)}" target="_blank">Presentar</a>
-      ${l.email?`<a class="btn sec" href="mailto:${h(l.email)}">${h(l.email)}</a>`:''}</div></div>
+      ${l.email?`<a class="btn sec" href="mailto:${h(l.email)}">${h(l.email)}</a>`:''}${l.instagram?`<a class="btn sec" target="_blank" rel="noopener" href="${h(/^@/.test(l.instagram)?'https://instagram.com/'+l.instagram.slice(1):(/^https?:/.test(l.instagram)?l.instagram:'https://'+l.instagram))}">${h(l.instagram)} ↗</a>`:''}</div></div>
+    ${l.estado===FALSO?`<div class="dr-sec"><div class="aviso-falso">Marcado como competencia o lead falso: no cuenta en tus métricas ni recibe avisos.</div></div>`:''}
     ${l.angulo_venta?`<div class="dr-sec"><h4>Para tu llamada</h4><div class="llamada">${h(l.angulo_venta)}</div></div>`:''}
     <div class="dr-sec"><h4>Diagnóstico · ${h(l.nivel)}</h4>${String(l.hallazgos||'').split('\n').filter(Boolean).map(x=>`<div class="hall">${h(x)}</div>`).join('')||'<p class="ayuda">Sin hallazgos.</p>'}</div>
     <div class="dr-sec"><h4>Lo que respondió</h4><dl class="resp">
-      ${[['Pilares','pilares'],['Resultado','resultado'],['Responde en','tiempo_respuesta'],['Filtro','filtro'],['Ante el precio','estructura'],['Registro','registro'],['Inversión','inversion'],['Rubro','rubro'],['Ticket','ticket'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncios','objetivo'],['Seguimiento','seguimiento'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
+      ${[['Instagram / web','instagram'],['Pilares','pilares'],['Resultado','resultado'],['Responde en','tiempo_respuesta'],['Filtro','filtro'],['Ante el precio','estructura'],['Registro','registro'],['Inversión','inversion'],['Rubro','rubro'],['Ticket','ticket'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncios','objetivo'],['Seguimiento','seguimiento'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
     </dl></div>
     ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${enLlamada(r)?opTxt(r):h(r.metodo)+' · <span class="op">'+h(r.operacion)+'</span>'}</p>
       ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
