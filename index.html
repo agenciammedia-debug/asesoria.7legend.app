@@ -26,10 +26,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="config.js"></script>
+<script>/* modo prueba: abre la web con ?prueba=1 → no envía nada a Meta, Clarity ni a las visitas (dura toda la sesión; ?prueba=0 lo apaga) */
+(function(){try{var q=new URLSearchParams(location.search).get('prueba');if(q==='1')sessionStorage.setItem('7l_prueba','1');if(q==='0')sessionStorage.removeItem('7l_prueba');window.PRUEBA=sessionStorage.getItem('7l_prueba')==='1';}catch(e){window.PRUEBA=/[?&]prueba=1/.test(location.search);}
+if(window.PRUEBA&&window.CFG){CFG.PIXEL_ID='';CFG.CLARITY_ID='';var b=document.createElement('div');b.textContent='Modo prueba: no cuenta en Meta ni en tus estadísticas';b.style.cssText='position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#F59E0B;color:#fff;font:600 12.5px system-ui;padding:6px 12px;border-radius:999px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b);});}})();</script>
 <script>/* visitas por anuncio → panel */
 window.ssg=function(k){try{return sessionStorage.getItem(k)||''}catch(e){return ''}};
 (function(){try{
-  if(!window.CFG||!CFG.API_URL||!/^https?:/.test(CFG.API_URL)) { window.vis=function(){}; return; }
+  if(window.PRUEBA||!window.CFG||!CFG.API_URL||!/^https?:/.test(CFG.API_URL)) { window.vis=function(){}; return; }
   var ss=sessionStorage, p=new URLSearchParams(location.search), U={};
   ['utm_source','utm_campaign','utm_content'].forEach(function(k){ U[k]=p.get(k)||ss.getItem('7l_'+k)||''; if(p.get(k)) ss.setItem('7l_'+k,p.get(k)); });
   var sid=ss.getItem('7l_sid'); if(!sid){ sid=Date.now().toString(36)+Math.random().toString(36).slice(2,8); ss.setItem('7l_sid',sid); }
@@ -1385,9 +1388,8 @@ async function enviar(){
   c.acepta_privacidad=true; c.acepta_marketing=$('c_mkt').checked;
   enviando=true; c.whatsapp=tel.length===9?'51'+tel:tel; Object.assign(A,c);
   const p=new URLSearchParams(location.search), eid='lead_'+Date.now(); window._eid=eid;
-  const datos={...A, event_id:eid, utm_source:p.get('utm_source')||ssg('7l_utm_source')||'', utm_campaign:p.get('utm_campaign')||ssg('7l_utm_campaign')||'', utm_content:p.get('utm_content')||ssg('7l_utm_content')||'', fbclid:p.get('fbclid')||'', url:location.href};
+  const datos={...A, event_id:eid, prueba:!!window.PRUEBA, utm_source:window.PRUEBA?'prueba':p.get('utm_source')||ssg('7l_utm_source')||'', utm_campaign:window.PRUEBA?'PRUEBA':(p.get('utm_campaign')||ssg('7l_utm_campaign')||''), utm_content:window.PRUEBA?'PRUEBA':(p.get('utm_content')||ssg('7l_utm_content')||''), fbclid:p.get('fbclid')||'', url:location.href};
   delete datos._listo;
-  track('Lead',{content_name:'diagnostico'},eid);
   i=PREG.length; avance(); $('bq').style.width='100%';
   analiza();
   const minimo=new Promise(r=>setTimeout(r,reduce?300:5200));
@@ -1399,6 +1401,9 @@ async function enviar(){
     if(!r||!Array.isArray(r.hallazgos)||!r.hallazgos.length) throw 0;
   }catch(e){ r=respaldo(A); }
   await minimo;
+  r.califica=calificaRegla(A); // regla única de 7Legend (también en n8n)
+  /* a Meta solo le contamos como "Lead" al que califica: así aprende a buscar negocios que pueden pagar */
+  try{ if(window.fbq){ if(r.califica) fbq('track','Lead',{content_name:'diagnostico'},{eventID:eid}); else fbq('trackCustom','DiagnosticoNoCalifica',{content_name:'diagnostico'},{eventID:eid}); } }catch(e){}
   respaldoLead(r);
   A._listo=true; enviando=false; resultado(r);
 }
@@ -1412,6 +1417,14 @@ function analiza(){
   setTimeout(()=>{ els[3].classList.remove('act'); els[3].classList.add('ok'); }, 4800);
 }
 
+/* ¿Califica para la asesoría? Debe cumplir al menos 2 de 3: ticket de S/100 o más, factura S/3,000 o más al mes,
+   invierte S/300 o más en anuncios. Si factura S/10,000 o más, califica siempre. (Misma regla en n8n.) */
+function calificaRegla(a){
+  const tk=a.ticket||'', fa=a.facturacion||'', inv=a.inversion||'';
+  if(/S\/10,000 – S\/30,000|Más de S\/30,000/.test(fa)) return true;
+  const n=[tk&&!/Menos de S\/100/.test(tk), fa&&!/Menos de S\/3,000/.test(fa), /S\/300 – S\/1,000|S\/1,000 – S\/3,000|Más de S\/3,000/.test(inv)].filter(Boolean).length;
+  return n>=2;
+}
 function respaldo(a){
   const P=pilares(a), O=['filtro','ventas','crm','anuncios'];
   let el=O.filter(k=>P[k]<70); O.forEach(k=>{ if(!el.includes(k)) el.push(k); }); el=el.slice(0,3);
@@ -1428,7 +1441,7 @@ function respaldo(a){
       :{titulo:'Tu anuncio atrae a cualquiera',detalle:'Llegan mensajes, pero no siempre de quien puede pagarte. Se ajusta al final.'}
   };
   const s=Math.round(P.filtro*.3+P.ventas*.3+P.crm*.2+P.anuncios*.2);
-  const califica=!/Menos de S\/3,000/.test(a.facturacion||'')||/S\/300 – S\/1,000|S\/1,000 – S\/3,000|Más de S\/3,000/.test(a.inversion||'');
+  const califica=calificaRegla(a);
   return {puntaje:s,nivel:s<40?'Crítico':s<60?'En riesgo':'Mejorable',titular:'Te escriben, pero la venta se pierde después del mensaje.',pilares:P,hallazgos:el.map(k=>({...R[k],pilar:k})),perdida_estimada:'',califica,lead_id:''};
 }
 
@@ -1441,7 +1454,7 @@ function respaldoLead(r){
       hallazgos:(r.hallazgos||[]).map(x=>'• '+x.titulo).join('\n'), pilares:pilTxt(r.pilares||pilares(A)), utm_campaign:p.get('utm_campaign')||ssg('7l_utm_campaign')||'', utm_content:p.get('utm_content')||ssg('7l_utm_content')||''};
     delete lead._listo;
     const ck=n=>(document.cookie.match('(?:^|; )'+n+'=([^;]+)')||[])[1]||'';
-    Object.assign(lead,{event_id:window._eid||'',fbp:ck('_fbp'),fbc:ck('_fbc')||(p.get('fbclid')?'fb.1.'+Date.now()+'.'+p.get('fbclid'):''),ua:navigator.userAgent,url:location.href.split('#')[0]});
+    Object.assign(lead,{prueba:!!window.PRUEBA,event_id:window._eid||'',fbp:ck('_fbp'),fbc:ck('_fbc')||(p.get('fbclid')?'fb.1.'+Date.now()+'.'+p.get('fbclid'):''),ua:navigator.userAgent,url:location.href.split('#')[0]});
     const reporte={titular:r.titular||'',puntaje:r.puntaje||'',nivel:r.nivel||'',pilares:r.pilares||pilares(A),hallazgos:(r.hallazgos||[]).slice(0,3).map(x=>({titulo:x.titulo,detalle:x.detalle})),perdida_estimada:r.perdida_estimada||'',califica:r.califica!==false};
     const body=JSON.stringify({action:'respaldo',lead,reporte});
     if(CFG.API_URL&&CFG.API_URL.startsWith('http')) fetch(CFG.API_URL,{method:'POST',body,keepalive:true,mode:'no-cors'}).catch(()=>{});
