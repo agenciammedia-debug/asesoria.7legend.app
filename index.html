@@ -1303,10 +1303,10 @@ const PREG=[
  {k:'estructura', t:'Cuando te preguntan “¿precio?”, ¿qué haces?', o:['Les doy el precio directo','Explico un poco y doy el precio','Sigo un guion: pregunto, muestro el valor y cierro','Depende de quién responda o del día']},
  {k:'registro', t:'¿Dónde anotas a tus prospectos y en qué quedó cada uno?', o:['En el mismo chat de WhatsApp','En un cuaderno o Excel','En un CRM','No llevo registro']},
  {k:'inversion', t:'¿Cuánto inviertes al mes en anuncios?', o:['Todavía no invierto','Menos de S/300','S/300 – S/1,000','S/1,000 – S/3,000','Más de S/3,000']},
- {k:'rubro', t:'¿A qué se dedica tu negocio?', o:['Servicios profesionales (abogado, contador, consultor…)','Salud, estética o bienestar','Educación o cursos','Tienda o e-commerce','Inmobiliaria o construcción','Restaurante o alimentos','Otro']},
+ {k:'rubro', t:'¿A qué se dedica tu negocio?', o:['Servicios profesionales (abogado, contador, consultor…)','Salud, estética o bienestar','Educación o cursos','Tienda o e-commerce','Inmobiliaria o construcción','Restaurante o alimentos','Agencia, marketing o consultoría digital','Otro']},
  {k:'ticket', t:'¿Cuánto cuesta en promedio lo que vendes?', o:['Menos de S/100','S/100 – S/500','S/500 – S/2,000','Más de S/2,000']},
  {k:'facturacion', t:'¿Cuánto factura tu negocio al mes, aproximadamente?', hl:'Es confidencial. Sirve para que el diagnóstico sea realista para tu tamaño.', o:['Menos de S/3,000','S/3,000 – S/10,000','S/10,000 – S/30,000','Más de S/30,000']},
- {k:'frustracion', t:'En una frase: ¿qué es lo que más te frustra de tus ventas?', hl:'Opcional, pero hace tu diagnóstico mucho más preciso.', libre:true, ph:'Ej: me piden precio por WhatsApp y luego no responden'},
+ {k:'frustracion', t:'En una frase: ¿qué es lo que más te frustra de tus ventas?', hl:'Una frase corta basta. Con esto tu diagnóstico es mucho más preciso.', libre:true, min:15, ph:'Ej: me piden precio por WhatsApp y luego no responden'},
  {k:'contacto', t:'Listo. ¿A nombre de quién preparamos tu diagnóstico?', hl:'Lo verás en pantalla en unos segundos.', contacto:true}
 ];
 /* puntaje por pilar: el mismo cálculo que usa Mora en n8n */
@@ -1356,10 +1356,12 @@ function pinta(){
   let x=`<div class="q"><h2>${q.t}</h2>${q.hl?`<p class="ayuda">${q.hl}</p>`:''}`;
   if(q.o) x+=`<div class="ops">`+q.o.map((o,k)=>`<button class="op ${A[q.k]===o?'sel':''}" data-o="${k}"><span class="rd"></span>${h(o)}</button>`).join('')+`</div>`;
   if(q.libre) x+=`<textarea id="libre" class="campo" rows="3" maxlength="300" style="margin-top:22px" placeholder="${q.ph}">${h(A[q.k]||'')}</textarea>
+      <div class="err" id="errL" role="alert"></div>
       <button class="btn full" id="sigue">Continuar</button>`;
   if(q.contacto) x+=`<div style="margin-top:22px">
       <label class="lb" for="c_nombre">Tu nombre</label><input id="c_nombre" class="campo" autocomplete="given-name" value="${h(A.nombre||'')}">
       <label class="lb" for="c_negocio">Nombre de tu negocio</label><input id="c_negocio" class="campo" autocomplete="organization" value="${h(A.negocio||'')}">
+      <label class="lb" for="c_instagram">Instagram o web de tu negocio</label><input id="c_instagram" class="campo" autocapitalize="off" autocorrect="off" placeholder="@tunegocio o tunegocio.com" value="${h(A.instagram||'')}">
       <label class="lb" for="c_whatsapp">WhatsApp</label><input id="c_whatsapp" class="campo" inputmode="tel" autocomplete="tel" placeholder="987 654 321" value="${h(A.whatsapp||'')}">
       <label class="lb" for="c_email">Email</label><input id="c_email" class="campo" type="email" autocomplete="email" placeholder="tu@negocio.com" value="${h(A.email||'')}">
       <label class="check"><input type="checkbox" id="c_priv" ${A.acepta_privacidad?'checked':''}><span>Acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para preparar mi diagnóstico y escribirme sobre él por WhatsApp o correo.</span></label>
@@ -1371,7 +1373,9 @@ function pinta(){
   esc.innerHTML=x+'</div>';
   esc.querySelectorAll('.op').forEach(b=>b.addEventListener('click',()=>elige(q.o[+b.dataset.o])));
   $('atras')&&$('atras').addEventListener('click',()=>{i--;pinta();});
-  $('sigue')&&$('sigue').addEventListener('click',()=>{A[q.k]=$('libre').value.trim(); i++; pinta();});
+  $('sigue')&&$('sigue').addEventListener('click',()=>{ const v=$('libre').value.trim();
+    if(q.min && (v.replace(/\s+/g,' ').length<q.min || !/[a-záéíóúñ]{3,}.*\s+.*[a-záéíóúñ]{3,}/i.test(v))) return $('errL').textContent='Cuéntanos un poco más (al menos una frase corta).';
+    A[q.k]=v; i++; pinta();});
   $('ver')&&$('ver').addEventListener('click',enviar);
   quiz.scrollTop=0;
   if(q.contacto) setTimeout(()=>$('c_nombre').focus(),100);
@@ -1384,11 +1388,15 @@ function elige(o){
 
 async function enviar(){
   if(enviando) return;
-  const c={}; ['nombre','negocio','whatsapp','email'].forEach(k=>c[k]=$('c_'+k).value.trim());
+  const c={}; ['nombre','negocio','instagram','whatsapp','email'].forEach(k=>c[k]=$('c_'+k).value.trim());
   const tel=c.whatsapp.replace(/\D/g,''), err=$('err');
   if(c.nombre.length<2) return err.textContent='Escribe tu nombre para preparar el diagnóstico.';
   if(c.negocio.length<2) return err.textContent='Escribe el nombre de tu negocio.';
+  c.instagram=c.instagram.replace(/\s+/g,'');
+  if(!(/^@?[A-Za-z0-9._]{3,30}$/.test(c.instagram) || /^(https?:\/\/)?([\w-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(c.instagram))) return err.textContent='Escribe el Instagram (@tunegocio) o la web de tu negocio. Lo revisamos para preparar tu diagnóstico.';
+  if(/^[A-Za-z0-9._]+$/.test(c.instagram)) c.instagram='@'+c.instagram;
   if(tel.length<9) return err.textContent='Revisa tu WhatsApp: debe tener al menos 9 dígitos.';
+  if(tel.length===9 && tel[0]!=='9') return err.textContent='Revisa tu WhatsApp: los celulares en Perú empiezan con 9.';
   if(!/^\S+@\S+\.\S+$/.test(c.email)) return err.textContent='Revisa tu email: falta el @ o el dominio.';
   if(!$('c_priv').checked) return err.textContent='Para preparar tu diagnóstico necesitamos que aceptes la Política de Privacidad.';
   c.acepta_privacidad=true; c.acepta_marketing=$('c_mkt').checked;
@@ -1426,6 +1434,7 @@ function analiza(){
 /* ¿Califica para la asesoría? Debe cumplir al menos 2 de 3: ticket de S/100 o más, factura S/3,000 o más al mes,
    invierte S/300 o más en anuncios. Si factura S/10,000 o más, califica siempre. (Misma regla en n8n.) */
 function calificaRegla(a){
+  if(/Agencia, marketing/i.test(a.rubro||'')) return false;
   const tk=a.ticket||'', fa=a.facturacion||'', inv=a.inversion||'';
   if(/S\/10,000 – S\/30,000|Más de S\/30,000/.test(fa)) return true;
   const n=[tk&&!/Menos de S\/100/.test(tk), fa&&!/Menos de S\/3,000/.test(fa), /S\/300 – S\/1,000|S\/1,000 – S\/3,000|Más de S\/3,000/.test(inv)].filter(Boolean).length;
