@@ -14,6 +14,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="config.js"></script>
+<script>/* modo prueba: abre la web con ?prueba=1 → no envía nada a Meta, Clarity ni a las visitas (dura toda la sesión; ?prueba=0 lo apaga) */
+(function(){try{var q=new URLSearchParams(location.search).get('prueba');if(q==='1')sessionStorage.setItem('7l_prueba','1');if(q==='0')sessionStorage.removeItem('7l_prueba');window.PRUEBA=sessionStorage.getItem('7l_prueba')==='1';}catch(e){window.PRUEBA=/[?&]prueba=1/.test(location.search);}
+if(window.PRUEBA&&window.CFG){CFG.PIXEL_ID='';CFG.CLARITY_ID='';var b=document.createElement('div');b.textContent='Modo prueba: no cuenta en Meta ni en tus estadísticas';b.style.cssText='position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#F59E0B;color:#fff;font:600 12.5px system-ui;padding:6px 12px;border-radius:999px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b);});}})();</script>
 <script>if(CFG.CLARITY_ID){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CFG.CLARITY_ID);}</script>
 
 <script>
@@ -319,7 +322,7 @@ $('ir3').onclick=()=>{ paso(3); setTimeout(()=>$('fOp').focus(),350); };
 
 /* ── paso 3: reservar ── */
 $('reservar').onclick=async()=>{
-  const d={action:'reservar',cobro:GRATIS?'llamada':'',lead_id:LEAD.lead_id||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
+  const d={action:'reservar',prueba:!!window.PRUEBA,cobro:GRATIS?'llamada':'',lead_id:LEAD.lead_id||'',fecha:sel.fecha,hora:sel.hora,metodo:sel.metodo,
     operacion:$('fOp').value.trim(),email:$('fEmail').value.trim()||LEAD.email||'',nombre:$('fNombre').value.trim(),negocio:$('fNegocio').value.trim(),whatsapp:$('fWa').value.replace(/\D/g,'')};
   { const ck=n=>(document.cookie.match('(?:^|; )'+n+'=([^;]+)')||[])[1]||''; Object.assign(d,{fbp:ck('_fbp'),fbc:ck('_fbc'),ua:navigator.userAgent,url:location.href.split('#')[0]}); }
   const err=$('err3');
