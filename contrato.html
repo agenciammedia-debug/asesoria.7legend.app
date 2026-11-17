@@ -13,6 +13,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="config.js"></script>
+<script>/* modo prueba: abre la web con ?prueba=1 → no envía nada a Meta, Clarity ni a las visitas (dura toda la sesión; ?prueba=0 lo apaga) */
+(function(){try{var q=new URLSearchParams(location.search).get('prueba');if(q==='1')sessionStorage.setItem('7l_prueba','1');if(q==='0')sessionStorage.removeItem('7l_prueba');window.PRUEBA=sessionStorage.getItem('7l_prueba')==='1';}catch(e){window.PRUEBA=/[?&]prueba=1/.test(location.search);}
+if(window.PRUEBA&&window.CFG){CFG.PIXEL_ID='';CFG.CLARITY_ID='';var b=document.createElement('div');b.textContent='Modo prueba: no cuenta en Meta ni en tus estadísticas';b.style.cssText='position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#F59E0B;color:#fff;font:600 12.5px system-ui;padding:6px 12px;border-radius:999px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b);});}})();</script>
 <style>
 :root{--t:#1D1D1F;--t2:#3A3A3F;--g:#6E6E76;--g2:#9A9AA2;--l:#E6E7EB;--s:#F5F6F8;--a:#1E6BFF;--ah:#155BE6;--as:#EAF1FF;--r:#E5484D;--rs:#FDECEC;--v:#16A34A;--vs:#E8F7EE;--e:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
