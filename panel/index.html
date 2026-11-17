@@ -138,10 +138,10 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 #velo.on{opacity:1;pointer-events:auto}
 #drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:#fff;z-index:41;transform:translateX(100%);transition:transform .4s var(--e),visibility .4s;overflow-y:auto;visibility:hidden}
 #drawer.on{transform:none;visibility:visible;box-shadow:-20px 0 60px -20px rgba(0,0,0,.25)}
-.dr-top{position:sticky;top:0;background:#fff;padding:18px 22px;border-bottom:1px solid var(--l);display:flex;gap:12px;align-items:center;z-index:2}
+.dr-top{position:sticky;top:0;background:#fff;padding:calc(14px + env(safe-area-inset-top)) 22px 14px;border-bottom:1px solid var(--l);display:flex;gap:12px;align-items:center;z-index:2}
 .dr-top h3{font-size:18px;letter-spacing:-.02em;line-height:1.2}
 .dr-top p{color:var(--g);font-size:13px}
-.dr-top .x{margin-left:auto;background:var(--s);border:0;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:18px}
+.dr-top .x{margin-left:auto;background:var(--s);border:0;border-radius:10px;width:42px;height:42px;flex:none;cursor:pointer;font-size:22px;touch-action:manipulation}
 .dr-sec{padding:18px 22px;border-bottom:1px solid var(--l)}
 .dr-sec h4{font-size:13px;color:var(--g);font-weight:600;margin-bottom:10px}
 .llamada{background:var(--as);border-radius:12px;padding:14px;font-size:14.5px;color:#123B8F}
@@ -450,7 +450,7 @@ async function cargar(aviso){
   document.body.classList.add('actualizando'); if(D) $('actualizado').textContent='Actualizando…';
   cargandoYa=(async()=>{
     try{ const nuevo=await run('adm_data'); D=nuevo; guardaCache(D); HOR=JSON.parse(JSON.stringify(D.horarios));
-      const dr=$('drawer').classList.contains('on')&&$('drawer').dataset.lead; pintarTodo(); if(dr) abrirLead(dr);
+      const dr=$('drawer').classList.contains('on')&&$('drawer').dataset.abierto; pintarTodo(); if(dr) abrirLead(dr);
       if(aviso) toast('Datos actualizados');
       const q=new URLSearchParams(location.search).get('lead'); if(q&&leadPor(q)){ history.replaceState(null,'',location.pathname); abrirLead(q); } }
     catch(e){
@@ -704,7 +704,7 @@ function anuncios(){
 $('fRango').onchange=anuncios;
 
 function abrirLead(id){
-  const l=leadPor(id); if(!l) return; $('drawer').dataset.lead=id;
+  const l=leadPor(id); if(!l) return; $('drawer').dataset.abierto=id;
   const res=D.reservas.filter(r=>r.lead_id===id);
   const nombre=(l.nombre||'').split(' ')[0];
   const sel=(campo,opts)=>`<select class="campo" data-campo="${campo}"><option value=""></option>${opts.map(o=>`<option ${l[campo]===o?'selected':''}>${o}</option>`).join('')}</select>`;
@@ -781,6 +781,7 @@ document.addEventListener('click',async e=>{
 });
 function cerrarLead(){ $('drawer').classList.remove('on'); $('velo').classList.remove('on'); }
 $('velo').onclick=cerrarLead;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&$('drawer').classList.contains('on')) cerrarLead(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ cerrarLead(); cerrarModal(); } });
 
 /* ── RESERVAS ── */
