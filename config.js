@@ -4,7 +4,7 @@ window.CFG = {
   WHATSAPP: "51987968939",
   PIXEL_ID: "988107217179544",   // Píxel "7Legend Asesorías" (solo para asesoria.7legend.app)
   CLARITY_ID: "zdqwglhr8q",              // ID del proyecto de Microsoft Clarity (déjalo vacío para desactivarlo)
-  PRECIO: 49,
+  PRECIO: 250,
   LEGAL: { titular: "Carlos Moreno Carrasco", ruc: "10444594794", domicilio: "Calle Ramón Ribeyro 990 - Barranco, Lima", correo: "7legend.app@gmail.com", marca: "7Legend" },
   RESERVA_URL: "reservar.html",
   // Cómo se cobra la asesoría: "llamada" (reserva sin pagar y paga en la videollamada) o "adelantado" (paga al reservar)
@@ -18,10 +18,10 @@ window.CFG = {
     foto: "carlos-moreno.jpg",
     bio: "No soy un curso ni un bot. Soy empresario y aplico estos canales de venta todos los días en mis propios negocios. En la asesoría te enseño lo que a mí me funciona, con tus números reales.",
     numeros: [
-      { valor: "+ S/ 250,000", texto: "invertidos en anuncios de Meta" },
-      { valor: "+ 300", texto: "clientes high ticket cerrados (+US$500)" },
+      { valor: "S/ 250,000+", texto: "invertidos en anuncios de Meta" },
+      { valor: "+300", texto: "clientes high ticket cerrados (+US$500)" },
       { valor: "2", texto: "negocios propios que funcionan así" },
-      { valor: "+ 8 años", texto: "escalando mis propios negocios" }
+      { valor: "+8 años", texto: "escalando mis propios negocios" }
     ],
     // Al tocar un negocio se abre una ventana (sin salir de la página) con:
     //  - captura: screenshot del feed (se ve en miniatura y grande al abrir)
@@ -47,6 +47,6 @@ window.CFG = {
       { texto: "Me ordenó todo: qué responder, cuándo hacer seguimiento y a quién priorizar. Dejé de perder clientes.", nombre: "Daniel G.", negocio: "Inmobiliaria · Arequipa", foto: "" },
       { texto: "Salí con un plan claro, lo apliqué y dejé de perder clientes.", nombre: "Andrea P.", negocio: "Centro Estético · Trujillo", foto: "" }
     ],
-    conferencia: { foto: "conferencia.jpg", texto: "Conferencia sobre ventas de alto ticket· Clínica Andrea Contreras · Marzo 2026." }
+    conferencia: { foto: "conferencia.jpg", texto: "Dando una conferencia sobre ventas de alto ticket." }
   }
 };
