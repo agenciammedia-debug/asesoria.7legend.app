@@ -783,6 +783,9 @@ body.dl{background:#fff;font-size:16.5px}
 .d-escenario>*{grid-area:1/1}
 .d-show{background:linear-gradient(160deg,#12345F,#0D2747);border:1px solid #23507F;border-radius:22px;padding:20px 18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7);transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .d-show.fuera{opacity:0;transform:scale(.96);pointer-events:none}
+.d-show.oculta{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.anim .d-sub2{opacity:0;transition:opacity .7s var(--ease)}
+.anim .d-sub2.ve{opacity:1}
 .d-show-top{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:rgba(255,255,255,.7);margin-bottom:8px}
 .d-show-top b{background:var(--lima);color:var(--negro);padding:4px 10px;border-radius:999px;font-size:12.5px}
 .d-show-it{display:grid;grid-template-columns:44px 1fr 26px;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);opacity:.35;transition:opacity .4s}
@@ -1287,9 +1290,14 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 (function(){
   const show=$('show'), it=[...show.querySelectorAll('.d-show-it')], card=$('arranque');
   let listo=false;
-  const fin=()=>{ if(listo) return; listo=true; show.classList.add('fuera'); card.classList.remove('espera'); card.classList.add('ver'); show.setAttribute('aria-hidden','true'); };
+  const fin=()=>{ if(listo) return; listo=true; const sb=document.querySelector('.d-sub2'); sb&&sb.classList.add('ve'); show.classList.add('fuera'); card.classList.remove('espera'); card.classList.add('ver'); show.setAttribute('aria-hidden','true'); };
   if(reduce){ it.forEach(e=>e.classList.add('on','ok')); fin(); return; }
-  const t0=2000, P=1400;
+  /* 1º solo el titular; 2º aparece la tarjeta y corre la animación; 3º el formulario */
+  document.querySelector('.d-hero').classList.add('anim'); show.classList.add('oculta');
+  const sub=document.querySelector('.d-sub2');
+  setTimeout(()=>sub.classList.add('ve'),1600);
+  setTimeout(()=>show.classList.remove('oculta'),2600);
+  const t0=3500, P=1400;
   it.forEach((e,k)=>{ setTimeout(()=>e.classList.add('on'),t0+k*P); setTimeout(()=>e.classList.add('ok'),t0+k*P+1100); });
   setTimeout(()=>{ $('showPie').textContent='Listo. Empecemos →'; $('showPie').classList.add('ya'); },t0+it.length*P+300);
   setTimeout(fin,t0+it.length*P+1500);
@@ -1328,7 +1336,7 @@ $('ciud').innerHTML+=$('ciud').innerHTML;
     if(k<ops.length){ ops[k].classList.add('brilla'); k++; setTimeout(paso,380); }
     else { k=0; setTimeout(paso,2800); }
   }
-  setTimeout(paso,8000);
+  setTimeout(paso,9500);
 })();
 
 /* eventos para Clarity */
