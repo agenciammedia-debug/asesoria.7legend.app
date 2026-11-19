@@ -219,6 +219,10 @@ h2 span{color:var(--g2)}
 .pg-pagado button:hover{background:rgba(110,231,160,.12)}.pg-pagado button:focus-visible{outline:2px solid #6EE7A0;outline-offset:2px}
 .pg-pagado button[disabled]{opacity:.5;cursor:wait}
 .pg-pagado .ok{color:#6EE7A0;font-weight:700;font-size:16px}
+.plan ul{font-size:15px;gap:6px;margin-top:12px}
+.plan .todo{margin-top:12px;font-size:13.5px;font-weight:700;opacity:.7}
+.plan .todo+ul{margin-top:6px}
+.planes{max-height:none}
 /* ═══ IDENTIDAD 7LEGEND (igual que la landing y los anuncios): negro + lima + Anton ═══ */
 :root{--a:#0A0A0A;--ah:#262626;--as:#F2FBD3;--lima:#D4FF2E;--menta:#D4FF2E;--noche:#0A0A0A}
 body{background:#000}
@@ -432,14 +436,14 @@ h2 span{color:#8A8A90}.osc h2 span,.roja h2 span{color:var(--lima)}
         <div class="top"><h3>PRO</h3><span class="reco" hidden>Recomendado para ti</span></div>
         <div class="precio">S/<span data-c="planPRO" class="pv">1,100</span> <span>al mes</span></div>
         <span class="paga" hidden></span>
-        <ul><li>Gestión de anuncios</li><li>Mora AI, filtro 24/7</li><li>Capacitación de ventas + script personalizado</li><li>Auditoría quincenal</li><li class="no">CRM personalizable</li></ul>
+        <ul><li>Mora AI, filtro 24/7</li><li>Guion y capacitación de ventas para tu equipo</li><li>Acompañamiento de tu marketing</li><li>Auditoría mensual</li><li class="no">Gestión de anuncios</li><li class="no">CRM con avisos</li></ul>
         <p class="cond">Mínimo 3 meses · instalación sin costo</p>
       </div>
       <div class="plan a" style="--i:4" data-plan="Legend">
         <div class="top"><h3>Legend</h3><span class="reco" hidden>Recomendado para ti</span></div>
         <div class="precio">S/<span data-c="planLegend" class="pv">2,100</span> <span>al mes</span></div>
         <span class="paga" hidden></span>
-        <ul><li>Gestión de anuncios</li><li>Mora AI, filtro 24/7</li><li>Capacitación de ventas y scripts</li><li>CRM personalizable con avisos al celular</li><li>Auditoría semanal</li></ul>
+        <p class="todo">Todo lo de PRO, más:</p><ul><li><b>Gestión de anuncios</b></li><li>CRM con avisos al celular</li><li>Paciente incógnito mensual</li><li>Revisión semanal de chats reales</li><li>Estrategia de contenido de autoridad</li><li>Reunión semanal de auditoría</li><li>WhatsApp directo con Carlos</li></ul>
         <p class="cond">Mínimo 3 meses · instalación sin costo</p>
       </div>
     </div>
@@ -606,7 +610,7 @@ const PIL_D={filtro:{dir:'Responder en menos de 5 minutos y preguntar qué neces
 const EJ_INC={canal:'WhatsApp',fecha:'',items:{resp:{ok:0,nota:'3 h 12 min'},trato:{ok:1,nota:'Cordial y rápido al saludar'},necesidad:{ok:0,nota:'No preguntaron qué necesitaba'},precio:{ok:0,nota:'Solo la cifra: S/3,500'},evaluacion:{ok:0,nota:'No me invitaron a evaluarme'},seguimiento:{ok:0,nota:'Nadie volvió a escribir'}},comentario:'Me dieron el precio y la conversación terminó ahí. Como paciente, no tenía un siguiente paso.'};
 const EJ_MKT={anuncios:{bien:'Los anuncios de implantes traen consultas a buen costo',mal:'Llevan a WhatsApp sin filtro: llegan curiosos y gente fuera de Lima'},instagram:{bien:'Buenos casos de antes y después',mal:'No se ve al doctor ni por qué confiar en él'},web:{bien:'Aparece en Google Maps con buenas reseñas',mal:'La web no tiene botón de WhatsApp ni precios de referencia'}};
 const js=(t,d)=>{ try{ const o=JSON.parse(t||''); return o&&typeof o==='object'?o:d; }catch(e){ return d; } };
-let DENTAL=false;
+let DENTAL=false, PALABRA='venta';
 function dentalTextos(on){
   document.querySelectorAll('[data-dental]').forEach(e=>{ if(e.dataset.orig==null) e.dataset.orig=e.innerHTML; e.innerHTML=on?e.dataset.dental:e.dataset.orig; });
   const h1=document.querySelector('[data-dental-h1]'); if(h1.dataset.orig==null) h1.dataset.orig=h1.innerHTML;
@@ -631,6 +635,7 @@ function pintar(l){
   const x=l||ej;
   DENTAL=x.oferta==='auditoria_dental'||/^Clínica dental/i.test(String(x.rubro||''))||!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo==='Auditoría gratis'));
   dentalTextos(DENTAL);
+  PALABRA=DENTAL?(/Implantes/i.test(String(x.especialidad||x.rubro||''))?'implante':'tratamiento'):'venta';
   ['incog','mkt'].forEach(k=>document.querySelector(`[data-n="${k}"]`).classList.toggle('salta',!DENTAL));
   if(DENTAL) pintarAuditoria(x,!l);
   const nombre=String(x.nombre||'').split(' ')[0];
@@ -655,7 +660,7 @@ function pintar(l){
   P=Math.max(0,Math.min(100,+x.puntaje||0)); $('nivel').textContent=x.nivel||'—';
   $('anillo').style.setProperty('--c',col(P));
   // plan recomendado
-  const pa=String(x.angulo_venta||''); recomendar(/Plan:\s*Legend/i.test(pa)||(+x.puntaje>0&&+x.puntaje<40)?'Legend':/Plan:\s*Basic/i.test(pa)?'Basic':'PRO');
+  const pa=String(x.angulo_venta||''); recomendar(/Plan:\s*Basic/i.test(pa)?'Basic':'Legend');
   // bono: 72 horas
   const v=new Date(Date.now()+3*864e5);
   $('vence').textContent=v.toLocaleDateString('es-PE',{weekday:'long',day:'numeric',month:'long'});
@@ -712,7 +717,7 @@ function calcNumeros(){
   else { $('kVen').textContent='S/—'; $('kVen').dataset.v=0; $('kVenTxt').textContent='en anuncios'; }
   // se paga con N ventas
   const t=num($('gTic').value), c=(D&&D.config)||{};
-  [['Basic',num(c.planBasic)||550],['PRO',num(c.planPRO)||1100],['Legend',num(c.planLegend)||2100]].forEach(([k,pr])=>{ const e=document.querySelector(`[data-plan="${k}"] .paga`); if(t){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} ${DENTAL?'tratamiento':'venta'}${n>1?'s':''}${k==='Basic'?'':' al mes'}`; } else e.hidden=true; });
+  [['Basic',num(c.planBasic)||550],['PRO',num(c.planPRO)||1100],['Legend',num(c.planLegend)||2100]].forEach(([k,pr])=>{ const e=document.querySelector(`[data-plan="${k}"] .paga`); if(t&&k==='Legend'){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} ${PALABRA}${n>1?'s':''}${k==='Basic'?'':' al mes'}`; } else e.hidden=true; });
 }
 ['gGasto','gMsj','gVen','gTic'].forEach(id=>$(id).addEventListener('input',()=>{ calcNumeros(); calcPerdida(); guardar(); }));
 
