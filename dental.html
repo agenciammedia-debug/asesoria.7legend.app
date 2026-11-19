@@ -777,6 +777,43 @@ body.dl{background:#fff;font-size:16.5px}
 .anim .d-prom li.ve i{transform:none}
 .d-ini.espera{opacity:0;transform:translateY(24px);visibility:hidden}
 .d-ini.ver{opacity:1;transform:none;visibility:visible;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.d-sub2{font-size:18px;color:rgba(255,255,255,.78);margin-top:14px}
+.d-sub2 b{color:#fff}
+.d-escenario{display:grid;align-items:start}
+.d-escenario>*{grid-area:1/1}
+.d-show{background:linear-gradient(160deg,#12345F,#0D2747);border:1px solid #23507F;border-radius:22px;padding:20px 18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.d-show.fuera{opacity:0;transform:scale(.96);pointer-events:none}
+.d-show-top{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:rgba(255,255,255,.7);margin-bottom:8px}
+.d-show-top b{background:var(--lima);color:var(--negro);padding:4px 10px;border-radius:999px;font-size:12.5px}
+.d-show-it{display:grid;grid-template-columns:44px 1fr 26px;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);opacity:.35;transition:opacity .4s}
+.d-show-it.on{opacity:1}
+.d-show-it .ic{width:44px;height:44px;border-radius:12px;background:rgba(124,200,242,.12);color:var(--lima);display:grid;place-items:center}
+.d-show-it .ic svg{width:22px;height:22px}
+.d-show-it b{display:block;font-size:16.5px;color:#fff;letter-spacing:-.01em}
+.d-show-it i{display:block;height:5px;border-radius:5px;background:rgba(255,255,255,.1);margin-top:8px;overflow:hidden}
+.d-show-it u{display:block;height:100%;width:0;background:var(--lima);border-radius:5px;transition:width .75s var(--ease)}
+.d-show-it.on u{width:100%}
+.d-show-it em{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.2);transition:all .3s}
+.d-show-it.ok em{border-color:var(--lima);background:var(--lima) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B2240' stroke-width='3.5'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat;transform:scale(1.08)}
+.d-show-pie{text-align:center;font-size:14px;color:rgba(255,255,255,.65);margin-top:14px;font-weight:600;transition:color .3s}
+.d-show-pie.ya{color:var(--lima)}
+.d-ini.espera{opacity:0;transform:translateY(16px) scale(.98);visibility:hidden}
+.d-ini.ver{opacity:1;transform:none;visibility:visible;transition:opacity .55s var(--ease) .1s,transform .55s var(--ease) .1s}
+/* ciudades */
+.d-ciud{background:#F3F6FA;border-top:1px solid #E3E9F1;border-bottom:1px solid #E3E9F1;padding:18px 0 16px;overflow:hidden}
+.d-ciud-t{text-align:center;font-size:13px;font-weight:700;color:#1F6FA8;margin-bottom:10px;padding:0 20px}
+.d-ciud-m{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.d-ciud-in{display:flex;gap:10px;width:max-content;animation:ciud 38s linear infinite}
+.d-ciud-in span{white-space:nowrap;font-size:15px;font-weight:600;color:var(--negro);background:#fff;border:1px solid #DCE4EE;border-radius:999px;padding:7px 16px}
+@keyframes ciud{to{transform:translateX(-50%)}}
+/* testimonios que rotan */
+.d-citas{display:grid;margin-top:20px}
+.d-citas .d-cita{grid-area:1/1;margin-top:0;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.d-citas .d-cita.on{opacity:1;transform:none;pointer-events:auto}
+.d-dots{display:flex;gap:6px;margin-top:10px}
+.d-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#CBD5E1;cursor:pointer;transition:all .3s}
+.d-dots button.on{width:22px;border-radius:5px;background:var(--negro)}
+@media (prefers-reduced-motion:reduce){ .d-ciud-in{animation:none;flex-wrap:wrap;width:auto;justify-content:center;padding:0 16px} }
 .d-ini{background:#fff;color:var(--negro);border-radius:22px;padding:20px 18px 16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8),0 0 0 4px rgba(124,200,242,.25)}
 .d-ini-top{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .d-ini-top b{background:var(--lima);padding:4px 10px;border-radius:999px;font-size:12.5px}
@@ -958,6 +995,7 @@ body.dl{background:#fff;font-size:16.5px}
 }
 @media (max-width:979px){ .d-movil{display:block} }
 @media (max-width:420px){ .d-nav-cupos{display:none} }
+@media (max-width:359px){ .d-chip{font-size:12px;padding:5px 10px} .d-in{padding:0 16px} .d-h1{font-size:36px} .d-show,.d-ini{padding:16px 14px} .d-show-it{grid-template-columns:38px 1fr 22px;gap:10px} .d-show-it .ic{width:38px;height:38px} .d-show-it b{font-size:15px} .d-cifras b{font-size:20px} }
 @media (prefers-reduced-motion:reduce){ .dl .rv,.d-h1 .w{opacity:1;transform:none;animation:none} .d-inf li{opacity:1} }
 
 </style>
@@ -977,18 +1015,22 @@ body.dl{background:#fff;font-size:16.5px}
       <p class="d-chip"><i></i><span>Auditoría gratuita · <span data-quedan>10 cupos</span> este mes</span></p>
       <p class="d-para">Para clínicas de implantes, rehabilitación oral y ortodoncia</p>
       <h1 class="d-h1" id="titular"><span>Te preguntan</span> <span>por implantes.</span> <em>No agendan.</em></h1>
-      <p class="d-intro" id="intro">Auditamos tu clínica <b>sin costo</b>:</p>
-      <ul class="d-prom" id="prom">
-        <li><i></i><span><b>Nos hacemos pasar por tu paciente</b> y vivimos la atención de tu equipo de principio a fin.</span></li>
-        <li><i></i><span><b>Analizamos tu marketing:</b> anuncios, Instagram y web.</span></li>
-        <li><i></i><span><b>Te mostramos dónde se pierden</b> tus evaluaciones, con pruebas.</span></li>
-      </ul>
+      <p class="d-sub2">Auditoría comercial <b>gratuita</b> para tu clínica.</p>
+    </div>
+    <div class="d-escenario" id="escenario">
+    <div class="d-show" id="show" aria-hidden="true">
+      <div class="d-show-top"><span>Tu auditoría incluye</span><b>S/250 → Gratis</b></div>
+      <div class="d-show-it" data-k="0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path d="M8 8h8" stroke-width="2.6"/></svg></span><div><b>Paciente incógnito</b><i><u></u></i></div><em></em></div>
+      <div class="d-show-it" data-k="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><b>Análisis de tu marketing</b><i><u></u></i></div><em></em></div>
+      <div class="d-show-it" data-k="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></span><div><b>Diagnóstico de tu clínica</b><i><u></u></i></div><em></em></div>
+      <p class="d-show-pie" id="showPie">Solo 10 clínicas al mes</p>
     </div>
     <div class="d-ini espera" id="arranque">
       <div class="d-ini-top"><b>Empieza aquí</b><span>3 min · sin costo</span></div>
       <p class="d-ini-q">¿Qué te pasa hoy con tus pacientes nuevos?</p>
       <div id="ops0"></div>
       <p class="d-ini-pie">Al terminar ves tu diagnóstico y si tu clínica califica para la auditoría.</p>
+    </div>
     </div>
   </div>
   <div class="d-in d-prueba">
@@ -1001,6 +1043,14 @@ body.dl{background:#fff;font-size:16.5px}
 
 
 
+
+<!-- ═════════ CIUDADES ═════════ -->
+<div class="d-ciud" aria-label="Clínicas en todo el Perú">
+  <p class="d-ciud-t">Auditamos clínicas en todo el Perú</p>
+  <div class="d-ciud-m"><div class="d-ciud-in" id="ciud">
+    <span>Miraflores</span><span>San Isidro</span><span>Santiago de Surco</span><span>La Molina</span><span>San Borja</span><span>Barranco</span><span>Jesús María</span><span>Los Olivos</span><span>Arequipa</span><span>Trujillo</span><span>Chiclayo</span><span>Piura</span><span>Cusco</span><span>Huancayo</span><span>Ica</span><span>Tacna</span>
+  </div></div>
+</div>
 
 <!-- ═════════ 6. PRUEBA ═════════ -->
 <section class="d-sec" id="prueba">
@@ -1020,7 +1070,8 @@ body.dl{background:#fff;font-size:16.5px}
         <div><b>+300</b><span>clientes high ticket cerrados</span></div>
         <div><b>+8 años</b><span>escalando negocios propios</span></div>
       </div>
-      <blockquote class="d-cita">“Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio.”<cite>Johan B., implantólogo · Bogotá</cite></blockquote>
+      <div class="d-citas" id="citas" aria-live="polite"><blockquote class="d-cita on">“Pensé que mis anuncios no funcionaban. En la asesoría vimos que el problema era lo que pasaba después del anuncio.”<cite>Johan B., implantólogo · Bogotá</cite></blockquote></div>
+      <div class="d-dots" id="dots"></div>
     </div>
   </div>
 </section>
@@ -1232,18 +1283,36 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   });
 })();
 
-/* hero: titular → promesas una por una → recién aparece la primera pregunta */
+/* hero: animación de lo que incluye la auditoría → se convierte en la primera pregunta */
 (function(){
-  const hero=document.querySelector('.d-hero'), it=[$('intro'),...$('prom').children], card=$('arranque');
-  const fin=()=>{ it.forEach(e=>e.classList.add('ve')); card.classList.remove('espera'); card.classList.add('ver'); };
-  if(reduce){ fin(); return; }
-  hero.classList.add('anim');
-  const nW=$('titular').querySelectorAll('.w').length, t0=Math.min(1400,300+nW*70);
-  it.forEach((e,k)=>setTimeout(()=>e.classList.add('ve'),t0+k*650));
-  setTimeout(fin,t0+it.length*650+350);
-  /* si el doctor ya bajó o tocó la página, no lo hacemos esperar */
-  const ya=()=>{ fin(); removeEventListener('scroll',ya); };
-  addEventListener('scroll',ya,{passive:true,once:true});
+  const show=$('show'), it=[...show.querySelectorAll('.d-show-it')], card=$('arranque');
+  let listo=false;
+  const fin=()=>{ if(listo) return; listo=true; show.classList.add('fuera'); card.classList.remove('espera'); card.classList.add('ver'); show.setAttribute('aria-hidden','true'); };
+  if(reduce){ it.forEach(e=>e.classList.add('on','ok')); fin(); return; }
+  const t0=900;
+  it.forEach((e,k)=>{ setTimeout(()=>e.classList.add('on'),t0+k*800); setTimeout(()=>e.classList.add('ok'),t0+k*800+700); });
+  setTimeout(()=>{ $('showPie').textContent='Listo. Empecemos →'; $('showPie').classList.add('ya'); },t0+it.length*800+200);
+  setTimeout(fin,t0+it.length*800+1000);
+  addEventListener('scroll',fin,{passive:true,once:true});
+})();
+
+/* franja de ciudades: se duplica para que el desplazamiento sea infinito */
+$('ciud').innerHTML+=$('ciud').innerHTML;
+
+/* testimonios que van rotando */
+(function(){
+  const T=((window.CFG&&CFG.YO&&CFG.YO.testimonios)||[]).filter(t=>t.texto&&!t.ejemplo);
+  if(T.length<2) return;
+  const box=$('citas'), dots=$('dots');
+  box.innerHTML=T.map((t,k)=>`<blockquote class="d-cita${k?'':' on'}">“${h(t.texto)}”<cite>${h(t.nombre)} · ${h(t.negocio||'')}</cite></blockquote>`).join('');
+  dots.innerHTML=T.map((_,k)=>`<button type="button" aria-label="Testimonio ${k+1}" class="${k?'':'on'}"></button>`).join('');
+  const Q=[...box.children], D=[...dots.children]; let i=0, tm=null;
+  const ir=k=>{ i=(k+T.length)%T.length; Q.forEach((q,j)=>q.classList.toggle('on',j===i)); D.forEach((d,j)=>d.classList.toggle('on',j===i)); };
+  const auto=()=>{ clearInterval(tm); if(!reduce) tm=setInterval(()=>ir(i+1),5500); };
+  D.forEach((d,k)=>d.onclick=()=>{ ir(k); auto(); });
+  let x0=0; box.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  box.addEventListener('touchend',e=>{ const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>40){ ir(i+(dx<0?1:-1)); auto(); } });
+  auto();
 })();
 
 /* brillo que recorre las opciones de la primera pregunta hasta que toquen una */
