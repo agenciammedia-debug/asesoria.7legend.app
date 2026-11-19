@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#0A0A0A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="config.js"></script>
 <script>/* modo prueba: abre la web con ?prueba=1 → no envía nada a Meta, Clarity ni a las visitas (dura toda la sesión; ?prueba=0 lo apaga) */
@@ -712,16 +712,16 @@ label.lb{display:block;font-size:14px;font-weight:500;color:var(--tinta2);margin
 .agotado{padding:14px;border-radius:12px;background:rgba(239,68,68,.12);color:#fff;font-size:15px;margin:10px 0 16px}
 
 /* ═══════════ LANDING DENTAL v2 · negro + lima (misma identidad que los anuncios) ═══════════ */
-:root{--azul:#0A0A0A;--azul-h:#262626;--azul-s:#F2FBD3;--lima:#D4FF2E;--lima-h:#C4F000;--negro:#0A0A0A;--papel:#F3F4F0;--rojo:#E5484D}
+:root{--azul:#0B2240;--azul-h:#14335C;--azul-s:#EAF5FD;--lima:#7CC8F2;--lima-h:#63B8E8;--negro:#0B2240;--papel:#F3F4F0;--rojo:#E5484D}
 body.dl{background:#fff;font-size:16.5px}
 .dl .logo i{color:var(--lima)}
-#quiz .logo i,#informe .logo i{color:#8FAE00}
+#quiz .logo i,#informe .logo i{color:#3A9AD9}
 .dl :focus-visible{outline:2px solid var(--negro);outline-offset:3px}
 .d-osc :focus-visible,.d-hero :focus-visible,.d-fin :focus-visible{outline-color:var(--lima)}
 .d-in{max-width:1120px;margin:0 auto;padding:0 20px}
 /* botón principal: lima con texto negro, como el CTA de los anuncios */
-.btn{background:var(--lima);color:var(--negro);font-weight:700;border-radius:14px;box-shadow:0 12px 28px -14px rgba(120,160,0,.9)}
-.btn:hover{background:var(--lima-h);box-shadow:0 16px 34px -14px rgba(120,160,0,1)}
+.btn{background:var(--lima);color:var(--negro);font-weight:700;border-radius:14px;box-shadow:0 12px 28px -14px rgba(30,110,170,.9)}
+.btn:hover{background:var(--lima-h);box-shadow:0 16px 34px -14px rgba(30,110,170,1)}
 .btn:after{background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%)}
 #quiz .btn,#informe .btn{background:var(--negro);color:#fff;box-shadow:0 12px 28px -14px rgba(0,0,0,.7)}
 #quiz .btn:hover{background:#262626}
@@ -731,12 +731,12 @@ body.dl{background:#fff;font-size:16.5px}
 .bt2 small{font-weight:500;font-size:12.5px;opacity:.75;margin-top:3px}
 
 /* tipografía */
-.d-h1,.d-h2{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.98}
-.d-h1{font-size:clamp(48px,13vw,92px)}
+.d-h1,.d-h2{font-family:Geist,system-ui,sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.04}
+.d-h1{font-size:clamp(40px,10.5vw,72px)}
 .d-h1 em,.d-h2 em{font-style:normal;color:var(--lima)}
 .d-h2{font-size:clamp(36px,8.6vw,62px);margin-top:10px}
 .d-sec:not(.d-osc) .d-h2 em{color:var(--negro);background:linear-gradient(transparent 62%,var(--lima) 62%)}
-.d-kick{font-weight:700;font-size:14px;color:#5D6B00}
+.d-kick{font-weight:700;font-size:14px;color:#1F6FA8}
 .d-osc .d-kick,.d-hero .d-kick{color:var(--lima)}
 .d-lead{font-size:18px;color:#4A4A50;margin-top:14px;max-width:560px}
 .d-osc .d-lead{color:rgba(255,255,255,.7)}
@@ -745,19 +745,19 @@ body.dl{background:#fff;font-size:16.5px}
 .d-gris{background:var(--papel)}
 
 /* nav */
-.d-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,10,10,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.d-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(11,34,64,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
 .d-nav .d-in{display:flex;align-items:center;gap:14px;height:58px}
 .d-nav .logo{font-size:19px;margin-right:auto}
 .d-nav-cupos{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.75)}
-.d-nav-cupos i,.d-chip i{width:8px;height:8px;border-radius:50%;background:var(--lima);box-shadow:0 0 0 0 rgba(212,255,46,.7);animation:pulso 1.8s infinite}
-@keyframes pulso{70%{box-shadow:0 0 0 8px rgba(212,255,46,0)}100%{box-shadow:0 0 0 0 rgba(212,255,46,0)}}
+.d-nav-cupos i,.d-chip i{width:8px;height:8px;border-radius:50%;background:var(--lima);box-shadow:0 0 0 0 rgba(124,200,242,.7);animation:pulso 1.8s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 8px rgba(124,200,242,0)}100%{box-shadow:0 0 0 0 rgba(124,200,242,0)}}
 .d-nav-btn{padding:10px 16px;font-size:14px;border-radius:10px;display:none}
 .d-nav.cta .d-nav-btn{display:inline-flex}
 
 /* hero */
-.d-hero{background:radial-gradient(900px 520px at 85% -10%,rgba(212,255,46,.16),transparent 60%),var(--negro);color:#fff;padding:86px 0 34px;overflow:hidden}
+.d-hero{background:radial-gradient(900px 520px at 85% -10%,rgba(124,200,242,.16),transparent 60%),var(--negro);color:#fff;padding:86px 0 34px;overflow:hidden}
 .d-hero-grid{display:grid;gap:26px}
-.d-chip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;border:1px solid rgba(212,255,46,.4);color:var(--lima);border-radius:999px;padding:6px 13px}
+.d-chip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;border:1px solid rgba(124,200,242,.4);color:var(--lima);border-radius:999px;padding:6px 13px}
 .d-para{font-size:14.5px;color:rgba(255,255,255,.62);margin-top:16px}
 .d-h1{margin-top:8px}
 .d-h1 span,.d-h1 em{display:inline-block}
@@ -765,7 +765,19 @@ body.dl{background:#fff;font-size:16.5px}
 @keyframes pal{to{opacity:1;transform:none}}
 .d-sub{font-size:18px;line-height:1.5;color:rgba(255,255,255,.78);margin-top:16px;max-width:540px}
 .d-sub b{color:#fff}
-.d-ini{background:#fff;color:var(--negro);border-radius:22px;padding:20px 18px 16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8),0 0 0 4px rgba(212,255,46,.25)}
+.d-intro{font-size:18px;color:rgba(255,255,255,.75);margin-top:18px}
+.d-intro b{color:#fff}
+.d-prom{list-style:none;display:grid;gap:12px;margin-top:12px;max-width:560px}
+.d-prom li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:18.5px;line-height:1.4;color:rgba(255,255,255,.8)}
+.d-prom li b{color:#fff}
+.d-prom i{width:26px;height:26px;border-radius:50%;background:var(--lima) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B2240' stroke-width='3.5'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/14px no-repeat;margin-top:1px}
+.anim .d-intro,.anim .d-prom li{opacity:0;transform:translateY(12px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.anim .d-prom i{transform:scale(.4);transition:transform .45s cubic-bezier(.34,1.56,.64,1) .15s}
+.anim .d-intro.ve,.anim .d-prom li.ve{opacity:1;transform:none}
+.anim .d-prom li.ve i{transform:none}
+.d-ini.espera{opacity:0;transform:translateY(24px);visibility:hidden}
+.d-ini.ver{opacity:1;transform:none;visibility:visible;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.d-ini{background:#fff;color:var(--negro);border-radius:22px;padding:20px 18px 16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8),0 0 0 4px rgba(124,200,242,.25)}
 .d-ini-top{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .d-ini-top b{background:var(--lima);padding:4px 10px;border-radius:999px;font-size:12.5px}
 .d-ini-top span{color:#6E6E76}
@@ -776,7 +788,7 @@ body.dl{background:#fff;font-size:16.5px}
 .d-ini .op .rd{width:20px;height:20px;border-radius:50%;border:2px solid #C9CCD3;flex:none;transition:all .2s}
 .d-ini .op.sel{border-color:var(--negro);background:var(--azul-s)}
 .d-ini .op.sel .rd{border:6px solid var(--negro)}
-.d-ini .op.brilla{border-color:#9BB800;background:#FAFFE8}
+.d-ini .op.brilla{border-color:#3A9AD9;background:#F2F9FE}
 .d-ini-pie{font-size:12.5px;color:#7A7A82;margin-top:6px;text-align:center}
 .d-prueba{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:14px;color:rgba(255,255,255,.8)}
 .d-prueba p span{display:block;font-size:12.5px;color:rgba(255,255,255,.5)}
@@ -824,7 +836,7 @@ body.dl{background:#fff;font-size:16.5px}
 .d-fugas li:before{content:counter(f);width:34px;height:34px;border-radius:50%;border:1.5px solid var(--rojo);color:#FF6B6E;display:grid;place-items:center;font-weight:700;font-size:15px}
 .d-fugas b{color:#fff}
 .d-nota{margin-top:22px;font-size:15px;color:rgba(255,255,255,.55);border-left:3px solid var(--lima);padding-left:14px}
-.d-tel{background:#0B141A;border:1px solid #232D33;border-radius:28px;padding:0 0 18px;max-width:380px;width:100%;margin:0 auto;overflow:hidden;box-shadow:0 40px 80px -40px rgba(212,255,46,.25)}
+.d-tel{background:#0B141A;border:1px solid #232D33;border-radius:28px;padding:0 0 18px;max-width:380px;width:100%;margin:0 auto;overflow:hidden;box-shadow:0 40px 80px -40px rgba(124,200,242,.25)}
 .d-tel-top{display:flex;gap:10px;align-items:center;background:#1F2C33;padding:12px 16px;color:#fff;font-size:15px}
 .d-tel-top small{display:block;font-size:12px;color:#8696A0}
 .d-tel-av{width:36px;height:36px;border-radius:50%;background:#6B7C85;display:grid;place-items:center;font-size:13px;font-weight:700}
@@ -843,7 +855,7 @@ body.dl{background:#fff;font-size:16.5px}
 .d-pasos li:before{content:"";position:absolute;left:12px;top:30px;bottom:0;width:2px;background:#E4E6EA}
 .d-pasos li:last-child:before{display:none}
 .d-pasos li:after{content:"";position:absolute;left:0;top:2px;width:26px;height:26px;border-radius:50%;background:var(--lima);box-shadow:inset 0 0 0 7px var(--negro)}
-.d-pasos small{display:block;font-size:13px;font-weight:700;color:#5D6B00}
+.d-pasos small{display:block;font-size:13px;font-weight:700;color:#1F6FA8}
 .d-pasos b{display:block;font-size:20px;letter-spacing:-.025em;margin-top:2px}
 .d-pasos span{display:block;color:#4A4A50;font-size:15.5px;margin-top:2px}
 
@@ -864,7 +876,7 @@ body.dl{background:#fff;font-size:16.5px}
 .d-pr-grid{display:grid;gap:30px;align-items:center}
 .d-play{position:relative;display:block;width:100%;aspect-ratio:16/10;border:0;border-radius:22px;background:#111 center/cover;cursor:pointer;overflow:hidden;text-align:left;color:#fff}
 .d-play:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.85))}
-.d-play-ic{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:var(--lima);color:var(--negro);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(212,255,46,.25)}
+.d-play-ic{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:var(--lima);color:var(--negro);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(124,200,242,.25)}
 .d-play-t{position:absolute;left:18px;right:18px;bottom:16px;font-weight:700;font-size:17px;line-height:1.3}
 .d-play-t small{display:block;font-weight:500;font-size:13px;opacity:.75;margin-top:4px}
 .d-video video,.d-video iframe{width:100%;aspect-ratio:16/10;border:0;border-radius:22px;background:#000}
@@ -875,22 +887,22 @@ body.dl{background:#fff;font-size:16.5px}
 .d-yo-bio{margin-top:14px;color:#4A4A50}
 .d-cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 .d-cifras div{border-top:2px solid var(--negro);padding-top:8px}
-.d-cifras b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;line-height:1.1}
+.d-cifras b{display:block;font-weight:800;font-size:24px;letter-spacing:-.03em;line-height:1.15}
 .d-cifras span{font-size:12.5px;color:#6E6E76;line-height:1.3;display:block}
 .d-cita{margin-top:20px;background:var(--papel);border-radius:16px;padding:16px 18px;font-size:15.5px;line-height:1.5}
 .d-cita cite{display:block;font-style:normal;font-size:13px;color:#6E6E76;margin-top:6px}
 
 /* oferta */
 .d-of{display:grid;place-items:center}
-.d-of-card{width:100%;max-width:560px;background:#141414;border:1px solid #2A2A2A;border-radius:26px;padding:26px 22px;position:relative;overflow:hidden}
-.d-of-card:before{content:"";position:absolute;right:-140px;top:-140px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,255,46,.22),transparent 65%)}
+.d-of-card{width:100%;max-width:560px;background:#10305A;border:1px solid #1E4778;border-radius:26px;padding:26px 22px;position:relative;overflow:hidden}
+.d-of-card:before{content:"";position:absolute;right:-140px;top:-140px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(124,200,242,.22),transparent 65%)}
 .d-of-top{font-weight:700;color:rgba(255,255,255,.7);font-size:15px;position:relative}
 .d-of-pr{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px 16px;margin-top:8px;position:relative}
-.d-of-pr s{font-family:Anton,Impact,sans-serif;font-size:clamp(34px,9vw,44px);color:rgba(255,255,255,.4);text-decoration-thickness:5px;line-height:1.1}
-.d-of-pr b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(58px,16vw,84px);line-height:.9;color:var(--lima);text-transform:uppercase}
+.d-of-pr s{font-weight:700;font-size:clamp(34px,9vw,44px);color:rgba(255,255,255,.4);text-decoration-thickness:5px;line-height:1.1}
+.d-of-pr b{font-weight:800;letter-spacing:-.04em;font-size:clamp(58px,16vw,84px);line-height:.9;color:var(--lima);text-transform:none}
 .d-cupos{margin-top:18px}
 .d-cupos .bar10{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
-.d-cupos .bar10 i{height:10px;border-radius:3px;background:#333}
+.d-cupos .bar10 i{height:10px;border-radius:3px;background:#24497A}
 .d-cupos .bar10 i.ok{background:var(--lima)}
 .d-cupos span{display:block;font-size:13.5px;color:rgba(255,255,255,.7);margin-top:8px;font-weight:600}
 .d-of-card ul{list-style:none;display:grid;gap:11px;margin:22px 0 22px}
@@ -908,8 +920,8 @@ body.dl{background:#fff;font-size:16.5px}
 .d-faq p{padding:0 0 18px;color:#4A4A50;font-size:15.5px}
 
 /* cierre */
-.d-fin{background:radial-gradient(700px 400px at 50% 0%,rgba(212,255,46,.14),transparent 70%),var(--negro);color:#fff;padding:80px 0 110px;text-align:center}
-.d-fin-h{font-size:clamp(42px,10vw,78px)}
+.d-fin{background:radial-gradient(700px 400px at 50% 0%,rgba(124,200,242,.14),transparent 70%),var(--negro);color:#fff;padding:80px 0 110px;text-align:center}
+.d-fin-h{font-size:clamp(34px,8.5vw,58px)}
 .d-fin p{color:rgba(255,255,255,.7);margin:16px auto 24px;max-width:460px}
 .d-pie{display:flex;flex-direction:column;gap:6px;align-items:center;margin-top:60px;font-size:13.5px;color:rgba(255,255,255,.5)}
 .d-pie .logo{color:#fff;font-size:18px}
@@ -965,9 +977,14 @@ body.dl{background:#fff;font-size:16.5px}
       <p class="d-chip"><i></i><span>Auditoría gratuita · <span data-quedan>10 cupos</span> este mes</span></p>
       <p class="d-para">Para clínicas de implantes, rehabilitación oral y ortodoncia</p>
       <h1 class="d-h1" id="titular"><span>Te preguntan</span> <span>por implantes.</span> <em>No agendan.</em></h1>
-      <p class="d-sub">Auditamos tu clínica sin costo: <b>nos hacemos pasar por tu paciente</b>, analizamos tu marketing y te mostramos dónde se te van las evaluaciones.</p>
+      <p class="d-intro" id="intro">Auditamos tu clínica <b>sin costo</b>:</p>
+      <ul class="d-prom" id="prom">
+        <li><i></i><span><b>Nos hacemos pasar por tu paciente</b> y vivimos la atención de tu equipo de principio a fin.</span></li>
+        <li><i></i><span><b>Analizamos tu marketing:</b> anuncios, Instagram y web.</span></li>
+        <li><i></i><span><b>Te mostramos dónde se pierden</b> tus evaluaciones, con pruebas.</span></li>
+      </ul>
     </div>
-    <div class="d-ini" id="arranque">
+    <div class="d-ini espera" id="arranque">
       <div class="d-ini-top"><b>Empieza aquí</b><span>3 min · sin costo</span></div>
       <p class="d-ini-q">¿Qué te pasa hoy con tus pacientes nuevos?</p>
       <div id="ops0"></div>
@@ -981,124 +998,9 @@ body.dl{background:#fff;font-size:16.5px}
 </header>
 
 <main>
-<!-- ═════════ 2. LO QUE RECIBES ═════════ -->
-<section class="d-sec" id="recibes">
-  <div class="d-in">
-    <p class="d-kick">Lo que recibes, gratis</p>
-    <h2 class="d-h2">Tres análisis a tu clínica.<br>Cero soles.</h2>
-    <p class="d-lead">Valen S/250. Este mes los hacemos gratis para 10 clínicas.</p>
 
-    <div class="d-val">
-      <article class="d-card d-card-main rv">
-        <div class="d-card-txt">
-          <span class="d-num">01</span>
-          <h3>Paciente incógnito</h3>
-          <p>Le escribimos a tu clínica como un paciente real que quiere un implante. No solo medimos cuánto tardan: evaluamos <b>la experiencia completa</b>, de principio a fin.</p>
-        </div>
-        <div class="d-inf" id="incog" aria-label="Ejemplo de informe del paciente incógnito">
-          <div class="d-inf-top"><span>Informe del incógnito</span><small>Ejemplo</small></div>
-          <ul>
-            <li data-ok="0"><span>Primera respuesta</span><b>3 h 12 min</b></li>
-            <li data-ok="1"><span>Saludo y trato</span><b>Cordial</b></li>
-            <li data-ok="0"><span>Preguntan qué necesita</span><b>No</b></li>
-            <li data-ok="0"><span>Precio explicado con valor</span><b>Solo la cifra</b></li>
-            <li data-ok="0"><span>Lo invitan a la evaluación</span><b>No</b></li>
-            <li data-ok="0"><span>Seguimiento (48 h)</span><b>Nadie escribió</b></li>
-          </ul>
-          <div class="d-inf-pie"><span>Experiencia del paciente</span><b id="incogN">1/6</b></div>
-        </div>
-      </article>
 
-      <article class="d-card rv">
-        <span class="d-num">02</span>
-        <h3>Análisis de tu marketing</h3>
-        <p>Revisamos tus anuncios, tu Instagram y tu web con ojos de paciente: qué te trae consultas, qué solo gasta y por qué te comparan por precio.</p>
-        <div class="d-tags"><span>Anuncios</span><span>Instagram</span><span>Web</span><span>Mensaje</span></div>
-      </article>
 
-      <article class="d-card rv">
-        <span class="d-num">03</span>
-        <h3>Diagnóstico de tu proceso</h3>
-        <p>Mora, nuestra IA, puntúa del 0 al 100 cómo filtras, respondes, das el precio y haces seguimiento. <b>Lo ves hoy, en 3 minutos.</b></p>
-        <div class="d-mini"><div class="d-ring" id="ring"><b id="ringN">0</b></div><span>Salud comercial<br><small>de tu clínica</small></span></div>
-      </article>
-    </div>
-
-    <p class="d-extra">En la reunión te llevas además <b>un plan de acción</b> y <b>una estrategia de contenido de autoridad</b> para que te elijan por confianza, no por precio.</p>
-    <button class="btn d-cta" data-abrir>Ver si mi clínica califica <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-  </div>
-</section>
-
-<!-- ═════════ 3. DÓNDE SE PIERDEN ═════════ -->
-<section class="d-sec d-osc" id="fuga">
-  <div class="d-in d-fuga-grid">
-    <div>
-      <p class="d-kick">Lo que vemos en casi todas las clínicas</p>
-      <h2 class="d-h2">El paciente no se fue por el precio.<br><em>Se fue en el chat.</em></h2>
-      <ol class="d-fugas">
-        <li><span><b>Responden tarde.</b> Para entonces ya le escribió a otras tres clínicas.</span></li>
-        <li><span><b>Dan la cifra y nada más.</b> Sin valor ni invitación a la evaluación, solo queda comparar precios.</span></li>
-        <li><span><b>Nadie vuelve a escribir.</b> El que dijo “lo voy a pensar” se enfría solo.</span></li>
-      </ol>
-      <p class="d-nota">Las consultas ya las pagaste con tus anuncios. La auditoría te muestra en cuál de estos puntos se te van.</p>
-    </div>
-    <div class="d-tel" aria-hidden="true">
-      <div class="d-tel-top"><div class="d-tel-av">MC</div><div><b>María C.</b><small>Vino por tu anuncio</small></div></div>
-      <div class="d-chat" id="chat">
-        <div class="m el">Hola doctor, vi su anuncio 😊<small>10:02</small></div>
-        <div class="m el">¿Cuánto cuesta un implante?<small>10:02</small></div>
-        <div class="t">3 horas después</div>
-        <div class="m yo">Hola, el implante cuesta S/3,500<small>13:14 <i>✓✓</i></small></div>
-        <div class="m el">Ok, gracias. Lo voy a pensar<small>13:20</small></div>
-        <div class="fin">Nunca agendó su evaluación</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═════════ 4. CÓMO FUNCIONA ═════════ -->
-<section class="d-sec" id="como">
-  <div class="d-in">
-    <p class="d-kick">Cómo funciona</p>
-    <h2 class="d-h2">3 minutos tuyos.<br><em>El resto lo hacemos nosotros.</em></h2>
-    <ol class="d-pasos">
-      <li class="rv"><small>Hoy · 3 min</small><b>Haces el diagnóstico</b><span>Respondes 13 preguntas y ves tu puntaje al instante.</span></li>
-      <li class="rv"><small>Si calificas</small><b>Reservas tu cupo</b><span>Eliges día y hora. Solo 10 clínicas al mes.</span></li>
-      <li class="rv"><small>Antes de la reunión</small><b>Hacemos el incógnito</b><span>Le escribimos a tu clínica y revisamos tu marketing.</span></li>
-      <li class="rv"><small>60 min · Google Meet</small><b>Te mostramos todo</b><span>Capturas, hallazgos y tu plan de acción, 1 a 1.</span></li>
-    </ol>
-  </div>
-</section>
-
-<!-- ═════════ 5. PARA QUIÉN ═════════ -->
-<section class="d-sec d-gris" id="quien">
-  <div class="d-in">
-    <p class="d-kick">Solo 10 al mes</p>
-    <h2 class="d-h2">¿Es para tu clínica?</h2>
-    <p class="d-lead">Cada auditoría la prepara una persona, no un bot. Por eso elegimos con quién trabajamos.</p>
-    <div class="d-fit">
-      <div class="d-si">
-        <h3>Sí, si…</h3>
-        <ul>
-          <li>Haces implantes, rehabilitación oral u ortodoncia</li>
-          <li>Eres el dueño, director o socio de la clínica</li>
-          <li>Tus tratamientos cuestan desde S/2,000</li>
-          <li>Recibes al menos 30 consultas nuevas al mes</li>
-          <li>Quieres corregirlo este mes</li>
-        </ul>
-      </div>
-      <div class="d-no">
-        <h3>No, si…</h3>
-        <ul>
-          <li>Solo haces odontología general o limpiezas</li>
-          <li>Eres agencia o llevas el marketing de una clínica</li>
-          <li>Solo quieres información, sin implementar</li>
-        </ul>
-        <p>Si no calificas igual recibes tu diagnóstico y una guía gratuita.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═════════ 6. PRUEBA ═════════ -->
 <section class="d-sec" id="prueba">
@@ -1142,19 +1044,6 @@ body.dl{background:#fff;font-size:16.5px}
   </div>
 </section>
 
-<!-- ═════════ 8. FAQ ═════════ -->
-<section class="d-sec" id="faq">
-  <div class="d-in d-faq-grid">
-    <h2 class="d-h2">Preguntas de doctores</h2>
-    <div class="d-faq">
-      <details><summary>¿Por qué es gratis si vale S/250?</summary><p>Porque queremos trabajar con clínicas que buscan crecer, y la mejor forma de demostrarlo es con tus propios datos. <b>Solo son 10 al mes</b> y solo para clínicas que califican.</p></details>
-      <details><summary>¿Mi equipo se va a dar cuenta del incógnito?</summary><p>No. Escribimos como un paciente más, por WhatsApp o Instagram. <b>Te recomendamos no avisarles</b>, así ves cómo atienden en un día normal.</p></details>
-      <details><summary>¿Cuánto de mi tiempo necesito?</summary><p>3 minutos hoy para el diagnóstico y 60 minutos en la reunión por Google Meet, en el horario que elijas. Del incógnito y el análisis nos encargamos nosotros.</p></details>
-      <details><summary>¿Me van a vender algo?</summary><p>Al final te contamos cómo trabajamos, por si quieres que lo implementemos contigo. <b>Es opcional y sin presión.</b> El plan de acción es tuyo igual.</p></details>
-      <details><summary>¿Quién está detrás de 7Legend?</summary><p>Carlos Moreno Carrasco, con <b>RUC 10444594794</b>. Tenemos Libro de Reclamaciones y términos publicados.</p></details>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer class="d-fin" id="cierre"><div class="d-in">
@@ -1343,38 +1232,18 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   });
 })();
 
-/* informe del incógnito: se marca fila por fila */
+/* hero: titular → promesas una por una → recién aparece la primera pregunta */
 (function(){
-  const L=[...$('incog').querySelectorAll('li')]; let hecho=false;
-  enVista($('incog'),v=>{
-    if(!v||hecho) return; hecho=true; let ok=0;
-    L.forEach((li,k)=>setTimeout(()=>{ li.classList.add('on'); if(li.dataset.ok==='1') ok++; $('incogN').textContent=ok+'/'+(k+1); },reduce?0:350+k*420));
-    setTimeout(()=>{ $('incogN').textContent=ok+'/6'; },reduce?0:350+L.length*420);
-  },.35);
-  if(reduce) L.forEach(li=>li.classList.add('on'));
-})();
-
-/* anillo del diagnóstico */
-(function(){
-  let hecho=false;
-  enVista($('ring'),v=>{
-    if(!v||hecho) return; hecho=true;
-    const t0=performance.now(), f=t=>{ const k=reduce?1:Math.min(1,(t-t0)/1300), n=Math.round(38*(1-Math.pow(1-k,3)));
-      $('ringN').textContent=n; $('ring').style.setProperty('--p',n); if(k<1) requestAnimationFrame(f); };
-    requestAnimationFrame(f);
-  },.5);
-})();
-
-/* chat de WhatsApp (se repite mientras se ve) */
-(function(){
-  const it=[...$('chat').children]; let timers=[], activo=false;
-  const T=[300,1000,1900,2700,4100,5000];
-  function ciclo(){
-    timers.forEach(clearTimeout); timers=[]; it.forEach(e=>e.classList.remove('on'));
-    it.forEach((e,k)=>timers.push(setTimeout(()=>e.classList.add('on'),reduce?0:T[k])));
-    if(!reduce) timers.push(setTimeout(()=>{ if(activo) ciclo(); },9500));
-  }
-  enVista($('chat'),v=>{ if(v&&!activo){ activo=true; ciclo(); } else if(!v){ activo=false; } },.3);
+  const hero=document.querySelector('.d-hero'), it=[$('intro'),...$('prom').children], card=$('arranque');
+  const fin=()=>{ it.forEach(e=>e.classList.add('ve')); card.classList.remove('espera'); card.classList.add('ver'); };
+  if(reduce){ fin(); return; }
+  hero.classList.add('anim');
+  const nW=$('titular').querySelectorAll('.w').length, t0=Math.min(1400,300+nW*70);
+  it.forEach((e,k)=>setTimeout(()=>e.classList.add('ve'),t0+k*650));
+  setTimeout(fin,t0+it.length*650+350);
+  /* si el doctor ya bajó o tocó la página, no lo hacemos esperar */
+  const ya=()=>{ fin(); removeEventListener('scroll',ya); };
+  addEventListener('scroll',ya,{passive:true,once:true});
 })();
 
 /* brillo que recorre las opciones de la primera pregunta hasta que toquen una */
@@ -1390,7 +1259,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     if(k<ops.length){ ops[k].classList.add('brilla'); k++; setTimeout(paso,380); }
     else { k=0; setTimeout(paso,2800); }
   }
-  setTimeout(paso,1800);
+  setTimeout(paso,5200);
 })();
 
 /* eventos para Clarity */
