@@ -552,7 +552,7 @@ function plantillasWa(l,r){
   const c=D.config||{}, n=String((r&&r.nombre)||(l&&l.nombre)||'').trim().split(' ')[0]||'', neg=(l&&l.negocio)||(r&&r.negocio)||'tu negocio';
   const fuga=String((l&&l.hallazgos)||'').split('\n').map(x=>x.replace(/^[•\-\s]+/,'').trim()).filter(Boolean)[0]||'';
   const meet=c.zoom||'[link de Meet]', P=c.precio||250, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
-  const plan=l&&l.plan==='Legend'?['Legend',c.planLegend||2100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['PRO',c.planPRO||1100];
+  const plan=l&&l.plan==='PRO'?['PRO',c.planPRO||1100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['Legend',c.planLegend||2100]; /* Legend es el plan a vender */
   const T=[];
   const con=l&&(D.contratos||[]).filter(x=>x.lead_id===l.lead_id&&['Enviado','Visto'].includes(x.estado)).sort((a,b)=>b.creado.localeCompare(a.creado))[0];
   if(con) T.push({id:'contrato',t:'Contrato para firmar',c:con.estado==='Visto'?'Lo abrió pero aún no firma':'Le enviaste el contrato',
@@ -585,7 +585,7 @@ function plantillasWa(l,r){
     T.push({id:'gracias',t:'Gracias + resumen',c:'Al terminar la videollamada',
       m:`Gracias por tu tiempo hoy, ${n} 🙌 Te resumo lo que acordamos:\n\n1. \n2. \n3. \n\nCualquier duda, escríbeme por aquí.`});
     T.push({id:'plan',t:'Propuesta del plan',c:'1 o 2 días después de la asesoría',
-      m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (Mora respondiendo 24/7, capacitación de ventas y CRM), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?', 1 mes':' al mes'}).\n\n¿Lo conversamos 10 minutos?`});
+      m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (gestión de tus anuncios, Mora respondiendo 24/7, CRM y reunión semanal conmigo), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?', 1 mes':' al mes'}).\n\n¿Lo conversamos 10 minutos?`});
     T.push({id:'noasistio',t:'No se conectó',c:'Si no asistió',
       m:`Hola ${n}, te esperé hoy a las ${hora} y no pudimos conectarnos. ¿Todo bien? Si quieres, la movemos: dime qué día y hora te acomoda.`});
   }
@@ -602,7 +602,7 @@ function plantillasWa(l,r){
       r1:`Hola ${dr}, en 1 hora nos vemos para su auditoría 👉 ${meet}\n\nLe muestro todo en pantalla, así que mejor desde una computadora.`,
       conectado:`Hola ${dr}, ya estoy en la reunión con los resultados de su clínica 👉 ${meet}\n\n¿Se conecta?`,
       gracias:`Gracias por su tiempo hoy, ${dr} 🙌 Le resumo lo que vimos en la auditoría:\n\n1. Paciente incógnito: \n2. Marketing: \n3. Prioridad n.º 1: \n\nCualquier duda, escríbame por aquí.`,
-      plan:`Hola ${dr}, ¿pudo avanzar con lo que vimos en la auditoría? Si quiere que lo implementemos juntos (Mora respondiendo a sus pacientes 24/7, guion para su equipo y seguimiento de cada evaluación), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?'':' al mes'}). ¿Le parece si lo vemos?`,
+      plan:`Hola ${dr}, ¿pudo avanzar con lo que vimos en la auditoría? Si quiere que lo implementemos juntos (gestión de sus anuncios, Mora respondiendo a sus pacientes 24/7, CRM con seguimiento de cada evaluación, paciente incógnito mensual y reunión semanal conmigo), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?'':' al mes'}). ¿Le parece si lo vemos?`,
       noasistio:`Hola ${dr}, le esperé hoy a las ${hora} para su auditoría y no pudimos conectarnos. ¿Todo bien? Ya tengo los resultados de su clínica; si quiere, la movemos: dígame qué día y hora le acomoda.`
     };
     T.forEach(x=>{ if(D2[x.id]) x.m=D2[x.id]; });
@@ -809,7 +809,7 @@ function contratoHTML(l){
 function nuevoContrato(id){
   const l=leadPor(id), c=D.config||{}, hoy=new Date(Date.now()-5*3600e3).toISOString().slice(0,10);
   const pr={Basic:c.planBasic||550,PRO:c.planPRO||1100,Legend:c.planLegend||2100};
-  const plan0=['Basic','PRO','Legend'].includes(l.plan)?l.plan:'PRO';
+  const plan0=['Basic','PRO','Legend'].includes(l.plan)?l.plan:'Legend';
   modal(`<h3>Enviar contrato a ${h(l.nombre)}</h3><p class="sub">Le llega por correo un enlace para revisarlo, completar sus datos y firmar con el dedo. Al firmar, ambos reciben el PDF.</p>
     <label class="lb">Plan</label><div class="con-planes">${['Basic','PRO','Legend'].map(k=>`<label class="con-p"><input type="radio" name="cplan" value="${k}" ${k===plan0?'checked':''}><b>${k}</b><span>S/${Number(pr[k]).toLocaleString('en-US')}${k==='Basic'?' · 1 mes':' /mes · 3 meses mín.'}</span></label>`).join('')}</div>
     <div class="gestion" style="margin-top:12px">
