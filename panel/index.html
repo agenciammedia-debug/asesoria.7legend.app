@@ -17,14 +17,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--t:#1D1D1F;--t2:#3A3A3F;--g:#6E6E76;--g2:#9A9AA2;--l:#E6E7EB;--s:#F5F6F8;--b:#fff;--a:#1E6BFF;--ah:#155BE6;--as:#EAF1FF;
+:root{--t:#1D1D1F;--t2:#3A3A3F;--g:#6E6E76;--g2:#9A9AA2;--l:#E6E7EB;--s:#F5F6F8;--b:#fff;--a:#0A0A0A;--ah:#262626;--as:#F2FBD3;--lima:#D4FF2E;
   --r:#E5484D;--rs:#FDECEC;--v:#16A34A;--vs:#E8F7EE;--n:#F59E0B;--ns:#FEF5E6;--e:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Geist,system-ui,sans-serif;background:var(--s);color:var(--t);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
 a{color:var(--a);text-decoration:none}
 :focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:6px}
-.logo{font-weight:800;font-size:19px;letter-spacing:-.045em}.logo i{font-style:normal;color:var(--a)}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.045em}.logo i{font-style:normal;color:#9BB800}
+.aud-tabla{display:grid;gap:8px}.aud-f{display:grid;grid-template-columns:1fr 92px;gap:6px;align-items:center}.aud-f b{font-size:13.5px;font-weight:600}.aud-f .campo{padding:7px 8px;font-size:13.5px}.aud-f input.campo{grid-column:1/-1}
+.aud-sub{font-size:12.5px;font-weight:700;color:#5D6B00;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.04em}
+.aud-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}.aud-g .campo{font-size:13.5px;padding:8px 10px}
+.btn.lima{background:var(--lima);color:#0A0A0A}.btn.lima:hover{background:#C4F000}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer;background:var(--a);color:#fff;transition:background .2s,opacity .2s;white-space:nowrap}
 .btn:hover{background:var(--ah)}
 .btn.sec{background:#fff;color:var(--t);box-shadow:inset 0 0 0 1px var(--l)}
@@ -34,7 +38,7 @@ a{color:var(--a);text-decoration:none}
 .btn.mini{padding:6px 10px;font-size:13px;border-radius:8px}
 .btn[disabled]{opacity:.5;pointer-events:none}
 .campo{width:100%;border:1px solid #D5D7DD;border-radius:10px;padding:10px 12px;background:#fff;font-size:14.5px;transition:border-color .2s,box-shadow .2s}
-.campo:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(30,107,255,.12)}
+.campo:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(10,10,10,.12)}
 label.lb{display:block;font-size:13px;font-weight:500;color:var(--t2);margin:12px 0 6px}
 .ayuda{font-size:12.5px;color:var(--g);margin-top:4px}
 
@@ -160,7 +164,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .sw input:checked+i{background:var(--a)}.sw input:checked+i:after{transform:translateX(16px)}
 .horas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--as);color:var(--a);font-weight:600;font-size:13.5px;padding:5px 6px 5px 11px;border-radius:999px}
-.chip button{border:0;background:rgba(30,107,255,.15);color:var(--a);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1}
+.chip button{border:0;background:rgba(10,10,10,.15);color:var(--a);width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1}
 .dia.off .chip{background:var(--s);color:var(--g2)}.dia.off .chip button{background:#E6E7EB;color:var(--g2)}
 .add{display:inline-flex;gap:6px}
 .add input{width:118px;padding:6px 8px;border-radius:8px}
@@ -170,7 +174,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .slot:hover{border-color:var(--r);color:var(--r);text-decoration:line-through}
 .bloq{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--l);font-size:14px}
 .guardar-bar{position:sticky;bottom:16px;margin-top:16px;display:flex;justify-content:flex-end}
-.guardar-bar .btn{box-shadow:0 10px 30px -10px rgba(30,107,255,.6);padding:12px 20px}
+.guardar-bar .btn{box-shadow:0 10px 30px -10px rgba(10,10,10,.6);padding:12px 20px}
 
 /* grilla de horarios */
 .atajos{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
@@ -182,7 +186,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .g-h.media{color:transparent}
 .g-h.media:after{content:"·";color:var(--g2)}
 .c{height:30px;border-radius:7px;background:var(--s);border:1px solid var(--l);touch-action:none;cursor:pointer;display:grid;place-items:center;font-size:11px;font-weight:600;color:transparent;transition:background .12s,border-color .12s,transform .12s}
-.c:hover{border-color:rgba(30,107,255,.5)}
+.c:hover{border-color:rgba(10,10,10,.5)}
 .c.on{background:var(--a);border-color:var(--a);color:#fff}
 .c.hora{margin-top:4px}
 .g-pie{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:13px}
@@ -190,7 +194,7 @@ h2 small{font-weight:500;color:var(--g);font-size:13px}
 .g-pie b{margin-left:auto;font-weight:600;color:var(--v)}
 @media (max-width:520px){ .grilla{grid-template-columns:38px repeat(6,1fr);gap:2px} .c{height:28px;font-size:10px} .g-h{height:28px;line-height:28px} .g-dia{top:calc(env(safe-area-inset-top) + 96px)} }
 /* avisos push */
-.aviso-push{display:flex;gap:14px;align-items:center;background:var(--as);border:1px solid rgba(30,107,255,.25);border-radius:16px;padding:14px 16px;margin-bottom:18px}
+.aviso-push{display:flex;gap:14px;align-items:center;background:var(--as);border:1px solid rgba(10,10,10,.25);border-radius:16px;padding:14px 16px;margin-bottom:18px}
 .aviso-push p{flex:1;font-size:14px;color:#123B8F}
 .aviso-push p b{display:block;font-size:15px}
 .estado-push{font-size:13.5px;margin-top:10px;color:var(--g)}
@@ -585,17 +589,26 @@ function plantillasWa(l,r){
     T.push({id:'noasistio',t:'No se conectó',c:'Si no asistió',
       m:`Hola ${n}, te esperé hoy a las ${hora} y no pudimos conectarnos. ¿Todo bien? Si quieres, la movemos: dime qué día y hora te acomoda.`});
   }
-  const dental=/^Clínica dental/i.test(String((l&&l.rubro)||''));
-  if(r&&esAudit(r)){
-    const pr=T.find(x=>x.id==='presentar');
-    if(pr) pr.m=`Hola Dr(a). ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi que reservó su auditoría gratuita para el ${fl} a las ${hora}.\n\nAntes de la llamada voy a revisar su diagnóstico, sus anuncios y cómo responde su clínica a un paciente nuevo, para llevarle hallazgos concretos.\n\nLe llegó el link de Google Meet a su correo. ¿Me confirma que nos vemos?`;
-    const r24=T.find(x=>x.id==='r24');
-    if(r24) r24.m=`Hola Dr(a). ${n}, le recuerdo nuestra auditoría de mañana, ${fl} a las ${hora} 🗓️\n\nLink: ${meet}\n\nSi puede, tenga a mano el acceso a su cuenta de anuncios. ¿Todo bien para mañana?`;
+  const dental=(l&&esDental(l))||(r&&esAudit(r));
+  if(dental){
+    /* versión para doctores (auditoría gratuita): mismos ids, textos nuevos, sin cobros */
+    const dr=`Dr(a). ${n}`, linkAud=`${URL_RES(l&&l.lead_id)}${l&&l.lead_id?'&':'?'}oferta=auditoria`;
+    const D2={
+      contacto:`Hola ${dr} 👋 Soy Carlos Moreno, de 7Legend. Vi el diagnóstico de ${neg}${fuga?`: lo que más pacientes le está costando es «${fuga}»`:''}.\n\nSu clínica califica para la auditoría gratuita de este mes (valor S/${P}): nos hacemos pasar por un paciente, analizamos su marketing y le muestro dónde se pierden las evaluaciones.\n\nPuede elegir su horario aquí:\n${linkAud}`,
+      seguimiento:`Hola ${dr}, ¿pudo ver el diagnóstico de ${neg}? Me quedan pocos cupos de auditoría gratuita este mes y quería separarle uno antes de que se acaben 👇\n${linkAud}`,
+      guia:`Hola ${dr}, gracias por hacer el diagnóstico de ${neg} 🙌 Por ahora su clínica no entra en los cupos de auditoría de este mes, pero le dejo una guía gratuita con los 5 ajustes que más pacientes recuperan:\nhttps://asesoria.7legend.app/guia.html\n\nCualquier duda, escríbame por aquí.`,
+      presentar:`Hola ${dr} 👋 Soy Carlos Moreno, de 7Legend. Vi que reservó su auditoría gratuita para el ${fl} a las ${hora}.\n\nAntes de la reunión voy a analizar su marketing y la experiencia de un paciente nuevo en su clínica, para llevarle hallazgos concretos.\n\nLe llegó el link de Google Meet a su correo. ¿Me confirma que nos vemos?`,
+      r24:`Hola ${dr}, le recuerdo nuestra auditoría de mañana, ${fl} a las ${hora} 🗓️\n\nLink: ${meet}\n\nYa tengo listos los resultados del análisis. Si puede, conéctese desde una computadora. ¿Todo bien para mañana?`,
+      r1:`Hola ${dr}, en 1 hora nos vemos para su auditoría 👉 ${meet}\n\nLe muestro todo en pantalla, así que mejor desde una computadora.`,
+      conectado:`Hola ${dr}, ya estoy en la reunión con los resultados de su clínica 👉 ${meet}\n\n¿Se conecta?`,
+      gracias:`Gracias por su tiempo hoy, ${dr} 🙌 Le resumo lo que vimos en la auditoría:\n\n1. Paciente incógnito: \n2. Marketing: \n3. Prioridad n.º 1: \n\nCualquier duda, escríbame por aquí.`,
+      plan:`Hola ${dr}, ¿pudo avanzar con lo que vimos en la auditoría? Si quiere que lo implementemos juntos (Mora respondiendo a sus pacientes 24/7, guion para su equipo y seguimiento de cada evaluación), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?'':' al mes'}). ¿Le parece si lo vemos?`,
+      noasistio:`Hola ${dr}, le esperé hoy a las ${hora} para su auditoría y no pudimos conectarnos. ¿Todo bien? Ya tengo los resultados de su clínica; si quiere, la movemos: dígame qué día y hora le acomoda.`
+    };
+    T.forEach(x=>{ if(D2[x.id]) x.m=D2[x.id]; });
+    if(r) T.splice(T.findIndex(x=>x.id==='gracias')>-1?T.findIndex(x=>x.id==='gracias'):T.length,0,{id:'incognito_hecho',t:'Incógnito listo',c:'El día antes, si aún no confirma',
+      m:`Hola ${dr}, ya le escribimos a su clínica como paciente y terminamos el análisis de su marketing 🕵️\n\nHay cosas que le van a interesar. Se las muestro el ${fl} a las ${hora}. ¿Me confirma?`});
     return T.filter(x=>!/^pago_/.test(x.id));
-  }
-  if(!r&&dental){
-    const ct=T.find(x=>x.id==='contacto');
-    if(ct) ct.m=`Hola Dr(a). ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi el diagnóstico de ${neg}${fuga?`: lo que más pacientes le está costando es «${fuga}»`:''}.\n\nCalifica para la auditoría gratuita de este mes (valor S/${P}). Puede reservar su horario aquí:\n${URL_RES(l&&l.lead_id)}${l&&l.lead_id?'&':'?'}oferta=auditoria`;
   }
   return T;
 }
@@ -738,6 +751,7 @@ function abrirLead(id){
     </dl></div>
     ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${sinCobro(r)?opTxt(r):h(r.metodo)+' · <span class="op">'+h(r.operacion)+'</span>'}</p>
       ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
+    ${esDental(l)?audHTML(l):''}
     <div class="dr-sec"><h4>Contrato</h4>${contratoHTML(l)}</div>
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
       <div><label class="lb">Estado</label>${sel('estado',ESTADOS)}</div>
@@ -748,12 +762,38 @@ function abrirLead(id){
     <p class="ayuda">Si marcas "Cerró", pasa a Cliente. Al elegir un plan se completa el MRR.</p></div>`;
   $('drawer').classList.add('on'); $('velo').classList.add('on');
   $('cerrarDr').onclick=cerrarLead;
+  if($('guardarAud')) $('guardarAud').onclick=async()=>{
+    const q=s=>$('drawer').querySelector(s), I={canal:q('[data-aud="canal"]').value,fecha:q('[data-aud="fecha"]').value,items:{},comentario:q('[data-aud="comentario"]').value.trim()};
+    AUD_INC.forEach(([k])=>{ const v=q(`[data-inc="${k}"]`).value; I.items[k]={ok:v===''?null:+v,nota:q(`[data-nota="${k}"]`).value.trim()}; });
+    const M={}; AUD_MKT.forEach(([k])=>{ M[k]={bien:q(`[data-mk="${k}-bien"]`).value.trim(),mal:q(`[data-mk="${k}-mal"]`).value.trim()}; });
+    $('guardarAud').disabled=true;
+    try{ await run('adm_lead',id,{incognito:JSON.stringify(I),marketing:JSON.stringify(M)}); toast('Auditoría guardada ✓ Ya aparece en la presentación'); await cargar(); abrirLead(id); }
+    catch(e){ toast(e.message,true); $('guardarAud').disabled=false; }
+  };
   $('guardarLead').onclick=async()=>{
     const c={}; $('drawer').querySelectorAll('[data-campo]').forEach(el=>{ if(el.value!==(l[el.dataset.campo]||'')) c[el.dataset.campo]=el.value; });
     if(!Object.keys(c).length) return toast('No hay cambios');
     $('guardarLead').disabled=true;
     try{ await run('adm_lead',id,c); toast('Lead actualizado'); await cargar(); abrirLead(id); }catch(e){ toast(e.message,true); $('guardarLead').disabled=false; }
   };
+}
+/* ── AUDITORÍA DENTAL: resultado del incógnito y del análisis de marketing (alimenta la presentación) ── */
+const AUD_INC=[['resp','Primera respuesta','Ej: 3 h 12 min'],['trato','Saludo y trato','Ej: cordial, se presentó'],['necesidad','Preguntan qué necesita','Ej: no preguntaron nada'],['precio','Precio explicado con valor','Ej: solo la cifra'],['evaluacion','Lo invitan a la evaluación','Ej: no me invitaron'],['seguimiento','Seguimiento (48 h)','Ej: nadie volvió a escribir']];
+const AUD_MKT=[['anuncios','Anuncios'],['instagram','Instagram'],['web','Web y Google']];
+const esDental=l=>l.oferta==='auditoria_dental'||/^Clínica dental/i.test(String(l.rubro||''))||(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo==='Auditoría gratis');
+const jsn=t=>{ try{ const o=JSON.parse(t||''); return o&&typeof o==='object'?o:{}; }catch(e){ return {}; } };
+function audHTML(l){
+  const I=jsn(l.incognito), it=I.items||{}, M=jsn(l.marketing);
+  const op=(v,o,t)=>`<option value="${o}" ${String(v)===o?'selected':''}>${t}</option>`;
+  return `<div class="dr-sec"><h4>Auditoría · se muestra en la presentación</h4>
+    <div class="aud-sub" style="margin-top:0">Paciente incógnito</div>
+    <div class="aud-g" style="margin-bottom:10px"><select class="campo" data-aud="canal">${['WhatsApp','Instagram','Facebook','Llamada'].map(c=>`<option ${I.canal===c?'selected':''}>${c}</option>`).join('')}</select><input class="campo" data-aud="fecha" type="date" value="${h(I.fecha||'')}"></div>
+    <div class="aud-tabla">${AUD_INC.map(([k,t,ph])=>{ const r=it[k]||{}, v=r.ok==null?'':String(+r.ok); return `<div class="aud-f"><b>${t}</b><select class="campo" data-inc="${k}">${op(v,'','–')}${op(v,'1','✓ Bien')}${op(v,'0','✕ Mal')}</select><input class="campo" data-nota="${k}" placeholder="${ph}" value="${h(r.nota||'')}"></div>`; }).join('')}</div>
+    <textarea class="campo" data-aud="comentario" rows="2" style="margin-top:8px" placeholder="Lo que sintió el paciente, en una frase (sale en grande en la presentación)">${h(I.comentario||'')}</textarea>
+    <div class="aud-sub">Análisis de marketing</div>
+    ${AUD_MKT.map(([k,t])=>{ const m=M[k]||{}; return `<b style="font-size:13.5px">${t}</b><div class="aud-g" style="margin:6px 0 10px"><input class="campo" data-mk="${k}-bien" placeholder="Funciona…" value="${h(m.bien||'')}"><input class="campo" data-mk="${k}-mal" placeholder="Te frena…" value="${h(m.mal||'')}"></div>`; }).join('')}
+    <button class="btn lima" id="guardarAud" style="width:100%">Guardar auditoría</button>
+    <p class="ayuda">Llénalo antes de la reunión. Las láminas "Paciente incógnito" y "Tu marketing" se arman solas.</p></div>`;
 }
 /* ── CONTRATOS: enviar para firma electrónica y seguir su estado ── */
 const CON_ICO={Enviado:'📩',Visto:'👀',Firmado:'✅',Anulado:'—'};
