@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Presentación · 7Legend</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="icon-192.png">
 <script src="../config.js"></script>
 <style>
@@ -219,6 +219,68 @@ h2 span{color:var(--g2)}
 .pg-pagado button:hover{background:rgba(110,231,160,.12)}.pg-pagado button:focus-visible{outline:2px solid #6EE7A0;outline-offset:2px}
 .pg-pagado button[disabled]{opacity:.5;cursor:wait}
 .pg-pagado .ok{color:#6EE7A0;font-weight:700;font-size:16px}
+/* ═══ IDENTIDAD 7LEGEND (igual que la landing y los anuncios): negro + lima + Anton ═══ */
+:root{--a:#0A0A0A;--ah:#262626;--as:#F2FBD3;--lima:#D4FF2E;--menta:#D4FF2E;--noche:#0A0A0A}
+body{background:#000}
+.logo i{color:#9BB800}.osc .logo i,.roja .logo i{color:var(--lima)}
+.lamina{background:radial-gradient(ellipse 60% 55% at 92% 0%,rgba(212,255,46,.22) 0,transparent 60%),#fff}
+.lamina.osc{background:radial-gradient(ellipse 55% 60% at 85% 10%,rgba(212,255,46,.20),transparent 62%),var(--noche)}
+.lamina.roja{background:radial-gradient(ellipse 60% 60% at 75% 40%,rgba(229,72,77,.28),transparent 65%),var(--noche)}
+h1,h2{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.98}
+h1{font-size:96px}h2{font-size:66px}
+h2 span{color:#8A8A90}.osc h2 span,.roja h2 span{color:var(--lima)}
+.eti b{background:var(--lima);color:#0A0A0A}
+.trazo{background:linear-gradient(transparent 64%,var(--lima) 64%);padding:0 .05em}
+.trazo svg{display:none}
+.ag{border:1.5px solid #E4E6EA;box-shadow:none}
+.ag .n{color:#0A0A0A;background:var(--lima);display:inline-block;padding:3px 10px;border-radius:999px;font-size:14px}
+.mj .dir small{color:#5D6B00}
+.br .fl{color:var(--lima)}
+.plan.pro:before{background:radial-gradient(circle,rgba(212,255,46,.35),transparent 65%)}
+.reco{background:var(--lima);color:#0A0A0A;box-shadow:0 0 0 0 rgba(212,255,46,.6)}
+.paga{background:#F2FBD3;color:#4A5A00}.pro .paga{background:rgba(212,255,46,.15);color:var(--lima)}
+.plan li:before{color:#7A9400}.plan.pro li:before{color:var(--lima)}
+.bono .c b{color:#0A0A0A}
+.r .n{background:var(--lima);color:#0A0A0A}
+.pregunta{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:72px}
+.pregunta span{color:var(--lima)}
+.puntos i.on{background:var(--lima)!important}
+.pie:not(.claro) .puntos i.on{background:#0A0A0A!important}
+.kpi b,.monto,.mj .sc,.precio,.pg-precio b{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:0}
+.cmp input:focus{box-shadow:0 0 0 3px rgba(212,255,46,.8)}
+.meta-c input[type=range]{accent-color:var(--lima)}
+.pg-lista li:before{color:var(--lima)}
+#acceso button{background:#0A0A0A}
+/* incógnito */
+.inc{display:grid;grid-template-columns:1.35fr .65fr;gap:34px;margin-top:22px;flex:1;align-items:start}
+.inc ul{list-style:none;display:grid;gap:0}
+.inc li{display:grid;grid-template-columns:34px 300px 1fr;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:20px}
+.inc li i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:15px;background:#333;color:#999}
+.inc li.ok i{background:var(--lima);color:#0A0A0A}.inc li.mal i{background:#E5484D;color:#fff}
+.inc li b{font-weight:600}
+.inc li span{color:rgba(255,255,255,.62);font-size:18px}
+.inc li.mal span{color:#FF8A8D}.inc li.ok span{color:var(--lima)}
+.inc-sc{background:#151515;border:1px solid #2A2A2A;border-radius:24px;padding:26px}
+.inc-sc small{display:block;color:rgba(255,255,255,.55);font-size:15px}
+.inc-sc b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:120px;line-height:1;color:#FF6B6E}
+.inc-sc b.bien{color:var(--lima)}
+.inc-sc p{margin-top:14px;font-size:18px;line-height:1.4;color:rgba(255,255,255,.85);border-top:1px solid #2A2A2A;padding-top:14px}
+.inc-meta{font-size:17px;color:rgba(255,255,255,.55);margin-top:8px}
+.vacio{opacity:.45;font-style:italic}
+/* marketing */
+.mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px;flex:1}
+.mk{border:1.5px solid #E4E6EA;border-radius:24px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:14px}
+.mk h3{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:34px}
+.mk div{font-size:18px;line-height:1.35;color:#3A3A3F}
+.mk div small{display:inline-block;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:6px}
+.mk .bn small{background:var(--lima);color:#0A0A0A}
+.mk .ml small{background:#FDECEC;color:#C0282D}
+/* exonerado */
+.exo{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;flex:1}
+.exo-pr{text-align:center}
+.exo-pr s{display:block;font-family:Anton,Impact,sans-serif;font-size:120px;line-height:1;color:rgba(255,255,255,.4);text-decoration-thickness:10px}
+.exo-pr b{display:inline-block;margin-top:18px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:84px;line-height:1;color:#0A0A0A;background:var(--lima);padding:10px 26px 6px;border-radius:16px;transform:rotate(-4deg);box-shadow:0 20px 60px -20px rgba(212,255,46,.6)}
+.exo-pr p{margin-top:22px;color:rgba(255,255,255,.6);font-size:18px}
 </style>
 </head>
 <body>
@@ -226,14 +288,32 @@ h2 span{color:var(--g2)}
 
   <!-- 1 · PORTADA -->
   <section class="lamina on" data-n="1">
-    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Asesoría 1 a 1</span></div>
+    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span data-dental="Auditoría comercial">Asesoría 1 a 1</span></div>
     <span class="eti a" style="--i:1"><b>60 min</b><span data-c="negocio">Tu negocio</span></span>
-    <h1 class="a" style="--i:2">Hoy vemos dónde se pierden <span class="trazo">tus ventas<svg viewBox="0 0 400 20" preserveAspectRatio="none"><path d="M4 14 C 90 4, 200 18, 396 7"/></svg></span>, <span data-c="nombre">bienvenido</span>.</h1>
+    <h1 class="a" style="--i:2" data-dental-h1>Hoy vemos dónde se pierden <span class="trazo">tus ventas<svg viewBox="0 0 400 20" preserveAspectRatio="none"><path d="M4 14 C 90 4, 200 18, 396 7"/></svg></span>, <span data-c="nombre">bienvenido</span>.</h1>
     <div class="agenda">
-      <div class="ag a" style="--i:4"><div class="n">10 min</div><h3>Tu sistema hoy</h3><p>Anuncios, respuesta y venta.</p></div>
-      <div class="ag a" style="--i:5"><div class="n">35 min</div><h3>Tus números</h3><p>Y tu plan de mejora.</p></div>
-      <div class="ag a" style="--i:6"><div class="n">10 min</div><h3>Cómo seguimos</h3><p>Tú decides.</p></div>
+      <div class="ag a" style="--i:4" data-dental='<div class="n">15 min</div><h3>El paciente incógnito</h3><p>Cómo atendieron a tu “paciente”.</p>'><div class="n">10 min</div><h3>Tu sistema hoy</h3><p>Anuncios, respuesta y venta.</p></div>
+      <div class="ag a" style="--i:5" data-dental='<div class="n">30 min</div><h3>Tu marketing y tus números</h3><p>Anuncios, Instagram y lo que se escapa.</p>'><div class="n">35 min</div><h3>Tus números</h3><p>Y tu plan de mejora.</p></div>
+      <div class="ag a" style="--i:6" data-dental='<div class="n">15 min</div><h3>Tu plan y cómo seguimos</h3><p>Tú decides.</p>'><div class="n">10 min</div><h3>Cómo seguimos</h3><p>Tú decides.</p></div>
     </div>
+  </section>
+
+  <!-- A · PACIENTE INCÓGNITO (solo auditorías) -->
+  <section class="lamina osc" data-n="incog">
+    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Paciente incógnito</span></div>
+    <h2 class="a" style="--i:1">Así atendieron<br><span>a tu “paciente”.</span></h2>
+    <p class="inc-meta a" style="--i:2" id="incMeta"></p>
+    <div class="inc">
+      <ul class="a" style="--i:3" id="incLista"></ul>
+      <div class="inc-sc a" style="--i:4"><small>Experiencia del paciente</small><b id="incSc">—</b><p id="incCom"></p></div>
+    </div>
+  </section>
+
+  <!-- B · MARKETING (solo auditorías) -->
+  <section class="lamina" data-n="mkt">
+    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Tu marketing</span></div>
+    <h2 class="a" style="--i:1">Tu marketing,<br><span>con ojos de paciente.</span></h2>
+    <div class="mkt" id="mkt"></div>
   </section>
 
   <!-- 2 · DIAGNÓSTICO -->
@@ -251,7 +331,21 @@ h2 span{color:var(--g2)}
 
   <!-- 2b · PAGO EN LA LLAMADA -->
   <section class="lamina osc" data-n="pago">
-    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Para seguir</span></div>
+    <div class="cab a"><span class="logo">7Legend<i>.</i></span><span id="pgCab">Para seguir</span></div>
+    <div id="pgAud" hidden>
+      <h2 class="a" style="--i:1">Todo esto tiene un valor de S/<span data-c="precio" style="color:inherit">250</span>.<br><span>Hoy no pagas nada.</span></h2>
+      <div class="exo" style="margin-top:34px">
+        <ul class="pg-lista a" style="--i:2">
+          <li>Paciente incógnito a tu clínica</li>
+          <li>Análisis de tus anuncios, Instagram y web</li>
+          <li>Diagnóstico de tu proceso con IA</li>
+          <li>Tus números y tu plan de acción</li>
+          <li>Estrategia de contenido de autoridad</li>
+        </ul>
+        <div class="exo-pr a" style="--i:3"><s>S/<span data-c="precio">250</span></s><b>Exonerado</b><p>Es uno de los 10 cupos gratuitos de este mes.</p></div>
+      </div>
+    </div>
+    <div id="pgNorm">
     <h2 class="a" style="--i:1">Ya viste dónde se pierden tus ventas.<br><span>Ahora vemos cómo recuperarlas.</span></h2>
     <div class="pg-grid">
       <div class="a" style="--i:2">
@@ -265,23 +359,24 @@ h2 span{color:var(--g2)}
       <div class="a" style="--i:3"><p class="pg-q">¿Con cuál prefieres pagar?</p><div class="pg-medios" id="pgMedios"></div>
         <div class="pg-pagado" id="pgPagado" hidden><span>¿Ya pagó? Márcalo aquí:</span><div id="pgBtns"></div></div></div>
     </div>
+    </div>
   </section>
 
   <!-- 3 · TUS NÚMEROS -->
   <section class="lamina" data-n="3">
     <div class="cab a"><span class="logo">7Legend<i>.</i></span><span>Tus números</span></div>
-    <h2 class="a" style="--i:1">Tus anuncios sí traen gente.</h2>
+    <h2 class="a" style="--i:1" data-dental="Tus anuncios sí traen pacientes.">Tus anuncios sí traen gente.</h2>
     <div class="vivo">
       <div class="campos">
         <div class="cmp a" style="--i:2"><label>Inversión al mes<small>en anuncios</small></label><div class="in">S/<input id="gGasto" inputmode="numeric" placeholder="0"></div></div>
-        <div class="cmp a" style="--i:3"><label>Mensajes al mes<small>personas que escriben</small></label><div class="in"><input id="gMsj" inputmode="numeric" placeholder="0"></div></div>
-        <div class="cmp a" style="--i:4"><label>Ventas al mes<small>de esos mensajes</small></label><div class="in"><input id="gVen" inputmode="numeric" placeholder="0"></div></div>
-        <div class="cmp a" style="--i:5"><label>Ticket promedio<small>lo que vale una venta</small></label><div class="in">S/<input id="gTic" inputmode="numeric" placeholder="0"></div></div>
+        <div class="cmp a" style="--i:3"><label data-dental="Consultas al mes<small>pacientes que escriben</small>">Mensajes al mes<small>personas que escriben</small></label><div class="in"><input id="gMsj" inputmode="numeric" placeholder="0"></div></div>
+        <div class="cmp a" style="--i:4"><label data-dental="Tratamientos al mes<small>de esas consultas</small>">Ventas al mes<small>de esos mensajes</small></label><div class="in"><input id="gVen" inputmode="numeric" placeholder="0"></div></div>
+        <div class="cmp a" style="--i:5"><label data-dental="Valor del tratamiento<small>lo que cobras en promedio</small>">Ticket promedio<small>lo que vale una venta</small></label><div class="in">S/<input id="gTic" inputmode="numeric" placeholder="0"></div></div>
       </div>
       <div class="kpis">
-        <div class="kpi a" style="--i:4"><small>Cada mensaje te cuesta</small><b id="kMsj">S/—</b></div>
+        <div class="kpi a" style="--i:4"><small data-dental="Cada consulta te cuesta">Cada mensaje te cuesta</small><b id="kMsj">S/—</b></div>
         <div class="kpi a" style="--i:5"><small>Cierras</small><b id="kCie">—%</b><div class="sub" id="kCieTxt">de los que escriben</div></div>
-        <div class="kpi grande a" style="--i:6"><small>Cada venta te cuesta</small><b id="kVen">S/—</b><div class="sub" id="kVenTxt">en anuncios</div></div>
+        <div class="kpi grande a" style="--i:6"><small data-dental="Cada paciente te cuesta">Cada venta te cuesta</small><b id="kVen">S/—</b><div class="sub" id="kVenTxt">en anuncios</div></div>
       </div>
     </div>
   </section>
@@ -299,10 +394,10 @@ h2 span{color:var(--g2)}
       <div class="meta-c a" style="--i:3">
         <div class="f"><span>Si cerraras</span><b><span id="pMetaTxt">10</span>%</b></div>
         <input type="range" id="pMeta" min="3" max="30" step="1" value="10" aria-label="Meta de cierre">
-        <div class="fila-p"><span>Ventas posibles</span><b id="pPos">0</b></div>
-        <div class="fila-p"><span>Ventas de hoy</span><b id="pHoy">0</b></div>
+        <div class="fila-p"><span data-dental="Tratamientos posibles">Ventas posibles</span><b id="pPos">0</b></div>
+        <div class="fila-p"><span data-dental="Tratamientos de hoy">Ventas de hoy</span><b id="pHoy">0</b></div>
         <div class="fila-p r"><span>Se te escapan</span><b id="pEsc">0</b></div>
-        <p class="nota">Con tus mensajes y tu ticket de la lámina anterior.</p>
+        <p class="nota" data-dental="Con tus consultas y el valor del tratamiento de la lámina anterior.">Con tus mensajes y tu ticket de la lámina anterior.</p>
       </div>
     </div>
   </section>
@@ -414,7 +509,7 @@ function ir(n){
   i=Math.max(0,Math.min(N-1,n));
   L.forEach((l,k)=>{ l.classList.toggle('on',k===i); });
   [...$('puntos').children].forEach((p,k)=>p.classList.toggle('on',k<=i));
-  $('num').textContent=(i+1)+' / '+N;
+  const vis=L.filter(l=>!l.classList.contains('salta')); $('num').textContent=(vis.indexOf(L[i])+1)+' / '+vis.length;
   $('pie').classList.toggle('claro',L[i].classList.contains('osc')||L[i].classList.contains('roja'));
   if(document.activeElement&&document.activeElement.tagName==='INPUT') document.activeElement.blur();
   const dn=L[i].dataset.n;
@@ -501,11 +596,43 @@ const PIL=[
 /* ticket e inversión sugeridos a partir del diagnóstico */
 const medio=s=>{ const n=String(s||'').replace(/,/g,'').match(/\d+/g); if(!n) return ''; if(/Menos/.test(s)) return Math.round(+n[0]*0.6); if(/Más/.test(s)) return +n[0]; return Math.round((+n[0]+ +n[1])/2); };
 
+/* ── auditoría dental ── */
+const INC=[['resp','Primera respuesta'],['trato','Saludo y trato'],['necesidad','Preguntan qué necesita'],['precio','Precio explicado con valor'],['evaluacion','Lo invitan a la evaluación'],['seguimiento','Seguimiento (48 h)']];
+const MKT=[['anuncios','Anuncios'],['instagram','Instagram'],['web','Web y Google']];
+const PIL_D={filtro:{dir:'Responder en menos de 5 minutos y preguntar qué necesita',de:'Responde quien puede, cuando puede',ax:'Mora responde en segundos'},
+  ventas:{dir:'Saludo, necesidad, valor y recién el precio, con invitación a la evaluación',de:'Cada asistente lo hace distinto',ax:'Tu equipo, con guion'},
+  crm:{dir:'Cada paciente con estado y fecha de seguimiento',de:'Pacientes perdidos en el chat',ax:'Un CRM que te avisa'},
+  anuncios:{dir:'Lo que trae evaluaciones no se toca. Se ajusta al final',de:'Prueba y error',ax:'Optimización semanal'}};
+const EJ_INC={canal:'WhatsApp',fecha:'',items:{resp:{ok:0,nota:'3 h 12 min'},trato:{ok:1,nota:'Cordial y rápido al saludar'},necesidad:{ok:0,nota:'No preguntaron qué necesitaba'},precio:{ok:0,nota:'Solo la cifra: S/3,500'},evaluacion:{ok:0,nota:'No me invitaron a evaluarme'},seguimiento:{ok:0,nota:'Nadie volvió a escribir'}},comentario:'Me dieron el precio y la conversación terminó ahí. Como paciente, no tenía un siguiente paso.'};
+const EJ_MKT={anuncios:{bien:'Los anuncios de implantes traen consultas a buen costo',mal:'Llevan a WhatsApp sin filtro: llegan curiosos y gente fuera de Lima'},instagram:{bien:'Buenos casos de antes y después',mal:'No se ve al doctor ni por qué confiar en él'},web:{bien:'Aparece en Google Maps con buenas reseñas',mal:'La web no tiene botón de WhatsApp ni precios de referencia'}};
+const js=(t,d)=>{ try{ const o=JSON.parse(t||''); return o&&typeof o==='object'?o:d; }catch(e){ return d; } };
+let DENTAL=false;
+function dentalTextos(on){
+  document.querySelectorAll('[data-dental]').forEach(e=>{ if(e.dataset.orig==null) e.dataset.orig=e.innerHTML; e.innerHTML=on?e.dataset.dental:e.dataset.orig; });
+  const h1=document.querySelector('[data-dental-h1]'); if(h1.dataset.orig==null) h1.dataset.orig=h1.innerHTML;
+  h1.innerHTML=on?'Hoy ves dónde se pierden <span class="trazo">tus pacientes</span>, Dr(a). <span data-c="nombre"></span>.':h1.dataset.orig;
+}
+function pintarAuditoria(x,ejemplo){
+  const I=js(x.incognito,ejemplo?EJ_INC:{}), it=I.items||{};
+  let ok=0, n=0;
+  $('incLista').innerHTML=INC.map(([k,t])=>{ const r=it[k]||{}; const est=r.ok===1||r.ok===true?'ok':r.ok===0||r.ok===false?'mal':''; if(est){ n++; if(est==='ok') ok++; }
+    return `<li class="${est}"><i>${est==='ok'?'✓':est==='mal'?'✕':'–'}</i><b>${t}</b><span class="${r.nota?'':'vacio'}">${h(r.nota||'Sin completar')}</span></li>`; }).join('');
+  $('incSc').textContent=n?ok+'/'+n:'—'; $('incSc').classList.toggle('bien',n&&ok/n>=.7);
+  $('incCom').innerHTML=I.comentario?'“'+h(I.comentario)+'”':'<span class="vacio">Llénalo en el panel: ficha del lead → Auditoría.</span>';
+  $('incMeta').textContent=[I.canal?'Escribimos por '+I.canal:'',I.fecha?'el '+I.fecha:''].filter(Boolean).join(' ')+(ejemplo?' · Ejemplo':'');
+  const M=js(x.marketing,ejemplo?EJ_MKT:{});
+  $('mkt').innerHTML=MKT.map(([k,t],j)=>{ const m=M[k]||{}; return `<div class="mk a" style="--i:${2+j}"><h3>${t}</h3><div class="bn"><small>Funciona</small><br><span class="${m.bien?'':'vacio'}">${h(m.bien||'Sin completar')}</span></div><div class="ml"><small>Te frena</small><br><span class="${m.mal?'':'vacio'}">${h(m.mal||'Sin completar')}</span></div></div>`; }).join('');
+}
+
 function pintar(l){
   lead=l; const c=(D&&D.config)||{};
-  const ej={lead_id:'',nombre:'Ana',negocio:'Clínica Aura',puntaje:38,nivel:'Crítico',pilares:'Filtro 30 · Ventas 30 · CRM 40 · Anuncios 60',ticket:'S/100 – S/500',inversion:'S/300 – S/1,000',
-    hallazgos:'• Respondes horas después y a todas por igual\n• Das el precio antes que el valor\n• No sabes en qué quedó cada paciente',angulo_venta:'Plan: Pro'};
+  const ej={lead_id:'',nombre:'Ana',negocio:'Clínica Aura',rubro:'Clínica dental · Implantes',oferta:'auditoria_dental',puntaje:38,nivel:'Crítico',pilares:'Filtro 30 · Ventas 30 · CRM 40 · Anuncios 60',ticket:'S/2,000 – S/5,000',inversion:'S/300 – S/1,000',
+    hallazgos:'• Respondes horas después y a todos por igual\n• Das el precio sin invitar a la evaluación\n• Nadie le escribe al que lo va a pensar',angulo_venta:'Plan: Pro'};
   const x=l||ej;
+  DENTAL=x.oferta==='auditoria_dental'||/^Clínica dental/i.test(String(x.rubro||''))||!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo==='Auditoría gratis'));
+  dentalTextos(DENTAL);
+  ['incog','mkt'].forEach(k=>document.querySelector(`[data-n="${k}"]`).classList.toggle('salta',!DENTAL));
+  if(DENTAL) pintarAuditoria(x,!l);
   const nombre=String(x.nombre||'').split(' ')[0];
   document.querySelectorAll('[data-c="nombre"]').forEach(e=>e.textContent=nombre);
   document.querySelectorAll('[data-c="negocio"]').forEach(e=>e.textContent=x.negocio||'tu negocio');
@@ -519,10 +646,11 @@ function pintar(l){
   while(fx.length<3) fx.push('—');
   $('fugas').innerHTML=fx.map((f,k)=>`<div class="fuga a" style="--i:${3+k}"><i>${k+1}</i><div>${(x.pilares||x.filtro)?`<small>${PIL.find(p=>p.k===orden[k]).t}</small>`:''}${h(f)}</div></div>`).join('');
   // plan de mejora
-  $('mejora').innerHTML=PIL.map((p,k)=>`<div class="mj a${p.k==='anuncios'?' ult':''}" style="--i:${2+k};--c:${col(PP[p.k])}"><div class="sc" style="color:${col(PP[p.k])}">${PP[p.k]}<small>/100</small></div><h3>${k+1}. ${p.t}</h3><div class="dir"><small>Qué cambiar</small>${p.dir}</div></div>`).join('');
+  const tx=p=>DENTAL?Object.assign({},p,PIL_D[p.k]):p;
+  $('mejora').innerHTML=PIL.map(tx).map((p,k)=>`<div class="mj a${p.k==='anuncios'?' ult':''}" style="--i:${2+k};--c:${col(PP[p.k])}"><div class="sc" style="color:${col(PP[p.k])}">${PP[p.k]}<small>/100</small></div><h3>${k+1}. ${p.t}</h3><div class="dir"><small>Qué cambiar</small>${p.dir}</div></div>`).join('');
   // brecha
   const FL='<svg class="fl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
-  $('brecha').innerHTML=PIL.map((p,k)=>`<div class="br a${p.k==='anuncios'?' ult':''}" style="--i:${2+k}"><h3>${p.t}</h3><div class="de">${p.de}</div>${FL}<div class="ax">${p.ax}</div></div>`).join('');
+  $('brecha').innerHTML=PIL.map(tx).map((p,k)=>`<div class="br a${p.k==='anuncios'?' ult':''}" style="--i:${2+k}"><h3>${p.t}</h3><div class="de">${p.de}</div>${FL}<div class="ax">${p.ax}</div></div>`).join('');
   // puntaje
   P=Math.max(0,Math.min(100,+x.puntaje||0)); $('nivel').textContent=x.nivel||'—';
   $('anillo').style.setProperty('--c',col(P));
@@ -539,11 +667,11 @@ function pintar(l){
   $('gTic').value=g.tic!=null?g.tic:medio(x.ticket);
   $('pMeta').value=g.meta||10;
   calcNumeros(); calcPerdida();
-  const yaPago=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo&&r.metodo!=='En llamada'&&['Confirmada','Realizada'].includes(r.estado)));
+  const yaPago=!DENTAL&&!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo&&r.metodo!=='En llamada'&&['Confirmada','Realizada'].includes(r.estado)));
   document.querySelector('[data-n="pago"]').classList.toggle('salta',yaPago);
-  const audit=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo==='Auditoría gratis'));
-  if(audit) document.querySelector('[data-n="pago"]').classList.add('salta');
-  document.querySelector('[data-n="8"]').classList.toggle('salta',audit);
+  /* auditoría: la lámina de pago muestra el valor S/250 exonerado y no hay bono */
+  $('pgAud').hidden=!DENTAL; $('pgNorm').hidden=DENTAL; $('pgCab').textContent=DENTAL?'Tu auditoría':'Para seguir';
+  document.querySelector('[data-n="8"]').classList.toggle('salta',DENTAL);
   pintarPagado(l);
   if(L[i].dataset.n==='2') animarPuntaje();
 }
@@ -579,12 +707,12 @@ function calcNumeros(){
   const g=num($('gGasto').value), m=num($('gMsj').value), v=num($('gVen').value);
   if(g&&m) cuenta($('kMsj'),g/m,{pre:'S/',dec:g/m<10?2:0}); else { $('kMsj').textContent='S/—'; $('kMsj').dataset.v=0; }
   if(m){ const c=v/m*100; cuenta($('kCie'),c,{suf:'%',dec:c<10?1:0}); $('kCieTxt').textContent=`${v} de cada ${m} que escriben`; } else { $('kCie').textContent='—%'; $('kCieTxt').textContent='de los que escriben'; }
-  if(g&&v){ cuenta($('kVen'),g/v,{pre:'S/'}); $('kVenTxt').textContent='en anuncios, por cada venta'; }
-  else if(g&&m&&!v){ $('kVen').textContent='Sin ventas'; $('kVen').dataset.v=0; $('kVenTxt').textContent=`S/${soles(g)} invertidos sin una sola venta`; }
+  if(g&&v){ cuenta($('kVen'),g/v,{pre:'S/'}); $('kVenTxt').textContent=DENTAL?'en anuncios, por cada paciente':'en anuncios, por cada venta'; }
+  else if(g&&m&&!v){ $('kVen').textContent=DENTAL?'Sin pacientes':'Sin ventas'; $('kVen').dataset.v=0; $('kVenTxt').textContent=`S/${soles(g)} invertidos sin ${DENTAL?'un solo tratamiento':'una sola venta'}`; }
   else { $('kVen').textContent='S/—'; $('kVen').dataset.v=0; $('kVenTxt').textContent='en anuncios'; }
   // se paga con N ventas
   const t=num($('gTic').value), c=(D&&D.config)||{};
-  [['Basic',num(c.planBasic)||550],['PRO',num(c.planPRO)||1100],['Legend',num(c.planLegend)||2100]].forEach(([k,pr])=>{ const e=document.querySelector(`[data-plan="${k}"] .paga`); if(t){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} venta${n>1?'s':''}${k==='Basic'?'':' al mes'}`; } else e.hidden=true; });
+  [['Basic',num(c.planBasic)||550],['PRO',num(c.planPRO)||1100],['Legend',num(c.planLegend)||2100]].forEach(([k,pr])=>{ const e=document.querySelector(`[data-plan="${k}"] .paga`); if(t){ const n=Math.ceil(pr/t); e.hidden=false; e.textContent=`Se paga con ${n} ${DENTAL?'tratamiento':'venta'}${n>1?'s':''}${k==='Basic'?'':' al mes'}`; } else e.hidden=true; });
 }
 ['gGasto','gMsj','gVen','gTic'].forEach(id=>$(id).addEventListener('input',()=>{ calcNumeros(); calcPerdida(); guardar(); }));
 
