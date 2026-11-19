@@ -476,9 +476,11 @@ const leadPor=id=>D.leads.find(l=>l.lead_id===id);
 
 /* ── KPIs ── */
 const enLlamada=r=>r.metodo==='En llamada';
-const pagada=r=>['Confirmada','Realizada','No asistió'].includes(r.estado)&&!enLlamada(r);
-const opTxt=r=>enLlamada(r)?'<b style="color:#B45309">Paga S/'+h((D.config&&D.config.precio)||49)+' en la videollamada</b>':'Operación <span class="op">'+h(r.operacion)+'</span>';
-const btnPago=r=>enLlamada(r)&&['Confirmada','Realizada'].includes(r.estado)?`<button class="btn ok mini" data-acc="pago_llamada" data-id="${h(r.reserva_id)}">Pagó S/${h(D.config.precio||49)}</button>`:'';
+const esAudit=r=>r.metodo==='Auditoría gratis';
+const sinCobro=r=>enLlamada(r)||esAudit(r);
+const pagada=r=>['Confirmada','Realizada','No asistió'].includes(r.estado)&&!sinCobro(r);
+const opTxt=r=>esAudit(r)?'<b style="color:#127A3A">🦷 Auditoría gratuita · sin cobro</b>':enLlamada(r)?'<b style="color:#B45309">Paga S/'+h((D.config&&D.config.precio)||250)+' en la videollamada</b>':'Operación <span class="op">'+h(r.operacion)+'</span>';
+const btnPago=r=>enLlamada(r)&&['Confirmada','Realizada'].includes(r.estado)?`<button class="btn ok mini" data-acc="pago_llamada" data-id="${h(r.reserva_id)}">Pagó S/${h(D.config.precio||250)}</button>`:'';
 function kpis(){
   const L=reales(), R=D.reservas, hace7=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
   const porVer=R.filter(r=>r.estado==='Por verificar').length;
@@ -506,7 +508,7 @@ function tarjetaRes(r,modo){
       <button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`;
   return `<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
     <strong>${h(r.nombre)}${r.negocio?` · <span style="font-weight:500;color:var(--g)">${h(r.negocio)}</span>`:''}</strong>
-    <p>${enLlamada(r)?opTxt(r):h(r.metodo)+' · '+h(r.monto)+' · '+opTxt(r)}</p>
+    <p>${sinCobro(r)?opTxt(r):h(r.metodo)+' · '+h(r.monto)+' · '+opTxt(r)}</p>
     <div class="acciones">${acc}<button class="btn wa mini" data-wa-res="${h(r.reserva_id)}">WhatsApp ▾</button></div></div></div>`;
 }
 function hoy(){
@@ -545,7 +547,7 @@ const URL_RES=id=>'https://asesoria.7legend.app/reservar.html'+(id?'?ref='+encod
 function plantillasWa(l,r){
   const c=D.config||{}, n=String((r&&r.nombre)||(l&&l.nombre)||'').trim().split(' ')[0]||'', neg=(l&&l.negocio)||(r&&r.negocio)||'tu negocio';
   const fuga=String((l&&l.hallazgos)||'').split('\n').map(x=>x.replace(/^[•\-\s]+/,'').trim()).filter(Boolean)[0]||'';
-  const meet=c.zoom||'[link de Meet]', P=c.precio||49, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
+  const meet=c.zoom||'[link de Meet]', P=c.precio||250, fecha=r?(r.label||r.fecha):'', hora=r?r.hora:'', fl=fecha?fecha.charAt(0).toLowerCase()+fecha.slice(1):'';
   const plan=l&&l.plan==='Legend'?['Legend',c.planLegend||2100]:l&&l.plan==='Basic'?['Basic',c.planBasic||550]:['PRO',c.planPRO||1100];
   const T=[];
   const con=l&&(D.contratos||[]).filter(x=>x.lead_id===l.lead_id&&['Enviado','Visto'].includes(x.estado)).sort((a,b)=>b.creado.localeCompare(a.creado))[0];
@@ -582,6 +584,18 @@ function plantillasWa(l,r){
       m:`Hola ${n}, ¿pudiste avanzar con lo que vimos? Si quieres que lo implementemos juntos (Mora respondiendo 24/7, capacitación de ventas y CRM), arrancamos esta semana con el Plan ${plan[0]} (S/${Number(plan[1]).toLocaleString('en-US')}${plan[0]==='Basic'?', 1 mes':' al mes'}).\n\n¿Lo conversamos 10 minutos?`});
     T.push({id:'noasistio',t:'No se conectó',c:'Si no asistió',
       m:`Hola ${n}, te esperé hoy a las ${hora} y no pudimos conectarnos. ¿Todo bien? Si quieres, la movemos: dime qué día y hora te acomoda.`});
+  }
+  const dental=/^Clínica dental/i.test(String((l&&l.rubro)||''));
+  if(r&&esAudit(r)){
+    const pr=T.find(x=>x.id==='presentar');
+    if(pr) pr.m=`Hola Dr(a). ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi que reservó su auditoría gratuita para el ${fl} a las ${hora}.\n\nAntes de la llamada voy a revisar su diagnóstico, sus anuncios y cómo responde su clínica a un paciente nuevo, para llevarle hallazgos concretos.\n\nLe llegó el link de Google Meet a su correo. ¿Me confirma que nos vemos?`;
+    const r24=T.find(x=>x.id==='r24');
+    if(r24) r24.m=`Hola Dr(a). ${n}, le recuerdo nuestra auditoría de mañana, ${fl} a las ${hora} 🗓️\n\nLink: ${meet}\n\nSi puede, tenga a mano el acceso a su cuenta de anuncios. ¿Todo bien para mañana?`;
+    return T.filter(x=>!/^pago_/.test(x.id));
+  }
+  if(!r&&dental){
+    const ct=T.find(x=>x.id==='contacto');
+    if(ct) ct.m=`Hola Dr(a). ${n} 👋 Soy Carlos Moreno, de 7Legend. Vi el diagnóstico de ${neg}${fuga?`: lo que más pacientes le está costando es «${fuga}»`:''}.\n\nCalifica para la auditoría gratuita de este mes (valor S/${P}). Puede reservar su horario aquí:\n${URL_RES(l&&l.lead_id)}${l&&l.lead_id?'&':'?'}oferta=auditoria`;
   }
   return T;
 }
@@ -623,7 +637,7 @@ $('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.clos
 const resPor=id=>D.reservas.find(r=>r.reserva_id===id)||{};
 function elegirPago(id){
   const r=resPor(id);
-  modal(`<h3>${h(r.nombre)} pagó S/${h(D.config.precio||49)}</h3><p class="sub">¿Con qué medio pagó?</p>
+  modal(`<h3>${h(r.nombre)} pagó S/${h(D.config.precio||250)}</h3><p class="sub">¿Con qué medio pagó?</p>
     ${['Yape','Plin','PayPal'].map(m=>`<button class="opcion" data-m="${m}"><b>${m}</b></button>`).join('')}
     <div class="pie-m"><button class="btn sec" data-cerrar>Volver</button></div>`);
   $('modalCaja').querySelectorAll('[data-m]').forEach(b=>b.onclick=async()=>{
@@ -636,7 +650,7 @@ function elegirCancelacion(id){
   const r=resPor(id);
   modal(`<h3>Cancelar la asesoría de ${h(r.nombre)}</h3><p class="sub">${h(r.label||r.fecha)} · ${h(r.hora)}. El horario quedará libre. ¿Qué le ofreces?</p>
     <button class="opcion" data-modo="reprogramar"><b>Que elija otro horario</b><span>Le llega un correo y un WhatsApp con un enlace para elegir su nuevo horario, sin volver a pagar.</span></button>
-    <button class="opcion" data-modo="reembolso">${enLlamada(r)?'<b>Cancelar y avisarle</b><span>Todavía no pagó: solo le avisas que se cancela y le ofreces otro horario.</span>':'<b>Devolverle el pago</b><span>Le llega la confirmación del reembolso y la reserva queda en "Reembolsar" para que no se te olvide.</span>'}</button>
+    <button class="opcion" data-modo="reembolso">${sinCobro(r)?'<b>Cancelar y avisarle</b><span>Todavía no pagó: solo le avisas que se cancela y le ofreces otro horario.</span>':'<b>Devolverle el pago</b><span>Le llega la confirmación del reembolso y la reserva queda en "Reembolsar" para que no se te olvide.</span>'}</button>
     <button class="opcion" data-modo=""><b>Solo cancelar</b><span>Sin avisarle. Tú le escribes.</span></button>
     <div class="pie-m"><button class="btn sec" data-cerrar>Volver</button></div>`);
   $('modalCaja').querySelectorAll('[data-modo]').forEach(b=>b.onclick=async()=>{
@@ -720,9 +734,9 @@ function abrirLead(id){
     ${l.angulo_venta?`<div class="dr-sec"><h4>Para tu llamada</h4><div class="llamada">${h(l.angulo_venta)}</div></div>`:''}
     <div class="dr-sec"><h4>Diagnóstico · ${h(l.nivel)}</h4>${String(l.hallazgos||'').split('\n').filter(Boolean).map(x=>`<div class="hall">${h(x)}</div>`).join('')||'<p class="ayuda">Sin hallazgos.</p>'}</div>
     <div class="dr-sec"><h4>Lo que respondió</h4><dl class="resp">
-      ${[['Instagram / web','instagram'],['Pilares','pilares'],['Resultado','resultado'],['Responde en','tiempo_respuesta'],['Filtro','filtro'],['Ante el precio','estructura'],['Registro','registro'],['Inversión','inversion'],['Rubro','rubro'],['Ticket','ticket'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncios','objetivo'],['Seguimiento','seguimiento'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
+      ${[['Oferta','oferta'],['Especialidad','especialidad'],['Rol','rol'],['Consultas/mes','mensajes_mes'],['Implementaría','compromiso'],['Instagram / web','instagram'],['Pilares','pilares'],['Resultado','resultado'],['Responde en','tiempo_respuesta'],['Filtro','filtro'],['Ante el precio','estructura'],['Registro','registro'],['Inversión','inversion'],['Rubro','rubro'],['Ticket','ticket'],['Facturación','facturacion'],['Frustración','frustracion'],['Anuncios','objetivo'],['Seguimiento','seguimiento'],['Anuncio','utm_content']].map(([a,b])=>l[b]?`<dt>${a}</dt><dd>${h(l[b])}</dd>`:'').join('')}
     </dl></div>
-    ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${enLlamada(r)?opTxt(r):h(r.metodo)+' · <span class="op">'+h(r.operacion)+'</span>'}</p>
+    ${res.length?`<div class="dr-sec"><h4>Reservas</h4>${res.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info"><strong><span class="pill ${h(r.estado)}">${h(r.estado)}</span></strong><p>${sinCobro(r)?opTxt(r):h(r.metodo)+' · <span class="op">'+h(r.operacion)+'</span>'}</p>
       ${r.estado==='Por verificar'||r.estado==='Confirmada'?`<div class="acciones">${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button>`:''}<button class="btn sec mini" data-acc="reprogramar" data-id="${h(r.reserva_id)}">Reprogramar</button><button class="btn sec mini" data-acc="cancelar" data-id="${h(r.reserva_id)}">Cancelar</button></div>`:''}</div></div>`).join('')}</div>`:''}
     <div class="dr-sec"><h4>Contrato</h4>${contratoHTML(l)}</div>
     <div class="dr-sec"><h4>Gestión</h4><div class="gestion">
@@ -793,7 +807,7 @@ function reservas(){
   const f=$('fRes').value; const R=D.reservas.filter(r=>!f||r.estado===f);
   $('listaRes').innerHTML=R.length?R.map(r=>`<div class="item">${fechaBox(r.fecha,r.hora)}<div class="info">
       <strong>${h(r.nombre)} <span class="pill ${h(r.estado)}" style="margin-left:6px">${h(r.estado)}</span></strong>
-      <p>${h(r.negocio)} · ${enLlamada(r)?'':h(r.metodo)+' · '}${h(r.monto)} · ${opTxt(r)} · reservó ${h(r.creado)}</p>
+      <p>${h(r.negocio)} · ${sinCobro(r)?'':h(r.metodo)+' · '}${h(r.monto)} · ${opTxt(r)} · reservó ${h(r.creado)}</p>
       <div class="acciones">${btnPago(r)}
         ${r.estado==='Por verificar'?`<button class="btn ok mini" data-acc="confirmar" data-id="${h(r.reserva_id)}">Confirmar pago</button><button class="btn sec mini" data-acc="rechazar" data-id="${h(r.reserva_id)}">No encontré el pago</button>`:''}
         ${r.estado==='Confirmada'?`<button class="btn sec mini" data-acc="realizada" data-id="${h(r.reserva_id)}">Realizada</button><button class="btn sec mini" data-acc="no_asistio" data-id="${h(r.reserva_id)}">No asistió</button>`:''}

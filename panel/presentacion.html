@@ -260,7 +260,7 @@ h2 span{color:var(--g2)}
           <li>Lo que se te escapa al mes, en soles</li>
           <li>Tu plan de mejora, en orden y por escrito</li>
         </ul>
-        <div class="pg-precio"><small>Asesoría completa</small><b>S/<span id="pgMonto">49</span></b><span>Pago único · 45 minutos más</span></div>
+        <div class="pg-precio"><small>Asesoría completa</small><b>S/<span id="pgMonto">250</span></b><span>Pago único · 45 minutos más</span></div>
       </div>
       <div class="a" style="--i:3"><p class="pg-q">¿Con cuál prefieres pagar?</p><div class="pg-medios" id="pgMedios"></div>
         <div class="pg-pagado" id="pgPagado" hidden><span>¿Ya pagó? Márcalo aquí:</span><div id="pgBtns"></div></div></div>
@@ -357,7 +357,7 @@ h2 span{color:var(--g2)}
     <span class="eti a" style="--i:1"><b>Bono</b>72 horas</span>
     <h2 class="a" style="--i:2">Si empiezas hoy:</h2>
     <div class="bono">
-      <div class="c a" style="--i:3"><b>− S/<span data-c="precio">49</span></b><p>Tu asesoría, descontada del primer mes.</p></div>
+      <div class="c a" style="--i:3"><b>− S/<span data-c="precio">250</span></b><p>Tu asesoría, descontada del primer mes.</p></div>
 
     </div>
     <div class="vence a" style="--i:5">Hasta el <span id="vence">—</span></div>
@@ -482,7 +482,7 @@ const PM={
  tiempo:{'En menos de 5 minutos':90,'Entre 5 y 30 minutos':60,'Entre 1 y 3 horas':30,'Más de 3 horas o al día siguiente':10},
  estructura:{'Les doy el precio directo':20,'Explico un poco y doy el precio':40,'Sigo un guion: pregunto, muestro el valor y cierro':85,'Depende de quién responda o del día':25},
  registro:{'En el mismo chat de WhatsApp':20,'En un cuaderno o Excel':40,'En un CRM':75,'No llevo registro':5},
- resultado:{'Me escriben, pero casi nadie compra':60,'Me piden precio y desaparecen':55,'Llegan muy pocos mensajes':30,'Vendo, pero sin orden ni control':50,'Todavía no hago anuncios':20}
+ resultado:{'Me piden precio y no agendan la evaluación':55,'Agendan, pero no llegan o no aceptan el presupuesto':60,'Me escriben pocos pacientes nuevos':30,'Llegan, pero sin orden ni seguimiento':50,'Me escriben, pero casi nadie compra':60,'Me piden precio y desaparecen':55,'Llegan muy pocos mensajes':30,'Vendo, pero sin orden ni control':50,'Todavía no hago anuncios':20}
 };
 function pilaresDe(x){
   const m=String(x.pilares||'').match(/Filtro\s*(\d+).*Ventas\s*(\d+).*CRM\s*(\d+).*Anuncios\s*(\d+)/i);
@@ -510,7 +510,7 @@ function pintar(l){
   document.querySelectorAll('[data-c="nombre"]').forEach(e=>e.textContent=nombre);
   document.querySelectorAll('[data-c="negocio"]').forEach(e=>e.textContent=x.negocio||'tu negocio');
   [['planBasic',550],['planPRO',1100],['planLegend',2100]].forEach(([k,d])=>document.querySelectorAll(`[data-c="${k}"]`).forEach(e=>e.textContent=soles(c[k]||d)));
-  document.querySelectorAll('[data-c="precio"]').forEach(e=>e.textContent=num(c.precio)||49);
+  document.querySelectorAll('[data-c="precio"]').forEach(e=>e.textContent=num(c.precio)||250);
   // pilares y diagnóstico
   PP=pilaresDe(x);
   $('pilares').innerHTML=PIL.map(p=>`<div class="pil${p.k==='anuncios'?' ult':''}"><span>${p.n}</span><div class="bar"><i data-v="${PP[p.k]}" style="--c:${col(PP[p.k])}"></i></div><b>${PP[p.k]}</b></div>`).join('');
@@ -541,6 +541,9 @@ function pintar(l){
   calcNumeros(); calcPerdida();
   const yaPago=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo&&r.metodo!=='En llamada'&&['Confirmada','Realizada'].includes(r.estado)));
   document.querySelector('[data-n="pago"]').classList.toggle('salta',yaPago);
+  const audit=!!(l&&D&&(D.reservas||[]).some(r=>r.lead_id===l.lead_id&&r.metodo==='Auditoría gratis'));
+  if(audit) document.querySelector('[data-n="pago"]').classList.add('salta');
+  document.querySelector('[data-n="8"]').classList.toggle('salta',audit);
   pintarPagado(l);
   if(L[i].dataset.n==='2') animarPuntaje();
 }
