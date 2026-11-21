@@ -760,6 +760,7 @@ body.dl{background:#fff;font-size:16.5px}
 .d-chip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;border:1px solid rgba(124,200,242,.4);color:var(--lima);border-radius:999px;padding:6px 13px}
 .d-para{font-size:14.5px;color:rgba(255,255,255,.62);margin-top:16px}
 .d-h1{margin-top:8px}
+.d-h1.d-h1-largo{font-size:clamp(32px,8.2vw,58px);line-height:1.06}
 .d-h1 span,.d-h1 em{display:inline-block}
 .d-h1 .w{display:inline-block;opacity:0;transform:translateY(.4em);animation:pal .6s var(--ease) forwards}
 @keyframes pal{to{opacity:1;transform:none}}
@@ -1267,16 +1268,29 @@ addEventListener('scroll',alScroll,{passive:true});
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.15});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
-/* titular según el anuncio (utm_content) */
+/* titular según el anuncio (utm_content o ?v=)
+   Anuncios implantólogos: utm_content=avion | 2dias | esposa | recepcionista
+   [regex, partes del titular, parte destacada, subtítulo (HTML), titular largo] */
 (function(){
-  let u=''; try{ u=decodeURIComponent((new URLSearchParams(location.search).get('utm_content')||'').replace(/\+/g,' ')); }catch(e){}
+  const q=new URLSearchParams(location.search);
+  let u=''; try{ u=decodeURIComponent((q.get('utm_content')||q.get('v')||'').replace(/\+/g,' ')); }catch(e){}
   try{ if(u) sessionStorage.setItem('utm_ct',u); else u=sessionStorage.getItem('utm_ct')||''; }catch(e){}
   const T=[
+    [/recepcionista|AD4/i,['La recepcionista le dijo:','“Ahora los pacientes','se agendan en automático'],'y el doc solo tiene que ir a operar.”',
+      '¿Y en tu clínica? Te enviamos un <b>paciente incógnito</b> y te mostramos cuántos pacientes de implantes se pierden antes de agendar. Auditoría <b>gratuita</b>.',1],
+    [/esposa|secreto|AD3/i,['El secreto:','sus pacientes de implantes','se agendan solos'],'y él solo va a operar.',
+      '¿Por qué los tuyos todavía no? Te lo mostramos con un <b>paciente incógnito</b> en tu clínica. Auditoría <b>gratuita</b>.',1],
+    [/2\s?d[ií]as|dos\s?d[ií]as|AD2/i,['Imagina que','tus pacientes','se agenden solos'],'y tú solo vayas a operar.',
+      'Primero vemos qué lo impide hoy: te enviamos un <b>paciente incógnito</b> y auditamos tu clínica. <b>Gratis</b>.',0],
+    [/avi[oó]n|AD1/i,['¿Un sistema que','agenda pacientes de implantología','en automático'],'es un avión o no?',
+      'Te enviamos un <b>paciente incógnito</b> y te mostramos qué le falta a tu clínica para que tus pacientes se agenden solos. Auditoría <b>gratuita</b>.',1],
     [/AUD2|inc[oó]gnito/i,['Nos hacemos','pasar por','tu paciente.'],'Y te mostramos'],
     [/AUD3|oferta|gratis/i,['Auditoría','comercial','para tu clínica.'],'Gratis.']
   ].find(x=>x[0].test(u));
   if(!T) return;
   $('titular').innerHTML=T[1].map(t=>`<span>${h(t)}</span>`).join(' ')+` <em>${h(T[2])}</em>`;
+  if(T[4]) $('titular').classList.add('d-h1-largo');
+  if(T[3]){ const sb=document.querySelector('.d-sub2'); if(sb) sb.innerHTML=T[3]; }
 })();
 /* titular palabra por palabra */
 (function(){
