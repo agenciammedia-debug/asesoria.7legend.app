@@ -1002,6 +1002,72 @@ body.dl{background:#fff;font-size:16.5px}
 @media (max-width:359px){ .d-chip{font-size:12px;padding:5px 10px} .d-in{padding:0 16px} .d-h1{font-size:36px} .d-show,.d-ini{padding:16px 14px} .d-show-it{grid-template-columns:38px 1fr 22px;gap:10px} .d-show-it .ic{width:38px;height:38px} .d-show-it b{font-size:15px} .d-cifras b{font-size:20px} }
 @media (prefers-reduced-motion:reduce){ .dl .rv,.d-h1 .w{opacity:1;transform:none;animation:none} .d-inf li{opacity:1} }
 
+/* ═══════════ LEGIBILIDAD: textos más grandes y aire ═══════════ */
+body.dl{font-size:17px}
+.d-nav-cupos{font-size:14px}
+.d-chip{font-size:14.5px}
+.d-para{font-size:16px;color:rgba(255,255,255,.72)}
+.d-sub2{font-size:clamp(18.5px,4.8vw,21px);line-height:1.5}
+.d-show-top{font-size:14.5px}
+.d-show-it b{font-size:17.5px}
+.d-show-pie{font-size:15px}
+.d-ini-top{font-size:14px}
+.d-ini-q{font-size:clamp(20px,5.4vw,23px)}
+.d-ini .op{font-size:17px;padding:15px 14px}
+.d-ini-pie{font-size:14px}
+.d-prueba{font-size:16px}
+.d-prueba p span{font-size:14px}
+.d-ciud-t{font-size:15px}
+.d-play-t{font-size:18px}
+.d-play-t small{font-size:14px}
+.d-kick{font-size:15px}
+.d-yo b{font-size:22px}
+.d-yo span{font-size:15.5px}
+.d-yo-bio{font-size:18px;line-height:1.5;color:var(--tinta2)}
+.d-cifras b{font-size:clamp(22px,6vw,28px)}
+.d-cifras span{font-size:14px}
+.d-cita{font-size:17.5px;line-height:1.5}
+.d-cita cite{font-size:14px}
+.d-of-top{font-size:16.5px}
+.d-cupos span{font-size:15px}
+.d-of-card li{font-size:17.5px}
+.d-of-pie{font-size:15px;line-height:1.45}
+.d-fin p{font-size:18px}
+.d-movil .bt2 small{font-size:13.5px}
+/* quiz */
+.barra-txt{font-size:15px;margin-bottom:30px}
+.q h2{font-size:clamp(27px,6.6vw,36px)}
+.q .ayuda{font-size:17px}
+.q .op{font-size:18px;padding:17px 18px}
+.campo{font-size:17px}
+label.lb{font-size:15.5px}
+.check{font-size:15px}
+.privado{font-size:14.5px}
+.paso-a{font-size:17px}
+.res-score p{font-size:18.5px}
+.res .hall h4{font-size:19px}
+.res .hall p{font-size:16.5px}
+.candado{font-size:16px}
+.pil,.pil b{font-size:15.5px}
+@media (max-width:520px){ .pil{grid-template-columns:128px 1fr 32px;font-size:15px} }
+.pdf-box span{font-size:15.5px}
+.cf-paso h3{font-size:clamp(24px,6vw,28px)}
+.cf-paso>p{font-size:17px}
+.cf-ruta b{font-size:17.5px}
+.cf-ruta span{font-size:16px}
+.cf-mini{font-size:15px}
+.cf-card>h4{font-size:21px}
+.cf-bio{font-size:17px}
+.cf-num span{font-size:14px}
+.cf-tes blockquote{font-size:16.5px}
+.cf-faq summary{font-size:17px}
+.cf-faq p{font-size:16px}
+.cf-wa{font-size:16.5px}
+.precio li{font-size:17px}
+.garantia{font-size:15px}
+.bt2 small{font-size:13.5px}
+@media (max-width:420px){ .d-sec{padding:60px 0} .q h2{margin-bottom:10px} }
+
 </style>
 </head>
 <body class="dl">
@@ -1017,7 +1083,7 @@ body.dl{background:#fff;font-size:16.5px}
   <div class="d-in d-hero-grid">
     <div class="d-hero-txt">
       <p class="d-chip"><i></i><span>Auditoría gratuita · <span data-quedan>10 cupos</span> este mes</span></p>
-      <p class="d-para">Para clínicas de implantes, rehabilitación oral y ortodoncia</p>
+      <p class="d-para">Para clínicas de implantes y rehabilitación oral</p>
       <h1 class="d-h1" id="titular"><span>Te preguntan</span> <span>por implantes.</span> <em>No agendan.</em></h1>
       <p class="d-sub2">Auditoría comercial <b>gratuita</b> para tu clínica.</p>
     </div>
@@ -1033,7 +1099,7 @@ body.dl{background:#fff;font-size:16.5px}
       <div class="d-ini-top"><b>Empieza aquí</b><span>3 min · sin costo</span></div>
       <p class="d-ini-q">¿Qué te pasa hoy con tus pacientes nuevos?</p>
       <div id="ops0"></div>
-      <p class="d-ini-pie">Al terminar ves tu diagnóstico y si tu clínica califica para la auditoría.</p>
+      <p class="d-ini-pie">Al final ves tu diagnóstico y si calificas.</p>
     </div>
     </div>
   </div>
@@ -1068,7 +1134,7 @@ body.dl{background:#fff;font-size:16.5px}
     <div>
       <p class="d-kick">Quién hace tu auditoría</p>
       <div class="d-yo"><img src="carlos-moreno.jpg" alt="Carlos Moreno" loading="lazy"><div><b>Carlos Moreno</b><span>Fundador de 7Legend</span></div></div>
-      <p class="d-yo-bio">No te va a atender un vendedor. La auditoría la hago yo, con cámara y con los resultados de tu clínica en pantalla.</p>
+      <p class="d-yo-bio">No te atiende un vendedor. La auditoría la hago yo, por videollamada.</p>
       <div class="d-cifras">
         <div><b>S/250k+</b><span>invertidos en anuncios de Meta</span></div>
         <div><b>+300</b><span>clientes high ticket cerrados</span></div>
@@ -1088,13 +1154,13 @@ body.dl{background:#fff;font-size:16.5px}
       <div class="d-of-pr"><s>S/250</s><b>Gratis</b></div>
       <div class="d-cupos" data-cupos-aud><div class="bar10"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i></div><span data-quedan>Quedan 10 de 10</span></div>
       <ul>
-        <li>Paciente incógnito: la experiencia completa de tu paciente</li>
-        <li>Análisis de tus anuncios, Instagram y web</li>
-        <li>Diagnóstico de tu proceso con IA, hoy mismo</li>
-        <li>Plan de acción y estrategia de contenido de autoridad</li>
+        <li>Paciente incógnito en tu clínica</li>
+        <li>Análisis de anuncios, Instagram y web</li>
+        <li>Diagnóstico con IA, hoy mismo</li>
+        <li>Plan de acción y contenido de autoridad</li>
       </ul>
       <button class="btn full d-cta" data-abrir>Ver si mi clínica califica</button>
-      <p class="d-of-pie">No te pediremos ningún pago en la reunión. Al final te contamos cómo trabajamos, solo si te interesa.</p>
+      <p class="d-of-pie">Sin pagos en la reunión.</p>
     </div>
   </div>
 </section>
@@ -1119,7 +1185,7 @@ body.dl{background:#fff;font-size:16.5px}
   <div class="qz">
     <div class="qz-top"><span class="logo" style="font-size:19px">7Legend<i>.</i></span><button class="qz-x" id="cerrar" aria-label="Cerrar">Cerrar ✕</button></div>
     <div class="barra"><i id="bq"></i></div>
-    <div class="barra-txt"><span id="bq-txt">Pregunta 1 de 13</span><span id="bq-min">≈ 3 min</span></div>
+    <div class="barra-txt"><span id="bq-txt">Pregunta 1 de 11</span><span id="bq-min">≈ 3 min</span></div>
     <div id="escena"></div>
   </div>
 </div>
@@ -1174,20 +1240,20 @@ const AUD={valor:250,total:10,quedan:null};
 function cuposTxt(){ return AUD.quedan==null?'Solo 10 cupos al mes':(AUD.quedan<=0?'Sin cupos este mes':(AUD.quedan===1?'Queda 1 de 10':'Quedan '+AUD.quedan+' de 10')); }
 function barra10(cls){ const q=AUD.quedan==null?AUD.total:AUD.quedan; return `<div class="cupos-aud ${cls||''}" data-cupos-aud><div class="bar10">${Array.from({length:AUD.total},(_,k)=>`<i class="${k<q?'ok':''}"></i>`).join('')}</div><b data-quedan>${cuposTxt()}</b></div>`; }
 function siguientePasoHTML(pay){
-  return `<div class="cf-card cf-paso"><h3>Tu clínica califica para la auditoría gratuita.</h3><p>60 minutos por Google Meet, conmigo y con cámara.</p>
+  return `<div class="cf-card cf-paso"><h3>Tu clínica califica para la auditoría gratuita.</h3><p>60 min por Google Meet, conmigo.</p>
     ${barra10('cupos-cl')}
-    <ol class="cf-ruta"><li><b>Reservas tu cupo</b><span>Eliges el día y la hora. Te escribo por WhatsApp para confirmar.</span></li>
-      <li><b>Escribimos a tu clínica como paciente</b><span>Antes de la reunión medimos cómo responde tu equipo, cómo da el precio y si hace seguimiento.</span></li>
-      <li><b>Te mostramos todo por Meet</b><span>El incógnito, tus anuncios, una estrategia de contenido de autoridad y tu plan de acción.</span></li></ol>
+    <ol class="cf-ruta"><li><b>Reservas tu cupo</b><span>Eliges día y hora. Te confirmo por WhatsApp.</span></li>
+      <li><b>Te escribimos como paciente</b><span>Medimos cómo responde tu equipo y cómo da el precio.</span></li>
+      <li><b>Te mostramos todo por Meet</b><span>Incógnito, anuncios y tu plan de acción.</span></li></ol>
     <a class="btn full" href="${pay}" id="pagar"><span class="bt2">Reservar mi auditoría gratis<small data-quedan>${cuposTxt()}</small></span></a>
-    <p class="cf-mini">No te pediremos ningún pago en la reunión.</p></div>`;
+    <p class="cf-mini">Sin pagos en la reunión.</p></div>`;
 }
 function dudasHTML(){
   const L=CFG.LEGAL||{}, f=[
-    ['¿De verdad es gratis?',`Sí. <b>Este mes damos 10 auditorías sin costo</b> (su valor es S/${AUD.valor}). No te pediremos ningún pago en la reunión.`],
-    ['¿Qué tengo que preparar?','Conéctate desde una computadora y, si haces anuncios, ten a mano el acceso a tu cuenta de Meta. <b>Del incógnito nos encargamos nosotros.</b>'],
-    ['¿Tengo que avisar a mi equipo del incógnito?','<b>Mejor no.</b> La idea es ver cómo atienden a un paciente real en un día normal.'],
-    ['¿Me vas a vender algo?','Al final te cuento cómo trabajamos mes a mes, por si quieres que lo implementemos contigo. <b>Es opcional y sin presión.</b>'],
+    ['¿De verdad es gratis?',`Sí. <b>10 auditorías sin costo este mes</b> (valor S/${AUD.valor}). Sin pagos en la reunión.`],
+    ['¿Qué tengo que preparar?','Una computadora y, si haces anuncios, acceso a tu cuenta de Meta. <b>Del incógnito nos encargamos.</b>'],
+    ['¿Aviso a mi equipo del incógnito?','<b>Mejor no.</b> Queremos ver un día normal.'],
+    ['¿Me vas a vender algo?','Al final te cuento cómo trabajamos, por si quieres implementarlo. <b>Opcional y sin presión.</b>'],
     ['¿Quién está detrás de 7Legend?',`<b>${h(L.titular||'Carlos Moreno')}, con RUC ${h(L.ruc||'')}.</b> Tenemos Libro de Reclamaciones y términos publicados.`]];
   return `<div class="cf-card cf-faq"><h4>Antes de reservar</h4>${f.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join('')}</div>`;
 }
@@ -1198,14 +1264,14 @@ function pagoHTML(pay){
     <div class="precio-aud"><span class="tachado">S/${AUD.valor}</span><span class="gratis-g">Gratis</span></div>
     ${barra10()}
     <ul>
-      <li>${CHK}Te escribimos como paciente incógnito y medimos cómo responde tu equipo</li>
-      <li>${CHK}Revisamos tus anuncios y la calidad de lo que te traen</li>
-      <li>${CHK}Vemos dónde se cae la evaluación: respuesta, precio y seguimiento</li>
-      <li>${CHK}Estrategia de contenido de autoridad para tu Instagram</li>
-      <li>${CHK}Plan de acción claro para tu clínica</li>
+      <li>${CHK}Paciente incógnito en tu clínica</li>
+      <li>${CHK}Revisión de tus anuncios</li>
+      <li>${CHK}Dónde se cae la evaluación</li>
+      <li>${CHK}Contenido de autoridad para tu Instagram</li>
+      <li>${CHK}Plan de acción para tu clínica</li>
     </ul>
     <a class="btn full" href="${pay}" id="pagar2"><span class="bt2">Reservar mi auditoría gratis<small data-quedan>${cuposTxt()}</small></span></a>
-    <div class="garantia">${SVG_OK}<span>Es gratis de verdad: no te pediremos ningún pago en la reunión.</span></div>
+    <div class="garantia">${SVG_OK}<span>Gratis de verdad: sin pagos en la reunión.</span></div>
   </div>`;
 }
 /* cupos reales del mes (los cuenta tu hoja de Reservas) */
@@ -1362,21 +1428,21 @@ alScroll();
 
 
 /* ═════════ QUIZ ═════════ */
+/* o = valor que se guarda y se envía a n8n (no cambiar) · l = texto corto que ve el doctor */
 const PREG=[
- {k:'resultado', t:'¿Qué te pasa hoy con tus pacientes nuevos?', o:['Me piden precio y no agendan la evaluación','Agendan, pero no llegan o no aceptan el presupuesto','Me escriben pocos pacientes nuevos','Llegan, pero sin orden ni seguimiento']},
- {k:'especialidad', t:'¿Cuál es el tratamiento principal de tu clínica?', o:['Implantes','Rehabilitación oral','Ortodoncia','Carillas y estética dental','Odontología general','No es una clínica dental']},
- {k:'rol', t:'¿Cuál es tu rol en la clínica?', o:['Soy el dueño o director','Soy socio y decido','Trabajo en la clínica, pero no decido','Llevo el marketing de la clínica (agencia o freelance)']},
- {k:'ticket', t:'¿Cuánto cuesta en promedio el tratamiento que más vendes?', o:['Menos de S/1,000','S/1,000 – S/2,000','S/2,000 – S/5,000','Más de S/5,000']},
- {k:'mensajes_mes', t:'¿Cuántas consultas de pacientes nuevos recibes al mes?', hl:'Por WhatsApp, Instagram o Facebook.', o:['Menos de 30','30 – 100','100 – 300','Más de 300']},
- {k:'tiempo_respuesta', t:'Cuando un paciente escribe, ¿en cuánto tiempo le responde tu equipo?', o:['En menos de 5 minutos','Entre 5 y 30 minutos','Entre 1 y 3 horas','Más de 3 horas o al día siguiente']},
- {k:'filtro', t:'¿Cómo separan a los curiosos de los pacientes que sí van a tratarse?', o:['Les respondo a todos por igual','Hago algunas preguntas a mano','Tengo respuestas automáticas o un bot','Tengo un asistente con IA que los califica']},
- {k:'estructura', t:'Cuando preguntan “¿cuánto cuesta?”, ¿qué responde tu equipo?', o:['Les doy el precio directo','Explico un poco y doy el precio','Sigo un guion: pregunto, muestro el valor y cierro','Depende de quién responda o del día']},
- {k:'registro', t:'¿Dónde anotan a cada paciente interesado y en qué quedó?', o:['En el mismo chat de WhatsApp','En un cuaderno o Excel','En un CRM','No llevo registro']},
+ {k:'resultado', t:'¿Qué te pasa hoy con tus pacientes nuevos?', o:['Me piden precio y no agendan la evaluación','Agendan, pero no llegan o no aceptan el presupuesto','Me escriben pocos pacientes nuevos','Llegan, pero sin orden ni seguimiento'], l:['Piden precio y no agendan','Agendan, pero no llegan o no aceptan','Me escriben pocos pacientes','Llegan sin orden ni seguimiento']},
+ {k:'especialidad', t:'¿Tu tratamiento principal?', o:['Implantes','Rehabilitación oral','Ortodoncia','Carillas y estética dental','Odontología general','No es una clínica dental']},
+ {k:'rol', t:'¿Cuál es tu rol?', o:['Soy el dueño o director','Soy socio y decido','Trabajo en la clínica, pero no decido','Llevo el marketing de la clínica (agencia o freelance)'], l:['Dueño o director','Socio y decido','Trabajo ahí, pero no decido','Llevo el marketing (agencia o freelance)']},
+ {k:'ticket', t:'¿Cuánto cuesta tu tratamiento más vendido?', o:['Menos de S/1,000','S/1,000 – S/2,000','S/2,000 – S/5,000','Más de S/5,000']},
+ {k:'mensajes_mes', t:'¿Cuántos pacientes nuevos te escriben al mes?', hl:'WhatsApp, Instagram o Facebook.', o:['Menos de 30','30 – 100','100 – 300','Más de 300']},
+ {k:'tiempo_respuesta', t:'¿En cuánto tiempo responde tu equipo?', o:['En menos de 5 minutos','Entre 5 y 30 minutos','Entre 1 y 3 horas','Más de 3 horas o al día siguiente'], l:['Menos de 5 min','5 a 30 min','1 a 3 horas','Más de 3 horas']},
+ {k:'filtro', t:'¿Cómo filtras a los curiosos?', o:['Les respondo a todos por igual','Hago algunas preguntas a mano','Tengo respuestas automáticas o un bot','Tengo un asistente con IA que los califica'], l:['Respondo a todos igual','Hago preguntas a mano','Respuestas automáticas o bot','Asistente con IA que los califica']},
+ {k:'estructura', t:'Cuando preguntan “¿cuánto cuesta?”, tu equipo…', o:['Les doy el precio directo','Explico un poco y doy el precio','Sigo un guion: pregunto, muestro el valor y cierro','Depende de quién responda o del día'], l:['Da el precio directo','Explica un poco y da el precio','Sigue un guion: pregunta, valor y cierre','Depende de quién responda']},
+ {k:'registro', t:'¿Dónde anotan a cada interesado?', o:['En el mismo chat de WhatsApp','En un cuaderno o Excel','En un CRM','No llevo registro'], l:['En el chat de WhatsApp','Cuaderno o Excel','En un CRM','No lo anotamos']},
  {k:'inversion', t:'¿Cuánto inviertes al mes en anuncios?', o:['Todavía no invierto','Menos de S/300','S/300 – S/1,000','S/1,000 – S/3,000','Más de S/3,000']},
- {k:'compromiso', t:'Si en la auditoría ves cómo recuperar pacientes, ¿cuándo lo implementarías?', o:['Este mes','En 1 a 3 meses','Solo quiero información']},
- {k:'frustracion', t:'En una frase: ¿qué es lo que más te frustra de cómo llegan tus pacientes?', hl:'Una frase corta basta. Con esto preparamos tu auditoría.', libre:true, min:15, ph:'Ej: preguntan el precio del implante y luego no responden'},
- {k:'contacto', t:'Listo. ¿A nombre de quién preparamos tu diagnóstico?', hl:'Lo verás en pantalla en unos segundos.', contacto:true}
+ {k:'contacto', t:'¿A nombre de quién preparamos tu diagnóstico?', hl:'Lo verás en pantalla en segundos.', contacto:true}
 ];
+const LBL=(q,k)=>(q.l||q.o)[k];
 /* puntaje por pilar: el mismo cálculo que usa Mora en n8n */
 const PM={
  filtro:{'Les respondo a todos por igual':15,'Hago algunas preguntas a mano':40,'Tengo respuestas automáticas o un bot':55,'Tengo un asistente con IA que los califica':90},
@@ -1396,7 +1462,7 @@ let i=0, A={}, enviando=false;
 const esc=$('escena'), quiz=$('quiz');
 
 /* pregunta 1 en el hero */
-$('ops0').innerHTML=PREG[0].o.map((o,k)=>`<button class="op" data-o="${k}"><span class="rd"></span>${h(o)}</button>`).join('');
+$('ops0').innerHTML=PREG[0].o.map((o,k)=>`<button class="op" data-o="${k}"><span class="rd"></span>${h(LBL(PREG[0],k))}</button>`).join('');
 $('ops0').querySelectorAll('.op').forEach(b=>b.addEventListener('click',()=>{
   $('ops0').querySelectorAll('.op').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
   A.resultado=PREG[0].o[+b.dataset.o]; track('ViewContent',{content_name:'diagnostico'});
@@ -1422,7 +1488,7 @@ function avance(){ const p=i/PREG.length*100; $('bq').style.width=p+'%'; $('bq-t
 function pinta(){
   avance(); const q=PREG[i];
   let x=`<div class="q"><h2>${q.t}</h2>${q.hl?`<p class="ayuda">${q.hl}</p>`:''}`;
-  if(q.o) x+=`<div class="ops">`+q.o.map((o,k)=>`<button class="op ${A[q.k]===o?'sel':''}" data-o="${k}"><span class="rd"></span>${h(o)}</button>`).join('')+`</div>`;
+  if(q.o) x+=`<div class="ops">`+q.o.map((o,k)=>`<button class="op ${A[q.k]===o?'sel':''}" data-o="${k}"><span class="rd"></span>${h(LBL(q,k))}</button>`).join('')+`</div>`;
   if(q.libre) x+=`<textarea id="libre" class="campo" rows="3" maxlength="300" style="margin-top:22px" placeholder="${q.ph}">${h(A[q.k]||'')}</textarea>
       <div class="err" id="errL" role="alert"></div>
       <button class="btn full" id="sigue">Continuar</button>`;
@@ -1450,7 +1516,8 @@ function pinta(){
 }
 function elige(o){
   A[PREG[i].k]=o;
-  esc.querySelectorAll('.op').forEach(b=>b.classList.toggle('sel',b.textContent===o));
+  const ix=PREG[i].o.indexOf(o);
+  esc.querySelectorAll('.op').forEach(b=>b.classList.toggle('sel',+b.dataset.o===ix));
   setTimeout(()=>{ i++; pinta(); }, reduce?0:240);
 }
 
@@ -1500,13 +1567,12 @@ function analiza(){
 }
 
 /* ¿Califica para la auditoría gratuita? Clínica de implantes, rehabilitación u ortodoncia, quien decide,
-   ticket de S/2,000 o más, 30 consultas o más al mes y compromiso de implementarlo este mes. (Misma regla en n8n.) */
+   ticket de S/2,000 o más y 30 consultas o más al mes. (Ya no se pregunta el compromiso: quitarlo también en n8n.) */
 function calificaRegla(a){
   return /^(Implantes|Rehabilitación oral|Ortodoncia)$/.test(a.especialidad||'')
     && /dueño o director|socio y decido/.test(a.rol||'')
     && /S\/2,000 – S\/5,000|Más de S\/5,000/.test(a.ticket||'')
-    && /30 – 100|100 – 300|Más de 300/.test(a.mensajes_mes||'')
-    && a.compromiso==='Este mes';
+    && /30 – 100|100 – 300|Más de 300/.test(a.mensajes_mes||'');
 }
 function respaldo(a){
   const P=pilares(a), O=['filtro','ventas','crm','anuncios'];
@@ -1568,7 +1634,7 @@ function resultado(r){
   const nom=h((A.nombre||'').split(' ')[0]);
   const p=Math.max(0,Math.min(100,+r.puntaje||40)), col=p<40?'var(--rojo)':p<60?'#F59E0B':'var(--verde)';
   $('bq-txt').textContent='Diagnóstico listo'; $('bq-min').textContent='';
-  let x=`<div class="q res"><h2>${nom}, esto es lo que está frenando tus evaluaciones.</h2>
+  let x=`<div class="q res"><h2>${nom}, esto frena tus evaluaciones.</h2>
     <div class="res-score"><div class="anillo" id="rAn" style="--c:${col}"><b id="rN">0</b></div>
       <div><small>Salud comercial: ${h((r.nivel||'').toLowerCase())}</small><p>${h(r.titular||'')}</p></div></div>`;
   const P=(r.pilares&&r.pilares.filtro!=null)?r.pilares:pilares(A);
@@ -1576,7 +1642,7 @@ function resultado(r){
   if(r.perdida_estimada) x+=`<div class="perd">${h(r.perdida_estimada)}</div>`;
   (r.hallazgos||[]).slice(0,3).forEach((f,k)=>x+=`<div class="hall escribe-f"><h4><i>${k+1}</i><span data-t="${h(f.titulo)}"></span></h4><p>${h(f.detalle)}</p></div>`);
   x+=`<div class="pdf-box"><span>📩 Te enviamos tu diagnóstico completo a <b>${h(A.email||'tu correo')}</b>.</span></div>`;
-  x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Cómo corregir cada fuga lo vemos contigo en la auditoría.</div>`;
+  x+=`<div class="candado"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Cómo corregir cada fuga lo vemos en la auditoría.</div>`;
   const LLAM=CFG.COBRO==='llamada';
   if(r.califica!==false){
     try{ localStorage.setItem('mora_lead',JSON.stringify({lead_id:r.lead_id||'',nombre:A.nombre,negocio:A.negocio,whatsapp:A.whatsapp,email:A.email})); }catch(e){}
@@ -1602,7 +1668,7 @@ function resultado(r){
   } else {
     const msg=encodeURIComponent(`Hola, soy ${A.nombre}. Hice el diagnóstico de Mora y quiero la guía gratuita.`);
     x+=`<div class="precio"><h3 style="font-size:24px;letter-spacing:-.03em;margin-bottom:10px">Tu siguiente paso</h3>
-      <p style="color:rgba(255,255,255,.7);margin-bottom:22px">Por ahora tu clínica no entra en los 10 cupos de este mes, pero tu diagnóstico es tuyo. Te enviamos gratis una guía con los 5 ajustes que más evaluaciones recuperan en clínicas como la tuya.</p>
+      <p style="color:rgba(255,255,255,.7);margin-bottom:22px">Por ahora tu clínica no entra en los cupos de este mes. Te regalamos una guía con 5 ajustes que recuperan evaluaciones.</p>
       <a class="btn full" href="guia.html" target="_blank">Ver la guía gratuita</a>
       <a href="https://wa.me/${CFG.WHATSAPP}?text=${msg}" style="display:block;text-align:center;margin-top:14px;color:rgba(255,255,255,.75);font-size:15px">Prefiero que me la envíen por WhatsApp</a></div>`;
   }
